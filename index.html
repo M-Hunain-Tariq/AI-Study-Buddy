@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyBuddy - AI-Powered Study Companion (3-File Standalone)</title>
+  <meta name="description" content="Learn smarter, not harder with StudyBuddy — your personal 24/7 AI study companion." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  
+  <!-- Standalone Stylesheet -->
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <!-- Atmospheric Cosmic Glows & Stars -->
+  <div class="bg-atmosphere">
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+    <div class="nebula nebula-4"></div>
+    
+    <!-- Twinkling Stars -->
+    <div class="star twinkle-1" style="top:8%;left:22%;width:2px;height:2px;box-shadow:0 0 6px #fff;"></div>
+    <div class="star twinkle-2" style="top:18%;left:45%;width:3px;height:3px;box-shadow:0 0 8px #38bdf8;background:#38bdf8;"></div>
+    <div class="star twinkle-3" style="top:28%;right:15%;width:2px;height:2px;box-shadow:0 0 6px #818cf8;background:#818cf8;"></div>
+    <div class="star twinkle-1" style="top:55%;left:12%;width:2.5px;height:2.5px;box-shadow:0 0 6px #c084fc;background:#c084fc;"></div>
+    <div class="star twinkle-2" style="top:72%;right:25%;width:2px;height:2px;box-shadow:0 0 6px #38bdf8;background:#38bdf8;"></div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo">
+        <div class="logo-icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+          </svg>
+        </div>
+        <span class="brand-name">Study<span style="color:#38bdf8;">Buddy</span></span>
+        <span class="ai-pill">AI POWERED</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#why-studybuddy" class="nav-link">Why StudyBuddy</a></li>
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#see-it-in-action" class="nav-link">Features</a></li>
+        <li><a href="#reviews" class="nav-link">Reviews</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="open-code-modal" class="btn btn-code">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <span>3 Files (HTML/CSS/JS)</span>
+        </button>
+        <button class="btn btn-ghost open-auth-btn">Sign In</button>
+        <button class="btn btn-primary open-auth-btn">
+          <span class="btn-shimmer-sweep"></span>
+          <span>Get Started Free</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <!-- Mascot Backdrop Scene -->
+    <div class="hero-backdrop-layer">
+      <img src="./assets/images/hero_scene_full_1790180757625.jpg" alt="StudyBuddy 3D Robot Mascot" class="hero-backdrop-img" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1600&q=80'" />
+      <div class="hero-backdrop-overlay"></div>
+    </div>
+
+    <div class="container hero-grid">
+      <!-- Left Column: Copy & CTAs -->
+      <div>
+        <div class="hero-badge">
+          <span class="ping-dot"></span>
+          <span>The #1 AI Study Companion for Students</span>
+        </div>
+        
+        <h1 class="hero-title text-gradient">
+          Learn Smarter,<br />Not Harder
+        </h1>
+        
+        <p class="hero-desc">
+          AI StudyBuddy helps you learn faster, stay organized, and achieve your goals — with personalized learning, smart quizzes, and 24/7 support.
+        </p>
+
+        <div style="display:flex;gap:16px;align-items:center;margin-bottom:32px;">
+          <button class="btn btn-primary open-auth-btn" style="padding:15px 36px;font-size:1.02rem;">
+            <span class="btn-shimmer-sweep"></span>
+            <span>Start Learning Free</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="hero-trust">
+          <div class="hero-trust-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>No credit card required</span>
+          </div>
+          <div class="hero-trust-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Free forever plan</span>
+          </div>
+          <div class="hero-trust-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>4.9/5 Rating (10k+ reviews)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Mascot Speech & Floating Glass Tiles -->
+      <div class="hero-visual-col">
+        <div id="mascot-speech-bubble" class="mascot-speech-bubble animate-float-slow">
+          Hey! I'm your AI Study Buddy 😊 Ready to learn?
+        </div>
+
+        <div class="hologram-card hologram-1 animate-float-slow">
+          <div class="holo-icon" style="background:rgba(6,182,212,0.2);color:#38bdf8;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div>
+            <div class="holo-label">Current Chapter</div>
+            <div class="holo-value">Cell Biology Ch. 4</div>
+          </div>
+        </div>
+
+        <div class="hologram-card hologram-2 animate-float-rev">
+          <div class="holo-icon" style="background:rgba(139,92,246,0.25);color:#c084fc;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <div class="holo-label">Study Streak</div>
+            <div class="holo-value">🔥 7 Days Active</div>
+          </div>
+        </div>
+
+        <div class="hologram-card hologram-3 animate-float-slow">
+          <div class="holo-icon" style="background:rgba(16,185,129,0.2);color:#34d399;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          </div>
+          <div>
+            <div class="holo-label">Quiz Accuracy</div>
+            <div class="holo-value">94% Mastered</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Why StudyBuddy -->
+  <section id="why-studybuddy" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">FEATURES</span>
+        <h2 class="section-title text-gradient">Why Students Love StudyBuddy</h2>
+        <p class="section-subtitle">Everything you need to study faster, retain more, and pass exams with complete confidence.</p>
+      </div>
+
+      <div class="feature-cards-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box" style="background:rgba(6,182,212,0.18);color:#38bdf8;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3 class="feature-card-title">24/7 AI Tutor</h3>
+          <p class="feature-card-desc">Get instant, step-by-step explanations on any topic anytime of day or night. Never stay stuck again.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box" style="background:rgba(139,92,246,0.2);color:#c084fc;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <h3 class="feature-card-title">Smart Quizzes</h3>
+          <p class="feature-card-desc">Generate custom practice quizzes from your textbooks, lecture notes, or syllabus in just seconds.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box" style="background:rgba(16,185,129,0.18);color:#34d399;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h3 class="feature-card-title">Personalized Plans</h3>
+          <p class="feature-card-desc">Dynamic daily schedules adapt automatically to your exam dates, weak areas, and free study hours.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box" style="background:rgba(59,130,246,0.2);color:#60a5fa;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h3 class="feature-card-title">Progress Tracking</h3>
+          <p class="feature-card-desc">Track study streaks, mastery percentages, and retention analytics to celebrate every milestone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: How It Works & Live Dashboard Mockup -->
+  <section id="how-it-works" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">HOW IT WORKS</span>
+        <h2 class="section-title text-gradient">Start Learning in 3 Easy Steps</h2>
+        <p class="section-subtitle">StudyBuddy builds a personalized roadmap tailored specifically to your courses.</p>
+      </div>
+
+      <div class="how-it-works-grid">
+        <!-- Left: 3 Steps -->
+        <div>
+          <div class="step-items">
+            <div class="step-card active" data-step="1">
+              <div class="step-number">1</div>
+              <div>
+                <h3 class="step-title">Choose Your Goal</h3>
+                <p class="step-desc">Pick your subject, exam date, or upload your syllabus for an instant customized plan.</p>
+              </div>
+            </div>
+
+            <div class="step-card" data-step="2">
+              <div class="step-number">2</div>
+              <div>
+                <h3 class="step-title">Learn with AI</h3>
+                <p class="step-desc">Ask questions, generate flashcards, and test yourself with interactive checkpoint quizzes.</p>
+              </div>
+            </div>
+
+            <div class="step-card" data-step="3">
+              <div class="step-number">3</div>
+              <div>
+                <h3 class="step-title">Track & Achieve</h3>
+                <p class="step-desc">Watch your mastery score increase and crush your academic goals with measurable progress.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:28px;">
+            <button class="btn btn-primary open-auth-btn" style="padding:14px 30px;">
+              <span class="btn-shimmer-sweep"></span>
+              <span>Start Learning Free</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Dashboard Mockup Window with Ribbon SVG -->
+        <div class="dashboard-window-wrapper">
+          <!-- Neon Ribbon Wave Background -->
+          <div class="neon-ribbon-wave">
+            <svg viewBox="0 0 700 500" class="animate-ribbon-glow" style="width:100%;height:100%;overflow:visible;">
+              <defs>
+                <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.85"/>
+                  <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.6"/>
+                  <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+                </linearGradient>
+                <filter id="ribbonBlur" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="16"/>
+                </filter>
+              </defs>
+              <path d="M -60 320 Q 10 100 240 130 T 600 50 T 740 260" fill="none" stroke="url(#ribbonGrad)" stroke-width="36" filter="url(#ribbonBlur)"/>
+              <path d="M -60 320 Q 10 100 240 130 T 600 50 T 740 260" fill="none" stroke="#38bdf8" stroke-width="3.5" opacity="0.9"/>
+            </svg>
+          </div>
+
+          <!-- Window -->
+          <div class="dashboard-window">
+            <div class="dash-layout">
+              <!-- Sidebar -->
+              <div class="dash-sidebar">
+                <button class="dash-nav-icon active">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                </button>
+                <button class="dash-nav-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </button>
+                <button class="dash-nav-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </button>
+                <button class="dash-nav-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </button>
+              </div>
+
+              <!-- Center View -->
+              <div class="dash-center">
+                <div class="dash-banner">
+                  <div class="dash-banner-title">Welcome back, Sarah! 👋</div>
+                  <div class="dash-banner-sub">🔥 7-Day Study Streak Active • 94% Mastery</div>
+                </div>
+
+                <div class="dash-course-card">
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-size:0.82rem;font-weight:700;color:#fff;">Cell Biology & Genetics</span>
+                    <span style="font-size:0.75rem;color:#38bdf8;font-weight:700;">68%</span>
+                  </div>
+                  <div class="progress-track">
+                    <div class="progress-fill" style="width:68%;"></div>
+                  </div>
+                  <div style="font-size:0.72rem;color:#64748b;">Chapter 4: DNA Replication & Synthesis</div>
+                </div>
+
+                <div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                    <span style="font-size:0.78rem;font-weight:700;color:#cbd5e1;">Today's Goals</span>
+                    <span id="goal-counter" style="font-size:0.72rem;color:#38bdf8;">2/3 completed</span>
+                  </div>
+
+                  <div class="goals-checklist">
+                    <div class="goal-item done">
+                      <div class="goal-checkbox">
+                        <svg class="goal-check-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      </div>
+                      <span>Review Mitosis Flashcards (15 mins)</span>
+                    </div>
+
+                    <div class="goal-item done">
+                      <div class="goal-checkbox">
+                        <svg class="goal-check-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      </div>
+                      <span>Complete Cellular Respiration Quiz</span>
+                    </div>
+
+                    <div class="goal-item">
+                      <div class="goal-checkbox">
+                        <svg class="goal-check-icon" style="display:none;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      </div>
+                      <span>Summary notes on Krebs Cycle</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right View & Mini Peeking Mascot -->
+              <div class="dash-right">
+                <div style="background:rgba(5,17,46,0.85);border:1px solid rgba(59,130,246,0.25);border-radius:14px;padding:16px;">
+                  <div style="font-size:0.8rem;font-weight:700;color:#fff;margin-bottom:4px;">Daily Target</div>
+                  <div style="font-size:0.72rem;color:#94a3b8;margin-bottom:12px;">3 hrs of 4 hrs achieved</div>
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="font-size:1.4rem;font-weight:800;color:#38bdf8;">75%</div>
+                    <div style="font-size:0.72rem;color:#10b981;">+12% vs last week</div>
+                  </div>
+                </div>
+
+                <!-- Peeking 3D Mini Robot -->
+                <div id="peeking-robot" class="peeking-robot-anchor">
+                  <div class="peeking-bubble animate-float-slow">Ask me anything!</div>
+                  <div class="peeking-avatar-circle animate-peek-wobble">
+                    <img src="./assets/images/mini_peeking_robot_1790178277543.jpg" alt="Mini Robot Assistant" onerror="this.src='https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=150&q=80'" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: See It In Action (Interactive AI Workspace) -->
+  <section id="see-it-in-action" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">LIVE INTERACTIVE WORKSPACE</span>
+        <h2 class="section-title text-gradient">See It In Action</h2>
+        <p class="section-subtitle">Experience instant AI answers, practice quizzes, and automated study notes in real-time.</p>
+      </div>
+
+      <div class="workspace-grid">
+        <!-- Left Side Cards -->
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div class="feature-card" style="padding:22px;">
+            <div class="feature-icon-box" style="background:rgba(6,182,212,0.2);color:#38bdf8;width:42px;height:42px;margin-bottom:14px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            </div>
+            <h3 style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:6px;">Ask AI Anything</h3>
+            <p style="font-size:0.8rem;color:#94a3b8;line-height:1.5;">Break down complex concepts into simple analogies with real-time feedback.</p>
+          </div>
+
+          <div class="feature-card" style="padding:22px;">
+            <div class="feature-icon-box" style="background:rgba(139,92,246,0.2);color:#c084fc;width:42px;height:42px;margin-bottom:14px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <h3 style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:6px;">Create Quizzes</h3>
+            <p style="font-size:0.8rem;color:#94a3b8;line-height:1.5;">Turn any textbook page or lecture slide into multiple-choice drills.</p>
+          </div>
+        </div>
+
+        <!-- Center AI Chatbox Mockup -->
+        <div class="workspace-chat-card">
+          <!-- Top bar -->
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(59,130,246,0.2);padding-bottom:14px;margin-bottom:16px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 10px #10b981;"></div>
+              <span style="font-size:0.88rem;font-weight:700;color:#fff;">StudyBuddy AI Assistant</span>
+            </div>
+            <div style="display:flex;gap:12px;">
+              <button id="replay-ai-btn" style="background:transparent;border:none;color:#94a3b8;cursor:pointer;font-size:0.75rem;display:flex;align-items:center;gap:4px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                <span>Replay</span>
+              </button>
+              <button id="copy-ai-btn" style="background:transparent;border:none;color:#94a3b8;cursor:pointer;font-size:0.75rem;display:flex;align-items:center;gap:4px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Chat messages -->
+          <div style="flex-grow:1;">
+            <div id="user-query-bubble" class="chat-bubble-user">
+              Explain the difference between HTML and CSS?
+            </div>
+
+            <div class="chat-bubble-ai">
+              <span id="ai-text-output"></span>
+              <span class="typewriter-cursor"></span>
+            </div>
+          </div>
+
+          <!-- Topic Chips -->
+          <div class="topic-chips">
+            <button class="topic-chip active" data-query="Explain the difference between HTML and CSS?">HTML vs CSS</button>
+            <button class="topic-chip" data-query="How does Photosynthesis work?">Photosynthesis</button>
+            <button class="topic-chip" data-query="What is the Pythagorean Theorem?">Pythagorean Theorem</button>
+          </div>
+
+          <!-- Input form -->
+          <form id="chat-form" class="chat-input-bar">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Ask anything (e.g. Newton's 2nd Law)..." />
+            <button type="submit" class="chat-send-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Right Side Cards -->
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div class="feature-card" style="padding:22px;">
+            <div class="feature-icon-box" style="background:rgba(6,182,212,0.2);color:#38bdf8;width:42px;height:42px;margin-bottom:14px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <h3 style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:6px;">Smart Study Notes</h3>
+            <p style="font-size:0.8rem;color:#94a3b8;line-height:1.5;">Auto-summarize 50-page PDFs into high-yield bulleted cheat sheets.</p>
+          </div>
+
+          <div class="feature-card" style="padding:22px;position:relative;">
+            <div class="feature-icon-box" style="background:rgba(59,130,246,0.2);color:#60a5fa;width:42px;height:42px;margin-bottom:14px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <h3 style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:6px;">Study Planner</h3>
+            <p style="font-size:0.8rem;color:#94a3b8;line-height:1.5;">AI calendar that balances study time and prevents cramming burnout.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Trust & Social Proof -->
+  <section id="reviews" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">TESTIMONIALS</span>
+        <h2 class="section-title text-gradient">Loved by 50,000+ Students Worldwide</h2>
+        <p class="section-subtitle">Real students achieving top scores and building lifelong confidence.</p>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-val">50K+</div>
+          <div class="stat-lbl">Active Students</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">94%</div>
+          <div class="stat-lbl">Better Exam Grades</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">10M+</div>
+          <div class="stat-lbl">Questions Answered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">4.9/5</div>
+          <div class="stat-lbl">Student Rating</div>
+        </div>
+      </div>
+
+      <!-- Testimonials -->
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div>
+            <div class="user-avatar-circle">
+              <img src="./assets/images/avatar_sara_1790173616158.jpg" alt="Sarah J." onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80'" />
+            </div>
+            <p style="font-size:0.88rem;color:#cbd5e1;line-height:1.6;margin-bottom:16px;">
+              "StudyBuddy completely saved my AP Biology grade. The quiz explanations are clearer than my teacher's lectures!"
+            </p>
+          </div>
+          <div>
+            <div style="font-weight:700;color:#fff;font-size:0.95rem;">Sarah Jenkins</div>
+            <div style="font-size:0.75rem;color:#94a3b8;margin-bottom:6px;">High School Senior • Harvard '28</div>
+            <div style="color:#fbbf24;">★★★★★</div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div>
+            <div class="user-avatar-circle">
+              <img src="./assets/images/avatar_usman_1790173602592.jpg" alt="David C." onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80'" />
+            </div>
+            <p style="font-size:0.88rem;color:#cbd5e1;line-height:1.6;margin-bottom:16px;">
+              "The adaptive scheduler stops me from cramming at 3 AM. It breaks down whole textbooks into digestible daily goals."
+            </p>
+          </div>
+          <div>
+            <div style="font-weight:700;color:#fff;font-size:0.95rem;">David Chen</div>
+            <div style="font-size:0.75rem;color:#94a3b8;margin-bottom:6px;">Computer Science Major • MIT</div>
+            <div style="color:#fbbf24;">★★★★★</div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div>
+            <div class="user-avatar-circle">
+              <img src="./assets/images/avatar_ayesha_1790173584033.jpg" alt="Elena R." onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'" />
+            </div>
+            <p style="font-size:0.88rem;color:#cbd5e1;line-height:1.6;margin-bottom:16px;">
+              "I raised my MCAT practice scores by 14 points using the active recall quizzes. Worth every second!"
+            </p>
+          </div>
+          <div>
+            <div style="font-weight:700;color:#fff;font-size:0.95rem;">Elena Rodriguez</div>
+            <div style="font-size:0.75rem;color:#94a3b8;margin-bottom:6px;">Pre-Med Student • Stanford</div>
+            <div style="color:#fbbf24;">★★★★★</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Final CTA Section -->
+  <section class="final-cta-section">
+    <div class="cta-backdrop-layer">
+      <img src="./assets/images/sunset_mountain_student_1790178300240.jpg" alt="Student on mountain summit celebrating success" class="cta-backdrop-img" onerror="this.src='https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80'" />
+      <div class="cta-backdrop-overlay"></div>
+    </div>
+
+    <!-- Handwritten Floating Notes -->
+    <div class="handwritten-note note-left animate-float-slow">
+      Better<br />Learning<br />Brighter Future
+    </div>
+
+    <div class="handwritten-note note-right animate-float-rev">
+      Small<br />Steps<br />Big Dreams
+    </div>
+
+    <div class="container" style="position:relative;z-index:25;">
+      <h2 class="text-gradient" style="font-size:3rem;font-weight:800;margin-bottom:16px;letter-spacing:-0.02em;">
+        Ready to Supercharge Your Study Routine?
+      </h2>
+      <p style="color:#cbd5e1;font-size:1.15rem;max-width:580px;margin:0 auto 36px;line-height:1.6;">
+        Join over 50,000 students learning smarter, passing faster, and building habits that last a lifetime.
+      </p>
+
+      <button class="btn btn-primary open-auth-btn" style="padding:16px 42px;font-size:1.05rem;margin-bottom:20px;">
+        <span class="btn-shimmer-sweep"></span>
+        <span>Start Learning Free</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+
+      <div style="font-size:0.82rem;color:#94a3b8;">
+        Free 14-day trial • No credit card required • Cancel anytime
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-weight:800;color:#fff;font-size:1.15rem;">Study<span style="color:#38bdf8;">Buddy</span></span>
+        <span style="color:#64748b;">— AI-Powered Learning for Everyone</span>
+      </div>
+      <div>
+        © 2026 StudyBuddy AI Inc. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button id="close-auth-modal" class="modal-close-btn">&times;</button>
+      <div style="display:flex;gap:12px;margin-bottom:20px;border-bottom:1px solid #1e293b;padding-bottom:12px;">
+        <button class="auth-tab-btn tab-btn active" data-tab="signup">Create Free Account</button>
+        <button class="auth-tab-btn tab-btn" data-tab="signin">Sign In</button>
+      </div>
+      <form onsubmit="event.preventDefault(); alert('Welcome to StudyBuddy! Account created successfully.'); document.getElementById('auth-modal').classList.remove('open');">
+        <div style="margin-bottom:16px;">
+          <label style="display:block;font-size:0.82rem;color:#94a3b8;margin-bottom:6px;">Email address</label>
+          <input type="email" required placeholder="you@university.edu" style="width:100%;padding:10px 14px;background:#020717;border:1px solid #1e293b;border-radius:10px;color:#fff;outline:none;" />
+        </div>
+        <div style="margin-bottom:20px;">
+          <label style="display:block;font-size:0.82rem;color:#94a3b8;margin-bottom:6px;">Password</label>
+          <input type="password" required placeholder="••••••••" style="width:100%;padding:10px 14px;background:#020717;border:1px solid #1e293b;border-radius:10px;color:#fff;outline:none;" />
+        </div>
+        <button id="auth-submit-btn" type="submit" class="btn btn-primary" style="width:100%;padding:12px;">Create Free Account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3-File Source Code Viewer Modal -->
+  <div id="code-modal" class="modal-overlay">
+    <div class="modal-box" style="max-width:800px;">
+      <button id="close-code-modal" class="modal-close-btn">&times;</button>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <h3 style="font-size:1.15rem;font-weight:700;color:#fff;">📦 3-File Standalone Code</h3>
+        <button id="copy-active-code-btn" class="btn btn-primary" style="padding:6px 16px;font-size:0.8rem;">Copy Current File</button>
+      </div>
+
+      <div class="code-tabs">
+        <button class="tab-btn code-tab-btn active" data-file="html">index.html</button>
+        <button class="tab-btn code-tab-btn" data-file="css">style.css</button>
+        <button class="tab-btn code-tab-btn" data-file="js">script.js</button>
+      </div>
+
+      <pre id="code-display-pre" class="code-pre-box"></pre>
+      <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;font-size:0.78rem;color:#94a3b8;">
+        <span>All 3 files are pure vanilla (zero dependencies, works offline).</span>
+        <a href="index.html" target="_blank" style="color:#38bdf8;text-decoration:none;">Open in Full View ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standalone JavaScript -->
+  <script src="./script.js"></script>
+</body>
+</html>
