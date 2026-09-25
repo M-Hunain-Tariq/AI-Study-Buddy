@@ -35,6 +35,7 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   position: relative;
+  selection-background-color: rgba(6, 182, 212, 0.3);
 }
 
 ::selection {
@@ -68,7 +69,6 @@ h1, h2, h3, h4, .font-heading {
 
 .text-gradient {
   background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 35%, #38bdf8 80%, #a855f7 100%);
-  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -91,16 +91,17 @@ h1, h2, h3, h4, .font-heading {
 .bg-atmosphere {
   position: fixed;
   inset: 0;
-  pointer-events: none;
+  pointer-events-none;
   z-index: 0;
   overflow: hidden;
+  background-color: #020717;
 }
 
 .nebula {
   position: absolute;
   border-radius: 50%;
   filter: blur(130px);
-  pointer-events: none;
+  pointer-events-none;
 }
 
 .nebula-1 {
@@ -190,11 +191,150 @@ h1, h2, h3, h4, .font-heading {
   100% { transform: translateX(250%) skewX(-20deg); }
 }
 
+@keyframes orbitClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbitCounter {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes robotScanner {
+  0% { top: 15%; opacity: 0; }
+  20% { opacity: 0.85; }
+  80% { opacity: 0.85; }
+  100% { top: 85%; opacity: 0; }
+}
+
+@keyframes robotPulseRing {
+  0% { transform: scale(0.85); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 0.2; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+@keyframes sparkFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.8; }
+  50% { transform: translateY(-14px) rotate(18deg) scale(1.15); opacity: 1; filter: drop-shadow(0 0 12px currentColor); }
+}
+
+@keyframes audioWave {
+  0%, 100% { height: 4px; }
+  50% { height: 18px; }
+}
+
+@keyframes textGradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes barShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+@keyframes nebulaFloat {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(-15px, 20px) scale(1.08); }
+}
+
+@keyframes visorGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(56, 189, 248, 0.6), inset 0 0 10px rgba(56, 189, 248, 0.4); }
+  50% { box-shadow: 0 0 35px rgba(56, 189, 248, 1), inset 0 0 20px rgba(56, 189, 248, 0.9); }
+}
+
+@keyframes bounceQuick {
+  0%, 100% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-16px) scale(1.12); }
+  60% { transform: translateY(-4px) scale(1.05); }
+}
+
+@keyframes robotLifelikeBreathe {
+  0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); }
+  30% { transform: translateY(-10px) scale(1.02, 1.012) rotate(0.8deg); }
+  60% { transform: translateY(-16px) scale(1.03, 1.022) rotate(-0.6deg); }
+  85% { transform: translateY(-5px) scale(1.01, 1.006) rotate(0.3deg); }
+}
+
+@keyframes robotGroundShadow {
+  0%, 100% { transform: scale(1) scaleY(0.35); opacity: 0.7; filter: blur(14px); }
+  30% { transform: scale(0.9) scaleY(0.3); opacity: 0.48; filter: blur(18px); }
+  60% { transform: scale(0.82) scaleY(0.26); opacity: 0.35; filter: blur(22px); }
+  85% { transform: scale(0.95) scaleY(0.33); opacity: 0.58; filter: blur(16px); }
+}
+
+@keyframes robotSpecularSheen {
+  0% { transform: translateX(-160%) skewX(-25deg); opacity: 0; }
+  15% { opacity: 0.85; }
+  40% { opacity: 0.85; }
+  58%, 100% { transform: translateX(260%) skewX(-25deg); opacity: 0; }
+}
+
+@keyframes robotVisorPulse {
+  0%, 100% { opacity: 0.4; filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.4)); }
+  50% { opacity: 0.95; filter: drop-shadow(0 0 28px rgba(56, 189, 248, 0.95)); }
+}
+
+@keyframes robotCelebrationBounce {
+  0% { transform: translateY(0) scale(1) rotate(0deg); }
+  20% { transform: translateY(-24px) scale(1.08, 0.95) rotate(-3deg); }
+  40% { transform: translateY(-8px) scale(0.97, 1.05) rotate(2deg); }
+  60% { transform: translateY(-16px) scale(1.04, 0.98) rotate(-1.5deg); }
+  80% { transform: translateY(-3px) scale(0.99, 1.01) rotate(0.8deg); }
+  100% { transform: translateY(0) scale(1) rotate(0deg); }
+}
+
+@keyframes robotEnergyRing {
+  0% { transform: scale(0.5); opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes floatPerk {
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  20% { transform: translateY(-12px) scale(1.1); opacity: 1; }
+  80% { transform: translateY(-38px) scale(1); opacity: 1; }
+  100% { transform: translateY(-52px) scale(0.9); opacity: 0; }
+}
+
+@keyframes robotBlink {
+  0%, 94%, 100% { transform: scaleY(1); opacity: 0.95; }
+  96% { transform: scaleY(0.08); opacity: 0.3; }
+  98% { transform: scaleY(1); opacity: 0.95; }
+}
+
+.animate-robot-breathe { animation: robotLifelikeBreathe 4.5s ease-in-out infinite; }
+.animate-robot-shadow { animation: robotGroundShadow 4.5s ease-in-out infinite; }
+.animate-robot-sheen { animation: robotSpecularSheen 4.2s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+.animate-visor-pulse { animation: robotVisorPulse 2.8s ease-in-out infinite; }
+.animate-robot-blink { animation: robotBlink 4.2s ease-in-out infinite; transform-origin: center; }
+.animate-celebrate { animation: robotCelebrationBounce 0.75s ease-out; }
+.animate-energy-ring { animation: robotEnergyRing 0.8s ease-out forwards; }
+.animate-float-perk { animation: floatPerk 1.4s ease-out forwards; }
+
 .animate-float-slow { animation: floatSlow 5s ease-in-out infinite; }
 .animate-float-rev { animation: floatReverse 6s ease-in-out infinite; }
 .animate-pulse-glow { animation: pulseGlow 3.5s ease-in-out infinite; }
 .animate-ribbon-glow { animation: ribbonFlow 4s ease-in-out infinite; }
 .animate-peek-wobble { animation: peekWobble 4s ease-in-out infinite; }
+.animate-orbit-cw { animation: orbitClockwise 22s linear infinite; }
+.animate-orbit-ccw { animation: orbitCounter 16s linear infinite; }
+.animate-robot-scan { animation: robotScanner 4.5s ease-in-out infinite; }
+.animate-robot-pulse-ring { animation: robotPulseRing 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+.animate-spark-1 { animation: sparkFloat 4s ease-in-out infinite; }
+.animate-spark-2 { animation: sparkFloat 5.2s ease-in-out infinite 0.7s; }
+.animate-spark-3 { animation: sparkFloat 4.6s ease-in-out infinite 1.4s; }
+.animate-spark-4 { animation: sparkFloat 5.8s ease-in-out infinite 2.1s; }
+.animate-wave-bar-1 { animation: audioWave 1.1s ease-in-out infinite; }
+.animate-wave-bar-2 { animation: audioWave 0.9s ease-in-out infinite 0.2s; }
+.animate-wave-bar-3 { animation: audioWave 1.3s ease-in-out infinite 0.4s; }
+.animate-wave-bar-4 { animation: audioWave 0.8s ease-in-out infinite 0.15s; }
+.animate-gradient-text { background-size: 200% 200%; animation: textGradientFlow 6s ease infinite; }
+.animate-bar-shimmer { animation: barShimmer 2.5s infinite; }
+.animate-nebula-float { animation: nebulaFloat 12s ease-in-out infinite; }
+.animate-visor-glow { animation: visorGlow 2.5s ease-in-out infinite; }
+.animate-bounce-quick { animation: bounceQuick 0.6s ease-out; }
 
 /* Navbar */
 .navbar {
@@ -338,7 +478,7 @@ h1, h2, h3, h4, .font-heading {
 .btn-shimmer-sweep {
   position: absolute;
   inset: 0;
-  pointer-events: none;
+  pointer-events-none;
 }
 
 .btn-shimmer-sweep::after {
@@ -350,6 +490,15 @@ h1, h2, h3, h4, .font-heading {
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
   animation: shimmerSweep 3.5s infinite;
+}
+
+/* Mobile Menu Toggle */
+.mobile-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
 }
 
 /* Hero Section */
@@ -448,84 +597,187 @@ h1, h2, h3, h4, .font-heading {
   color: #10b981;
 }
 
-/* Floating Hologram Cards in Hero */
+/* Robot Mascot Zone in Hero */
 .hero-visual-col {
   position: relative;
-  height: 480px;
+  min-height: 480px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  user-select: none;
 }
 
 .mascot-speech-bubble {
-  position: absolute;
-  top: 15%;
-  left: 5%;
-  background: rgba(5, 17, 46, 0.95);
-  border: 1px solid rgba(6, 182, 212, 0.6);
-  padding: 10px 18px;
-  border-radius: 20px 20px 20px 0;
-  color: #38bdf8;
-  font-size: 0.82rem;
+  position: relative;
+  margin-bottom: 14px;
+  background: rgba(7, 20, 53, 0.95);
+  border: 1px solid rgba(6, 182, 212, 0.7);
+  padding: 12px 20px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 0.88rem;
   font-weight: 600;
-  box-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 0 35px rgba(6, 182, 212, 0.45);
   cursor: pointer;
-  z-index: 20;
+  z-index: 30;
+  transition: all 0.25s ease;
+  max-width: 380px;
 }
 
 .mascot-speech-bubble:hover {
-  transform: scale(1.05);
+  transform: scale(1.04);
+  border-color: #38bdf8;
+  box-shadow: 0 0 45px rgba(6, 182, 212, 0.7);
 }
 
-.hologram-card {
-  position: absolute;
-  background: rgba(5, 17, 46, 0.92);
-  border: 1px solid rgba(59, 130, 246, 0.35);
-  border-radius: 16px;
-  padding: 12px 18px;
+.bubble-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(12px);
-  z-index: 15;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(6, 182, 212, 0.2);
 }
 
-.hologram-1 {
-  bottom: 22%;
-  left: 0;
+.bubble-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
 }
 
-.hologram-2 {
-  top: 25%;
-  right: 0;
+.bubble-live-txt {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #38bdf8;
+  font-weight: 700;
 }
 
-.hologram-3 {
-  bottom: 10%;
-  right: 5%;
+.bubble-waves {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+  margin-left: 8px;
 }
 
-.holo-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
+.b-wave {
+  width: 2px;
+  background: #38bdf8;
+  border-radius: 2px;
+}
+
+/* Exact Sized Robot Mascot Frame with 3D Depth & Living Animations */
+.robot-stage-frame {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  aspect-ratio: 4 / 3;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
 }
 
-.holo-label {
-  font-size: 0.75rem;
-  color: #94a3b8;
+.robot-aura-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  height: 85%;
+  background: rgba(6, 182, 212, 0.22);
+  border-radius: 50%;
+  filter: blur(65px);
+  pointer-events: none;
+  transition: background 0.4s ease;
 }
 
-.holo-value {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #fff;
+.robot-stage-frame:hover .robot-aura-glow {
+  background: rgba(56, 189, 248, 0.35);
 }
+
+.robot-inner-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 24px;
+  mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 72%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 72%, transparent 100%);
+}
+
+.robot-character-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: contrast(1.05) brightness(1.02);
+  transition: filter 0.3s ease;
+  user-select: none;
+  pointer-events: none;
+}
+
+.robot-stage-frame:hover .robot-character-img {
+  filter: contrast(1.08) brightness(1.08);
+}
+
+.robot-sheen-sweep {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 250%;
+  height: 250%;
+  background: linear-gradient(115deg, transparent 35%, rgba(56, 189, 248, 0.04) 44%, rgba(255, 255, 255, 0.35) 50%, rgba(56, 189, 248, 0.35) 54%, transparent 65%);
+  pointer-events: none;
+}
+
+.robot-visor-glow-box {
+  position: absolute;
+  top: 28%;
+  left: 44%;
+  width: 26%;
+  height: 20%;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.25);
+  filter: blur(14px);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.robot-ground-shadow {
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.robot-perk-toast {
+  position: absolute;
+  top: 30px;
+  z-index: 50;
+  padding: 6px 18px;
+  border-radius: 9999px;
+  background: #38bdf8;
+  color: #020817;
+  font-weight: 800;
+  font-size: 0.78rem;
+  box-shadow: 0 0 20px #38bdf8;
+  pointer-events: none;
+}
+
+
 
 /* Feature Cards Section (Why StudyBuddy) */
 .section {
@@ -718,7 +970,7 @@ h1, h2, h3, h4, .font-heading {
   left: -40px;
   right: -30px;
   bottom: -30px;
-  pointer-events: none;
+  pointer-events-none;
   z-index: 1;
 }
 
@@ -1202,8 +1454,7 @@ h1, h2, h3, h4, .font-heading {
   padding-bottom: 10px;
 }
 
-/* Shared tab button style (used by both the auth modal tabs and the code viewer tabs) */
-.tab-btn {
+.code-tab-btn {
   background: transparent;
   border: none;
   color: #94a3b8;
@@ -1214,7 +1465,7 @@ h1, h2, h3, h4, .font-heading {
   font-size: 0.88rem;
 }
 
-.tab-btn.active {
+.code-tab-btn.active {
   background: rgba(6, 182, 212, 0.2);
   color: #38bdf8;
 }
@@ -1246,6 +1497,7 @@ h1, h2, h3, h4, .font-heading {
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
+  .mobile-toggle { display: block; }
   .hero-title { font-size: 2.5rem; }
   .feature-cards-grid { grid-template-columns: 1fr; }
   .note-left, .note-right { display: none; }

@@ -147,36 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial Typewriter Run
   handleQueryChange(currentQuery);
 
-  // 4. Mascot Speech Interactive Toasts
-  const mascotBubble = document.getElementById('mascot-speech-bubble');
-  const peekingRobot = document.getElementById('peeking-robot');
-
-  const mascotPhrases = [
-    "Ready to master your next exam? Let's go! 🚀",
-    "Did you know? Consistent 20-min daily study boosts retention by 80%! 💡",
-    "Cell Biology quiz scheduled for today at 4 PM! ⏰",
-    "You are doing awesome! 7-day study streak! 🔥"
-  ];
-
-  function showMascotMessage(targetElement) {
-    const randomPhrase = mascotPhrases[Math.floor(Math.random() * mascotPhrases.length)];
-    if (targetElement) {
-      targetElement.textContent = randomPhrase;
-      targetElement.style.transform = "scale(1.08)";
-      setTimeout(() => {
-        targetElement.style.transform = "scale(1)";
-      }, 300);
-    }
-  }
-
-  if (mascotBubble) {
-    mascotBubble.addEventListener('click', () => showMascotMessage(mascotBubble));
-  }
-  if (peekingRobot) {
-    const peekingBubble = peekingRobot.querySelector('.peeking-bubble');
-    peekingRobot.addEventListener('click', () => showMascotMessage(peekingBubble));
-  }
-
   // 5. Auth Modal (Sign In / Start Free)
   const authModal = document.getElementById('auth-modal');
   const openAuthBtns = document.querySelectorAll('.open-auth-btn');
@@ -229,24 +199,10 @@ document.addEventListener('DOMContentLoaded', () => {
     js: 'Loading script.js...'
   };
 
-  // Preload file contents for viewer. Note: fetch() only works when these
-  // files are served over http(s) (e.g. `npx serve`) — opening index.html
-  // directly via file:// blocks these requests, so we fall back gracefully.
-  const fileFetchFailedMsg = "Preview unavailable: this viewer needs the files served over http(s).\nRun a local server (e.g. `npx serve .`) and open this page from that URL to see the source here.";
-
-  function loadFile(name, key) {
-    fetch(name)
-      .then(r => r.text())
-      .then(t => { cachedFiles[key] = t; })
-      .catch(() => { cachedFiles[key] = fileFetchFailedMsg; })
-      .finally(() => {
-        if (activeCodeTab === key) updateCodeDisplay();
-      });
-  }
-
-  loadFile('index.html', 'html');
-  loadFile('style.css', 'css');
-  loadFile('script.js', 'js');
+  // Preload file contents for viewer
+  fetch('index.html').then(r => r.text()).then(t => cachedFiles.html = t).catch(() => {});
+  fetch('style.css').then(r => r.text()).then(t => cachedFiles.css = t).catch(() => {});
+  fetch('script.js').then(r => r.text()).then(t => cachedFiles.js = t).catch(() => {});
 
   function updateCodeDisplay() {
     if (codePre) {
