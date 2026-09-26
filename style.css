@@ -35,7 +35,6 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   position: relative;
-  selection-background-color: rgba(6, 182, 212, 0.3);
 }
 
 ::selection {
@@ -1470,6 +1469,86 @@ h1, h2, h3, h4, .font-heading {
   color: #38bdf8;
 }
 
+/* Auth Modal Tabs (Create Account / Sign In) */
+.auth-tab-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.88rem;
+}
+
+.auth-tab-btn.active {
+  background: rgba(6, 182, 212, 0.2);
+  color: #38bdf8;
+}
+
+/* Mobile Hamburger Toggle */
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.hamburger-line {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: #e2e8f0;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.mobile-toggle.open .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-toggle.open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-toggle.open .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Nav Panel */
+.mobile-nav-panel {
+  display: none;
+  flex-direction: column;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  border-top: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+.mobile-nav-panel.open {
+  max-height: 320px;
+}
+
+.mobile-nav-link {
+  padding: 14px 24px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.08);
+}
+
+.mobile-nav-link:hover {
+  color: #38bdf8;
+}
+
 .code-pre-box {
   background: #020717;
   border: 1px solid #1e293b;
@@ -1497,7 +1576,8 @@ h1, h2, h3, h4, .font-heading {
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
-  .mobile-toggle { display: block; }
+  .mobile-toggle { display: flex; }
+  .mobile-nav-panel { display: flex; }
   .hero-title { font-size: 2.5rem; }
   .feature-cards-grid { grid-template-columns: 1fr; }
   .note-left, .note-right { display: none; }

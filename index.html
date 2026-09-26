@@ -56,7 +56,20 @@
           <span class="btn-shimmer-sweep"></span>
           <span>Get Started Free</span>
         </button>
+        <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-panel">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
       </div>
+    </div>
+
+    <!-- Mobile Nav Panel -->
+    <div id="mobile-nav-panel" class="mobile-nav-panel">
+      <a href="#why-studybuddy" class="mobile-nav-link">Why StudyBuddy</a>
+      <a href="#how-it-works" class="mobile-nav-link">How It Works</a>
+      <a href="#see-it-in-action" class="mobile-nav-link">Features</a>
+      <a href="#reviews" class="mobile-nav-link">Reviews</a>
     </div>
   </header>
 
@@ -83,6 +96,14 @@
         <p class="hero-desc">
           AI StudyBuddy helps you learn faster, stay organized, and achieve your goals — with personalized learning, smart quizzes, and 24/7 support.
         </p>
+
+        <div style="display:flex;gap:16px;align-items:center;margin-bottom:32px;">
+          <button class="btn btn-primary open-auth-btn" style="padding:15px 36px;font-size:1.02rem;">
+            <span class="btn-shimmer-sweep"></span>
+            <span>Start Learning Free</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
 
         <div class="hero-trust">
           <div class="hero-trust-item">
@@ -186,6 +207,14 @@
                 <p class="step-desc">Watch your mastery score increase and crush your academic goals with measurable progress.</p>
               </div>
             </div>
+          </div>
+
+          <div style="margin-top:28px;">
+            <button class="btn btn-primary open-auth-btn" style="padding:14px 30px;">
+              <span class="btn-shimmer-sweep"></span>
+              <span>Start Learning Free</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
           </div>
         </div>
 
@@ -527,8 +556,9 @@
         <span style="font-weight:800;color:#fff;font-size:1.15rem;">Study<span style="color:#38bdf8;">Buddy</span></span>
         <span style="color:#64748b;">— AI-Powered Learning for Everyone</span>
       </div>
-      <div>
-        © 2026 StudyBuddy AI Inc. All rights reserved.
+      <div style="display:flex;align-items:center;gap:18px;">
+        <button id="open-code-modal" style="background:transparent;border:none;color:#64748b;cursor:pointer;font-size:0.85rem;text-decoration:underline;">&lt;/&gt; View Source Code</button>
+        <span>© 2026 StudyBuddy AI Inc. All rights reserved.</span>
       </div>
     </div>
   </footer>
@@ -538,10 +568,10 @@
     <div class="modal-box">
       <button id="close-auth-modal" class="modal-close-btn">&times;</button>
       <div style="display:flex;gap:12px;margin-bottom:20px;border-bottom:1px solid #1e293b;padding-bottom:12px;">
-        <button class="auth-tab-btn active code-tab-btn" data-tab="signup">Create Free Account</button>
-        <button class="auth-tab-btn code-tab-btn" data-tab="signin">Sign In</button>
+        <button class="auth-tab-btn active" data-tab="signup">Create Free Account</button>
+        <button class="auth-tab-btn" data-tab="signin">Sign In</button>
       </div>
-      <form onsubmit="event.preventDefault(); alert('Welcome to StudyBuddy! Account created successfully.'); document.getElementById('auth-modal').classList.remove('open');">
+      <form id="auth-form">
         <div style="margin-bottom:16px;">
           <label style="display:block;font-size:0.82rem;color:#94a3b8;margin-bottom:6px;">Email address</label>
           <input type="email" required placeholder="you@university.edu" style="width:100%;padding:10px 14px;background:#020717;border:1px solid #1e293b;border-radius:10px;color:#fff;outline:none;" />

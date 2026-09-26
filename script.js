@@ -153,6 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeAuthBtn = document.getElementById('close-auth-modal');
   const authTabBtns = document.querySelectorAll('.auth-tab-btn');
   const authSubmitBtn = document.getElementById('auth-submit-btn');
+  const authForm = document.getElementById('auth-form');
+
+  let authMode = 'signup';
 
   openAuthBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -177,12 +180,44 @@ document.addEventListener('DOMContentLoaded', () => {
     tab.addEventListener('click', () => {
       authTabBtns.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      const mode = tab.getAttribute('data-tab');
+      authMode = tab.getAttribute('data-tab');
       if (authSubmitBtn) {
-        authSubmitBtn.textContent = mode === 'signup' ? 'Create Free Account' : 'Sign In';
+        authSubmitBtn.textContent = authMode === 'signup' ? 'Create Free Account' : 'Sign In';
       }
     });
   });
+
+  if (authForm) {
+    authForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const message = authMode === 'signup'
+        ? 'Welcome to StudyBuddy! Account created successfully.'
+        : 'Welcome back! You have signed in successfully.';
+      alert(message);
+      if (authModal) authModal.classList.remove('open');
+    });
+  }
+
+  // 5b. Mobile Nav Menu
+  const mobileToggle = document.getElementById('mobile-menu-toggle');
+  const mobileNavPanel = document.getElementById('mobile-nav-panel');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  if (mobileToggle && mobileNavPanel) {
+    mobileToggle.addEventListener('click', () => {
+      const isOpen = mobileNavPanel.classList.toggle('open');
+      mobileToggle.classList.toggle('open', isOpen);
+      mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNavPanel.classList.remove('open');
+        mobileToggle.classList.remove('open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
   // 6. 3-File Source Code Viewer Modal
   const codeModal = document.getElementById('code-modal');
@@ -193,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyActiveCodeBtn = document.getElementById('copy-active-code-btn');
 
   let activeCodeTab = 'html';
+  const FETCH_FALLBACK_MSG = 'Could not load this file for preview.\n\nThis happens when the page is opened directly as a local file (file://) rather than served over http(s), since browsers block that kind of request for security reasons.\n\nTo view the live source, serve this folder with a local server (e.g. "python -m http.server") and reopen index.html, or just open index.html, style.css and script.js directly in a text editor.';
   let cachedFiles = {
     html: 'Loading index.html...',
     css: 'Loading style.css...',
@@ -200,9 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Preload file contents for viewer
-  fetch('index.html').then(r => r.text()).then(t => cachedFiles.html = t).catch(() => {});
-  fetch('style.css').then(r => r.text()).then(t => cachedFiles.css = t).catch(() => {});
-  fetch('script.js').then(r => r.text()).then(t => cachedFiles.js = t).catch(() => {});
+  fetch('index.html').then(r => r.text()).then(t => cachedFiles.html = t).catch(() => { cachedFiles.html = FETCH_FALLBACK_MSG; updateCodeDisplay(); });
+  fetch('style.css').then(r => r.text()).then(t => cachedFiles.css = t).catch(() => { cachedFiles.css = FETCH_FALLBACK_MSG; updateCodeDisplay(); });
+  fetch('script.js').then(r => r.text()).then(t => cachedFiles.js = t).catch(() => { cachedFiles.js = FETCH_FALLBACK_MSG; updateCodeDisplay(); });
 
   function updateCodeDisplay() {
     if (codePre) {
