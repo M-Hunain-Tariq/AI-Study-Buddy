@@ -52,10 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
     item.addEventListener('click', () => {
       item.classList.toggle('done');
       const checkIcon = item.querySelector('.goal-check-icon');
+      const checkbox = item.querySelector('.goal-checkbox');
       if (item.classList.contains('done')) {
         item.style.textDecoration = 'line-through';
         item.style.opacity = '0.6';
         if (checkIcon) checkIcon.style.display = 'block';
+        if (checkbox) {
+          checkbox.classList.remove('animate-bounce-quick');
+          void checkbox.offsetWidth; // restart animation
+          checkbox.classList.add('animate-bounce-quick');
+        }
       } else {
         item.style.textDecoration = 'none';
         item.style.opacity = '1';
