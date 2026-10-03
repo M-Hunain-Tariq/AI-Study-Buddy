@@ -1,0 +1,7 @@
+{
+  "name": "AI Study Buddy",
+  "description": "Premium dark-themed AI-powered study dashboard and productivity companion for school students.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
