@@ -5,6 +5,7 @@ import { ToastProvider, useToast } from '@/components/Toast';
 import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
+import { MobileBottomNav } from '@/components/MobileBottomNav';
 import { AiTutorHero } from '@/components/ai-tutor/AiTutorHero';
 import { AiChatWorkspace } from '@/components/ai-tutor/AiChatWorkspace';
 import { AiTutorRightSidebar } from '@/components/ai-tutor/AiTutorRightSidebar';
@@ -85,6 +86,7 @@ function AiTutorPageContent() {
           </div>
         </main>
       </div>
+      <MobileBottomNav activeItem="AI Tutor" />
     </div>
   );
 }

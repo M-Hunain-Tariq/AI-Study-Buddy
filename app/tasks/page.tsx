@@ -6,6 +6,7 @@ import { ToastProvider, useToast } from '@/components/Toast';
 import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
+import { MobileBottomNav } from '@/components/MobileBottomNav';
 import { TasksWorkspace } from '@/components/tasks/TasksWorkspace';
 
 function TasksPageContent() {
@@ -51,6 +52,7 @@ function TasksPageContent() {
           <TasksWorkspace />
         </main>
       </div>
+      <MobileBottomNav activeItem="Tasks" />
     </div>
   );
 }

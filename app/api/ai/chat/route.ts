@@ -40,6 +40,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json().catch(() => null);
     const messages: IncomingMessage[] = Array.isArray(body?.messages) ? body.messages : [];
     const attachment: Attachment | undefined = body?.attachment;
+    const context = typeof body?.context === 'string' ? body.context.slice(0, 3000) : '';
+    const mode = typeof body?.mode === 'string' ? body.mode.slice(0, 50) : '';
 
     const history = messages
       .filter((m) => m && (m.sender === 'user' || m.sender === 'ai') && typeof m.text === 'string' && m.text.trim())
@@ -49,7 +51,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Please type a question first.' }, { status: 400 });
     }
 
-    const contents = history.map((m, idx) => {
+    const learningContext = [context, mode ? `Tutor mode: ${mode}` : ''].filter(Boolean).join('\n');
+
+    const contents = [
+      ...(learningContext ? [{ role: 'user' as const, parts: [{ text: `Student learning context (use only when relevant):\n${learningContext}` }] }] : []),
+      ...history.map((m, idx) => {
       const parts: Record<string, unknown>[] = [];
       const text =
         m.sender === 'ai' && m.steps?.length ? `${m.text}\n${m.steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}` : m.text;
@@ -64,7 +70,8 @@ export async function POST(req: NextRequest) {
         }
       }
       return { role: m.sender === 'user' ? 'user' : 'model', parts };
-    });
+      }),
+    ];
     // Start the stream first so a failure (bad key, quota...) still returns a clean JSON error.
     const iterator = generateStream({
       contents,

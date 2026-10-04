@@ -2,93 +2,56 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ArrowRight, Bot, Sparkles } from 'lucide-react';
+import { ArrowRight, Bot, CheckCircle2, Clock3, Sparkles, Target } from 'lucide-react';
 
 interface HeroBannerProps {
   onContinueLearning: () => void;
   onAskAiTutor: () => void;
 }
 
-export const HeroBanner: React.FC<HeroBannerProps> = ({
-  onContinueLearning,
-  onAskAiTutor,
-}) => {
+export const HeroBanner: React.FC<HeroBannerProps> = ({ onContinueLearning, onAskAiTutor }) => {
   return (
-    <div className="relative overflow-hidden rounded-[20px] sm:rounded-[24px] bg-[#070D1E] border border-[#1A284A] hover:border-blue-500/40 shadow-[0_20px_50px_rgba(2,6,23,0.85),0_0_35px_rgba(37,99,235,0.15)] transition-all duration-300 min-h-[235px] sm:min-h-[280px] lg:h-[320px] flex items-center group">
-      {/* 1. CRYSTAL-CLEAR FULL-CARD IMAGE (Zero blur overlays over the scene) */}
-      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
-        <Image
-          src="/images/hero_study_desk_exact.jpg"
-          alt="Student study desk with open laptop displaying learning dashboard"
-          fill
-          unoptimized
-          priority
-          quality={95}
-          sizes="(max-width: 1536px) 100vw, 1500px"
-          className="object-cover object-right sm:object-right transition-transform duration-1000 ease-out group-hover:scale-[1.015]"
-          referrerPolicy="no-referrer"
-        />
-
-        {/* 2. PRECISION TEXT-CONTRAST SCRIM (Confined to left side so the right photo remains razor-sharp) */}
-        <div className="absolute inset-y-0 left-0 w-full sm:w-[65%] lg:w-[55%] bg-gradient-to-r from-[#070D1E] via-[#070D1E]/95 sm:via-[#070D1E]/90 to-transparent pointer-events-none" />
-      </div>
-
-      {/* Inner subtle glow border reflection */}
-      <div className="absolute inset-0 rounded-[20px] sm:rounded-[24px] ring-1 ring-inset ring-white/10 pointer-events-none z-10" />
-
-      {/* "Keep Going! 💖" handwritten quote overlay floating naturally above the desk scene */}
-      <div className="absolute top-2.5 right-3 sm:top-5 sm:right-16 lg:right-24 z-20 flex items-center gap-1 -rotate-6 font-serif italic text-[#FBBF24] text-xs sm:text-sm font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] animate-float-slow pointer-events-none select-none">
-        <span>Keep Going!</span>
-        <span className="text-pink-400 text-xs sm:text-sm drop-shadow-[0_0_10px_rgba(244,114,182,0.9)]">💖</span>
-      </div>
-
-      {/* FOREGROUND CONTENT: Integrated cleanly across the left half */}
-      <div className="relative z-20 w-full max-w-xl p-5 sm:p-8 lg:p-10 flex flex-col justify-center space-y-2 sm:space-y-4">
-        {/* Welcome Tag */}
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#0D1836]/90 border border-[#213560] text-[10px] sm:text-xs font-semibold text-indigo-300 w-fit shadow-inner">
-          <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-indigo-400" />
-          <span>Study Dashboard</span>
-        </div>
-
-        <div>
-          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-tight">
-            Welcome to your{' '}
-            <span className="bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(168,85,247,0.55)]">
-              Study Space
-            </span>{' '}
-            👋
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-300 font-normal mt-0.5 sm:mt-1.5 line-clamp-1 sm:line-clamp-none">
-            Your new study workspace is ready. Start with one small step.
+    <section className="relative overflow-hidden rounded-[26px] border border-white/[0.09] bg-[linear-gradient(135deg,#101a2d_0%,#0b1322_58%,#11152b_100%)] p-5 sm:p-7 lg:p-8 shadow-[0_24px_70px_rgba(0,0,0,.24)]">
+      <div className="pointer-events-none absolute -right-24 -top-28 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 right-20 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
+      <div className="relative z-10 grid items-center gap-7 lg:grid-cols-[1fr_360px]">
+        <div className="max-w-2xl">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-300/15 bg-cyan-300/[0.07] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-cyan-200">
+            <Sparkles className="h-3.5 w-3.5" /> Your study space
+          </div>
+          <h1 className="text-[clamp(2rem,4vw,3.35rem)] font-extrabold leading-[1.03] tracking-[-0.045em] text-white">
+            Make today a little<br className="hidden sm:block" /> <span className="bg-gradient-to-r from-cyan-200 via-white to-violet-300 bg-clip-text text-transparent">smarter.</span>
+          </h1>
+          <p className="mt-4 max-w-xl text-sm leading-6 text-slate-400 sm:text-[15px]">
+            Pick one thing to focus on, get help when you are stuck, and let StudyBuddy keep the rest organized.
           </p>
+          <div className="mt-6 flex flex-col gap-2.5 sm:flex-row">
+            <button onClick={onContinueLearning} className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-950 shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-cyan-50 active:translate-y-0">
+              Start a session <ArrowRight className="h-4 w-4" />
+            </button>
+            <button onClick={onAskAiTutor} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.045] px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/[0.08]">
+              <Bot className="h-4 w-4 text-cyan-300" /> Ask your AI tutor
+            </button>
+          </div>
         </div>
 
-        {/* Motivational Quote (hidden on very small phones to save height) */}
-        <div className="hidden xs:block pl-3 border-l-2 border-[#A855F7] py-0.5">
-          <p className="text-[11px] sm:text-[13px] text-slate-300 font-normal italic font-serif">
-            &ldquo;The future belongs to those who learn today.&rdquo;
-          </p>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex items-center gap-2 sm:gap-3.5 pt-1 sm:pt-2">
-          <button
-            onClick={onContinueLearning}
-            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#7C3AED] hover:from-[#1D4ED8] hover:to-[#6D28D9] text-white font-semibold text-xs sm:text-sm shadow-[0_0_20px_rgba(79,70,229,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
-          >
-            <span>Start Learning</span>
-            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-          </button>
-
-          <button
-            onClick={onAskAiTutor}
-            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#0C152B]/90 hover:bg-[#132040] text-slate-200 hover:text-white border border-[#23355C] text-xs sm:text-sm font-medium hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer shadow-sm"
-          >
-            <Bot className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400" />
-            <span>Ask AI</span>
-          </button>
+        <div className="relative mx-auto w-full max-w-[360px]">
+          <div className="absolute -inset-5 rounded-[30px] bg-gradient-to-br from-cyan-400/10 to-violet-500/10 blur-2xl" />
+          <div className="relative overflow-hidden rounded-[22px] border border-white/10 bg-[#0b1220]/90 p-3 shadow-2xl">
+            <div className="relative h-36 overflow-hidden rounded-[16px] border border-white/10">
+              <Image src="/images/hero_study_desk_exact.jpg" alt="Study desk" fill unoptimized sizes="360px" className="object-cover object-center opacity-70" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#09111e] via-[#09111e]/20 to-transparent" />
+              <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-lg border border-white/10 bg-black/25 px-2.5 py-2 backdrop-blur-md">
+                <Target className="h-4 w-4 text-cyan-300" /><span className="text-[11px] font-semibold text-white">Today's focus</span>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2.5 p-1 pt-3">
+              <div className="rounded-xl bg-white/[0.04] p-3"><div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500"><Clock3 className="h-3 w-3" /> Focus</div><p className="mt-1 text-lg font-extrabold text-white">25 min</p></div>
+              <div className="rounded-xl bg-white/[0.04] p-3"><div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500"><CheckCircle2 className="h-3 w-3" /> Progress</div><p className="mt-1 text-lg font-extrabold text-white">Ready</p></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

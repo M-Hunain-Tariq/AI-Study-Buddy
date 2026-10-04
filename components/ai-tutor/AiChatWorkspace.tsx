@@ -20,6 +20,10 @@ import {
   Brain,
   Calculator,
   ArrowRight,
+  Save,
+  BrainCircuit,
+  Mic,
+  Volume2,
 } from 'lucide-react';
 import { useToast } from '../Toast';
 import { MarkdownText } from './MarkdownText';
@@ -43,6 +47,8 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
   onClearInitialPrompt,
 }) => {
   const [activeTab, setActiveTab] = useState<'chat' | 'quick-prompts' | 'study-tools'>('chat');
+  const [tutorMode, setTutorMode] = useState<'Learn' | 'Practice' | 'Socratic'>('Learn');
+  const [isListening, setIsListening] = useState(false);
   const [inputQuestion, setInputQuestion] = useState('');
   const [isAiThinking, setIsAiThinking] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -96,6 +102,15 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
       text: m.sender === 'user' ? m.text.replace(/\n\n📎 .*$/, '') : m.text,
       steps: m.steps,
     }));
+    let learningContext = '';
+    try {
+      const name = localStorage.getItem('studybuddy_user_name') || 'Student';
+      const notes = JSON.parse(localStorage.getItem('study_notes_v5') || '[]');
+      const tasks = JSON.parse(localStorage.getItem('study_tasks_v4') || '[]');
+      const quizHistory = JSON.parse(localStorage.getItem('study_quiz_history_v1') || '[]');
+      const recentScores = Array.isArray(quizHistory) ? quizHistory.slice(0, 5).map((q:any) => `${q.subject}: ${q.score}%`).join(', ') : '';
+      learningContext = `Student: ${name}. Recent quiz results: ${recentScores || 'none'}. Notes available: ${Array.isArray(notes) ? notes.length : 0}. Tasks available: ${Array.isArray(tasks) ? tasks.length : 0}. Tutor mode: ${tutorMode}.`;
+    } catch {}
     const sentAttachment = attachment;
 
     setMessages((prev) => [...prev, userMsg]);
@@ -110,6 +125,8 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: history,
+          context: learningContext,
+          mode: tutorMode,
           attachment: sentAttachment ? { mimeType: sentAttachment.mimeType, data: sentAttachment.data } : undefined,
         }),
       });
@@ -149,6 +166,25 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
     } finally {
       setIsAiThinking(false);
     }
+  };
+
+  const handleVoiceInput = () => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) { showToast('Voice input is not supported in this browser.', 'info'); return; }
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.onstart = () => setIsListening(true);
+    recognition.onend = () => setIsListening(false);
+    recognition.onerror = () => { setIsListening(false); showToast('Could not capture your voice.', 'info'); };
+    recognition.onresult = (event: any) => setInputQuestion((prev) => `${prev}${prev ? ' ' : ''}${event.results[0][0].transcript}`);
+    recognition.start();
+  };
+
+  const speakAnswer = (text: string) => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) { showToast('Voice playback is not supported in this browser.', 'info'); return; }
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(new SpeechSynthesisUtterance(text.replace(/[#*_`]/g, '')));
   };
 
   const handleFilePicked = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -263,6 +299,17 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
         )}
       </div>
 
+      {/* Tutor Mode */}
+      <div className="px-4 sm:px-6 pb-2">
+        <div className="flex items-center gap-2 p-1 rounded-xl bg-[#071126] border border-[#162544] w-fit">
+          {(['Learn','Practice','Socratic'] as const).map((mode) => (
+            <button key={mode} onClick={() => setTutorMode(mode)} className={`px-3 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${tutorMode === mode ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}>
+              {mode === 'Socratic' && <BrainCircuit className="w-3 h-3 inline mr-1" />} {mode}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Main Workspace Body */}
       <div className="p-4 sm:p-6 min-h-[430px] flex flex-col justify-between">
         {/* TAB 1: CHAT WORKSPACE */}
@@ -351,6 +398,22 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                       ) : (
                         <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">{msg.text}</p>
                       )}
+                      {msg.sender === 'ai' && msg.text.trim() && (
+                        <button
+                          onClick={() => {
+                            try {
+                              const notes = JSON.parse(localStorage.getItem('study_notes_v5') || '[]');
+                              const now = Date.now();
+                              const note = { id: `ai-note-${now}`, title: 'AI Tutor: Saved Explanation', subject: 'AI Tutor', color: 'purple', content: msg.text, excerpt: msg.text.slice(0, 140), lastEdited: 'Just now', lastEditedTimestamp: now, priority: 'Medium', tags: ['ai-tutor'], isPrivate: false, isPinned: false, addToPlanner: false };
+                              localStorage.setItem('study_notes_v5', JSON.stringify([note, ...(Array.isArray(notes) ? notes : [])]));
+                              showToast('Answer saved to My Notes.', 'success');
+                            } catch { showToast('Could not save this answer.', 'info'); }
+                          }}
+                          className="mt-3 inline-flex items-center gap-1.5 text-[10px] text-indigo-300 hover:text-white px-2.5 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-400/20"
+                        >
+                          <Save className="w-3 h-3" /> Save to Notes
+                        </button>
+                      )}
 
                       {/* Step by step list if present */}
                       {msg.steps && (
@@ -387,6 +450,10 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                               <Copy className="w-3 h-3 text-slate-400" />
                             )}
                             <span>{copiedId === msg.id ? 'Copied' : 'Copy'}</span>
+                          </button>
+
+                          <button onClick={() => speakAnswer(msg.text)} className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#14234C] hover:bg-[#1A2E63] text-[11px] text-cyan-300 transition-colors cursor-pointer">
+                            <Volume2 className="w-3 h-3" /> Listen
                           </button>
 
                           <button
@@ -480,6 +547,10 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                   placeholder="Type your question here..."
                   className="flex-1 bg-transparent px-3 py-2 text-xs sm:text-sm text-slate-100 placeholder-slate-400 focus:outline-none"
                 />
+
+                <button type="button" onClick={handleVoiceInput} className={`p-2 rounded-lg transition-colors cursor-pointer ${isListening ? 'text-rose-300 bg-rose-500/10' : 'text-slate-400 hover:text-white hover:bg-[#132349]'}`} aria-label="Voice input">
+                  <Mic className="w-4 h-4" />
+                </button>
 
                 {/* Circular Send Button with gradient and paper-plane icon matching Image */}
                 <button

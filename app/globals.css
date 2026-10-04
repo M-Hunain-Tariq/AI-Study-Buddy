@@ -1422,6 +1422,16 @@ canvas {
 }
 
 @media (max-width: 639px) {
+  .mobile-bottom-nav {
+    min-height: 60px;
+    padding-left: max(0.25rem, env(safe-area-inset-left));
+    padding-right: max(0.25rem, env(safe-area-inset-right));
+  }
+
+  .mobile-bottom-nav > button {
+    min-width: 44px;
+    min-height: 48px;
+  }
   body {
     font-size: 14px;
   }
@@ -1479,3 +1489,170 @@ canvas {
   color: #0f172a !important;
 }
 [data-theme="light"] .sb-animated-bg { opacity: .15; }
+
+/* ===== StudyBuddy v2 product skin ===== */
+:root {
+  --sb-bg: #070b14;
+  --sb-surface: rgba(14, 20, 34, .86);
+  --sb-surface-2: #101827;
+  --sb-line: rgba(148, 163, 184, .13);
+  --sb-muted: #8b98ad;
+  --sb-text: #f5f7fb;
+  --sb-cyan: #62d9ff;
+  --sb-violet: #8b7cff;
+}
+
+html { background: var(--sb-bg); }
+body { background: radial-gradient(circle at 70% -10%, rgba(79,70,229,.12), transparent 34%), radial-gradient(circle at 5% 40%, rgba(34,211,238,.06), transparent 28%), var(--sb-bg); color: var(--sb-text); font-family: var(--font-sans); }
+button, input, textarea, select { font: inherit; }
+::selection { background: rgba(98,217,255,.22); color: white; }
+
+.sb-sidebar { background: rgba(7, 11, 20, .92); border-right: 1px solid rgba(148,163,184,.10); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); }
+.sb-brand-mark { display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:13px; color:white; background:linear-gradient(145deg,#4f7cff,#7b61ff); box-shadow:0 10px 30px rgba(79,70,229,.26), inset 0 1px rgba(255,255,255,.24); }
+.sb-nav-item { width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px; border:1px solid transparent; border-radius:13px; color:#8f9caf; font-size:13px; font-weight:650; transition:.2s ease; }
+.sb-nav-item:hover { color:#eef4ff; background:rgba(255,255,255,.035); border-color:rgba(148,163,184,.08); }
+.sb-nav-item.is-active { color:white; background:linear-gradient(100deg, rgba(79,124,255,.20), rgba(139,124,255,.10)); border-color:rgba(98,217,255,.13); box-shadow:inset 3px 0 0 #62d9ff, 0 10px 30px rgba(0,0,0,.12); }
+.sb-focus-card { position:relative; overflow:hidden; border:1px solid rgba(148,163,184,.11); border-radius:18px; padding:14px; background:linear-gradient(145deg, rgba(18,28,47,.96), rgba(10,16,28,.96)); box-shadow:0 20px 50px rgba(0,0,0,.22); }
+.sb-focus-card:before { content:""; position:absolute; width:110px; height:110px; right:-45px; top:-50px; border-radius:999px; background:rgba(98,217,255,.13); filter:blur(22px); }
+
+/* Make the existing workspaces feel like one coherent product */
+.fresh-app-shell { background: transparent !important; }
+.fresh-app-shell main { max-width: 1680px !important; }
+.fresh-app-shell .card-surface, .fresh-app-shell .glass-panel { background:linear-gradient(145deg, rgba(18,27,44,.90), rgba(11,17,29,.90)) !important; border-color:var(--sb-line) !important; box-shadow:0 16px 45px rgba(0,0,0,.18), inset 0 1px rgba(255,255,255,.025) !important; }
+.fresh-app-shell .card-surface:hover, .fresh-app-shell .glass-panel-hover:hover { border-color:rgba(98,217,255,.18) !important; transform:translateY(-2px); }
+.fresh-app-shell [class*="bg-[#0A132C]"], .fresh-app-shell [class*="bg-[#091530]"], .fresh-app-shell [class*="bg-[#050B1E]"], .fresh-app-shell [class*="bg-[#060C1D]"] { background:linear-gradient(145deg, rgba(17,26,43,.92), rgba(10,16,28,.92)) !important; }
+.fresh-app-shell [class*="border-[#162544]"], .fresh-app-shell [class*="border-[#142240]"], .fresh-app-shell [class*="border-[#1A2D54"]] { border-color:var(--sb-line) !important; }
+.fresh-app-shell [class*="rounded-xl"], .fresh-app-shell [class*="rounded-2xl"] { transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.fresh-app-shell h1, .fresh-app-shell h2, .fresh-app-shell h3 { letter-spacing:-.025em; }
+
+/* Header */
+.fresh-app-shell header { background:rgba(7,11,20,.76) !important; border-color:rgba(148,163,184,.09) !important; backdrop-filter:blur(20px); }
+.fresh-app-shell header input { background:rgba(255,255,255,.035) !important; border-color:rgba(148,163,184,.10) !important; color:#f8fafc !important; }
+.fresh-app-shell header input:focus { border-color:rgba(98,217,255,.30) !important; box-shadow:0 0 0 4px rgba(98,217,255,.06) !important; }
+
+/* More breathing room on desktop, compact but touch-friendly mobile */
+@media (min-width:1024px) { .fresh-app-shell main { padding:28px 30px 34px !important; } }
+@media (max-width:1023px) { .fresh-app-shell main { padding:16px 14px 92px !important; } }
+@media (max-width:640px) { .fresh-app-shell main { padding:12px 10px 88px !important; } }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; } }
+.fresh-app-shell nav[aria-label="Mobile Navigation"] { background:rgba(7,11,20,.88) !important; border-top-color:rgba(148,163,184,.11) !important; box-shadow:0 -18px 45px rgba(0,0,0,.28) !important; backdrop-filter:blur(22px); }
+.fresh-app-shell nav[aria-label="Mobile Navigation"] button { min-height:48px; }
+.fresh-app-shell nav[aria-label="Mobile Navigation"] button > div { background:transparent !important; border-color:transparent !important; box-shadow:none !important; }
+
+
+/* ================================================================
+   StudyBuddy responsive quality pass
+   Mobile is a first-class layout, not a compressed desktop layout.
+   ================================================================ */
+html { scroll-behavior: smooth; }
+body { min-width: 320px; }
+button, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+img, svg { max-width: 100%; }
+
+@media (max-width: 1023px) {
+  .fresh-page main {
+    padding-bottom: 5.75rem;
+  }
+
+  .fresh-page .card-surface:hover,
+  .fresh-page .glass-panel-hover:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .mobile-bottom-nav {
+    min-height: 60px;
+    padding-left: max(0.25rem, env(safe-area-inset-left));
+    padding-right: max(0.25rem, env(safe-area-inset-right));
+  }
+
+  .mobile-bottom-nav > button {
+    min-width: 44px;
+    min-height: 48px;
+  }
+  .fresh-page {
+    width: 100%;
+    min-width: 320px;
+  }
+
+  .fresh-page main {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-bottom: 5.75rem;
+  }
+
+  /* Header: compact but never cramped */
+  .fresh-page > div > header,
+  header.sticky {
+    min-height: 60px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  /* Prevent long controls/titles from forcing horizontal overflow */
+  .fresh-page h1,
+  .fresh-page h2,
+  .fresh-page h3,
+  .fresh-page h4,
+  .fresh-page p,
+  .fresh-page button,
+  .fresh-page label {
+    overflow-wrap: anywhere;
+  }
+
+  /* Keep code/math content scrollable instead of breaking the page */
+  .fresh-page pre,
+  .fresh-page .overflow-x-auto {
+    max-width: 100%;
+    overscroll-behavior-x: contain;
+  }
+
+  /* Touch-friendly controls */
+  .fresh-page button:not(.sb-nav-item) {
+    min-height: 38px;
+  }
+
+  /* Bottom navigation gets breathing room and safe-area support */
+  .fresh-page + * {}
+}
+
+@media (max-width: 419px) {
+  .mobile-bottom-nav > button {
+    min-width: 42px;
+    padding-left: 0.125rem;
+    padding-right: 0.125rem;
+  }
+  /* AI Tutor hero: make the artwork support the content rather than compete with it */
+  .fresh-page .ai-tutor-hero-mobile {
+    min-height: 0;
+  }
+
+  /* Compact quiz filters */
+  .fresh-page select {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .fresh-page main {
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+  }
+}
+
+/* Safe-area helper used by the mobile navigation */
+.pb-safe {
+  padding-bottom: max(0.375rem, env(safe-area-inset-bottom));
+}
+
+/* Mobile bottom nav should feel like part of the app shell */
+@media (max-width: 1023px) {
+  .fresh-page .mobile-bottom-nav,
+  .fresh-page nav[aria-label="Mobile navigation"] {
+    padding-bottom: max(0.375rem, env(safe-area-inset-bottom));
+  }
+}

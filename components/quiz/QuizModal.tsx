@@ -17,6 +17,8 @@ interface QuizModalProps {
   quiz: QuizItem | null;
   onClose: () => void;
   onComplete?: (score: number) => void;
+  onRetryWrong?: (quiz: QuizItem) => void;
+  timeLimitSeconds?: number;
 }
 
 const SAMPLE_QUESTIONS_BY_SUBJECT: Record<
@@ -94,13 +96,14 @@ const SAMPLE_QUESTIONS_BY_SUBJECT: Record<
   ],
 };
 
-export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete }) => {
+export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete, onRetryWrong, timeLimitSeconds }) => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [score, setScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [timerSeconds, setTimerSeconds] = useState(0);
+  const [answeredMap, setAnsweredMap] = useState<Record<string, number>>({});
 
   const questions: QuizQuestion[] =
     quiz?.questions?.length
@@ -117,16 +120,21 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete 
     setScore(0);
     setIsFinished(false);
     setTimerSeconds(0);
+    setAnsweredMap({});
   }, [quiz?.id]);
 
   // Timer
   useEffect(() => {
     if (!quiz || isFinished) return;
     const interval = setInterval(() => {
-      setTimerSeconds((prev) => prev + 1);
+      setTimerSeconds((prev) => {
+        const next = prev + 1;
+        if (timeLimitSeconds && next >= timeLimitSeconds) { setIsFinished(true); }
+        return next;
+      });
     }, 1000);
     return () => clearInterval(interval);
-  }, [quiz, isFinished]);
+  }, [quiz, isFinished, timeLimitSeconds]);
 
   if (!quiz) return null;
 
@@ -136,6 +144,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete 
     if (isAnswered) return;
     setSelectedOption(idx);
     setIsAnswered(true);
+    setAnsweredMap((prev) => ({ ...prev, [currentQ.id]: idx }));
     if (idx === currentQ.correctAnswer) {
       setScore((prev) => prev + 1);
     }
@@ -187,7 +196,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete 
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5 text-xs text-slate-300 bg-[#0A1635] px-2.5 py-1 rounded-lg border border-[#182A52]">
               <Clock className="w-3.5 h-3.5 text-blue-400" />
-              <span>{formatTime(timerSeconds)}</span>
+              <span>{timeLimitSeconds ? `${formatTime(Math.max(0, timeLimitSeconds - timerSeconds))} left` : formatTime(timerSeconds)}</span>
             </div>
 
             <button
@@ -323,6 +332,18 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete 
             </button>
           ) : (
             <>
+              {onRetryWrong && Object.entries(answeredMap).filter(([id, answer]) => { const q = questions.find((item) => item.id === id); return q && q.correctAnswer !== answer; }).length > 0 && (
+                <button
+                  onClick={() => {
+                    const wrongQuestions = questions.filter((q) => answeredMap[q.id] !== undefined && answeredMap[q.id] !== q.correctAnswer);
+                    onRetryWrong({ ...quiz, id: `${quiz.id}-retry-${Date.now()}`, title: `${quiz.title} • Retry Wrong`, questions: wrongQuestions, questionsCount: wrongQuestions.length });
+                  }}
+                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" /> Retry Wrong Answers
+                </button>
+              )}
+
               <button
                 onClick={handleRestart}
                 className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#12224A] transition-colors flex items-center gap-1.5 cursor-pointer"

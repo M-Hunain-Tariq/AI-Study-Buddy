@@ -6,6 +6,7 @@ import { ToastProvider, useToast } from '@/components/Toast';
 import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
+import { MobileBottomNav } from '@/components/MobileBottomNav';
 import { QuizPracticeWorkspace } from '@/components/quiz/QuizPracticeWorkspace';
 
 function QuizPracticePageContent() {
@@ -51,6 +52,7 @@ function QuizPracticePageContent() {
           <QuizPracticeWorkspace />
         </main>
       </div>
+      <MobileBottomNav activeItem="Quiz & Practice" />
     </div>
   );
 }

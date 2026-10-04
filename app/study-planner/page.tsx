@@ -6,6 +6,7 @@ import { ToastProvider, useToast } from '@/components/Toast';
 import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
+import { MobileBottomNav } from '@/components/MobileBottomNav';
 import { StudyPlannerWorkspace } from '@/components/study-planner/StudyPlannerWorkspace';
 
 function StudyPlannerPageContent() {
@@ -56,6 +57,7 @@ function StudyPlannerPageContent() {
           />
         </main>
       </div>
+      <MobileBottomNav activeItem="Study Planner" />
     </div>
   );
 }

@@ -67,7 +67,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   return (
     <nav
       aria-label="Mobile Navigation"
-      className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-[#060D20]/95 backdrop-blur-xl border-t border-[#182B55] px-1 py-1.5 pb-safe flex items-center justify-around shadow-[0_-10px_25px_rgba(2,6,23,0.8)]"
+      className="mobile-bottom-nav lg:hidden fixed bottom-0 inset-x-0 z-40 bg-[#060D20]/95 backdrop-blur-xl border-t border-[#182B55] px-1 py-1.5 pb-safe flex items-center justify-around shadow-[0_-10px_25px_rgba(2,6,23,0.8)]"
     >
       {navItems.map((item) => {
         const Icon = item.icon;

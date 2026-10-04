@@ -6,6 +6,7 @@ import { ToastProvider, useToast } from '@/components/Toast';
 import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
+import { MobileBottomNav } from '@/components/MobileBottomNav';
 import { MyNotesWorkspace } from '@/components/my-notes/MyNotesWorkspace';
 
 function MyNotesPageContent() {
@@ -51,6 +52,7 @@ function MyNotesPageContent() {
           <MyNotesWorkspace />
         </main>
       </div>
+      <MobileBottomNav activeItem="My Notes" />
     </div>
   );
 }

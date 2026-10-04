@@ -164,9 +164,34 @@ export const QuizPracticeWorkspace: React.FC = () => {
   const [sortBy, setSortBy] = useState<'Newest' | 'Popular' | 'Difficulty'>('Newest');
   const [activeQuiz, setActiveQuiz] = useState<QuizItem | null>(null);
   const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
+  const [timedExam, setTimedExam] = useState(false);
   const [customQuizzes, setCustomQuizzes] = useState<QuizItem[]>([]);
+  const [quizHistory, setQuizHistory] = useState<{id:string; title:string; subject:string; score:number; date:string}[]>([]);
   // Mobile tab toggle to prevent infinite scroll on small screens
   const [mobileTab, setMobileTab] = useState<'quizzes' | 'progress'>('quizzes');
+
+  React.useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('study_quiz_history_v1') || '[]');
+      if (Array.isArray(saved)) setQuizHistory(saved);
+    } catch {}
+  }, []);
+
+  const completedCount = quizHistory.length;
+  const averageScore = completedCount ? Math.round(quizHistory.reduce((sum, item) => sum + item.score, 0) / completedCount) : 0;
+  const streakCount = useMemo(() => {
+    const days = new Set(quizHistory.map((item) => new Date(item.date).toDateString()));
+    let streak = 0;
+    const cursor = new Date();
+    while (days.has(cursor.toDateString())) { streak += 1; cursor.setDate(cursor.getDate() - 1); }
+    return streak;
+  }, [quizHistory]);
+  const subjectStats = useMemo(() => {
+    return ['Mathematics','Physics','Chemistry'].map((subject) => {
+      const items = quizHistory.filter((q) => q.subject === subject);
+      return { subject, score: items.length ? Math.round(items.reduce((a,b) => a + b.score, 0) / items.length) : 0 };
+    });
+  }, [quizHistory]);
 
   // Subject tabs
   const SUBJECT_TABS: { label: QuizSubject; icon: React.ReactNode }[] = [
@@ -265,13 +290,16 @@ export const QuizPracticeWorkspace: React.FC = () => {
           </div>
 
           {/* Quick AI Quiz Generator CTA Button */}
-          <button
+          <div className="flex w-full sm:w-auto gap-2">
+            <button onClick={() => setTimedExam((v) => !v)} className={`shrink-0 px-3 py-2 sm:py-2.5 rounded-xl text-[10px] sm:text-xs font-bold border transition-all ${timedExam ? 'bg-amber-500/20 text-amber-200 border-amber-400/50' : 'bg-white/5 text-slate-300 border-white/10 hover:border-amber-400/30'}`}>⏱ {timedExam ? 'Timed Exam ON' : 'Timed Exam'}</button>
+            <button
             onClick={() => setIsGenerateModalOpen(true)}
             className="w-full sm:w-auto shrink-0 px-3.5 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#9333EA] hover:from-[#1D4ED8] hover:to-[#7E22CE] text-white text-xs font-bold shadow-[0_0_20px_rgba(124,58,237,0.6)] border border-purple-400/40 flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95 group/btn"
           >
             <Sparkles className="w-3.5 h-3.5 text-purple-200 group-hover/btn:rotate-12 transition-transform" />
             <span>Generate from Lesson</span>
           </button>
+          </div>
         </div>
 
         {/* 4 Small Feature Cards: Desktop Grid & Mobile Swipeable Strip */}
@@ -520,13 +548,14 @@ export const QuizPracticeWorkspace: React.FC = () => {
 
             {/* 2-Column Compact Grid on Mobile (sm:grid-cols-2 lg:grid-cols-3)
                 Makes 6 cards fit in only 3 short rows without endless scrolling! */}
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3.5">
+            <div className="grid grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3.5">
               {filteredAllQuizzes.map((quiz) => (
                 <div
                   key={quiz.id}
-                  className="rounded-xl sm:rounded-2xl bg-[#081026] border border-[#162544] hover:border-blue-500/50 p-2.5 sm:p-4 transition-all duration-200 flex flex-col justify-between space-y-2 sm:space-y-3 shadow-md group"
+                  className={`relative overflow-hidden rounded-xl sm:rounded-2xl border p-2.5 sm:p-4 transition-all duration-300 flex flex-col justify-between space-y-2 sm:space-y-3 shadow-lg group bg-gradient-to-br from-[#0B1735] via-[#091126] to-[#060B18] ${quiz.colorScheme === 'blue' ? 'border-blue-500/20 hover:border-blue-400/60' : quiz.colorScheme === 'emerald' ? 'border-emerald-500/20 hover:border-emerald-400/60' : 'border-purple-500/20 hover:border-purple-400/60'}`}
                 >
-                  <div className="space-y-1.5 sm:space-y-2">
+                  <div className={`absolute -top-10 -right-8 w-24 h-24 rounded-full blur-2xl opacity-25 pointer-events-none ${quiz.colorScheme === 'blue' ? 'bg-blue-500' : quiz.colorScheme === 'emerald' ? 'bg-emerald-500' : 'bg-purple-500'}`} />
+                  <div className="relative z-10 space-y-1.5 sm:space-y-2">
                     <div className="flex items-center justify-between gap-1.5">
                       {/* Squircle Icon */}
                       <div
@@ -564,10 +593,17 @@ export const QuizPracticeWorkspace: React.FC = () => {
                         {quiz.subject} • {quiz.questionsCount} Qs
                       </p>
                     </div>
+                    <div className="flex items-center justify-between text-[8px] sm:text-[10px] text-slate-400">
+                      <span>{quiz.questionsCount} questions</span>
+                      <span className="inline-flex items-center gap-1"><Clock className="w-3 h-3" /> ~8 min</span>
+                    </div>
+                    <div className="h-1 rounded-full bg-white/5 overflow-hidden">
+                      <div className={`h-full rounded-full ${quiz.colorScheme === 'blue' ? 'bg-blue-400' : quiz.colorScheme === 'emerald' ? 'bg-emerald-400' : 'bg-purple-400'}`} style={{width: `${Math.min(85, 20 + quiz.title.length * 2)}%`}} />
+                    </div>
                   </div>
 
                   {/* Start → Button */}
-                  <div className="pt-1">
+                  <div className="relative z-10 pt-1">
                     <button
                       onClick={() => handleStartQuiz(quiz)}
                       className="w-full py-1 sm:py-1.5 rounded-lg bg-[#1E3A8A] hover:bg-[#2563EB] text-white text-[10px] sm:text-xs font-semibold flex items-center justify-center gap-1 transition-colors cursor-pointer active:scale-95"
@@ -600,6 +636,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
               <h4 className="text-xs sm:text-sm font-bold text-white tracking-tight">
                 Your Practice Progress
               </h4>
+              <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-orange-500/10 border border-orange-400/20 px-2 py-1 text-[9px] font-bold text-orange-300">🔥 {streakCount} day streak</span>
             </div>
 
             <div className="flex items-center justify-between gap-3 pt-0.5">
@@ -615,7 +652,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
                   />
                   <path
                     className="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.9)]"
-                    strokeDasharray="68, 100"
+                    strokeDasharray={`${averageScore}, 100`}
                     strokeWidth="3.5"
                     strokeLinecap="round"
                     stroke="currentColor"
@@ -626,7 +663,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
 
                 <div className="absolute text-center">
                   <span className="text-sm sm:text-base font-extrabold text-white tracking-tight">
-                    0%
+                    {averageScore}%
                   </span>
                   <p className="text-[8px] sm:text-[9px] text-slate-400">Score</p>
                 </div>
@@ -639,7 +676,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
                     <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.7)]" />
                     <span>Completed</span>
                   </span>
-                  <span className="font-bold text-white">12</span>
+                  <span className="font-bold text-white">{completedCount}</span>
                 </div>
 
                 <div className="flex items-center justify-between text-slate-300">
@@ -647,7 +684,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
                     <span className="w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_6px_rgba(96,165,250,0.7)]" />
                     <span>In Progress</span>
                   </span>
-                  <span className="font-bold text-white">5</span>
+                  <span className="font-bold text-white">{Math.max(0, filteredAllQuizzes.length - completedCount)}</span>
                 </div>
 
                 <div className="flex items-center justify-between text-slate-300">
@@ -655,10 +692,24 @@ export const QuizPracticeWorkspace: React.FC = () => {
                     <span className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_6px_rgba(168,85,247,0.7)]" />
                     <span>Not Started</span>
                   </span>
-                  <span className="font-bold text-white">3</span>
+                  <span className="font-bold text-white">{Math.max(0, filteredAllQuizzes.length - Math.min(filteredAllQuizzes.length, completedCount) - 1)}</span>
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* SUBJECT ACCURACY */}
+          <div className="rounded-[20px] sm:rounded-[22px] bg-[#081026] border border-[#162544] p-3.5 sm:p-5 shadow-lg space-y-3">
+            <div className="flex items-center gap-2">
+              <Award className="w-4 h-4 text-amber-400" />
+              <h4 className="text-xs sm:text-sm font-bold text-white">Subject Accuracy</h4>
+            </div>
+            {subjectStats.map((item) => (
+              <div key={item.subject} className="space-y-1.5">
+                <div className="flex items-center justify-between text-[10px] sm:text-xs"><span className="text-slate-300">{item.subject}</span><span className="font-bold text-white">{item.score}%</span></div>
+                <div className="h-1.5 rounded-full bg-white/5 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-indigo-500" style={{width:`${item.score}%`}} /></div>
+              </div>
+            ))}
           </div>
 
           {/* WIDGET 2: RECENT ACTIVITY MATCHING image.png */}
@@ -681,7 +732,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 pt-0.5">
-              {RECENT_ACTIVITIES.map((act) => (
+              {(quizHistory.length ? quizHistory.slice(0, 4).map((h) => ({id:h.id,title:h.title,status:'Completed' as const,timeAgo:h.date,symbol:'✓',colorScheme:'blue' as const})) : RECENT_ACTIVITIES).map((act) => (
                 <div
                   key={act.id}
                   className="flex items-center gap-2.5 p-2 rounded-xl bg-[#060D1E] border border-[#162544] hover:border-blue-500/40 transition-colors"
@@ -760,9 +811,13 @@ export const QuizPracticeWorkspace: React.FC = () => {
         <QuizModal
           quiz={activeQuiz}
           onClose={() => setActiveQuiz(null)}
+          timeLimitSeconds={timedExam ? 600 : undefined}
           onComplete={(scorePercent) => {
+            const entry = { id: `${activeQuiz.id}-${Date.now()}`, title: activeQuiz.title, subject: activeQuiz.subject, score: scorePercent, date: new Date().toLocaleDateString() };
+            setQuizHistory((prev) => { const next = [entry, ...prev].slice(0, 20); try { localStorage.setItem('study_quiz_history_v1', JSON.stringify(next)); } catch {} return next; });
             showToast(`Quiz completed with ${scorePercent}% score! 🏆`, 'success');
           }}
+          onRetryWrong={(wrongQuiz) => { setActiveQuiz(wrongQuiz); showToast('Retrying your wrong answers.', 'info'); }}
         />
       )}
 
