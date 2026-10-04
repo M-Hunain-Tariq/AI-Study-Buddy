@@ -259,10 +259,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="relative z-10 flex items-start justify-between">
             <div>
               <h4 className="text-[12px] font-medium text-white tracking-tight">
-                Small steps
+                Start your journey
               </h4>
               <p className="text-[12px] font-semibold text-white flex items-center gap-1">
-                make big dreams! <span className="text-pink-500 text-xs">❤️</span>
+                one step at a time. <span className="text-pink-500 text-xs">❤️</span>
               </p>
             </div>
           </div>
@@ -279,14 +279,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
             />
           </div>
 
-          {/* Your Progress with 68% bar matching image.png */}
+          {/* Getting Started with 68% bar matching image.png */}
           <div className="mt-2.5 space-y-1">
             <div className="flex items-center justify-between text-[11px]">
-              <span className="text-slate-400 font-medium">Your Progress</span>
-              <span className="text-white font-bold">68%</span>
+              <span className="text-slate-400 font-medium">Getting Started</span>
+              <span className="text-white font-bold">0%</span>
             </div>
             <div className="w-full h-1.5 rounded-full bg-[#132247] overflow-hidden">
-              <div className="h-full rounded-full bg-gradient-to-r from-[#2563EB] to-[#A855F7] w-[68%]" />
+              <div className="h-full rounded-full bg-gradient-to-r from-[#2563EB] to-[#A855F7] w-0" />
             </div>
           </div>
         </div>

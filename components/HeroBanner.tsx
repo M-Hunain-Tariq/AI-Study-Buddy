@@ -52,14 +52,14 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
 
         <div>
           <h2 className="text-xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-tight">
-            Good evening,{' '}
+            Welcome to your{' '}
             <span className="bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(168,85,247,0.55)]">
-              Muhammad!
+              Study Space
             </span>{' '}
             👋
           </h2>
           <p className="text-[11px] sm:text-sm text-slate-300 font-normal mt-0.5 sm:mt-1.5 line-clamp-1 sm:line-clamp-none">
-            Ready to continue your learning journey?
+            Your new study workspace is ready. Start with one small step.
           </p>
         </div>
 
@@ -76,7 +76,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
             onClick={onContinueLearning}
             className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#7C3AED] hover:from-[#1D4ED8] hover:to-[#6D28D9] text-white font-semibold text-xs sm:text-sm shadow-[0_0_20px_rgba(79,70,229,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
           >
-            <span>Continue</span>
+            <span>Start Learning</span>
             <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
 

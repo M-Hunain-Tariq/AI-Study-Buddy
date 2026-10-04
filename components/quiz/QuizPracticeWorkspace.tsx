@@ -603,7 +603,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
             </div>
 
             <div className="flex items-center justify-between gap-3 pt-0.5">
-              {/* Circular Donut Ring: 68% Overall Score */}
+              {/* Circular Donut Ring: 0% Overall Score */}
               <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center shrink-0">
                 <svg className="w-20 h-20 sm:w-24 sm:h-24 -rotate-90" viewBox="0 0 36 36">
                   <path
@@ -626,7 +626,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
 
                 <div className="absolute text-center">
                   <span className="text-sm sm:text-base font-extrabold text-white tracking-tight">
-                    68%
+                    0%
                   </span>
                   <p className="text-[8px] sm:text-[9px] text-slate-400">Score</p>
                 </div>

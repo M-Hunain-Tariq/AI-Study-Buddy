@@ -36,32 +36,7 @@ function DashboardContent() {
   const [selectedAiPrompt, setSelectedAiPrompt] = useState<string | undefined>(undefined);
 
   // Initial realistic school tasks matching Image 1
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      id: 'task-1',
-      title: 'Complete Algebra exercises',
-      subject: 'Mathematics',
-      subjectColor: 'purple',
-      deadline: 'Today 10:00 PM',
-      completed: false,
-    },
-    {
-      id: 'task-2',
-      title: 'Read chapter 2',
-      subject: 'Physics',
-      subjectColor: 'cyan',
-      deadline: 'Today 11:30 PM',
-      completed: false,
-    },
-    {
-      id: 'task-3',
-      title: 'Write notes',
-      subject: 'English',
-      subjectColor: 'indigo',
-      deadline: 'Tomorrow 09:00 AM',
-      completed: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const handleToggleTask = (id: string) => {
     const target = tasks.find((t) => t.id === id);
@@ -87,7 +62,7 @@ function DashboardContent() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#04091A] text-slate-100 flex flex-col selection:bg-blue-500/30 selection:text-white overflow-x-hidden">
+    <div className="fresh-app-shell relative min-h-screen bg-[#07101f] text-slate-100 flex flex-col selection:bg-blue-500/30 selection:text-white overflow-x-hidden">
       {/* Background Atmosphere with rich blue/purple lighting matching Image 1 */}
       <AnimatedBackground />
 

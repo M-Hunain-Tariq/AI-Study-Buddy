@@ -891,7 +891,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
 
                 {/* Donut Chart + Bars (Responsive Stack on narrow screens) */}
                 <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
-                  {/* Glowing Circular Donut Chart 68% */}
+                  {/* Glowing Circular Donut Chart 0% */}
                   <div className="relative w-16 h-16 rounded-full flex items-center justify-center shrink-0">
                     <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
                       <path
@@ -911,7 +911,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                         d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                       />
                     </svg>
-                    <span className="absolute text-xs font-extrabold text-white">68%</span>
+                    <span className="absolute text-xs font-extrabold text-white">0%</span>
                   </div>
 
                   {/* 4 Subject Progress Bars */}

@@ -33,7 +33,7 @@ export const MyProgressHero: React.FC<MyProgressHeroProps> = ({
         />
 
         {/* 2. TEXT-CONTRAST SCRIM */}
-        <div className="absolute inset-y-0 left-0 w-full sm:w-[68%] lg:w-[60%] bg-gradient-to-r from-[#070F28] via-[#070F28]/95 sm:via-[#070F28]/90 to-transparent pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-full sm:w-[0%] lg:w-[60%] bg-gradient-to-r from-[#070F28] via-[#070F28]/95 sm:via-[#070F28]/90 to-transparent pointer-events-none" />
       </div>
 
       {/* Inner subtle glow border reflection */}

@@ -17,7 +17,7 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 5 })
             <BookOpen className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
           </div>
           <span className="text-[10px] sm:text-xs font-semibold text-emerald-400 flex items-center gap-0.5">
-            ↑ 45%
+            New
           </span>
         </div>
 
@@ -25,7 +25,7 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 5 })
           <p className="text-[10px] sm:text-xs font-medium text-slate-400 truncate">Total Study Time</p>
           <div className="flex items-baseline justify-between mt-0.5 sm:mt-1">
             <h3 className="text-lg sm:text-2xl lg:text-[28px] font-bold text-white tracking-tight tabular-nums">
-              2h 45m
+              0h 00m
             </h3>
             <span className="hidden sm:inline text-[11px] text-slate-400">vs 7d</span>
           </div>
@@ -61,7 +61,7 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 5 })
             <CheckSquare className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
           </div>
           <span className="text-[10px] sm:text-xs font-semibold text-emerald-400 flex items-center gap-0.5">
-            +3 today
+            Start
           </span>
         </div>
 
@@ -69,9 +69,9 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 5 })
           <p className="text-[10px] sm:text-xs font-medium text-slate-400 truncate">Tasks Done</p>
           <div className="flex items-baseline justify-between mt-0.5 sm:mt-1">
             <h3 className="text-lg sm:text-2xl lg:text-[28px] font-bold text-white tracking-tight tabular-nums">
-              {completedTasksCount}/8
+              0/0
             </h3>
-            <span className="hidden sm:inline text-[11px] text-slate-400">62.5%</span>
+            <span className="hidden sm:inline text-[11px] text-slate-400">—</span>
           </div>
         </div>
 
@@ -105,7 +105,7 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 5 })
             <Brain className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
           </div>
           <span className="text-[10px] sm:text-xs font-semibold text-emerald-400 flex items-center gap-0.5">
-            ↑ 80%
+            New
           </span>
         </div>
 
@@ -115,7 +115,7 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 5 })
             <h3 className="text-lg sm:text-2xl lg:text-[28px] font-bold text-white tracking-tight tabular-nums">
               18
             </h3>
-            <span className="hidden sm:inline text-[11px] text-slate-400">queries</span>
+            <span className="hidden sm:inline text-[11px] text-slate-400">to begin</span>
           </div>
         </div>
 
@@ -149,7 +149,7 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 5 })
             <Star className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
           </div>
           <span className="text-[10px] sm:text-xs font-semibold text-emerald-400 flex items-center gap-0.5">
-            +5%
+            New
           </span>
         </div>
 
@@ -159,7 +159,7 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 5 })
             <h3 className="text-lg sm:text-2xl lg:text-[28px] font-bold text-white tracking-tight tabular-nums">
               88%
             </h3>
-            <span className="hidden sm:inline text-[11px] text-slate-400">Top 10%</span>
+            <span className="hidden sm:inline text-[11px] text-slate-400">No data</span>
           </div>
         </div>
 

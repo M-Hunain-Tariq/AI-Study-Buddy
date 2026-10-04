@@ -168,7 +168,7 @@ export const BackgroundAtmosphere: React.FC = () => {
         <div className="absolute top-[28%] right-[15%] w-1.5 h-1.5 bg-blue-200 rounded-full shadow-[0_0_6px_#93c5fd] twinkle-2" />
         <div className="absolute top-[48%] left-[22%] w-1 h-1 bg-purple-300 rounded-full shadow-[0_0_6px_#c084fc] twinkle-1" />
         <div className="absolute top-[70%] right-[25%] w-1.5 h-1.5 bg-cyan-200 rounded-full shadow-[0_0_6px_#38bdf8] twinkle-2" />
-        <div className="absolute top-[18%] left-[68%] w-1 h-1 bg-white rounded-full shadow-[0_0_5px_#fff] twinkle-3" />
+        <div className="absolute top-[18%] left-[0%] w-1 h-1 bg-white rounded-full shadow-[0_0_5px_#fff] twinkle-3" />
         <div className="absolute top-[86%] right-[38%] w-1.5 h-1.5 bg-sky-200 rounded-full shadow-[0_0_6px_#7dd3fc] twinkle-1" />
       </div>
 

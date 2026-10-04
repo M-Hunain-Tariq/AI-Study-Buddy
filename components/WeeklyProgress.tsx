@@ -44,7 +44,7 @@ export const WeeklyProgress: React.FC = () => {
           ))}
         </div>
 
-        {/* Circular Gauge: 68% Overall Progress (Right) with glowing stroke matching Image 1 */}
+        {/* Circular Gauge: 0% Overall Progress (Right) with glowing stroke matching Image 1 */}
         <div className="flex flex-col items-center justify-center pl-4 border-l border-[#142240] shrink-0">
           <div className="relative w-20 h-20 flex items-center justify-center">
             <svg className="w-full h-full -rotate-90 overflow-visible" viewBox="0 0 72 72">
@@ -79,7 +79,7 @@ export const WeeklyProgress: React.FC = () => {
               />
             </svg>
             <span className="absolute text-base font-extrabold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
-              68%
+              0%
             </span>
           </div>
           <span className="text-[11px] text-slate-400 font-medium mt-1.5">
