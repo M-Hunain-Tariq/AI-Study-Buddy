@@ -19,7 +19,7 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({
   onAddTask,
   taskToEdit,
   onUpdateTask,
-  defaultDate = '2025-08-26',
+  defaultDate = new Date().toISOString().slice(0, 10),
 }) => {
   const [subject, setSubject] = useState(taskToEdit?.subject || 'Mathematics');
   const [topic, setTopic] = useState(taskToEdit?.topic || '');
@@ -225,7 +225,7 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({
                 type="text"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                placeholder="2025-08-26"
+                placeholder="YYYY-MM-DD"
                 className="w-full px-3 py-2 rounded-xl bg-[#0C1736] border border-[#1F3563] text-white text-xs focus:outline-none focus:border-blue-500"
               />
             </div>

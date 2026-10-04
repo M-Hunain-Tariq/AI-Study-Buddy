@@ -461,7 +461,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
               </div>
 
               <button
-                onClick={() => showToast('Manage Subjects options will be unlocked in next step!', 'info')}
+                onClick={() => showToast('Subjects are managed through the notes subject filters below.', 'info')}
                 className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#081026] hover:bg-[#0E1A38] border border-[#162544] text-xs font-semibold text-slate-300 hover:text-white transition-colors cursor-pointer"
               >
                 <SettingsIcon className="w-3.5 h-3.5 text-slate-400" />
@@ -1012,7 +1012,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
 
               {/* Take Quiz */}
               <button
-                onClick={() => showToast('Quiz & Practice generator will be available in next step.', 'info')}
+                onClick={() => router.push('/quiz-practice')}
                 className="group flex flex-col p-2.5 sm:p-3 rounded-xl bg-[#082420] hover:bg-[#0C332D] border border-[#134D44] hover:border-emerald-400/60 transition-all text-left cursor-pointer shadow-sm min-w-0"
               >
                 <div className="w-7 h-7 rounded-lg bg-emerald-600/30 text-emerald-400 flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-105 transition-transform shrink-0">
@@ -1024,7 +1024,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
 
               {/* Practice */}
               <button
-                onClick={() => showToast('Practice problem sets will be available in next step.', 'info')}
+                onClick={() => router.push('/quiz-practice')}
                 className="group flex flex-col p-2.5 sm:p-3 rounded-xl bg-[#26180E] hover:bg-[#382314] border border-[#4E2E18] hover:border-amber-400/60 transition-all text-left cursor-pointer shadow-sm min-w-0"
               >
                 <div className="w-7 h-7 rounded-lg bg-amber-600/30 text-amber-400 flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-105 transition-transform shrink-0">

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { describeAiError, generateStream } from '@/lib/ai/gemini';
+import { checkAiRateLimit, getClientKey } from '@/lib/ai/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -33,6 +34,8 @@ const ALLOWED_MIME = ['image/png', 'image/jpeg', 'image/webp'];
 const MAX_ATTACHMENT_CHARS = 6_000_000; // ~4.5 MB of image data
 
 export async function POST(req: NextRequest) {
+  const limit = checkAiRateLimit(getClientKey(req));
+  if (!limit.ok) return NextResponse.json({ error: 'Too many AI requests. Please try again shortly.' }, { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } });
   try {
     const body = await req.json().catch(() => null);
     const messages: IncomingMessage[] = Array.isArray(body?.messages) ? body.messages : [];

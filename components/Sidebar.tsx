@@ -141,7 +141,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       return;
     }
 
-    showToast(`${name} will be unlocked in Step ${step}!`, 'info');
+    showToast(`${name} is not available from this menu.`, 'info');
     onClose();
   };
 
@@ -157,7 +157,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Sidebar Container matching Image 1 */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 z-40 w-[240px] max-w-[85vw] bg-[#050B1E] border-r border-[#142240] flex flex-col justify-between py-5 px-3.5 transition-transform duration-300 ease-in-out overflow-y-auto lg:translate-x-0 ${
+        className={`fixed top-0 left-0 bottom-0 z-40 w-[256px] max-w-[88vw] bg-[#050B1E] border-r border-[#142240] flex flex-col justify-between py-5 px-3.5 transition-transform duration-300 ease-in-out overflow-y-auto lg:translate-x-0 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >

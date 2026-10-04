@@ -100,14 +100,14 @@ export const RightSidebarWidgets: React.FC = () => {
           </div>
 
           <button
-            onClick={() => showToast('Full calendar schedule in Step 3', 'info')}
+            onClick={() => showToast('Open Study Planner from the navigation to manage your full calendar.', 'info')}
             className="text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors cursor-pointer"
           >
             View All
           </button>
         </div>
 
-        <p className="text-[11px] text-slate-400 mt-2.5">Mon, 26 Aug 2025</p>
+        <p className="text-[11px] text-slate-400 mt-2.5">Today&apos;s plan</p>
 
         <div className="mt-2 divide-y divide-[#142240] space-y-1">
           {studyPlan.map((item, idx) => {

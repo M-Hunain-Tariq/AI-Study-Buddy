@@ -98,6 +98,8 @@ export function applySettingsToDocument(s: AppSettings) {
   root.style.fontSize = size;
   root.style.setProperty('--accent', s.accent);
   root.dataset.bg = s.background;
+  const resolvedTheme = s.theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : s.theme;
+  root.dataset.theme = resolvedTheme;
   const font = FONTS.find((f) => f.id === s.fontFamily) ?? FONTS[0];
   document.body.style.fontFamily = font.stack;
 }

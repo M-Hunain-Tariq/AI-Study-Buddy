@@ -53,7 +53,7 @@ function AiTutorPageContent() {
       />
 
       {/* Main Viewport Content Area */}
-      <div className="relative z-10 flex-1 flex flex-col lg:pl-[240px] transition-all duration-300">
+      <div className="relative z-10 flex-1 flex flex-col lg:pl-[256px] transition-all duration-300">
         {/* Sticky Header matching Dashboard */}
         <Header
           onOpenMobileMenu={() => setIsSidebarOpen(true)}
@@ -61,7 +61,7 @@ function AiTutorPageContent() {
         />
 
         {/* AI Tutor Main Canvas matching three-zone layout */}
-        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1480px] mx-auto space-y-4 sm:space-y-5">
+        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1600px] mx-auto space-y-5 sm:space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
             {/* Center Main Area (8 cols out of 12) */}
             <div className="lg:col-span-8 flex flex-col space-y-5">

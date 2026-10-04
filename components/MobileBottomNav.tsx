@@ -67,7 +67,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   return (
     <nav
       aria-label="Mobile Navigation"
-      className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-[#060D20]/95 backdrop-blur-xl border-t border-[#182B55] px-1.5 py-1.5 pb-safe flex items-center justify-around shadow-[0_-10px_25px_rgba(2,6,23,0.8)]"
+      className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-[#060D20]/95 backdrop-blur-xl border-t border-[#182B55] px-1 py-1.5 pb-safe flex items-center justify-around shadow-[0_-10px_25px_rgba(2,6,23,0.8)]"
     >
       {navItems.map((item) => {
         const Icon = item.icon;
@@ -78,7 +78,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             key={item.id}
             type="button"
             onClick={() => handleTabClick(item)}
-            className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl transition-all relative cursor-pointer active:scale-90 ${
+            className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-xl min-w-0 flex-1 transition-all relative cursor-pointer active:scale-90 ${
               isActive
                 ? 'text-white'
                 : 'text-slate-400 hover:text-slate-200'
@@ -90,7 +90,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             )}
 
             <div
-              className={`w-7 h-7 rounded-lg flex items-center justify-center transition-transform ${
+              className={`w-6 h-6 rounded-lg flex items-center justify-center transition-transform ${
                 isActive ? 'scale-110 text-blue-400' : 'text-slate-400'
               }`}
             >
@@ -98,7 +98,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             </div>
 
             <span
-              className={`text-[10px] tracking-tight transition-colors ${
+              className={`text-[9px] sm:text-[10px] tracking-tight transition-colors ${
                 isActive ? 'font-bold text-white' : 'font-medium text-slate-400'
               }`}
             >

@@ -15,7 +15,7 @@ export const WeeklyProgress: React.FC = () => {
   ];
 
   return (
-    <div className="rounded-2xl bg-[#0A132C] border border-[#162544] hover:border-[#243B6B] p-5 shadow-lg hover:shadow-[0_0_25px_rgba(59,130,246,0.15)] flex flex-col justify-between transition-all duration-300 h-full min-h-[300px]">
+    <div className="rounded-2xl bg-[#0A132C] border border-[#162544] hover:border-[#243B6B] p-4 sm:p-5 shadow-lg hover:shadow-[0_0_25px_rgba(59,130,246,0.15)] flex flex-col justify-between transition-all duration-300 h-full min-h-[320px]">
       {/* Header matching Image 1 */}
       <div className="flex items-center gap-2.5 pb-3.5 border-b border-[#142240]">
         <div className="w-8 h-8 rounded-lg bg-[#142244] text-blue-400 flex items-center justify-center shadow-inner">

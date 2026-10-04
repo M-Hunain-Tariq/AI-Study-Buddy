@@ -195,13 +195,7 @@ body {
 }
 
 
-/* Landing page premium visual system (integrated from the original landing project) */
-@theme {
-  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-  --font-heading: "Outfit", system-ui, -apple-system, sans-serif;
-  --font-display: "Outfit", system-ui, -apple-system, sans-serif;
-  --font-handwriting: "Caveat", cursive;
-}
+/* Landing page premium visual system */
 
 
 
@@ -1399,3 +1393,89 @@ body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,
 
 /* Cleaner first-load experience; keep interactions responsive. */
 .fresh-page .transition-all.duration-300 { transition-duration: 180ms; }
+
+
+/* Responsive UI polish -------------------------------------------------- */
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  min-width: 320px;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+@media (max-width: 639px) {
+  body {
+    font-size: 14px;
+  }
+
+  /* Keep dense dashboard grids readable without forcing fixed heights. */
+  .fresh-app-shell main {
+    overflow: visible;
+  }
+
+  .fresh-app-shell .rounded-2xl,
+  .fresh-app-shell .rounded-[20px],
+  .fresh-app-shell .rounded-[24px] {
+    border-radius: 18px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .fresh-app-shell main {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+
+/* Prevent long labels from creating horizontal overflow in responsive cards. */
+.fresh-app-shell h1,
+.fresh-app-shell h2,
+.fresh-app-shell h3,
+.fresh-app-shell h4,
+.fresh-app-shell p,
+.fresh-app-shell span,
+.fresh-app-shell button {
+  overflow-wrap: anywhere;
+}
+
+/* Safe-area support for phones with gesture/navigation bars. */
+.pb-safe {
+  padding-bottom: max(0.375rem, env(safe-area-inset-bottom));
+}
+
+/* User appearance settings */
+:root[data-theme="light"] {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+:root[data-theme="light"] body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+:root[data-theme="dark"] body, :root[data-theme="auto"] body {
+  background-color: #04091A;
+  color: #F8FAFC;
+}
+[data-theme="light"] .fresh-page {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+}
+[data-theme="light"] .sb-animated-bg { opacity: .15; }

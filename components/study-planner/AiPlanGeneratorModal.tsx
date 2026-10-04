@@ -9,6 +9,7 @@ interface AiPlanGeneratorModalProps {
   onClose: () => void;
   onAddPlanToSchedule: (tasks: StudyTask[]) => void;
   initialSubject?: string;
+  startDate?: string;
 }
 
 interface GeneratedDay {
@@ -23,16 +24,22 @@ export const AiPlanGeneratorModal: React.FC<AiPlanGeneratorModalProps> = ({
   onClose,
   onAddPlanToSchedule,
   initialSubject = 'Mathematics',
+  startDate,
 }) => {
   const [subject, setSubject] = useState(initialSubject);
   const [topic, setTopic] = useState('Algebra & Quadratic Equations');
-  const [examDate, setExamDate] = useState('2025-09-02');
+  const [examDate, setExamDate] = useState(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 7);
+    return d.toISOString().slice(0, 10);
+  });
   const [dailyTime, setDailyTime] = useState('60');
   const [totalDays, setTotalDays] = useState('7');
 
   const [step, setStep] = useState<'input' | 'generating' | 'preview'>('input');
   const [loadingText, setLoadingText] = useState('Analyzing study topics...');
   const [generatedPlan, setGeneratedPlan] = useState<GeneratedDay[]>([]);
+  const [errorText, setErrorText] = useState('');
   const timersRef = useRef<NodeJS.Timeout[]>([]);
 
   useEffect(() => {
@@ -48,8 +55,6 @@ export const AiPlanGeneratorModal: React.FC<AiPlanGeneratorModalProps> = ({
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
-
-  const [errorText, setErrorText] = useState('');
 
   const handleGenerate = async () => {
     setErrorText('');
@@ -85,6 +90,7 @@ export const AiPlanGeneratorModal: React.FC<AiPlanGeneratorModalProps> = ({
   };
 
   const handleApplyPlan = () => {
+    const base = new Date(`${startDate || new Date().toISOString().slice(0, 10)}T12:00:00`);
     const tasksToAdd: StudyTask[] = generatedPlan.map((p, index) => {
       const colors: StudyTask['color'][] = ['teal', 'purple', 'cyan', 'orange', 'blue'];
       return {
@@ -94,7 +100,7 @@ export const AiPlanGeneratorModal: React.FC<AiPlanGeneratorModalProps> = ({
         durationMinutes: p.durationMinutes,
         completed: false,
         time: index === 0 ? '10:00 AM' : '04:00 PM',
-        date: `Day ${p.dayNum}`,
+        date: (() => { const d = new Date(base); d.setDate(d.getDate() + p.dayNum - 1); return d.toISOString().slice(0, 10); })(),
         color: colors[index % colors.length],
       };
     });

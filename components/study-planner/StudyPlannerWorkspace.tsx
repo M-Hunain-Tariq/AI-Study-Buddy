@@ -16,6 +16,40 @@ import { AiPlanGeneratorModal } from './AiPlanGeneratorModal';
 import { DeleteTaskModal } from './DeleteTaskModal';
 import { StudyTask, StudyGoal, RecommendedItem } from '@/types/study-planner';
 
+const getWeekMonday = (base = new Date()) => {
+  const d = new Date(base);
+  d.setHours(12, 0, 0, 0);
+  const day = d.getDay();
+  const diff = day === 0 ? -6 : 1 - day;
+  d.setDate(d.getDate() + diff);
+  return d;
+};
+
+const getWeekDate = (offset: number, base = new Date()) => {
+  const d = getWeekMonday(base);
+  d.setDate(d.getDate() + offset);
+  return d.toISOString().slice(0, 10);
+};
+
+const formatLongDate = (dateStr: string) =>
+  new Intl.DateTimeFormat('en-US', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })
+    .format(new Date(`${dateStr}T12:00:00`));
+
+const normalizePlannerTasks = (items: StudyTask[]) => items.map((t) => {
+  const legacyMatch = /^task-/.test(t.id) && typeof t.date === 'string' && t.date.startsWith('2025-');
+  const dayMatch = typeof t.date === 'string' ? /^Day (\d+)$/.exec(t.date) : null;
+  if (legacyMatch) {
+    const legacyDates: Record<string, number> = { '2025-08-26': 0, '2025-08-27': 1, '2025-08-28': 2, '2025-08-29': 3, '2025-08-30': 4, '2025-08-31': 5, '2025-09-01': 6 };
+    const offset = legacyDates[t.date!];
+    if (offset !== undefined) return { ...t, date: getWeekDate(offset) };
+  }
+  if (dayMatch) {
+    const offset = Math.max(0, Number(dayMatch[1]) - 1);
+    return { ...t, date: getWeekDate(offset) };
+  }
+  return t;
+});
+
 interface StudyPlannerWorkspaceProps {
   onNavigateAiTutor?: (prompt?: string) => void;
   onNavigateProgress?: () => void;
@@ -30,7 +64,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 60,
     completed: true,
     time: '10:00 AM',
-    date: '2025-08-26',
+    date: getWeekDate(0),
     color: 'teal',
     priority: 'High',
   },
@@ -41,7 +75,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 45,
     completed: false,
     time: '11:30 AM',
-    date: '2025-08-26',
+    date: getWeekDate(0),
     color: 'purple',
     priority: 'High',
   },
@@ -52,7 +86,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 30,
     completed: false,
     time: '02:00 PM',
-    date: '2025-08-26',
+    date: getWeekDate(0),
     color: 'orange',
     priority: 'Medium',
   },
@@ -63,7 +97,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 30,
     completed: false,
     time: '04:00 PM',
-    date: '2025-08-26',
+    date: getWeekDate(0),
     color: 'cyan',
     priority: 'Normal',
   },
@@ -75,7 +109,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 60,
     completed: false,
     time: '10:00 AM',
-    date: '2025-08-27',
+    date: getWeekDate(1),
     color: 'teal',
   },
   {
@@ -85,7 +119,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 60,
     completed: false,
     time: '01:00 PM',
-    date: '2025-08-27',
+    date: getWeekDate(1),
     color: 'purple',
   },
   {
@@ -95,7 +129,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 45,
     completed: false,
     time: '03:30 PM',
-    date: '2025-08-27',
+    date: getWeekDate(1),
     color: 'orange',
   },
   // Wednesday 28 Aug
@@ -106,7 +140,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 60,
     completed: false,
     time: '10:00 AM',
-    date: '2025-08-28',
+    date: getWeekDate(2),
     color: 'cyan',
   },
   {
@@ -116,7 +150,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 60,
     completed: false,
     time: '02:00 PM',
-    date: '2025-08-28',
+    date: getWeekDate(2),
     color: 'teal',
   },
   {
@@ -126,7 +160,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 45,
     completed: false,
     time: '04:00 PM',
-    date: '2025-08-28',
+    date: getWeekDate(2),
     color: 'purple',
   },
   // Thursday 29 Aug
@@ -137,7 +171,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 45,
     completed: false,
     time: '11:00 AM',
-    date: '2025-08-29',
+    date: getWeekDate(3),
     color: 'orange',
   },
   {
@@ -147,7 +181,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 45,
     completed: false,
     time: '02:30 PM',
-    date: '2025-08-29',
+    date: getWeekDate(3),
     color: 'cyan',
   },
   {
@@ -157,7 +191,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 60,
     completed: false,
     time: '04:30 PM',
-    date: '2025-08-29',
+    date: getWeekDate(3),
     color: 'teal',
   },
   // Friday 30 Aug
@@ -168,7 +202,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 60,
     completed: false,
     time: '10:30 AM',
-    date: '2025-08-30',
+    date: getWeekDate(4),
     color: 'purple',
   },
   {
@@ -178,7 +212,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 60,
     completed: false,
     time: '02:00 PM',
-    date: '2025-08-30',
+    date: getWeekDate(4),
     color: 'teal',
   },
   // Saturday 31 Aug
@@ -189,7 +223,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 90,
     completed: false,
     time: '10:00 AM',
-    date: '2025-08-31',
+    date: getWeekDate(5),
     color: 'teal',
   },
   {
@@ -199,7 +233,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 60,
     completed: false,
     time: '03:00 PM',
-    date: '2025-08-31',
+    date: getWeekDate(5),
     color: 'purple',
   },
   // Sunday 1 Sep
@@ -210,7 +244,7 @@ const DEFAULT_TASKS: StudyTask[] = [
     durationMinutes: 60,
     completed: false,
     time: '11:00 AM',
-    date: '2025-09-01',
+    date: getWeekDate(6),
     color: 'orange',
   },
 ];
@@ -220,7 +254,7 @@ const DEFAULT_GOALS: StudyGoal[] = [
     id: 'goal-1',
     title: 'Complete Maths Chapter 3',
     subject: 'Mathematics',
-    dueDate: 'Fri, 29 Aug 2025',
+    dueDate: formatLongDate(getWeekDate(4)),
     completed: true,
     priority: 'High',
     targetSessions: 4,
@@ -230,7 +264,7 @@ const DEFAULT_GOALS: StudyGoal[] = [
     id: 'goal-2',
     title: 'Finish Physics Notes',
     subject: 'Physics',
-    dueDate: 'Sat, 30 Aug 2025',
+    dueDate: formatLongDate(getWeekDate(5)),
     completed: false,
     priority: 'High',
     targetSessions: 3,
@@ -240,7 +274,7 @@ const DEFAULT_GOALS: StudyGoal[] = [
     id: 'goal-3',
     title: 'Write English Essay',
     subject: 'English',
-    dueDate: 'Mon, 1 Sep 2025',
+    dueDate: formatLongDate(getWeekDate(6)),
     completed: false,
     priority: 'Medium',
     targetSessions: 2,
@@ -250,7 +284,7 @@ const DEFAULT_GOALS: StudyGoal[] = [
     id: 'goal-4',
     title: 'Revise Chemistry',
     subject: 'Chemistry',
-    dueDate: 'Tue, 2 Sep 2025',
+    dueDate: formatLongDate(getWeekDate(7)),
     completed: false,
     priority: 'Normal',
     targetSessions: 4,
@@ -275,7 +309,7 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
           if (Array.isArray(parsed) && parsed.length > 0) {
             // Verify each item has minimal required shape
             const valid = parsed.every((t) => t && typeof t.id === 'string' && typeof t.subject === 'string');
-            if (valid) return parsed;
+            if (valid) return normalizePlannerTasks(parsed);
           }
         }
       } catch {
@@ -284,6 +318,10 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
     }
     return DEFAULT_TASKS;
   });
+
+  useEffect(() => {
+    setTasks((current) => { const normalized = normalizePlannerTasks(current); try { localStorage.setItem('study_planner_tasks', JSON.stringify(normalized)); } catch {} return normalized; });
+  }, []);
 
   const [goals, setGoals] = useState<StudyGoal[]>(() => {
     if (typeof window !== 'undefined') {
@@ -303,7 +341,7 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
     return DEFAULT_GOALS;
   });
 
-  const [selectedDate, setSelectedDate] = useState<string>('2025-08-26');
+  const [selectedDate, setSelectedDate] = useState<string>(getWeekDate(0));
   const [selectedSubjectFilter, setSelectedSubjectFilter] = useState<string | null>(null);
 
   // Modals state
@@ -481,25 +519,14 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
 
   // Tasks for Today's Plan: filtered by selectedDate and optional subject filter
   const todayTasks = tasks.filter((t) => {
-    const matchesDate = (t.date || '2025-08-26') === selectedDate;
+    const matchesDate = (t.date || getWeekDate(0)) === selectedDate;
     const matchesSubject = selectedSubjectFilter
       ? t.subject.toLowerCase() === selectedSubjectFilter.toLowerCase()
       : true;
     return matchesDate && matchesSubject;
   });
 
-  const formatDisplayDate = (dateStr: string) => {
-    const map: Record<string, string> = {
-      '2025-08-26': 'Mon, 26 Aug 2025',
-      '2025-08-27': 'Tue, 27 Aug 2025',
-      '2025-08-28': 'Wed, 28 Aug 2025',
-      '2025-08-29': 'Thu, 29 Aug 2025',
-      '2025-08-30': 'Fri, 30 Aug 2025',
-      '2025-08-31': 'Sat, 31 Aug 2025',
-      '2025-09-01': 'Sun, 1 Sep 2025',
-    };
-    return map[dateStr] || dateStr;
-  };
+  const formatDisplayDate = (dateStr: string) => formatLongDate(dateStr);
 
   return (
     <div className="space-y-4">
@@ -631,7 +658,7 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
             if (onNavigateProgress) {
               onNavigateProgress();
             } else {
-              showToast('My Progress tracker will be unlocked in Step 7!', 'info');
+              showToast('My Progress is available from the navigation.', 'info');
             }
           }}
         />
@@ -678,6 +705,7 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
           isOpen={isAiPlanOpen}
           onClose={() => setIsAiPlanOpen(false)}
           onAddPlanToSchedule={handleApplyAiPlan}
+          startDate={selectedDate}
           initialSubject={selectedSubjectFilter || 'Mathematics'}
         />
       )}

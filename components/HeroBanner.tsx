@@ -14,7 +14,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
   onAskAiTutor,
 }) => {
   return (
-    <div className="relative overflow-hidden rounded-[20px] sm:rounded-[24px] bg-[#070D1E] border border-[#1A284A] hover:border-blue-500/40 shadow-[0_20px_50px_rgba(2,6,23,0.85),0_0_35px_rgba(37,99,235,0.15)] transition-all duration-300 min-h-[185px] sm:min-h-[260px] lg:h-[320px] flex items-center group">
+    <div className="relative overflow-hidden rounded-[20px] sm:rounded-[24px] bg-[#070D1E] border border-[#1A284A] hover:border-blue-500/40 shadow-[0_20px_50px_rgba(2,6,23,0.85),0_0_35px_rgba(37,99,235,0.15)] transition-all duration-300 min-h-[235px] sm:min-h-[280px] lg:h-[320px] flex items-center group">
       {/* 1. CRYSTAL-CLEAR FULL-CARD IMAGE (Zero blur overlays over the scene) */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
         <Image
@@ -37,13 +37,13 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
       <div className="absolute inset-0 rounded-[20px] sm:rounded-[24px] ring-1 ring-inset ring-white/10 pointer-events-none z-10" />
 
       {/* "Keep Going! 💖" handwritten quote overlay floating naturally above the desk scene */}
-      <div className="absolute top-2.5 right-3 sm:top-5 sm:right-16 lg:right-24 z-20 flex items-center gap-1 -rotate-6 font-serif italic text-[#FBBF24] text-[11px] sm:text-sm font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] animate-float-slow pointer-events-none select-none">
+      <div className="absolute top-2.5 right-3 sm:top-5 sm:right-16 lg:right-24 z-20 flex items-center gap-1 -rotate-6 font-serif italic text-[#FBBF24] text-xs sm:text-sm font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] animate-float-slow pointer-events-none select-none">
         <span>Keep Going!</span>
-        <span className="text-pink-400 text-[11px] sm:text-sm drop-shadow-[0_0_10px_rgba(244,114,182,0.9)]">💖</span>
+        <span className="text-pink-400 text-xs sm:text-sm drop-shadow-[0_0_10px_rgba(244,114,182,0.9)]">💖</span>
       </div>
 
       {/* FOREGROUND CONTENT: Integrated cleanly across the left half */}
-      <div className="relative z-20 w-full max-w-xl p-3.5 sm:p-8 lg:p-10 flex flex-col justify-center space-y-2 sm:space-y-4">
+      <div className="relative z-20 w-full max-w-xl p-5 sm:p-8 lg:p-10 flex flex-col justify-center space-y-2 sm:space-y-4">
         {/* Welcome Tag */}
         <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#0D1836]/90 border border-[#213560] text-[10px] sm:text-xs font-semibold text-indigo-300 w-fit shadow-inner">
           <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-indigo-400" />
@@ -51,14 +51,14 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
         </div>
 
         <div>
-          <h2 className="text-xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-tight">
             Welcome to your{' '}
             <span className="bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(168,85,247,0.55)]">
               Study Space
             </span>{' '}
             👋
           </h2>
-          <p className="text-[11px] sm:text-sm text-slate-300 font-normal mt-0.5 sm:mt-1.5 line-clamp-1 sm:line-clamp-none">
+          <p className="text-xs sm:text-sm text-slate-300 font-normal mt-0.5 sm:mt-1.5 line-clamp-1 sm:line-clamp-none">
             Your new study workspace is ready. Start with one small step.
           </p>
         </div>

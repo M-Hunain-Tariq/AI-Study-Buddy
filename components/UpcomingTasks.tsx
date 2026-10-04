@@ -8,17 +8,19 @@ import { useToast } from './Toast';
 interface UpcomingTasksProps {
   tasks: Task[];
   onToggleTask: (id: string) => void;
+  onViewAll?: () => void;
 }
 
 export const UpcomingTasks: React.FC<UpcomingTasksProps> = ({
   tasks,
   onToggleTask,
+  onViewAll,
 }) => {
   const { showToast } = useToast();
   const remainingCount = tasks.filter((t) => !t.completed).length;
 
   return (
-    <div className="rounded-2xl bg-[#0A132C] border border-[#162544] hover:border-[#243B6B] p-5 shadow-lg hover:shadow-[0_0_25px_rgba(59,130,246,0.15)] flex flex-col justify-between transition-all duration-300 h-full min-h-[300px]">
+    <div className="rounded-2xl bg-[#0A132C] border border-[#162544] hover:border-[#243B6B] p-4 sm:p-5 shadow-lg hover:shadow-[0_0_25px_rgba(59,130,246,0.15)] flex flex-col justify-between transition-all duration-300 h-full min-h-[320px]">
       {/* Header matching Image 1 */}
       <div className="flex items-center justify-between pb-3.5 border-b border-[#142240]">
         <div className="flex items-center gap-2.5">
@@ -96,7 +98,7 @@ export const UpcomingTasks: React.FC<UpcomingTasksProps> = ({
       {/* Footer matching Image 1 */}
       <div className="mt-3 pt-3 border-t border-[#142240]">
         <button
-          onClick={() => showToast('Full Tasks Kanban & Calendar view in Step 5', 'info')}
+          onClick={() => onViewAll ? onViewAll() : showToast('Open Tasks from the navigation.', 'info')}
           className="text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1 cursor-pointer"
         >
           View All Tasks →

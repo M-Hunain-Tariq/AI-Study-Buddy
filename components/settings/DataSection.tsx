@@ -58,9 +58,16 @@ export const DataSection: React.FC<SectionProps> = ({ settings, update, onBack }
     reader.onload = () => {
       try {
         const data = JSON.parse(String(reader.result));
-        if (!data || typeof data !== 'object' || !data.settings) throw new Error('bad');
-        update(() => ({ ...DEFAULT_SETTINGS, ...data.settings, profile: { ...DEFAULT_SETTINGS.profile, ...data.settings.profile } }));
-        showToast('Backup imported', 'success');
+        if (!data || typeof data !== 'object' || !data.settings || typeof data.storage !== 'object' || data.storage === null) throw new Error('bad');
+        const storage = data.storage as Record<string, unknown>;
+        for (const [key, value] of Object.entries(storage)) {
+          if (!key || key.length > 200 || !/^[\w.-]+$/.test(key)) continue;
+          if (value === null) localStorage.removeItem(key);
+          else if (typeof value === 'string') localStorage.setItem(key, value);
+        }
+        update(() => ({ ...DEFAULT_SETTINGS, ...data.settings, profile: { ...DEFAULT_SETTINGS.profile, ...data.settings.profile }, notifications: { ...DEFAULT_SETTINGS.notifications, ...data.settings.notifications }, privacy: { ...DEFAULT_SETTINGS.privacy, ...data.settings.privacy }, advanced: { ...DEFAULT_SETTINGS.advanced, ...data.settings.advanced } }));
+        showToast('Backup imported. Reloading your saved data...', 'success');
+        window.setTimeout(() => window.location.reload(), 250);
       } catch {
         showToast('That file is not a valid Study Buddy backup.', 'info');
       }

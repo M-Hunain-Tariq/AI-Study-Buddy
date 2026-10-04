@@ -21,18 +21,27 @@ export const WeeklyScheduleCard: React.FC<WeeklyScheduleCardProps> = ({
   onSelectSession,
   onAddTaskForDate,
 }) => {
-  const days = [
-    { dayShort: 'Mon', dateNum: 26, dateFull: '2025-08-26', isToday: true, targetMinutes: 240 },
-    { dayShort: 'Tue', dateNum: 27, dateFull: '2025-08-27', targetMinutes: 210 },
-    { dayShort: 'Wed', dateNum: 28, dateFull: '2025-08-28', targetMinutes: 240 },
-    { dayShort: 'Thu', dateNum: 29, dateFull: '2025-08-29', targetMinutes: 200 },
-    { dayShort: 'Fri', dateNum: 30, dateFull: '2025-08-30', targetMinutes: 180 },
-    { dayShort: 'Sat', dateNum: 31, dateFull: '2025-08-31', targetMinutes: 240 },
-    { dayShort: 'Sun', dateNum: 1, dateFull: '2025-09-01', targetMinutes: 120 },
-  ];
+  const monday = React.useMemo(() => {
+    const d = new Date();
+    d.setHours(12, 0, 0, 0);
+    const day = d.getDay();
+    d.setDate(d.getDate() + (day === 0 ? -6 : 1 - day));
+    return d;
+  }, []);
 
-  // Tasks for current selected date
-  const dayTasks = tasks.filter((t) => (t.date || '2025-08-26') === selectedDate);
+  const days = React.useMemo(() => Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    return {
+      dayShort: new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(d),
+      dateNum: d.getDate(),
+      dateFull: d.toISOString().slice(0, 10),
+      isToday: d.toDateString() === new Date().toDateString(),
+      targetMinutes: [240, 210, 240, 200, 180, 240, 120][i],
+    };
+  }), [monday]);
+
+  const dayTasks = tasks.filter((t) => (t.date || days[0].dateFull) === selectedDate);
   const currentDayInfo = days.find((d) => d.dateFull === selectedDate) || days[0];
 
   const totalStudyMinutes = dayTasks.reduce((acc, t) => acc + (t.durationMinutes || 0), 0);

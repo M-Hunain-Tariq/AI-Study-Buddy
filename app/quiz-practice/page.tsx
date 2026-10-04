@@ -39,7 +39,7 @@ function QuizPracticePageContent() {
       />
 
       {/* Main Viewport Content Area */}
-      <div className="relative z-10 flex-1 flex flex-col lg:pl-[240px] transition-all duration-300">
+      <div className="relative z-10 flex-1 flex flex-col lg:pl-[256px] transition-all duration-300">
         {/* Sticky Header */}
         <Header
           onOpenMobileMenu={() => setIsSidebarOpen(true)}
@@ -47,7 +47,7 @@ function QuizPracticePageContent() {
         />
 
         {/* Quiz & Practice Main Canvas matching image.png */}
-        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1480px] mx-auto space-y-4 sm:space-y-5">
+        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1600px] mx-auto space-y-5 sm:space-y-6">
           <QuizPracticeWorkspace />
         </main>
       </div>

@@ -19,7 +19,7 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
 }) => {
   const [title, setTitle] = useState('');
   const [subject, setSubject] = useState(defaultSubject);
-  const [dueDate, setDueDate] = useState('Sun, 31 Aug 2025');
+  const [dueDate, setDueDate] = useState(() => new Intl.DateTimeFormat('en-US', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }).format(new Date()));
   const [priority, setPriority] = useState<StudyGoal['priority']>('High');
   const [targetSessions, setTargetSessions] = useState(4);
   const [errorMessage, setErrorMessage] = useState('');
@@ -165,7 +165,7 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
                 type="text"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                placeholder="Sun, 31 Aug 2025"
+                placeholder="e.g. Fri, 10 Oct 2026"
                 className="w-full px-3 py-2 rounded-xl bg-[#0C1736] border border-[#1F3563] text-white text-xs focus:outline-none focus:border-purple-500"
               />
             </div>

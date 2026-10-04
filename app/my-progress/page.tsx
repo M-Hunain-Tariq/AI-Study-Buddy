@@ -23,12 +23,12 @@ function MyProgressPageContent() {
       />
 
       {/* Main Viewport */}
-      <div className="relative z-10 flex-1 flex flex-col lg:pl-[240px] transition-all duration-300">
+      <div className="relative z-10 flex-1 flex flex-col lg:pl-[256px] transition-all duration-300">
         <Header
           onOpenMobileMenu={() => setIsSidebarOpen(true)}
         />
 
-        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1480px] mx-auto space-y-4 sm:space-y-5 pb-24 lg:pb-6">
+        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1600px] mx-auto space-y-5 sm:space-y-6 pb-24 lg:pb-6">
           <MyProgressWorkspace />
         </main>
       </div>

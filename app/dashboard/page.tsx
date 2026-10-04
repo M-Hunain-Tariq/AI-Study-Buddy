@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { ToastProvider, useToast } from '@/components/Toast';
 import { Sidebar } from '@/components/Sidebar';
@@ -39,13 +39,22 @@ function DashboardContent() {
   // Initial realistic school tasks matching Image 1
   const [tasks, setTasks] = useState<Task[]>([]);
 
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('study_tasks_v4');
+      if (raw) { const parsed = JSON.parse(raw); if (Array.isArray(parsed)) setTasks(parsed); }
+    } catch { /* ignore corrupt storage */ }
+  }, []);
+
   const handleToggleTask = (id: string) => {
     const target = tasks.find((t) => t.id === id);
     if (!target) return;
     const nextState = !target.completed;
-    setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, completed: nextState } : t))
-    );
+    setTasks((prev) => {
+      const next = prev.map((t) => (t.id === id ? { ...t, completed: nextState } : t));
+      try { localStorage.setItem('study_tasks_v4', JSON.stringify(next)); } catch { /* ignore storage errors */ }
+      return next;
+    });
     showToast(
       nextState
         ? `Task completed: "${target.title}" 🎉`
@@ -80,7 +89,7 @@ function DashboardContent() {
       />
 
       {/* Main Viewport Content Area */}
-      <div className="relative z-10 flex-1 flex flex-col lg:pl-[240px] transition-all duration-300">
+      <div className="relative z-10 flex-1 flex flex-col lg:pl-[256px] transition-all duration-300">
         {/* Sticky Header */}
         <Header
           onOpenMobileMenu={() => setIsSidebarOpen(true)}
@@ -88,15 +97,15 @@ function DashboardContent() {
         />
 
         {/* Dynamic Page Canvas */}
-        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1480px] mx-auto space-y-4 sm:space-y-5 pb-24 lg:pb-6">
+        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1600px] mx-auto space-y-5 sm:space-y-6 pb-24 lg:pb-6">
           {currentPage === 'Dashboard' && (
             /* STEP 1: DASHBOARD PAGE VIEW */
             <div>
               {/* Mobile Tab Switcher to prevent endless scrolling */}
-              <div className="lg:hidden flex items-center p-1 rounded-xl bg-[#070F24] border border-[#16274D] shadow-inner mb-3">
+              <div className="lg:hidden flex items-center p-1 rounded-xl bg-[#070F24] border border-[#16274D] shadow-inner mb-4">
                 <button
                   onClick={() => setDashboardMobileTab('overview')}
-                  className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                  className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                     dashboardMobileTab === 'overview'
                       ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
                       : 'text-slate-400 hover:text-white'
@@ -106,7 +115,7 @@ function DashboardContent() {
                 </button>
                 <button
                   onClick={() => setDashboardMobileTab('schedule')}
-                  className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                  className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                     dashboardMobileTab === 'schedule'
                       ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.5)]'
                       : 'text-slate-400 hover:text-white'
@@ -132,20 +141,21 @@ function DashboardContent() {
                   />
 
                   {/* 2. Key Statistics (4 Cards in compact 2x2 grid on mobile) */}
-                  <StatCards completedTasksCount={5} />
+                  <StatCards completedTasksCount={tasks.filter((t) => t.completed).length} totalTasksCount={tasks.length} />
 
                   {/* 3. Balanced 2x2 Grid: [Today's Tasks, Weekly Progress, Recent Notes, Quick Actions] with Identical Heights */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 items-stretch">
-                    <div className="h-[310px]">
+                    <div className="min-h-[310px] lg:h-[310px]">
                       <UpcomingTasks
                         tasks={tasks}
                         onToggleTask={handleToggleTask}
+                        onViewAll={() => setCurrentPage('Tasks')}
                       />
                     </div>
-                    <div className="h-[310px]">
+                    <div className="min-h-[310px] lg:h-[310px]">
                       <WeeklyProgress />
                     </div>
-                    <div className="h-[310px]">
+                    <div className="min-h-[310px] lg:h-[310px]">
                       <RecentNotes
                         onSelectNote={() => {
                           setCurrentPage('My Notes');
@@ -157,13 +167,14 @@ function DashboardContent() {
                         }}
                       />
                     </div>
-                    <div className="h-[310px]">
+                    <div className="min-h-[310px] lg:h-[310px]">
                       <QuickActions
                         onAskAiTutor={() => handleOpenAiTutor()}
                         onNavigateStudyPlanner={() => {
                           setCurrentPage('Study Planner');
                           showToast('Navigated to Study Planner', 'info');
                         }}
+                        onNavigateQuiz={() => setCurrentPage('Quiz & Practice')}
                         onOpenNote={() => {
                           setOpenCreateModalOnNotes(true);
                           setCurrentPage('My Notes');
@@ -190,10 +201,10 @@ function DashboardContent() {
             /* STEP 2: AI TUTOR PAGE VIEW */
             <div>
               {/* Mobile Tab Switcher */}
-              <div className="lg:hidden flex items-center p-1 rounded-xl bg-[#070F24] border border-[#16274D] shadow-inner mb-3">
+              <div className="lg:hidden flex items-center p-1 rounded-xl bg-[#070F24] border border-[#16274D] shadow-inner mb-4">
                 <button
                   onClick={() => setAiTutorMobileTab('chat')}
-                  className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                  className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                     aiTutorMobileTab === 'chat'
                       ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
                       : 'text-slate-400 hover:text-white'
@@ -203,7 +214,7 @@ function DashboardContent() {
                 </button>
                 <button
                   onClick={() => setAiTutorMobileTab('prompts')}
-                  className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                  className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                     aiTutorMobileTab === 'prompts'
                       ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.5)]'
                       : 'text-slate-400 hover:text-white'

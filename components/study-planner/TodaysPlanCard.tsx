@@ -21,7 +21,7 @@ export const TodaysPlanCard: React.FC<TodaysPlanCardProps> = ({
   onViewFullPlan,
   onEditTask,
   onDeleteTask,
-  displayDate = 'Mon, 26 Aug 2025',
+  displayDate = new Intl.DateTimeFormat('en-US', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }).format(new Date()),
 }) => {
   const [activeMenuId, setActiveMenuId] = useState<string | null>(null);
 

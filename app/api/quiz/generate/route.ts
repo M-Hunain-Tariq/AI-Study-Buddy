@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Type } from '@google/genai';
 import { describeAiError, generate } from '@/lib/ai/gemini';
+import { checkAiRateLimit, getClientKey } from '@/lib/ai/rate-limit';
 
 
 interface FormattedQuestion {
@@ -20,6 +21,8 @@ interface GenerateQuizRequest {
 }
 
 export async function POST(req: NextRequest) {
+  const limit = checkAiRateLimit(getClientKey(req));
+  if (!limit.ok) return NextResponse.json({ error: 'Too many AI requests. Please try again shortly.' }, { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } });
   try {
     const body: GenerateQuizRequest = await req.json();
     const {

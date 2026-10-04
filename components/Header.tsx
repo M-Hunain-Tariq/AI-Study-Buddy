@@ -119,13 +119,13 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-30 w-full bg-[#060C1D]/90 backdrop-blur-md border-b border-[#142240] px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-4 transition-all">
+    <header className="sticky top-0 z-30 w-full bg-[#060C1D]/90 backdrop-blur-md border-b border-[#142240] px-3 sm:px-6 py-3 sm:py-3.5 flex items-center justify-between gap-2 sm:gap-4 transition-all">
       {/* Search Input */}
       <div className="flex items-center gap-2 sm:gap-3 flex-1 max-w-xl min-w-0">
         {/* Mobile Hamburger */}
         <button
           onClick={onOpenMobileMenu}
-          className="lg:hidden p-2 rounded-xl text-slate-300 hover:text-white bg-[#0A132C] border border-[#162544] transition-colors shrink-0"
+          className="lg:hidden p-2.5 rounded-xl text-slate-300 hover:text-white bg-[#0A132C] border border-[#162544] transition-colors shrink-0"
           aria-label="Open menu"
         >
           <Menu className="w-5 h-5" />
@@ -216,7 +216,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div ref={notifRef} className="relative">
           <button
             onClick={() => setShowNotifications(!showNotifications)}
-            className="relative p-2 rounded-xl text-slate-300 hover:text-white hover:bg-[#0A1630] transition-colors cursor-pointer"
+            className="relative p-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-[#0A1630] transition-colors cursor-pointer"
             aria-label="Notifications"
           >
             <Bell className="w-4 h-4" />
@@ -267,7 +267,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Theme indicator/toggle matching reference image */}
         <button
           onClick={() => router.push('/settings#appearance')}
-          className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-[#0A1630] transition-colors cursor-pointer"
+          className="p-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-[#0A1630] transition-colors cursor-pointer"
           aria-label="Theme mode"
         >
           <Sun className="w-4 h-4" />

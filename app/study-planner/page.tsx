@@ -25,9 +25,7 @@ function StudyPlannerPageContent() {
     showToast('Switched to AI Tutor Workspace!', 'ai');
   };
 
-  const handleNavigateProgress = () => {
-    showToast('My Progress page will be unlocked in Step 7!', 'info');
-  };
+  const handleNavigateProgress = () => { router.push('/my-progress'); };
 
   return (
     <div className="fresh-page relative min-h-screen bg-[#07101f] text-slate-100 flex flex-col selection:bg-blue-500/30 selection:text-white overflow-x-hidden">
@@ -43,7 +41,7 @@ function StudyPlannerPageContent() {
       />
 
       {/* Main Viewport Content Area */}
-      <div className="relative z-10 flex-1 flex flex-col lg:pl-[240px] transition-all duration-300">
+      <div className="relative z-10 flex-1 flex flex-col lg:pl-[256px] transition-all duration-300">
         {/* Sticky Header matching Dashboard & AI Tutor */}
         <Header
           onOpenMobileMenu={() => setIsSidebarOpen(true)}
@@ -51,7 +49,7 @@ function StudyPlannerPageContent() {
         />
 
         {/* Study Planner Main Canvas */}
-        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1480px] mx-auto space-y-4 sm:space-y-5">
+        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1600px] mx-auto space-y-5 sm:space-y-6">
           <StudyPlannerWorkspace
             onNavigateAiTutor={handleNavigateAiTutor}
             onNavigateProgress={handleNavigateProgress}

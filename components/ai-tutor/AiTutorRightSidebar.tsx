@@ -109,7 +109,7 @@ export const AiTutorRightSidebar: React.FC<AiTutorRightSidebarProps> = ({
           </div>
 
           <button
-            onClick={() => showToast('Full prompt library will be in Step 6 Practice Hub', 'info')}
+            onClick={() => showToast('Choose a prompt below or ask the AI Tutor directly.', 'info')}
             className="text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors cursor-pointer"
           >
             View All

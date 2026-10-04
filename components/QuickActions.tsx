@@ -8,12 +8,14 @@ interface QuickActionsProps {
   onAskAiTutor: () => void;
   onNavigateStudyPlanner?: () => void;
   onOpenNote?: () => void;
+  onNavigateQuiz?: () => void;
 }
 
 export const QuickActions: React.FC<QuickActionsProps> = ({
   onAskAiTutor,
   onNavigateStudyPlanner,
-  onOpenNote
+  onOpenNote,
+  onNavigateQuiz
 }) => {
   const { showToast } = useToast();
 
@@ -40,7 +42,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
       icon: Brain,
       color: 'bg-[#291333] hover:bg-[#381A46] border-[#441B54] hover:border-pink-500/60 shadow-[0_0_15px_rgba(236,72,153,0.12)]',
       iconColor: 'text-pink-300 bg-pink-600/30',
-      handler: () => showToast('Quiz & Practice generator will be available in Step 6.', 'info')
+      handler: () => { if (onNavigateQuiz) onNavigateQuiz(); else showToast('Quiz & Practice is available from the navigation.', 'info'); }
     },
     {
       title: 'Add Note',
@@ -55,7 +57,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
   ];
 
   return (
-    <div className="rounded-2xl bg-[#0A132C] border border-[#162544] hover:border-[#243B6B] p-5 shadow-lg hover:shadow-[0_0_25px_rgba(59,130,246,0.15)] flex flex-col justify-between transition-all duration-300 h-full min-h-[300px]">
+    <div className="rounded-2xl bg-[#0A132C] border border-[#162544] hover:border-[#243B6B] p-4 sm:p-5 shadow-lg hover:shadow-[0_0_25px_rgba(59,130,246,0.15)] flex flex-col justify-between transition-all duration-300 h-full min-h-[320px]">
       <div className="pb-3.5 border-b border-[#142240]">
         <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">
           Quick Actions
