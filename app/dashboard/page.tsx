@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { ToastProvider, useToast } from '@/components/Toast';
 import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
@@ -13,14 +14,14 @@ import { RecentNotes } from '@/components/RecentNotes';
 import { RightSidebarWidgets } from '@/components/RightSidebarWidgets';
 import { NoteDetailModal } from '@/components/NoteDetailModal';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
-import { AiTutorHero } from '@/components/ai-tutor/AiTutorHero';
-import { AiChatWorkspace } from '@/components/ai-tutor/AiChatWorkspace';
-import { AiTutorRightSidebar } from '@/components/ai-tutor/AiTutorRightSidebar';
-import { StudyPlannerWorkspace } from '@/components/study-planner/StudyPlannerWorkspace';
-import { MyNotesWorkspace } from '@/components/my-notes/MyNotesWorkspace';
-import { TasksWorkspace } from '@/components/tasks/TasksWorkspace';
-import { QuizPracticeWorkspace } from '@/components/quiz/QuizPracticeWorkspace';
-import { MyProgressWorkspace } from '@/components/my-progress/MyProgressWorkspace';
+const AiTutorHero = dynamic(() => import('@/components/ai-tutor/AiTutorHero').then((m) => m.AiTutorHero), { ssr: false });
+const AiChatWorkspace = dynamic(() => import('@/components/ai-tutor/AiChatWorkspace').then((m) => m.AiChatWorkspace), { ssr: false });
+const AiTutorRightSidebar = dynamic(() => import('@/components/ai-tutor/AiTutorRightSidebar').then((m) => m.AiTutorRightSidebar), { ssr: false });
+const StudyPlannerWorkspace = dynamic(() => import('@/components/study-planner/StudyPlannerWorkspace').then((m) => m.StudyPlannerWorkspace), { ssr: false });
+const MyNotesWorkspace = dynamic(() => import('@/components/my-notes/MyNotesWorkspace').then((m) => m.MyNotesWorkspace), { ssr: false });
+const TasksWorkspace = dynamic(() => import('@/components/tasks/TasksWorkspace').then((m) => m.TasksWorkspace), { ssr: false });
+const QuizPracticeWorkspace = dynamic(() => import('@/components/quiz/QuizPracticeWorkspace').then((m) => m.QuizPracticeWorkspace), { ssr: false });
+const MyProgressWorkspace = dynamic(() => import('@/components/my-progress/MyProgressWorkspace').then((m) => m.MyProgressWorkspace), { ssr: false });
 import { MobileBottomNav } from '@/components/MobileBottomNav';
 import { Task, NoteItem } from '@/types/dashboard';
 
@@ -62,7 +63,7 @@ function DashboardContent() {
   };
 
   return (
-    <div className="fresh-app-shell relative min-h-screen bg-[#07101f] text-slate-100 flex flex-col selection:bg-blue-500/30 selection:text-white overflow-x-hidden">
+    <div className="fresh-page fresh-app-shell relative min-h-screen bg-[#07101f] text-slate-100 flex flex-col selection:bg-blue-500/30 selection:text-white overflow-x-hidden">
       {/* Background Atmosphere with rich blue/purple lighting matching Image 1 */}
       <AnimatedBackground />
 

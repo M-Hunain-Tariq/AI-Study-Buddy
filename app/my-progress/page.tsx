@@ -12,7 +12,7 @@ function MyProgressPageContent() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="relative min-h-screen bg-[#04091A] text-slate-100 flex flex-col selection:bg-blue-500/30 selection:text-white overflow-x-hidden">
+    <div className="fresh-page relative min-h-screen bg-[#07101f] text-slate-100 flex flex-col selection:bg-blue-500/30 selection:text-white overflow-x-hidden">
       <AnimatedBackground />
 
       {/* Sidebar with active Item 'My Progress' */}

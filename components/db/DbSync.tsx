@@ -120,9 +120,11 @@ function start() {
       }
       flush();
 
-      if (restored && !sessionStorage.getItem('sb_db_restored')) {
-        sessionStorage.setItem('sb_db_restored', '1');
-        window.location.reload();
+      // Never force a full-page reload during navigation. A reload here made the
+      // landing-page CTA feel slow because the destination mounted, synced, and
+      // then immediately navigated again. Missing local state is restored silently.
+      if (restored) {
+        try { sessionStorage.setItem('sb_db_restored', '1'); } catch { /* ignore */ }
       }
     } catch {
       /* database unreachable - app continues on localStorage */

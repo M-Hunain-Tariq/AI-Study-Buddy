@@ -15,6 +15,7 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    router.prefetch('/dashboard');
     if (!isOpen) return;
     const timer = window.setTimeout(() => inputRef.current?.focus(), 120);
     return () => window.clearTimeout(timer);
