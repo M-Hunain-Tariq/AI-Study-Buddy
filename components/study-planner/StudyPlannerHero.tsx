@@ -20,7 +20,7 @@ export const StudyPlannerHero: React.FC<StudyPlannerHeroProps> = ({
   return (
     <div className="relative overflow-hidden rounded-[26px] bg-[#070D1E] border border-[#1A284A] hover:border-blue-500/40 shadow-[0_24px_60px_rgba(2,6,23,0.9),0_0_45px_rgba(37,99,235,0.18)] transition-all duration-300 min-h-[360px] sm:min-h-[380px] lg:min-h-[400px] flex flex-col justify-between group">
       {/* 1. CRYSTAL-CLEAR 3D ROBOT PLANNER SCENE (Right side stage with unoptimized to ensure 100% reliable load) */}
-      <div className="absolute inset-y-0 right-0 w-full sm:w-[52%] lg:w-[50%] h-full z-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
         <Image
           src="/images/study_planner_robot_hero.jpg"
           alt="Friendly 3D AI Robot student assistant planning study schedule with laptop and calendar"
@@ -33,18 +33,16 @@ export const StudyPlannerHero: React.FC<StudyPlannerHeroProps> = ({
           referrerPolicy="no-referrer"
         />
 
-        {/* Soft seam fade between robot picture and text container */}
-        <div className="absolute inset-y-0 left-0 w-28 sm:w-36 bg-gradient-to-r from-[#070D1E] to-transparent pointer-events-none" />
-
-        {/* Bottom subtle edge blend */}
-        <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#070D1E]/70 to-transparent pointer-events-none" />
+        {/* Full-card readability layers: artwork fills the entire card while content stays readable. */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#070D1E] via-[#070D1E]/72 sm:via-[#070D1E]/48 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#070D1E]/70 via-transparent to-[#070D1E]/15 pointer-events-none" />
       </div>
 
       {/* Inner subtle glow border reflection */}
       <div className="absolute inset-0 rounded-[26px] ring-1 ring-inset ring-white/10 pointer-events-none z-10" />
 
       {/* FOREGROUND CONTENT: Left half dedicated container */}
-      <div className="relative z-20 w-full sm:w-[56%] lg:w-[54%] p-6 sm:p-7 lg:p-8 flex flex-col justify-between h-full space-y-6">
+      <div className="relative z-20 w-full p-6 sm:p-7 lg:p-8 flex flex-col justify-between h-full space-y-6 max-w-3xl">
         <div className="space-y-3">
           {/* 1. Study Planner Badge matching screenshot */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#16274E]/90 border border-[#2B4379] text-xs font-semibold text-blue-300 w-fit shadow-inner">

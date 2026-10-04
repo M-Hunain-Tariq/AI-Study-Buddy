@@ -714,17 +714,18 @@ export const QuizPracticeWorkspace: React.FC = () => {
           {/* WIDGET 3: "PRACTICE TODAY, SCORE TOMORROW!" MATCHING image.png */}
           <div className="relative overflow-hidden rounded-[20px] sm:rounded-[22px] bg-gradient-to-r from-[#08122C] to-[#0A1028] border border-[#162544] p-4 sm:p-5 shadow-xl min-h-[140px] sm:min-h-[170px] flex flex-col justify-between group">
             {/* 3D Rocket Space Artwork */}
-            <div className="absolute right-0 top-0 bottom-0 w-32 sm:w-36 h-full z-0 overflow-hidden pointer-events-none">
+            <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
               <Image
                 src="/images/quiz_rocket_launch.jpg"
                 alt="3D Glowing rocket launching over dark mountains"
                 fill
                 unoptimized
-                sizes="150px"
+                sizes="100vw"
                 className="object-cover object-center opacity-70 transition-transform duration-700 group-hover:scale-105"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#08122C] via-[#08122C]/75 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#08122C] via-[#08122C]/72 to-[#08122C]/22 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#08122C]/65 via-transparent to-transparent pointer-events-none" />
             </div>
 
             <div className="relative z-10 max-w-[200px] space-y-1">

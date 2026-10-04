@@ -12,17 +12,19 @@ export const MotivationCard: React.FC<MotivationCardProps> = ({ onViewProgress }
   return (
     <div className="relative overflow-hidden rounded-[24px] bg-[#070D1E] border border-[#162544] hover:border-blue-500/35 shadow-[0_20px_45px_-8px_rgba(2,6,23,0.9),0_0_35px_-5px_rgba(37,99,235,0.15)] p-6 transition-all duration-300 min-h-[190px] sm:min-h-[210px] flex flex-col justify-between group">
       {/* Background Mountain Visual: Cleanly fills the right half with unoptimized */}
-      <div className="absolute inset-y-0 right-0 w-[58%] h-full pointer-events-none overflow-hidden rounded-r-[24px]">
+      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden rounded-[24px]">
         <Image
           src="/images/motivation_mountain_exact.jpg"
           alt="Majestic mountain summit with victory flag under cosmic starlight"
           fill
           unoptimized
           priority
-          sizes="(max-width: 1024px) 100vw, 30vw"
+          sizes="(max-width: 1024px) 100vw, 100vw"
           className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
           referrerPolicy="no-referrer"
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#070D1E] via-[#070D1E]/72 to-[#070D1E]/20 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#070D1E]/65 via-transparent to-transparent pointer-events-none" />
         <div className="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-[#070D1E] via-[#070D1E]/95 to-transparent pointer-events-none" />
       </div>
 
