@@ -1656,3 +1656,302 @@ img, svg { max-width: 100%; }
     padding-bottom: max(0.375rem, env(safe-area-inset-bottom));
   }
 }
+
+
+/* ================================================================
+   Landing page responsive redesign
+   ================================================================ */
+.landing-page {
+  isolation: isolate;
+  overflow-x: clip;
+}
+.landing-page section {
+  overflow-x: clip;
+}
+.landing-page .landing-hero {
+  min-height: min(860px, 100svh);
+}
+.landing-page .landing-hero-grid {
+  min-height: 620px;
+}
+.landing-page .landing-hero-copy {
+  max-width: 650px;
+}
+.landing-page .landing-hero-visual {
+  min-width: 0;
+}
+.landing-page .landing-section > .max-w-7xl,
+.landing-page .landing-section > div.max-w-7xl {
+  width: 100%;
+}
+.landing-page .landing-footer a,
+.landing-page button,
+.landing-page a {
+  touch-action: manipulation;
+}
+
+@media (max-width: 1023px) {
+  .landing-page .landing-hero {
+    min-height: auto;
+    padding-top: 7rem;
+    padding-bottom: 4.5rem;
+  }
+  .landing-page .landing-hero-grid {
+    min-height: auto;
+    gap: 2.5rem;
+  }
+  .landing-page .landing-hero-copy {
+    width: 100%;
+    max-width: 720px;
+    margin-inline: auto;
+  }
+  .landing-page .landing-hero-visual {
+    width: min(100%, 620px);
+    min-height: 420px;
+    margin-inline: auto;
+  }
+  .landing-page .landing-section {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .landing-page .landing-hero {
+    padding: 6.5rem 1rem 3.25rem;
+    min-height: auto;
+  }
+  .landing-page .landing-hero > div:first-of-type img {
+    opacity: .42;
+    object-position: 72% center;
+    filter: saturate(.88) contrast(1.02);
+  }
+  .landing-page .landing-hero > div:first-of-type > div:nth-child(2) {
+    width: 100%;
+    background: linear-gradient(90deg, rgba(2,7,23,.98) 0%, rgba(2,7,23,.90) 58%, rgba(2,7,23,.62) 100%);
+  }
+  .landing-page .landing-hero > div:first-of-type > div:nth-child(3) {
+    height: 120px;
+  }
+  .landing-page .landing-hero-grid {
+    gap: 1.75rem;
+  }
+  .landing-page .landing-hero-copy {
+    align-items: center;
+    text-align: center;
+  }
+  .landing-page .landing-hero-copy h1 {
+    font-size: clamp(2.55rem, 12vw, 4rem);
+    line-height: .98;
+    letter-spacing: -.045em;
+    margin-bottom: 1.15rem;
+  }
+  .landing-page .landing-hero-copy > * {
+    max-width: 100%;
+  }
+  .landing-page .landing-hero-copy p {
+    font-size: .98rem;
+    line-height: 1.65;
+    max-width: 34rem;
+    margin-bottom: 1.35rem;
+  }
+  .landing-page .landing-hero-copy > div:first-child > div {
+    max-width: calc(100vw - 2rem);
+    text-align: center;
+    padding-inline: .85rem;
+    white-space: normal;
+  }
+  .landing-page .landing-hero-trust {
+    width: 100%;
+    justify-content: center;
+    gap: .65rem 1rem;
+    padding: .8rem;
+    border-radius: 1.1rem;
+  }
+  .landing-page .landing-hero-trust > div {
+    flex: 0 1 auto;
+    justify-content: center;
+    max-width: 100%;
+  }
+  .landing-page .landing-hero-visual {
+    min-height: 275px;
+    width: min(100%, 430px);
+  }
+  /* On phones the robot is the visual anchor; floating widgets become subtle satellites. */
+  .landing-page .landing-hero-visual > * {
+    transform-origin: center;
+  }
+  .landing-page .landing-hero-visual .absolute {
+    max-width: 44%;
+  }
+  .landing-page .landing-hero-visual .absolute.top-4,
+  .landing-page .landing-hero-visual .absolute.top-8 {
+    top: 1.25rem;
+  }
+  .landing-page .landing-hero-visual .absolute.top-36,
+  .landing-page .landing-hero-visual .absolute.top-48 {
+    top: 7rem;
+  }
+  .landing-page .landing-hero-visual .absolute.top-52,
+  .landing-page .landing-hero-visual .absolute.top-64 {
+    top: 10.5rem;
+  }
+  .landing-page .landing-hero-visual .absolute.top-2,
+  .landing-page .landing-hero-visual .absolute.top-6 {
+    top: .6rem;
+  }
+  .landing-page .landing-section {
+    padding: 3.75rem 1rem;
+  }
+  .landing-page .landing-section .max-w-7xl {
+    max-width: 100%;
+  }
+  .landing-page .landing-section h2 {
+    font-size: clamp(2rem, 9vw, 3rem);
+    line-height: 1.05;
+  }
+  .landing-page .landing-section > .max-w-7xl > div:first-child {
+    margin-bottom: 2rem;
+  }
+  .landing-page #why-studybuddy .grid,
+  .landing-page #reviews .grid {
+    gap: .9rem;
+  }
+  .landing-page #why-studybuddy .group,
+  .landing-page #reviews .group {
+    min-width: 0;
+  }
+  .landing-page #why-studybuddy .group {
+    padding: 1.15rem;
+    border-radius: 1.2rem;
+  }
+  .landing-page #why-studybuddy .absolute.w-\[160px\],
+  .landing-page #why-studybuddy .absolute.w-\[220px\] {
+    opacity: .22;
+  }
+  .landing-page #how-it-works .grid {
+    gap: 1.5rem;
+  }
+  .landing-page #how-it-works .col-span-3,
+  .landing-page #how-it-works .col-span-9 {
+    min-width: 0;
+  }
+  .landing-page #how-it-works .grid-cols-12 {
+    grid-template-columns: 1fr;
+  }
+  .landing-page #how-it-works .grid-cols-12 > .col-span-3,
+  .landing-page #how-it-works .grid-cols-12 > .col-span-9,
+  .landing-page #how-it-works .grid-cols-12 > .sm\:col-span-4,
+  .landing-page #how-it-works .grid-cols-12 > .sm\:col-span-8 {
+    grid-column: 1 / -1;
+  }
+  .landing-page #how-it-works .grid-cols-12 > .col-span-3 {
+    border-right: 0;
+    border-bottom: 1px solid rgba(59,130,246,.15);
+  }
+  .landing-page #how-it-works .grid-cols-12 > .col-span-3 {
+    display: none;
+  }
+  .landing-page #see-it-in-action .grid {
+    gap: 1rem;
+  }
+  .landing-page #see-it-in-action .grid-cols-12 {
+    grid-template-columns: 1fr;
+  }
+  .landing-page #see-it-in-action [class*="col-span-"] {
+    grid-column: 1 / -1;
+  }
+  .landing-page #see-it-in-action .min-h-\[340px\],
+  .landing-page #how-it-works .min-h-\[440px\] {
+    min-height: 0;
+  }
+  .landing-page #see-it-in-action .overflow-x-auto {
+    scrollbar-width: none;
+  }
+  .landing-page #see-it-in-action .overflow-x-auto::-webkit-scrollbar {
+    display: none;
+  }
+  .landing-page .landing-final-cta {
+    min-height: auto;
+    padding: 5rem 1rem;
+  }
+  .landing-page .landing-final-cta h2 {
+    font-size: clamp(2.2rem, 10vw, 3.5rem);
+  }
+  .landing-page .landing-final-cta button {
+    width: 100%;
+    max-width: 22rem;
+    justify-content: center;
+    padding: .95rem 1.25rem;
+    font-size: 1rem;
+  }
+  .landing-page .landing-footer {
+    padding: 2rem 1rem calc(2rem + env(safe-area-inset-bottom));
+  }
+  .landing-page .landing-footer > div {
+    width: 100%;
+  }
+  .landing-page .landing-footer .flex.items-center.gap-6 {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .75rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-page .landing-hero {
+    padding-inline: .8rem;
+  }
+  .landing-page .landing-hero-copy h1 {
+    font-size: clamp(2.35rem, 13vw, 3.25rem);
+  }
+  .landing-page .landing-hero-copy p {
+    font-size: .92rem;
+  }
+  .landing-page .landing-hero-copy > div:first-child > div {
+    font-size: .68rem;
+    letter-spacing: .01em;
+  }
+  .landing-page .landing-hero-visual {
+    min-height: 240px;
+  }
+  .landing-page .landing-hero-visual .absolute {
+    transform: scale(.82);
+  }
+  .landing-page .landing-section {
+    padding-inline: .8rem;
+  }
+  .landing-page #why-studybuddy .grid,
+  .landing-page #reviews .grid {
+    grid-template-columns: 1fr;
+  }
+  .landing-page #why-studybuddy .group {
+    padding: 1.1rem;
+  }
+  .landing-page #reviews .group {
+    padding: 1.2rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .landing-page .landing-hero {
+    padding-top: 6rem;
+  }
+  .landing-page .landing-hero-trust {
+    font-size: .68rem;
+  }
+  .landing-page .landing-hero-visual {
+    min-height: 210px;
+  }
+  .landing-page .landing-hero-visual .absolute {
+    transform: scale(.72);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-page .landing-hero-visual .absolute,
+  .landing-page .landing-hero-visual img {
+    animation: none !important;
+  }
+}

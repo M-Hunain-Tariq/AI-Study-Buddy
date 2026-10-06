@@ -29,7 +29,7 @@ export const Hero: React.FC = () => {
   const currentSpeech = speechMessages[bubbleMessageIndex];
 
   return (
-    <section className="relative min-h-[680px] lg:min-h-[820px] flex items-center pt-20 sm:pt-24 pb-20 px-6 overflow-hidden">
+    <section className="landing-hero relative min-h-[680px] lg:min-h-[820px] flex items-center pt-20 sm:pt-24 pb-20 px-6 overflow-hidden">
       {/* 1. Cinematic Robot Scene Background Picture */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
         <div className="w-full h-full">
@@ -51,10 +51,10 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* 2. Hero Foreground Content Grid */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <div className="landing-hero-grid relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
         
         {/* Left Column: High-Impact Typography & Interactive CTAs */}
-        <div className="lg:col-span-6 xl:col-span-5 flex flex-col items-start pt-4 lg:pt-0">
+        <div className="landing-hero-copy lg:col-span-6 xl:col-span-5 flex flex-col items-start pt-4 lg:pt-0">
           
           {/* Badge: ✦ Your AI-Powered Study Companion */}
           <ScrollReveal animation="fade-down" delay={100}>
@@ -94,7 +94,7 @@ export const Hero: React.FC = () => {
 
           {/* Trust Indicators */}
           <ScrollReveal animation="fade-up" delay={400}>
-            <div className="flex flex-wrap items-center gap-y-3 gap-x-6 text-xs text-slate-200 font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] p-3 rounded-2xl bg-[#030d24]/65 border border-cyan-500/25 backdrop-blur-md mb-4 shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:border-cyan-400/50 transition-colors">
+            <div className="landing-hero-trust flex flex-wrap items-center gap-y-3 gap-x-6 text-xs text-slate-200 font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] p-3 rounded-2xl bg-[#030d24]/65 border border-cyan-500/25 backdrop-blur-md mb-4 shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:border-cyan-400/50 transition-colors">
               <div className="flex items-center gap-2 group hover:text-cyan-300 transition-colors cursor-default">
                 <CheckCircle2 className="w-4 h-4 text-[#38bdf8] group-hover:scale-120 group-hover:rotate-12 transition-transform drop-shadow-[0_0_6px_#38bdf8]" />
                 <span>No credit card required</span>
@@ -113,7 +113,7 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* Right Column: Floating Holographic Cards & Animated Speech Bubble around 3D Robot */}
-        <div className="lg:col-span-6 xl:col-span-7 relative min-h-[380px] sm:min-h-[460px] lg:min-h-[580px] flex items-center justify-center pointer-events-auto select-none">
+        <div className="landing-hero-visual lg:col-span-6 xl:col-span-7 relative min-h-[380px] sm:min-h-[460px] lg:min-h-[580px] flex items-center justify-center pointer-events-auto select-none">
           
           {/* Floating Card 1: Top-Left (Open Book) */}
           <ScrollReveal animation="zoom-in" delay={300} className="absolute top-4 sm:top-8 left-4 sm:left-12 lg:left-6 z-20">

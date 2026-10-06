@@ -3,7 +3,7 @@ import { ScrollReveal } from './ScrollReveal';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="relative z-20 border-t border-slate-800/80 bg-[#020716] py-12 px-6">
+    <footer className="landing-footer relative z-20 border-t border-slate-800/80 bg-[#020716] py-12 px-6">
       <ScrollReveal animation="fade-up" delay={50} className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Left spacing to balance layout */}
         <div className="hidden md:block w-36" />

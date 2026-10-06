@@ -24,7 +24,7 @@ export function LandingPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#020817] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div className="landing-page relative min-h-screen bg-[#020817] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-clip">
       {/* Cinematic Multi-layered Atmospheric Background */}
       <BackgroundAtmosphere />
 

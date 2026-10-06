@@ -49,7 +49,7 @@ export const HowItWorks: React.FC = () => {
   const progressPercent = Math.round((completedCount / goals.length) * 75);
 
   return (
-    <section id="how-it-works" className="relative py-20 px-6 overflow-hidden">
+    <section id="how-it-works" className="landing-section relative py-20 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
         {/* Section Header */}

@@ -61,7 +61,7 @@ export const SeeItInAction: React.FC = () => {
   };
 
   return (
-    <section id="see-it-in-action" className="relative py-20 px-6 overflow-hidden">
+    <section id="see-it-in-action" className="landing-section relative py-20 px-6 overflow-hidden">
       {/* 3D Folded Crystal Origami Wings matching image.png */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Central Diffused Glow */}

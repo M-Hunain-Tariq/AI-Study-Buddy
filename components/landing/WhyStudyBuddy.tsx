@@ -42,7 +42,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, iconBg, iconColor, titl
 
 export const WhyStudyBuddy: React.FC = () => {
   return (
-    <section id="why-studybuddy" className="relative py-20 px-6 overflow-hidden">
+    <section id="why-studybuddy" className="landing-section relative py-20 px-6 overflow-hidden">
       {/* 3D Crystal Origami Facets matching image.png */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Central Violet/Azure Aurora Bloom */}

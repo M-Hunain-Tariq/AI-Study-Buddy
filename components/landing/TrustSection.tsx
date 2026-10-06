@@ -106,7 +106,7 @@ export const TrustSection: React.FC = () => {
   }, [hasAnimated]);
 
   return (
-    <section id="reviews" ref={sectionRef} className="relative py-20 px-6 overflow-hidden">
+    <section id="reviews" ref={sectionRef} className="landing-section relative py-20 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
         {/* Section Header */}

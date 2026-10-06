@@ -8,7 +8,7 @@ interface FinalCTAProps {
 
 export const FinalCTA: React.FC<FinalCTAProps> = ({ onStartFree }) => {
   return (
-    <section id="final-cta" className="relative min-h-[620px] lg:min-h-[680px] flex items-center justify-center py-24 px-6 overflow-hidden bg-[#020817]">
+    <section id="final-cta" className="landing-section landing-final-cta relative min-h-[620px] lg:min-h-[680px] flex items-center justify-center py-24 px-6 overflow-hidden bg-[#020817]">
       
       {/* Background Cinematic Mountain Sunset Scene */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
