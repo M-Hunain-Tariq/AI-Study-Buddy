@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
-import { ArrowRight, Bot, CheckCircle2, Clock3, Sparkles, Target } from 'lucide-react';
+import { ArrowRight, Bot, CheckCircle2, Clock3, FileText, Flame, Sparkles, Target, TrendingUp } from 'lucide-react';
 
 interface HeroBannerProps {
   onContinueLearning: () => void;
@@ -11,10 +10,13 @@ interface HeroBannerProps {
 
 export const HeroBanner: React.FC<HeroBannerProps> = ({ onContinueLearning, onAskAiTutor }) => {
   return (
-    <section className="relative overflow-hidden rounded-[26px] border border-white/[0.09] bg-[linear-gradient(135deg,#101a2d_0%,#0b1322_58%,#11152b_100%)] p-5 sm:p-7 lg:p-8 shadow-[0_24px_70px_rgba(0,0,0,.24)]">
-      <div className="pointer-events-none absolute -right-24 -top-28 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 right-20 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
-      <div className="relative z-10 grid items-center gap-7 lg:grid-cols-[1fr_360px]">
+    <section className="home-hero relative overflow-hidden rounded-[28px] border border-white/[0.09] bg-[linear-gradient(135deg,#0d1b31_0%,#091426_48%,#11152d_100%)] p-5 sm:p-7 lg:p-8 shadow-[0_24px_70px_rgba(0,0,0,.28)]">
+      <div className="home-hero-orb home-hero-orb-a" />
+      <div className="home-hero-orb home-hero-orb-b" />
+      <div className="home-hero-grid" />
+      <div className="home-hero-shimmer" />
+
+      <div className="relative z-10 grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,430px)]">
         <div className="max-w-2xl">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-300/15 bg-cyan-300/[0.07] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-cyan-200">
             <Sparkles className="h-3.5 w-3.5" /> Your study space
@@ -35,21 +37,43 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onContinueLearning, onAs
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[360px]">
-          <div className="absolute -inset-5 rounded-[30px] bg-gradient-to-br from-cyan-400/10 to-violet-500/10 blur-2xl" />
-          <div className="relative overflow-hidden rounded-[22px] border border-white/10 bg-[#0b1220]/90 p-3 shadow-2xl">
-            <div className="relative h-36 overflow-hidden rounded-[16px] border border-white/10">
-              <Image src="/images/hero_study_desk_exact.jpg" alt="Study desk" fill unoptimized sizes="360px" className="object-cover object-center opacity-70" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#09111e] via-[#09111e]/20 to-transparent" />
-              <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-lg border border-white/10 bg-black/25 px-2.5 py-2 backdrop-blur-md">
-                <Target className="h-4 w-4 text-cyan-300" /><span className="text-[11px] font-semibold text-white">Today's focus</span>
+        <div className="home-dashboard-preview relative mx-auto w-full max-w-[430px] lg:ml-auto">
+          <div className="home-preview-aura" />
+          <div className="home-preview-window relative overflow-hidden rounded-[22px] border border-white/12 bg-[#08111f]/90 shadow-[0_28px_80px_rgba(0,0,0,.45)] backdrop-blur-xl">
+            <div className="flex items-center justify-between border-b border-white/[0.07] px-4 py-3">
+              <div className="flex items-center gap-2.5">
+                <div className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-cyan-400/20 to-violet-400/20 ring-1 ring-white/10"><Sparkles className="h-3.5 w-3.5 text-cyan-200" /></div>
+                <div><p className="text-[11px] font-bold text-white">StudyBuddy</p><p className="text-[9px] text-slate-500">Today&apos;s dashboard</p></div>
+              </div>
+              <div className="flex gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-cyan-300/80" /><span className="h-1.5 w-1.5 rounded-full bg-violet-300/70" /><span className="h-1.5 w-1.5 rounded-full bg-white/20" /></div>
+            </div>
+
+            <div className="grid grid-cols-[1.18fr_.82fr] gap-3 p-3">
+              <div className="relative overflow-hidden rounded-[16px] border border-white/[0.08] bg-gradient-to-br from-[#112746] via-[#0d1c34] to-[#10152c] p-3.5">
+                <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-cyan-400/10 blur-2xl" />
+                <div className="relative">
+                  <div className="flex items-center justify-between"><span className="text-[9px] font-bold uppercase tracking-[.14em] text-cyan-200/80">Today&apos;s focus</span><Target className="h-3.5 w-3.5 text-cyan-300" /></div>
+                  <p className="mt-2 text-sm font-extrabold text-white">Linear Equations</p>
+                  <p className="mt-1 text-[9px] leading-4 text-slate-500">Lesson 3 of 5 · Algebra</p>
+                  <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-white/[0.07]"><div className="h-full w-[68%] rounded-full bg-gradient-to-r from-cyan-400 to-indigo-400" /></div>
+                  <div className="mt-1.5 flex justify-between text-[8px] text-slate-500"><span>68% complete</span><span>25 min</span></div>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <div className="rounded-[16px] border border-white/[0.07] bg-white/[0.035] p-3"><div className="flex items-center gap-1.5 text-[8px] font-bold uppercase tracking-wider text-slate-500"><Flame className="h-3 w-3 text-orange-300" /> Streak</div><p className="mt-1 text-lg font-extrabold text-white">7 days</p></div>
+                <div className="rounded-[16px] border border-white/[0.07] bg-white/[0.035] p-3"><div className="flex items-center gap-1.5 text-[8px] font-bold uppercase tracking-wider text-slate-500"><TrendingUp className="h-3 w-3 text-emerald-300" /> Progress</div><p className="mt-1 text-lg font-extrabold text-white">+18%</p></div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-2.5 p-1 pt-3">
-              <div className="rounded-xl bg-white/[0.04] p-3"><div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500"><Clock3 className="h-3 w-3" /> Focus</div><p className="mt-1 text-lg font-extrabold text-white">25 min</p></div>
-              <div className="rounded-xl bg-white/[0.04] p-3"><div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500"><CheckCircle2 className="h-3 w-3" /> Progress</div><p className="mt-1 text-lg font-extrabold text-white">Ready</p></div>
+
+            <div className="grid grid-cols-3 gap-2 px-3 pb-3">
+              <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] p-2.5"><Clock3 className="h-3.5 w-3.5 text-cyan-300" /><p className="mt-1 text-[10px] font-bold text-white">25 min</p><span className="text-[8px] text-slate-500">focus</span></div>
+              <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] p-2.5"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-300" /><p className="mt-1 text-[10px] font-bold text-white">8 / 10</p><span className="text-[8px] text-slate-500">quiz</span></div>
+              <div className="rounded-xl border border-white/[0.06] bg-white/[0.025] p-2.5"><FileText className="h-3.5 w-3.5 text-violet-300" /><p className="mt-1 text-[10px] font-bold text-white">12</p><span className="text-[8px] text-slate-500">notes</span></div>
             </div>
           </div>
+          <div className="home-preview-float home-preview-float-top"><Bot className="h-3.5 w-3.5 text-cyan-200" /><span>AI tutor ready</span></div>
+          <div className="home-preview-float home-preview-float-bottom"><CheckCircle2 className="h-3.5 w-3.5 text-emerald-300" /><span>Great progress</span></div>
         </div>
       </div>
     </section>
