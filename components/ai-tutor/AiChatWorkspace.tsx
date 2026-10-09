@@ -137,24 +137,43 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
       const reader = res.body?.getReader();
       if (!reader) throw new Error('The AI could not answer right now.');
 
-      // The answer streams in word by word, like ChatGPT.
+      // Render each streamed chunk progressively, in small word-like pieces.
+      // The typing indicator remains visible while the model is preparing its first token.
       const decoder = new TextDecoder();
       const aiId = `ai-${messageCounterRef.current++}`;
-      let full = '';
+      let received = '';
+      let displayed = '';
       let created = false;
+      const reveal = async (incoming: string) => {
+        if (!incoming) return;
+        // Keep whitespace attached to words so Markdown and paragraph spacing survive.
+        const pieces = incoming.match(/\S+\s*|\s+/g) || [incoming];
+        for (const piece of pieces) {
+          displayed += piece;
+          if (!created) {
+            created = true;
+            setMessages((prev) => [...prev, { id: aiId, sender: 'ai', text: displayed, timestamp: 'Just now' }]);
+          } else {
+            const snapshot = displayed;
+            setMessages((prev) => prev.map((m) => (m.id === aiId ? { ...m, text: snapshot } : m)));
+          }
+          // Fast enough to feel responsive, while visibly revealing text word by word.
+          await new Promise<void>((resolve) => setTimeout(resolve, 12));
+        }
+      };
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        full += decoder.decode(value, { stream: true });
-        const snapshot = full;
-        if (!created) {
-          created = true;
-          setMessages((prev) => [...prev, { id: aiId, sender: 'ai', text: snapshot, timestamp: 'Just now' }]);
-        } else {
-          setMessages((prev) => prev.map((m) => (m.id === aiId ? { ...m, text: snapshot } : m)));
-        }
+        const chunk = decoder.decode(value, { stream: true });
+        received += chunk;
+        await reveal(chunk);
       }
-      if (!full.trim()) throw new Error('The AI returned an empty answer. Please try again.');
+      const remainder = decoder.decode();
+      if (remainder) {
+        received += remainder;
+        await reveal(remainder);
+      }
+      if (!received.trim()) throw new Error('The AI returned an empty answer. Please try again.');
     } catch (err) {
       const message = err instanceof Error ? err.message : 'The AI could not answer right now.';
       const aiCount = messageCounterRef.current++;
