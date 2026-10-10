@@ -24,3 +24,9 @@
 1. Align `next` and `eslint-config-next` to the same compatible major version, then regenerate `package-lock.json` with `npm install`.
 2. Run `npm ci`, `npx tsc --noEmit`, `npm run lint`, and `npm run build`.
 3. Test the landing page, dashboard, AI streaming, quiz generation, planner CRUD, notes CRUD, data import/export, and mobile layouts in a browser.
+
+## Landing entry modal follow-up fix (2026-10-10)
+- Fixed the welcome/name dialog alignment by separating the full-viewport backdrop (`.signup-overlay`) from the bounded inner dialog (`.signup-dialog`). The previous generic `[role="dialog"]` rules could constrain the fixed overlay itself, causing it to appear off-center.
+- Added a submit-in-progress state so Enter and the submit button immediately show “Opening your workspace…” with a spinner, and prevent duplicate submissions while `/dashboard` begins navigation.
+- Kept the existing landing page content, routes, and dashboard features unchanged.
+- Validation: source/ZIP integrity checks only. A production build and browser-based navigation test were not run because dependencies are not installed in this environment.
