@@ -29,7 +29,9 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   className = '',
   as: Component = 'div',
 }) => {
-  const [isRevealed, setIsRevealed] = useState(false);
+  // Keep server-rendered landing content visible. Hiding every reveal wrapper
+  // before hydration can make the whole page look blank when client JS is delayed.
+  const [isRevealed, setIsRevealed] = useState(true);
   const [transitionCompleted, setTransitionCompleted] = useState(false);
   const elementRef = useRef<HTMLElement | null>(null);
 

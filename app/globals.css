@@ -2184,6 +2184,14 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
 .fresh-page button[class*="bg-gradient-to-r"]:hover,
 .landing-page button[class*="bg-gradient-to-r"]:hover { filter: brightness(1.08); }
 
+/* Landing page fail-safe: keep primary content visible and readable on first paint. */
+.landing-page { min-height: 100vh; background-color: #020817; color: #f4f7ff; }
+.landing-page .landing-hero { position: relative; isolation: isolate; }
+.landing-page .landing-hero-grid { position: relative; z-index: 1; }
+.landing-page .landing-hero-copy { position: relative; z-index: 2; }
+.landing-page .landing-hero-visual { position: relative; }
+.landing-page img { display: block; }
+
 /* Landing page: less clutter, more confident hierarchy */
 .landing-page {
   background: #050b18 !important;
