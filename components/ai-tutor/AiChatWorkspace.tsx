@@ -47,7 +47,7 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
   onClearInitialPrompt,
 }) => {
   const [activeTab, setActiveTab] = useState<'chat' | 'quick-prompts' | 'study-tools'>('chat');
-  const [tutorMode, setTutorMode] = useState<'Learn' | 'Practice' | 'Socratic'>('Learn');
+  const [tutorMode, setTutorMode] = useState<'Ask Anything' | 'Practice' | 'Socratic'>('Ask Anything');
   const [isListening, setIsListening] = useState(false);
   const [inputQuestion, setInputQuestion] = useState('');
   const [isAiThinking, setIsAiThinking] = useState(false);
@@ -109,7 +109,7 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
       const tasks = JSON.parse(localStorage.getItem('study_tasks_v4') || '[]');
       const quizHistory = JSON.parse(localStorage.getItem('study_quiz_history_v1') || '[]');
       const recentScores = Array.isArray(quizHistory) ? quizHistory.slice(0, 5).map((q:any) => `${q.subject}: ${q.score}%`).join(', ') : '';
-      learningContext = `Student: ${name}. Recent quiz results: ${recentScores || 'none'}. Notes available: ${Array.isArray(notes) ? notes.length : 0}. Tasks available: ${Array.isArray(tasks) ? tasks.length : 0}. Tutor mode: ${tutorMode}.`;
+      learningContext = `Student: ${name}. Recent quiz results: ${recentScores || 'none'}. Notes available: ${Array.isArray(notes) ? notes.length : 0}. Tasks available: ${Array.isArray(tasks) ? tasks.length : 0}. Assistant mode: ${tutorMode}.`;
     } catch {}
     const sentAttachment = attachment;
 
@@ -229,32 +229,32 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
 
   const suggestedPrompts = [
     {
-      title: 'Explain this topic',
-      sub: 'in simple words',
-      icon: Lightbulb,
+      title: 'What is coding?',
+      sub: 'explain for a beginner',
+      icon: Wrench,
       color: 'bg-purple-500/15 border-purple-500/30 text-purple-400',
-      text: 'Explain the concept of gravity and orbital motion in simple words.',
+      text: 'What is coding? Explain it for a complete beginner and show a tiny example.',
     },
     {
-      title: 'Solve this question',
-      sub: 'step by step',
-      icon: Calculator,
+      title: 'Who is this person?',
+      sub: 'get clear background',
+      icon: HelpCircle,
       color: 'bg-blue-500/15 border-blue-500/30 text-blue-400',
-      text: 'Solve this question step by step: Find the roots of x² - 7x + 10 = 0.',
+      text: 'Explain who Alan Turing was, what he is known for, and why his work matters.',
     },
     {
-      title: 'Give me a study plan',
-      sub: 'plan for this topic',
+      title: 'When did it happen?',
+      sub: 'history in context',
       icon: BookOpen,
       color: 'bg-indigo-500/15 border-indigo-500/30 text-indigo-400',
-      text: 'Give me a 3-day study plan to master high school Chemistry Periodic Table trends.',
+      text: 'When did the first human land on the Moon? Explain briefly what happened.',
     },
     {
-      title: 'Create a quiz',
-      sub: 'on this topic',
-      icon: HelpCircle,
+      title: 'Help me solve this',
+      sub: 'step by step',
+      icon: Calculator,
       color: 'bg-purple-500/15 border-purple-500/30 text-purple-400',
-      text: 'Create a 3-question practice quiz on Cell Mitosis vs Meiosis with answers.',
+      text: 'Solve x² - 7x + 10 = 0 step by step and explain the method.',
     },
   ];
 
@@ -321,7 +321,7 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
       {/* Tutor Mode */}
       <div className="px-4 sm:px-6 pb-2">
         <div className="flex items-center gap-2 p-1 rounded-xl bg-[#071126] border border-[#162544] w-fit">
-          {(['Learn','Practice','Socratic'] as const).map((mode) => (
+          {(['Ask Anything','Practice','Socratic'] as const).map((mode) => (
             <button key={mode} onClick={() => setTutorMode(mode)} className={`px-3 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${tutorMode === mode ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}>
               {mode === 'Socratic' && <BrainCircuit className="w-3 h-3 inline mr-1" />} {mode}
             </button>
@@ -348,10 +348,10 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                     Hi Muhammad! 👋
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-300 font-normal">
-                    I&apos;m your AI tutor. Ask me anything about your studies.
+                    I&apos;m your AI assistant. Ask me anything — coding, history, people, technology, or studies.
                   </p>
                   <p className="text-[11px] sm:text-xs text-slate-400 font-normal">
-                    I&apos;m here to help you learn, understand and do better!
+                    I can explain concepts, answer everyday questions, write code, translate, and help you create.
                   </p>
                 </div>
 
