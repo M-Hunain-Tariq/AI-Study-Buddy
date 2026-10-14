@@ -2410,7 +2410,7 @@ body { background: var(--sb-bg); color: var(--sb-text); }
 .landing-page .landing-section [class*="rounded-2xl"][class*="border"] { border-color: rgba(164,183,211,.16) !important; box-shadow: 0 12px 36px rgba(0,0,0,.12) !important; }
 .landing-page .animate-shimmer, .landing-page .animate-text-shimmer,
 .landing-page .animate-card-float, .landing-page .animate-card-float-alt,
-.landing-page .animate-pulse-glow, .landing-page .animate-spin { animation-duration: 14s !important; }
+.landing-page .animate-pulse-glow { animation-duration: 14s !important; }
 .landing-page .landing-hero button, .landing-page a[class*="rounded-full"] { transition: transform .2s ease, background .2s ease, border-color .2s ease; }
 .landing-page .landing-hero button:hover, .landing-page a[class*="rounded-full"]:hover { transform: translateY(-2px); }
 .landing-page footer { background: rgba(7,12,22,.5); }
@@ -2435,4 +2435,28 @@ body { background: var(--sb-bg); color: var(--sb-text); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* Landing-page motion polish: transform/opacity only, with a safe reduced-motion path. */
+@keyframes landingNavEnter {
+  from { opacity: 0; transform: translate3d(0, -10px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes landingHeroImageEnter {
+  from { opacity: .55; transform: scale(1.025); }
+  to { opacity: 1; transform: scale(1); }
+}
+.landing-page > .relative.z-10 > div:first-child {
+  animation: landingNavEnter 520ms cubic-bezier(.22, 1, .36, 1) both;
+}
+.landing-page .landing-hero > div:first-child img {
+  animation: landingHeroImageEnter 900ms cubic-bezier(.22, 1, .36, 1) both;
+}
+/* Never slow down loading indicators; keep decorative motion subtle and cheap. */
+.landing-page .animate-spin { animation-duration: 800ms !important; }
+@media (prefers-reduced-motion: reduce) {
+  .landing-page > .relative.z-10 > div:first-child,
+  .landing-page .landing-hero > div:first-child img {
+    animation: none !important;
+  }
 }
