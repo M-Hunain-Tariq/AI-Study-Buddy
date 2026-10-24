@@ -55,242 +55,9 @@ interface StudyPlannerWorkspaceProps {
   onNavigateProgress?: () => void;
 }
 
-const DEFAULT_TASKS: StudyTask[] = [
-  // Monday 26 Aug matching screenshot
-  {
-    id: 'task-math-1',
-    subject: 'Mathematics',
-    topic: 'Algebra — Linear Equations',
-    durationMinutes: 60,
-    completed: true,
-    time: '10:00 AM',
-    date: getWeekDate(0),
-    color: 'teal',
-    priority: 'High',
-  },
-  {
-    id: 'task-phys-1',
-    subject: 'Physics',
-    topic: 'Motion — Forces, Energy',
-    durationMinutes: 45,
-    completed: false,
-    time: '11:30 AM',
-    date: getWeekDate(0),
-    color: 'purple',
-    priority: 'High',
-  },
-  {
-    id: 'task-eng-1',
-    subject: 'English',
-    topic: 'Grammar — Writing',
-    durationMinutes: 30,
-    completed: false,
-    time: '02:00 PM',
-    date: getWeekDate(0),
-    color: 'orange',
-    priority: 'Medium',
-  },
-  {
-    id: 'task-chem-1',
-    subject: 'Chemistry',
-    topic: 'Atoms — Reactions',
-    durationMinutes: 30,
-    completed: false,
-    time: '04:00 PM',
-    date: getWeekDate(0),
-    color: 'cyan',
-    priority: 'Normal',
-  },
-  // Tuesday 27 Aug
-  {
-    id: 'task-tue-1',
-    subject: 'Mathematics',
-    topic: 'Quadratic Equations & Roots',
-    durationMinutes: 60,
-    completed: false,
-    time: '10:00 AM',
-    date: getWeekDate(1),
-    color: 'teal',
-  },
-  {
-    id: 'task-tue-2',
-    subject: 'Physics',
-    topic: 'Newton\'s 3 Laws of Motion',
-    durationMinutes: 60,
-    completed: false,
-    time: '01:00 PM',
-    date: getWeekDate(1),
-    color: 'purple',
-  },
-  {
-    id: 'task-tue-3',
-    subject: 'English',
-    topic: 'Vocabulary & Idioms Practice',
-    durationMinutes: 45,
-    completed: false,
-    time: '03:30 PM',
-    date: getWeekDate(1),
-    color: 'orange',
-  },
-  // Wednesday 28 Aug
-  {
-    id: 'task-wed-1',
-    subject: 'Chemistry',
-    topic: 'Chemical Bonding & Ionic Structures',
-    durationMinutes: 60,
-    completed: false,
-    time: '10:00 AM',
-    date: getWeekDate(2),
-    color: 'cyan',
-  },
-  {
-    id: 'task-wed-2',
-    subject: 'Mathematics',
-    topic: 'Coordinate Geometry & Slopes',
-    durationMinutes: 60,
-    completed: false,
-    time: '02:00 PM',
-    date: getWeekDate(2),
-    color: 'teal',
-  },
-  {
-    id: 'task-wed-3',
-    subject: 'Physics',
-    topic: 'Work & Kinetic Energy Calculations',
-    durationMinutes: 45,
-    completed: false,
-    time: '04:00 PM',
-    date: getWeekDate(2),
-    color: 'purple',
-  },
-  // Thursday 29 Aug
-  {
-    id: 'task-thu-1',
-    subject: 'English',
-    topic: 'Essay Drafting — Macbeth',
-    durationMinutes: 45,
-    completed: false,
-    time: '11:00 AM',
-    date: getWeekDate(3),
-    color: 'orange',
-  },
-  {
-    id: 'task-thu-2',
-    subject: 'Chemistry',
-    topic: 'Acids, Bases and pH Scale',
-    durationMinutes: 45,
-    completed: false,
-    time: '02:30 PM',
-    date: getWeekDate(3),
-    color: 'cyan',
-  },
-  {
-    id: 'task-thu-3',
-    subject: 'Mathematics',
-    topic: 'Trigonometric Ratios',
-    durationMinutes: 60,
-    completed: false,
-    time: '04:30 PM',
-    date: getWeekDate(3),
-    color: 'teal',
-  },
-  // Friday 30 Aug
-  {
-    id: 'task-fri-1',
-    subject: 'Physics',
-    topic: 'Momentum & Collision Practice',
-    durationMinutes: 60,
-    completed: false,
-    time: '10:30 AM',
-    date: getWeekDate(4),
-    color: 'purple',
-  },
-  {
-    id: 'task-fri-2',
-    subject: 'Mathematics',
-    topic: 'Weekly Revision Problem Set',
-    durationMinutes: 60,
-    completed: false,
-    time: '02:00 PM',
-    date: getWeekDate(4),
-    color: 'teal',
-  },
-  // Saturday 31 Aug
-  {
-    id: 'task-sat-1',
-    subject: 'Mathematics',
-    topic: 'Mock Exam Practice & Self-Grading',
-    durationMinutes: 90,
-    completed: false,
-    time: '10:00 AM',
-    date: getWeekDate(5),
-    color: 'teal',
-  },
-  {
-    id: 'task-sat-2',
-    subject: 'Physics',
-    topic: 'Formulas & Definitions Flashcards',
-    durationMinutes: 60,
-    completed: false,
-    time: '03:00 PM',
-    date: getWeekDate(5),
-    color: 'purple',
-  },
-  // Sunday 1 Sep
-  {
-    id: 'task-sun-1',
-    subject: 'English',
-    topic: 'Weekly Review & Chapter Summaries',
-    durationMinutes: 60,
-    completed: false,
-    time: '11:00 AM',
-    date: getWeekDate(6),
-    color: 'orange',
-  },
-];
+const DEFAULT_TASKS: StudyTask[] = [];
 
-const DEFAULT_GOALS: StudyGoal[] = [
-  {
-    id: 'goal-1',
-    title: 'Complete Maths Chapter 3',
-    subject: 'Mathematics',
-    dueDate: formatLongDate(getWeekDate(4)),
-    completed: true,
-    priority: 'High',
-    targetSessions: 4,
-    completedSessions: 4,
-  },
-  {
-    id: 'goal-2',
-    title: 'Finish Physics Notes',
-    subject: 'Physics',
-    dueDate: formatLongDate(getWeekDate(5)),
-    completed: false,
-    priority: 'High',
-    targetSessions: 3,
-    completedSessions: 1,
-  },
-  {
-    id: 'goal-3',
-    title: 'Write English Essay',
-    subject: 'English',
-    dueDate: formatLongDate(getWeekDate(6)),
-    completed: false,
-    priority: 'Medium',
-    targetSessions: 2,
-    completedSessions: 0,
-  },
-  {
-    id: 'goal-4',
-    title: 'Revise Chemistry',
-    subject: 'Chemistry',
-    dueDate: formatLongDate(getWeekDate(7)),
-    completed: false,
-    priority: 'Normal',
-    targetSessions: 4,
-    completedSessions: 1,
-  },
-];
+const DEFAULT_GOALS: StudyGoal[] = [];
 
 export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
   onNavigateAiTutor,
@@ -306,10 +73,13 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
         const stored = localStorage.getItem('study_planner_tasks');
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) {
+          if (Array.isArray(parsed)) {
+            const demoIds = new Set(['task-math-1', 'task-phys-1', 'task-eng-1', 'task-chem-1', 'task-tue-1', 'task-tue-2', 'task-tue-3', 'task-wed-1', 'task-wed-2', 'task-wed-3', 'task-thu-1', 'task-thu-2', 'task-thu-3', 'task-fri-1', 'task-fri-2', 'task-sat-1', 'task-sat-2', 'task-sun-1']);
+            const clean = parsed.filter((task: StudyTask) => !demoIds.has(task?.id));
+            if (clean.length !== parsed.length) localStorage.setItem('study_planner_tasks', JSON.stringify(clean));
             // Verify each item has minimal required shape
-            const valid = parsed.every((t) => t && typeof t.id === 'string' && typeof t.subject === 'string');
-            if (valid) return normalizePlannerTasks(parsed);
+            const valid = clean.every((t) => t && typeof t.id === 'string' && typeof t.subject === 'string');
+            if (valid) return normalizePlannerTasks(clean);
           }
         }
       } catch {
@@ -320,6 +90,7 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
   });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTasks((current) => { const normalized = normalizePlannerTasks(current); try { localStorage.setItem('study_planner_tasks', JSON.stringify(normalized)); } catch {} return normalized; });
   }, []);
 
@@ -329,9 +100,12 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
         const stored = localStorage.getItem('study_planner_goals');
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            const valid = parsed.every((g) => g && typeof g.id === 'string' && typeof g.title === 'string');
-            if (valid) return parsed;
+          if (Array.isArray(parsed)) {
+            const demoIds = new Set(['goal-1', 'goal-2', 'goal-3', 'goal-4']);
+            const clean = parsed.filter((goal: StudyGoal) => !demoIds.has(goal?.id));
+            if (clean.length !== parsed.length) localStorage.setItem('study_planner_goals', JSON.stringify(clean));
+            const valid = clean.every((g) => g && typeof g.id === 'string' && typeof g.title === 'string');
+            if (valid) return clean;
           }
         }
       } catch {
@@ -358,13 +132,16 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
         const storedStreak = localStorage.getItem('study_streak_days');
         if (storedStreak) {
           const num = parseInt(storedStreak, 10);
-          if (!isNaN(num) && num >= 0) return num;
+          if (!isNaN(num) && num >= 0) {
+            if (num === 3) { localStorage.removeItem('study_streak_days'); return 0; }
+            return num;
+          }
         }
       } catch {
         // ignore
       }
     }
-    return 3;
+    return 0;
   });
 
   const saveTasks = (newTasks: StudyTask[]) => {

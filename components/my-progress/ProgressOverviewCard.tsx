@@ -10,9 +10,9 @@ interface ProgressOverviewCardProps {
 }
 
 export const ProgressOverviewCard: React.FC<ProgressOverviewCardProps> = ({
-  completedPct = 68,
-  inProgressPct = 22,
-  notStartedPct = 10,
+  completedPct = 0,
+  inProgressPct = 0,
+  notStartedPct = 0,
 }) => {
   const circumference = 2 * Math.PI * 42;
   const completedDash = (completedPct / 100) * circumference;

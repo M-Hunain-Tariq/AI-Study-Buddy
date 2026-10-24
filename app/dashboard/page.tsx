@@ -42,7 +42,16 @@ function DashboardContent() {
   useEffect(() => {
     try {
       const raw = localStorage.getItem('study_tasks_v4');
-      if (raw) { const parsed = JSON.parse(raw); if (Array.isArray(parsed)) setTasks(parsed); }
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          const demoIds = new Set(['task-math-assign', 'task-physics-read', 'task-english-essay', 'task-chem-notes', 'task-cs-quiz']);
+          const clean = parsed.filter((task: Task) => !demoIds.has(task?.id));
+          if (clean.length !== parsed.length) localStorage.setItem('study_tasks_v4', JSON.stringify(clean));
+          // eslint-disable-next-line react-hooks/set-state-in-effect
+          setTasks(clean);
+        }
+      }
     } catch { /* ignore corrupt storage */ }
   }, []);
 

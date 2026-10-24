@@ -28,54 +28,8 @@ import {
 import { StudyTask, TaskPriority, TaskStatus } from './types';
 import { useToast } from '../Toast';
 
-// 5 exact tasks matching image.png
-const DEFAULT_TASKS: StudyTask[] = [
-  {
-    id: 'task-math-assign',
-    title: 'Complete Mathematics Assignment',
-    subject: 'Mathematics',
-    priority: 'High',
-    status: 'Completed',
-    dueDate: 'Today, 10:00 AM',
-    description: 'Quadratic equations and algebraic factorization problems.',
-  },
-  {
-    id: 'task-physics-read',
-    title: 'Read Chapter 3 - Physics',
-    subject: 'Physics',
-    priority: 'Medium',
-    status: 'Pending',
-    dueDate: 'Today, 2:00 PM',
-    description: 'Forces, friction, and Newton’s laws of motion exercises.',
-  },
-  {
-    id: 'task-english-essay',
-    title: 'Finish English Essay',
-    subject: 'English',
-    priority: 'Medium',
-    status: 'In Progress',
-    dueDate: 'Tomorrow, 11:00 AM',
-    description: 'Literature analysis and critical commentary drafting.',
-  },
-  {
-    id: 'task-chem-notes',
-    title: 'Study Chemistry Notes',
-    subject: 'Chemistry',
-    priority: 'High',
-    status: 'Pending',
-    dueDate: 'Tomorrow, 3:00 PM',
-    description: 'Periodic table atomic trends and covalent bonding review.',
-  },
-  {
-    id: 'task-cs-quiz',
-    title: 'Prepare for Quiz',
-    subject: 'Computer Science',
-    priority: 'Medium',
-    status: 'Pending',
-    dueDate: 'May 30, 2025',
-    description: 'Data structures, algorithm complexity, and binary search.',
-  },
-];
+// A new account starts with no tasks.
+const DEFAULT_TASKS: StudyTask[] = [];
 
 const SUBJECT_OPTIONS = [
   'Mathematics',
@@ -96,7 +50,12 @@ export const TasksWorkspace: React.FC = () => {
         const stored = localStorage.getItem('study_tasks_v4');
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) {
+            const demoIds = new Set(['task-math-assign', 'task-physics-read', 'task-english-essay', 'task-chem-notes', 'task-cs-quiz']);
+            const clean = parsed.filter((task: StudyTask) => !demoIds.has(task?.id));
+            if (clean.length !== parsed.length) localStorage.setItem('study_tasks_v4', JSON.stringify(clean));
+            return clean;
+          }
         }
       } catch {
         // fallback

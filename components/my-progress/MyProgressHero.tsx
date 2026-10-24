@@ -12,10 +12,10 @@ interface MyProgressHeroProps {
 }
 
 export const MyProgressHero: React.FC<MyProgressHeroProps> = ({
-  overallProgress = 68,
-  streakDays = 5,
-  studyHours = 12.5,
-  goalsAchieved = '3/5',
+  overallProgress = 0,
+  streakDays = 0,
+  studyHours = 0,
+  goalsAchieved = '0/0',
 }) => {
   return (
     <div className="relative overflow-hidden rounded-[24px] bg-[#070F28] border border-[#1A2C59] hover:border-blue-500/40 shadow-[0_20px_50px_rgba(2,6,23,0.85),0_0_35px_rgba(37,99,235,0.15)] transition-all duration-300 h-full min-h-[220px] sm:min-h-[235px] flex items-center group">

@@ -7,11 +7,7 @@ import type { AppSettings } from '@/lib/settings';
 import { Card, CardTitle, Field, GhostButton, Modal, PrimaryButton, Row, SectionShell, SidePanel, Toggle, fieldClass } from './ui';
 import type { SectionProps } from './types';
 
-const LOGINS = [
-  { device: 'Chrome on Windows', where: 'Rahim Yar Khan, PK', when: 'Active now' },
-  { device: 'Study Buddy app on Android', where: 'Rahim Yar Khan, PK', when: 'Yesterday, 8:14 PM' },
-  { device: 'Safari on iPad', where: 'Lahore, PK', when: '3 days ago' },
-];
+const LOGINS: { device: string; where: string; when: string }[] = [];
 
 export const PrivacySection: React.FC<SectionProps> = ({ settings, update, onBack }) => {
   const { showToast } = useToast();
@@ -94,15 +90,21 @@ export const PrivacySection: React.FC<SectionProps> = ({ settings, update, onBac
       </Modal>
 
       <Modal open={logOpen} title="Recent Login Activity" onClose={() => setLogOpen(false)}>
-        <ul className="divide-y divide-[#122143]">
-          {LOGINS.map((l) => (
-            <li key={l.device} className="py-2.5">
-              <p className="text-[13px] font-semibold text-slate-100">{l.device}</p>
-              <p className="text-[11px] text-slate-400">{l.where} · {l.when}</p>
-            </li>
-          ))}
-        </ul>
-        <p className="text-[10px] text-slate-500 mt-2">Sample data shown. Connect a real auth provider to list actual sessions.</p>
+        {LOGINS.length > 0 ? (
+          <ul className="divide-y divide-[#122143]">
+            {LOGINS.map((l) => (
+              <li key={l.device} className="py-2.5">
+                <p className="text-[13px] font-semibold text-slate-100">{l.device}</p>
+                <p className="text-[11px] text-slate-400">{l.where} · {l.when}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="rounded-xl border border-dashed border-[#1A2D54] p-5 text-center">
+            <p className="text-sm font-semibold text-slate-200">No login activity yet</p>
+            <p className="mt-1 text-[11px] text-slate-400">Actual sessions will appear here when authentication is connected.</p>
+          </div>
+        )}
       </Modal>
     </SectionShell>
   );

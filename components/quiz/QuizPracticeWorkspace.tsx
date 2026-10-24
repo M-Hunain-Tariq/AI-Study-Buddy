@@ -25,7 +25,7 @@ import {
   Plus,
   Activity,
 } from 'lucide-react';
-import { QuizDifficulty, QuizItem, QuizSubject, RecentActivityItem } from './types';
+import { QuizDifficulty, QuizItem, QuizSubject } from './types';
 import { QuizModal } from './QuizModal';
 import { GenerateQuizModal } from './GenerateQuizModal';
 import { useToast } from '../Toast';
@@ -122,41 +122,8 @@ const ALL_QUIZZES: QuizItem[] = [
   },
 ];
 
-// Recent Activity Items matching image.png exactly
-const RECENT_ACTIVITIES: RecentActivityItem[] = [
-  {
-    id: 'act-algebra',
-    title: 'Algebra Basics',
-    status: 'Completed',
-    timeAgo: '2h ago',
-    symbol: '× ÷',
-    colorScheme: 'blue',
-  },
-  {
-    id: 'act-atoms',
-    title: 'Atoms & Molecules',
-    status: 'In Progress',
-    timeAgo: '4h ago',
-    symbol: '⚛',
-    colorScheme: 'emerald',
-  },
-  {
-    id: 'act-quadratic',
-    title: 'Quadratic Equations',
-    status: 'Completed',
-    timeAgo: '1d ago',
-    symbol: '√x',
-    colorScheme: 'blue',
-  },
-  {
-    id: 'act-circuits',
-    title: 'Electricity & Circuits',
-    status: 'Started',
-    timeAgo: '1d ago',
-    symbol: '⚡',
-    colorScheme: 'purple',
-  },
-];
+// Recent activity is populated only from quizzes the student actually completes.
+const RECENT_ACTIVITIES: { id: string; title: string; status: string; timeAgo: string; symbol: string; colorScheme: string }[] = [];
 
 export const QuizPracticeWorkspace: React.FC = () => {
   const { showToast } = useToast();
@@ -173,6 +140,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
   React.useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem('study_quiz_history_v1') || '[]');
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (Array.isArray(saved)) setQuizHistory(saved);
     } catch {}
   }, []);
@@ -684,7 +652,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
                     <span className="w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_6px_rgba(96,165,250,0.7)]" />
                     <span>In Progress</span>
                   </span>
-                  <span className="font-bold text-white">{Math.max(0, filteredAllQuizzes.length - completedCount)}</span>
+                  <span className="font-bold text-white">{0}</span>
                 </div>
 
                 <div className="flex items-center justify-between text-slate-300">
@@ -692,7 +660,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
                     <span className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_6px_rgba(168,85,247,0.7)]" />
                     <span>Not Started</span>
                   </span>
-                  <span className="font-bold text-white">{Math.max(0, filteredAllQuizzes.length - Math.min(filteredAllQuizzes.length, completedCount) - 1)}</span>
+                  <span className="font-bold text-white">{0}</span>
                 </div>
               </div>
             </div>
@@ -732,7 +700,12 @@ export const QuizPracticeWorkspace: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 pt-0.5">
-              {(quizHistory.length ? quizHistory.slice(0, 4).map((h) => ({id:h.id,title:h.title,status:'Completed' as const,timeAgo:h.date,symbol:'✓',colorScheme:'blue' as const})) : RECENT_ACTIVITIES).map((act) => (
+              {(quizHistory.length ? quizHistory.slice(0, 4).map((h) => ({id:h.id,title:h.title,status:'Completed' as const,timeAgo:h.date,symbol:'✓',colorScheme:'blue' as const})) : RECENT_ACTIVITIES).length === 0 ? (
+                <div className="rounded-xl border border-dashed border-[#1A2D54] px-4 py-6 text-center">
+                  <p className="text-xs font-semibold text-slate-200">No quiz activity yet</p>
+                  <p className="mt-1 text-[10px] text-slate-400">Complete your first quiz and it will appear here.</p>
+                </div>
+              ) : (quizHistory.length ? quizHistory.slice(0, 4).map((h) => ({id:h.id,title:h.title,status:'Completed' as const,timeAgo:h.date,symbol:'✓',colorScheme:'blue' as const})) : RECENT_ACTIVITIES).map((act) => (
                 <div
                   key={act.id}
                   className="flex items-center gap-2.5 p-2 rounded-xl bg-[#060D1E] border border-[#162544] hover:border-blue-500/40 transition-colors"

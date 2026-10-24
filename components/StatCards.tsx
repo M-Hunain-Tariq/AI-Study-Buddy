@@ -42,7 +42,7 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
               </linearGradient>
             </defs>
             <path
-              d="M0,26 Q25,28 42,16 T78,18 T102,6 T120,4"
+              d="M0,30 L120,30"
               stroke="#8B5CF6"
               strokeWidth="2.5"
               strokeLinecap="round"
@@ -86,7 +86,7 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
               </linearGradient>
             </defs>
             <path
-              d="M0,28 Q20,24 45,22 T80,10 T105,12 T120,4"
+              d="M0,30 L120,30"
               stroke="#06B6D4"
               strokeWidth="2.5"
               strokeLinecap="round"
@@ -114,9 +114,9 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
           <p className="text-xs sm:text-xs font-medium text-slate-400 truncate">AI Questions</p>
           <div className="flex items-baseline justify-between mt-0.5 sm:mt-1">
             <h3 className="text-xl sm:text-2xl lg:text-[28px] font-bold text-white tracking-tight tabular-nums">
-              18
+              0
             </h3>
-            <span className="hidden sm:inline text-[11px] text-slate-400">to begin</span>
+            <span className="hidden sm:inline text-[11px] text-slate-400">No activity yet</span>
           </div>
         </div>
 
@@ -130,13 +130,13 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
               </linearGradient>
             </defs>
             <path
-              d="M0,22 Q30,12 55,20 T90,8 T110,14 T120,2"
+              d="M0,30 L120,30"
               stroke="#A855F7"
               strokeWidth="2.5"
               strokeLinecap="round"
             />
             <path
-              d="M0,22 Q30,12 55,20 T90,8 T110,14 T120,2 L120,32 L0,32 Z"
+              d="M0,30 L120,30 L120,32 L0,32 Z"
               fill="url(#purpleGrad3)"
             />
           </svg>
@@ -158,7 +158,7 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
           <p className="text-xs sm:text-xs font-medium text-slate-400 truncate">Quiz Accuracy</p>
           <div className="flex items-baseline justify-between mt-0.5 sm:mt-1">
             <h3 className="text-xl sm:text-2xl lg:text-[28px] font-bold text-white tracking-tight tabular-nums">
-              —
+              0%
             </h3>
             <span className="hidden sm:inline text-[11px] text-slate-400">No quiz data</span>
           </div>
@@ -174,13 +174,13 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
               </linearGradient>
             </defs>
             <path
-              d="M0,25 Q35,28 60,14 T95,16 T115,8 T120,6"
+              d="M0,30 L120,30"
               stroke="#F59E0B"
               strokeWidth="2.5"
               strokeLinecap="round"
             />
             <path
-              d="M0,25 Q35,28 60,14 T95,16 T115,8 T120,6 L120,32 L0,32 Z"
+              d="M0,30 L120,30 L120,32 L0,32 Z"
               fill="url(#amberGrad4)"
             />
           </svg>

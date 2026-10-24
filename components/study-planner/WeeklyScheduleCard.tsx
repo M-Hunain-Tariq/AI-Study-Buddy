@@ -37,7 +37,7 @@ export const WeeklyScheduleCard: React.FC<WeeklyScheduleCardProps> = ({
       dateNum: d.getDate(),
       dateFull: d.toISOString().slice(0, 10),
       isToday: d.toDateString() === new Date().toDateString(),
-      targetMinutes: [240, 210, 240, 200, 180, 240, 120][i],
+      targetMinutes: 0,
     };
   }), [monday]);
 

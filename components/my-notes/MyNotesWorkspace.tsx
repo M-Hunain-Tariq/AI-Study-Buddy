@@ -31,60 +31,8 @@ import { StudyNote, NotePriority } from './types';
 import { CreateNoteModal } from './CreateNoteModal';
 import { useToast } from '../Toast';
 
-// Initial notes matching image.png exactly
-const DEFAULT_NOTES: StudyNote[] = [
-  {
-    id: 'note-math-algebra',
-    title: 'Algebra Formulas & Quadratic Equations',
-    subject: 'Mathematics',
-    color: 'purple',
-    content:
-      'Quadratic equations, discriminant analysis (Δ = b² - 4ac), difference of squares and vertex form applications with numerical step-by-step examples.',
-    excerpt:
-      'Quadratic equations, discriminant analysis (Δ = b² - 4ac), difference of squares and vertex form applications...',
-    lastEdited: '2 hours ago',
-    lastEditedTimestamp: Date.now() - 2 * 60 * 60 * 1000,
-    priority: 'High',
-    tags: ['algebra', 'formulas', 'exam'],
-    isPrivate: false,
-    isPinned: true,
-    addToPlanner: true,
-  },
-  {
-    id: 'note-physics-motion',
-    title: 'Newton’s Laws of Motion & Momentum',
-    subject: 'Physics',
-    color: 'blue',
-    content:
-      'Newton’s three laws, F = ma derivations, momentum conservation and impulse calculations with numerical solutions and vector diagrams.',
-    excerpt:
-      'Newton’s three laws, F = ma derivations, momentum conservation and impulse calculations with numerical solutions...',
-    lastEdited: 'Yesterday',
-    lastEditedTimestamp: Date.now() - 24 * 60 * 60 * 1000,
-    priority: 'High',
-    tags: ['physics', 'mechanics', 'laws'],
-    isPrivate: false,
-    isPinned: true,
-    addToPlanner: true,
-  },
-  {
-    id: 'note-chem-periodic',
-    title: 'Periodic Table Trends & Chemical Bonding',
-    subject: 'Chemistry',
-    color: 'emerald',
-    content:
-      'Atomic radius, electronegativity, ionization energy trends across periods and chemical bond formation with orbital configurations.',
-    excerpt:
-      'Atomic radius, electronegativity, ionization energy trends across periods and chemical bond formation...',
-    lastEdited: '3 days ago',
-    lastEditedTimestamp: Date.now() - 3 * 24 * 60 * 60 * 1000,
-    priority: 'Medium',
-    tags: ['chemistry', 'periodic-table', 'bonding'],
-    isPrivate: false,
-    isPinned: true,
-    addToPlanner: true,
-  },
-];
+// Notes are created by the student; never pre-populate a new workspace.
+const DEFAULT_NOTES: StudyNote[] = [];
 
 interface MyNotesWorkspaceProps {
   initialOpenCreate?: boolean;
@@ -103,7 +51,12 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
         const stored = localStorage.getItem('study_notes_v5');
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) {
+            const demoIds = new Set(['note-math-algebra', 'note-physics-motion', 'note-chem-periodic']);
+            const clean = parsed.filter((note: StudyNote) => !demoIds.has(note?.id));
+            if (clean.length !== parsed.length) localStorage.setItem('study_notes_v5', JSON.stringify(clean));
+            return clean;
+          }
         }
       } catch {
         // fallback
@@ -115,29 +68,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
   // Filter & UI State
   const [selectedSubjectFilter, setSelectedSubjectFilter] = useState<string | null>(null);
   const [mobileNotesTab, setMobileNotesTab] = useState<'notes' | 'pinned'>('notes');
-  const [plannerTasks, setPlannerTasks] = useState([
-    {
-      id: 'pt-1',
-      title: 'Algebra Formulas & Quadratic Equations',
-      subject: 'Mathematics',
-      time: '2 hours',
-      completed: true,
-    },
-    {
-      id: 'pt-2',
-      title: 'Newton’s Laws of Motion',
-      subject: 'Physics',
-      time: '1.5 hours',
-      completed: false,
-    },
-    {
-      id: 'pt-3',
-      title: 'Periodic Table Trends',
-      subject: 'Chemistry',
-      time: '1 hour',
-      completed: false,
-    },
-  ]);
+  const [plannerTasks, setPlannerTasks] = useState<{ id: string; title: string; subject: string; time: string; completed: boolean }[]>([]);
 
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(initialOpenCreate);
@@ -885,7 +816,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                     <h4 className="text-xs font-bold text-white tracking-tight">
                       Overall Progress
                     </h4>
-                    <p className="text-[10px] text-slate-400">Keep going! You’re doing great.</p>
+                    <p className="text-[10px] text-slate-400">Your notes progress will appear here as you create notes.</p>
                   </div>
                 </div>
 
@@ -903,7 +834,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                       />
                       <path
                         className="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.7)]"
-                        strokeDasharray="68, 100"
+                        strokeDasharray="0, 100"
                         strokeWidth="3.5"
                         strokeLinecap="round"
                         stroke="currentColor"
@@ -922,10 +853,10 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                         <span className="flex items-center gap-1 font-medium">
                           <span className="text-[9px]">π</span> Mathematics
                         </span>
-                        <span className="font-bold">85%</span>
+                        <span className="font-bold">0%</span>
                       </div>
                       <div className="w-full h-1.5 rounded-full bg-[#111C3A] overflow-hidden">
-                        <div className="h-full rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,0.6)] w-[85%]" />
+                        <div className="h-full rounded-full bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,0.6)] w-0" />
                       </div>
                     </div>
 
@@ -935,10 +866,10 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                         <span className="flex items-center gap-1 font-medium">
                           <span className="text-[9px]">⚛</span> Physics
                         </span>
-                        <span className="font-bold">60%</span>
+                        <span className="font-bold">0%</span>
                       </div>
                       <div className="w-full h-1.5 rounded-full bg-[#111C3A] overflow-hidden">
-                        <div className="h-full rounded-full bg-purple-500 shadow-[0_0_6px_rgba(168,85,247,0.6)] w-[60%]" />
+                        <div className="h-full rounded-full bg-purple-500 shadow-[0_0_6px_rgba(168,85,247,0.6)] w-0" />
                       </div>
                     </div>
 
@@ -948,10 +879,10 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                         <span className="flex items-center gap-1 font-medium">
                           <span className="text-[9px]">🧪</span> Chemistry
                         </span>
-                        <span className="font-bold">45%</span>
+                        <span className="font-bold">0%</span>
                       </div>
                       <div className="w-full h-1.5 rounded-full bg-[#111C3A] overflow-hidden">
-                        <div className="h-full rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.6)] w-[45%]" />
+                        <div className="h-full rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.6)] w-0" />
                       </div>
                     </div>
 
@@ -961,10 +892,10 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                         <span className="flex items-center gap-1 font-medium">
                           <span className="text-[9px]">📖</span> English
                         </span>
-                        <span className="font-bold">30%</span>
+                        <span className="font-bold">0%</span>
                       </div>
                       <div className="w-full h-1.5 rounded-full bg-[#111C3A] overflow-hidden">
-                        <div className="h-full rounded-full bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.6)] w-[30%]" />
+                        <div className="h-full rounded-full bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.6)] w-0" />
                       </div>
                     </div>
                   </div>
