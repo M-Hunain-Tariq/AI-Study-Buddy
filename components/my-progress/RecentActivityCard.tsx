@@ -20,7 +20,7 @@ const ACTIVITIES: ActivityItem[] = [
     subtitle: 'Physics • Chapter 2 - Motion and Forces',
     timeAgo: '2 hours ago',
     icon: BookOpen,
-    iconClass: 'bg-[#2A1550] border-purple-500/30 text-purple-400',
+    iconClass: 'bg-[#2A1550] border-blue-500/30 text-blue-400',
   },
   {
     id: 'act-2',
@@ -36,7 +36,7 @@ const ACTIVITIES: ActivityItem[] = [
     subtitle: 'Chemistry • Organic Chemistry',
     timeAgo: '6 hours ago',
     icon: FileText,
-    iconClass: 'bg-[#0B2C38] border-teal-500/30 text-teal-400',
+    iconClass: 'bg-[#0B2C38] border-blue-500/30 text-blue-400',
   },
   {
     id: 'act-4',
@@ -44,7 +44,7 @@ const ACTIVITIES: ActivityItem[] = [
     subtitle: 'Weekly Plan • 3 sessions completed',
     timeAgo: '1 day ago',
     icon: Calendar,
-    iconClass: 'bg-[#38260F] border-amber-500/30 text-amber-400',
+    iconClass: 'bg-[#38260F] border-blue-500/30 text-blue-400',
   },
   {
     id: 'act-5',
@@ -52,7 +52,7 @@ const ACTIVITIES: ActivityItem[] = [
     subtitle: 'Study streak • 5 days',
     timeAgo: '1 day ago',
     icon: CheckCircle,
-    iconClass: 'bg-[#0A2E22] border-emerald-500/30 text-emerald-400',
+    iconClass: 'bg-[#0A2E22] border-blue-500/30 text-blue-400',
   },
 ];
 

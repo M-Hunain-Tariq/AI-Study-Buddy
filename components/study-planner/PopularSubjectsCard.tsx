@@ -25,19 +25,19 @@ export const PopularSubjectsCard: React.FC<PopularSubjectsCardProps> = ({
       name: 'Physics',
       topics: 'Motion, Forces, Energy',
       icon: Atom,
-      color: 'text-purple-400 bg-purple-500/15 border-purple-500/30',
+      color: 'text-blue-400 bg-blue-500/15 border-blue-500/30',
     },
     {
       name: 'English',
       topics: 'Grammar, Writing, Literature',
       icon: BookOpen,
-      color: 'text-amber-400 bg-amber-500/15 border-amber-500/30',
+      color: 'text-blue-400 bg-blue-500/15 border-blue-500/30',
     },
     {
       name: 'Chemistry',
       topics: 'Atoms, Reactions, Periodic Table',
       icon: FlaskConical,
-      color: 'text-teal-400 bg-teal-500/15 border-teal-500/30',
+      color: 'text-blue-400 bg-blue-500/15 border-blue-500/30',
     },
   ];
 
@@ -83,7 +83,7 @@ export const PopularSubjectsCard: React.FC<PopularSubjectsCardProps> = ({
                   <Icon className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs font-semibold text-white tracking-tight group-hover/sub:text-indigo-200 transition-colors truncate">
+                  <p className="text-xs font-semibold text-white tracking-tight group-hover/sub:text-blue-200 transition-colors truncate">
                     {sub.name}
                   </p>
                   <p className="text-[10px] text-slate-400 truncate mt-0.5">

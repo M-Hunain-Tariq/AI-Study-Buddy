@@ -140,7 +140,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="absolute top-full left-0 right-0 mt-2 bg-[#091530] border border-[#1A2D54] rounded-xl shadow-2xl p-2 z-50 overflow-hidden">
               <div className="px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400 flex items-center justify-between">
                 <span>Matching Results</span>
-                <span className="text-[10px] text-indigo-400">Press Esc to close</span>
+                <span className="text-[10px] text-blue-400">Press Esc to close</span>
               </div>
 
               {searchResults.length > 0 ? (
@@ -159,7 +159,7 @@ export const Header: React.FC<HeaderProps> = ({
                       className="w-full flex items-center justify-between p-2 rounded-lg hover:bg-[#12213F] transition-colors text-left cursor-pointer"
                     >
                       <div className="flex items-center gap-2.5">
-                        <div className="w-6 h-6 rounded-md bg-indigo-500/20 text-indigo-400 flex items-center justify-center">
+                        <div className="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 flex items-center justify-center">
                           <BookOpen className="w-3 h-3" />
                         </div>
                         <div>
@@ -208,7 +208,7 @@ export const Header: React.FC<HeaderProps> = ({
                 {unreadCount > 0 && (
                   <button
                     onClick={markAllRead}
-                    className="text-[11px] text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer"
+                    className="text-[11px] text-blue-400 hover:text-blue-300 transition-colors cursor-pointer"
                   >
                     Mark all read
                   </button>
@@ -253,7 +253,7 @@ export const Header: React.FC<HeaderProps> = ({
             className="flex items-center gap-1.5 sm:gap-2.5 py-1 px-1 sm:px-1.5 rounded-xl hover:bg-[#0A1630] transition-colors group cursor-pointer"
           >
             {/* Neutral default avatar for a new student */}
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-purple-600 via-indigo-600 to-blue-600 flex items-center justify-center text-white text-xs font-bold shadow-[0_0_15px_rgba(147,51,234,0.5)] shrink-0">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-blue-600 via-blue-600 to-blue-600 flex items-center justify-center text-white text-xs font-bold shadow-[0_0_15px_rgba(147,51,234,0.5)] shrink-0">
               S
             </div>
             <span className="hidden sm:inline text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-white">
@@ -267,7 +267,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="absolute right-0 top-full mt-2 w-56 max-w-[calc(100vw-1.5rem)] bg-[#091530] border border-[#1A2D54] rounded-2xl shadow-2xl p-2 z-50">
               <div className="p-2.5 border-b border-[#142340]">
                 <p className="text-xs font-bold text-white">Student</p>
-                <p className="text-[11px] text-indigo-400">Student account</p>
+                <p className="text-[11px] text-blue-400">Student account</p>
 
               </div>
 

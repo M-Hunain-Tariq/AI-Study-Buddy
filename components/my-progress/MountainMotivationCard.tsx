@@ -45,7 +45,7 @@ export const MountainMotivationCard: React.FC<MountainMotivationCardProps> = ({ 
 
       {/* FOREGROUND CONTENT */}
       <div className="relative z-20 space-y-1">
-        <h3 className="font-serif italic text-2xl sm:text-3xl font-bold tracking-tight text-[#C084FC] drop-shadow-[0_0_15px_rgba(192,132,252,0.85)]">
+        <h3 className="font-serif italic text-2xl sm:text-3xl font-bold tracking-tight text-[#60A5FA] drop-shadow-[0_0_15px_rgba(192,132,252,0.85)]">
           Big Goals
         </h3>
         <h4 className="font-serif italic text-2xl sm:text-3xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
@@ -60,7 +60,7 @@ export const MountainMotivationCard: React.FC<MountainMotivationCardProps> = ({ 
       <div className="relative z-20 pt-4">
         <button
           onClick={handleAction}
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#4F46E5] hover:from-[#1D4ED8] hover:to-[#4338CA] text-white text-xs sm:text-sm font-semibold shadow-[0_0_20px_rgba(37,99,235,0.7)] hover:shadow-[0_0_28px_rgba(37,99,235,0.9)] hover:scale-[1.03] active:scale-[0.98] transition-all cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#2563EB] hover:from-[#1D4ED8] hover:to-[#4338CA] text-white text-xs sm:text-sm font-semibold shadow-[0_0_20px_rgba(37,99,235,0.7)] hover:shadow-[0_0_28px_rgba(37,99,235,0.9)] hover:scale-[1.03] active:scale-[0.98] transition-all cursor-pointer"
         >
           <span>Keep Going</span>
           <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />

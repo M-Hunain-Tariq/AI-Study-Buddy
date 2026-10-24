@@ -86,7 +86,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           >
             {/* Active Pill Background */}
             {isActive && (
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/25 to-purple-600/25 rounded-xl border border-blue-400/30 -z-10 shadow-[0_0_12px_rgba(59,130,246,0.3)]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/25 to-blue-600/25 rounded-xl border border-blue-400/30 -z-10 shadow-[0_0_12px_rgba(59,130,246,0.3)]" />
             )}
 
             <div

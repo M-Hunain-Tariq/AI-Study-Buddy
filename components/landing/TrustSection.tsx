@@ -64,9 +64,9 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ avatarUrl, name, role
         </p>
 
         {/* 5 Golden Stars with subtle glow */}
-        <div className="flex items-center gap-1 text-amber-400 group-hover:scale-105 transition-transform origin-left">
+        <div className="flex items-center gap-1 text-blue-400 group-hover:scale-105 transition-transform origin-left">
           {[...Array(5)].map((_, i) => (
-            <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.8)]" />
+            <Star key={i} className="w-3.5 h-3.5 fill-blue-400 text-blue-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.8)]" />
           ))}
         </div>
       </div>
@@ -140,8 +140,8 @@ export const TrustSection: React.FC = () => {
           <ScrollReveal animation="fade-up" delay={200} className="h-full">
             <StatItem
               icon={<MessageSquare className="w-6 h-6" />}
-              iconBg="bg-purple-600/20"
-              iconColor="text-purple-400"
+              iconBg="bg-blue-600/20"
+              iconColor="text-blue-400"
               value="1M+"
               label="Questions Answered"
             />
@@ -157,9 +157,9 @@ export const TrustSection: React.FC = () => {
           </ScrollReveal>
           <ScrollReveal animation="fade-up" delay={400} className="h-full">
             <StatItem
-              icon={<Star className="w-6 h-6 fill-amber-400 text-amber-400" />}
-              iconBg="bg-amber-600/20"
-              iconColor="text-amber-400"
+              icon={<Star className="w-6 h-6 fill-blue-400 text-blue-400" />}
+              iconBg="bg-blue-600/20"
+              iconColor="text-blue-400"
               value="4.8/5"
               label="Average Rating"
             />

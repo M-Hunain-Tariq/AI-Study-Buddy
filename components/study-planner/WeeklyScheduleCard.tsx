@@ -72,13 +72,13 @@ export const WeeklyScheduleCard: React.FC<WeeklyScheduleCardProps> = ({
       case 'maths':
         return 'text-blue-400 bg-blue-500/15 border-blue-500/30';
       case 'physics':
-        return 'text-purple-400 bg-purple-500/15 border-purple-500/30';
+        return 'text-blue-400 bg-blue-500/15 border-blue-500/30';
       case 'english':
-        return 'text-amber-400 bg-amber-500/15 border-amber-500/30';
+        return 'text-blue-400 bg-blue-500/15 border-blue-500/30';
       case 'chemistry':
-        return 'text-teal-400 bg-teal-500/15 border-teal-500/30';
+        return 'text-blue-400 bg-blue-500/15 border-blue-500/30';
       default:
-        return 'text-indigo-400 bg-indigo-500/15 border-indigo-500/30';
+        return 'text-blue-400 bg-blue-500/15 border-blue-500/30';
     }
   };
 
@@ -89,13 +89,13 @@ export const WeeklyScheduleCard: React.FC<WeeklyScheduleCardProps> = ({
       case 'maths':
         return 'from-blue-500 to-cyan-400';
       case 'physics':
-        return 'from-purple-500 to-indigo-400';
+        return 'from-blue-500 to-blue-400';
       case 'english':
-        return 'from-amber-500 to-orange-400';
+        return 'from-blue-500 to-blue-400';
       case 'chemistry':
-        return 'from-teal-400 to-emerald-400';
+        return 'from-blue-400 to-blue-400';
       default:
-        return 'from-indigo-500 to-blue-400';
+        return 'from-blue-500 to-blue-400';
     }
   };
 
@@ -126,7 +126,7 @@ export const WeeklyScheduleCard: React.FC<WeeklyScheduleCardProps> = ({
                 onClick={() => onSelectDate(day.dateFull)}
                 className={`flex flex-col items-center justify-center py-2 px-0.5 sm:px-2 rounded-xl transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-gradient-to-b from-[#2563EB] to-[#4F46E5] text-white shadow-[0_0_15px_rgba(37,99,235,0.5)] scale-[1.03] ring-1 ring-blue-400/50'
+                    ? 'bg-gradient-to-b from-[#2563EB] to-[#2563EB] text-white shadow-[0_0_15px_rgba(37,99,235,0.5)] scale-[1.03] ring-1 ring-blue-400/50'
                     : 'bg-[#0B1530] text-slate-400 hover:text-slate-200 hover:bg-[#112046] border border-[#162547]'
                 }`}
               >
@@ -247,7 +247,7 @@ export const WeeklyScheduleCard: React.FC<WeeklyScheduleCardProps> = ({
               <linearGradient id="studyTimeGrad" x1="0" y1="0" x2="1" y2="1">
                 <stop stopColor="#38BDF8" />
                 <stop offset="0.6" stopColor="#60A5FA" />
-                <stop offset="1" stopColor="#A855F7" />
+                <stop offset="1" stopColor="#3B82F6" />
               </linearGradient>
             </defs>
           </svg>

@@ -6,10 +6,10 @@ import { User, Palette, Bell, ShieldCheck, Database, Headphones, Settings, Chevr
 import type { SectionId } from './types';
 
 const CARDS: { id: SectionId; title: string; desc: string; icon: React.ComponentType<{ className?: string }>; grad: string }[] = [
-  { id: 'profile', title: 'Profile', desc: 'Manage your personal information and account details.', icon: User, grad: 'from-blue-500 to-indigo-600' },
-  { id: 'appearance', title: 'Appearance', desc: 'Customize the look and feel of the app.', icon: Palette, grad: 'from-purple-500 to-fuchsia-600' },
-  { id: 'notifications', title: 'Notifications', desc: 'Control your notifications and alerts.', icon: Bell, grad: 'from-violet-500 to-purple-700' },
-  { id: 'privacy', title: 'Privacy & Security', desc: 'Keep your account safe and secure.', icon: ShieldCheck, grad: 'from-teal-400 to-emerald-600' },
+  { id: 'profile', title: 'Profile', desc: 'Manage your personal information and account details.', icon: User, grad: 'from-blue-500 to-blue-600' },
+  { id: 'appearance', title: 'Appearance', desc: 'Customize the look and feel of the app.', icon: Palette, grad: 'from-blue-500 to-blue-600' },
+  { id: 'notifications', title: 'Notifications', desc: 'Control your notifications and alerts.', icon: Bell, grad: 'from-blue-500 to-blue-700' },
+  { id: 'privacy', title: 'Privacy & Security', desc: 'Keep your account safe and secure.', icon: ShieldCheck, grad: 'from-blue-400 to-blue-600' },
   { id: 'data', title: 'Data & Storage', desc: 'Manage your data and storage usage.', icon: Database, grad: 'from-sky-400 to-blue-600' },
   { id: 'help', title: 'Help & Support', desc: 'Get help, find answers and contact us.', icon: Headphones, grad: 'from-blue-500 to-cyan-500' },
 ];
@@ -35,7 +35,7 @@ export const SettingsHub: React.FC<{ onOpen: (id: SectionId) => void }> = ({ onO
           onClick={() => onOpen(c.id)}
           className="card-surface group flex items-center gap-4 text-left rounded-2xl p-4 sm:p-5 cursor-pointer focus-visible:outline-2 focus-visible:outline-blue-400"
         >
-          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${c.grad} flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(79,70,229,0.4)]`}>
+          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${c.grad} flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(37,99,235,0.4)]`}>
             <c.icon className="w-5 h-5 text-white" />
           </div>
           <div className="min-w-0 flex-1">
@@ -57,7 +57,7 @@ export const SettingsHub: React.FC<{ onOpen: (id: SectionId) => void }> = ({ onO
       </div>
       <button
         onClick={() => onOpen('advanced')}
-        className="px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#2563EB] to-[#4F46E5] shadow-[0_0_18px_rgba(79,70,229,0.45)] hover:shadow-[0_0_26px_rgba(79,70,229,0.7)] cursor-pointer"
+        className="px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#2563EB] to-[#2563EB] shadow-[0_0_18px_rgba(37,99,235,0.45)] hover:shadow-[0_0_26px_rgba(37,99,235,0.7)] cursor-pointer"
       >
         Show Advanced Settings →
       </button>

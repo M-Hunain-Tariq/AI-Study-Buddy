@@ -65,7 +65,7 @@ export const SeeItInAction: React.FC = () => {
       {/* 3D Folded Crystal Origami Wings matching image.png */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Central Diffused Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[550px] bg-gradient-to-r from-cyan-600/15 via-indigo-600/20 to-purple-600/15 rounded-full blur-[160px] animate-pulse-glow" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[550px] bg-gradient-to-r from-cyan-600/15 via-blue-600/20 to-blue-600/15 rounded-full blur-[160px] animate-pulse-glow" />
 
         {/* LEFT 3D ELECTRIC CYAN FOLDED CRYSTAL WING */}
         <div className="absolute top-1/3 -left-12 sm:-left-6 lg:-left-2 w-[180px] sm:w-[240px] lg:w-[320px] h-[440px] opacity-90 drop-shadow-[0_20px_45px_rgba(6,182,212,0.65)] animate-crystal-shift">
@@ -76,7 +76,7 @@ export const SeeItInAction: React.FC = () => {
           <svg viewBox="0 0 320 440" fill="none" className="w-full h-full">
             <defs>
               <linearGradient id="s4-c-left-1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.9" />
+                <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.9" />
                 <stop offset="50%" stopColor="#0284c7" stopOpacity="0.95" />
                 <stop offset="100%" stopColor="#082f49" stopOpacity="0.98" />
               </linearGradient>
@@ -104,21 +104,21 @@ export const SeeItInAction: React.FC = () => {
         </div>
 
         {/* RIGHT 3D ELECTRIC VIOLET FOLDED CRYSTAL WING */}
-        <div className="absolute top-1/3 -right-12 sm:-right-6 lg:-right-2 w-[180px] sm:w-[240px] lg:w-[320px] h-[440px] opacity-90 drop-shadow-[0_20px_45px_rgba(168,85,247,0.65)] animate-crystal-shift">
+        <div className="absolute top-1/3 -right-12 sm:-right-6 lg:-right-2 w-[180px] sm:w-[240px] lg:w-[320px] h-[440px] opacity-90 drop-shadow-[0_20px_45px_rgba(37,99,235,0.65)] animate-crystal-shift">
           {/* Shimmer reflection sweep */}
           <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
-            <div className="w-1/3 h-full bg-gradient-to-r from-transparent via-purple-300/30 to-transparent animate-crystal-sweep" style={{ animationDelay: '2.5s' }} />
+            <div className="w-1/3 h-full bg-gradient-to-r from-transparent via-blue-300/30 to-transparent animate-crystal-sweep" style={{ animationDelay: '2.5s' }} />
           </div>
           <svg viewBox="0 0 320 440" fill="none" className="w-full h-full">
             <defs>
               <linearGradient id="s4-c-right-1" x1="100%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#a855f7" stopOpacity="0.9" />
-                <stop offset="50%" stopColor="#7e22ce" stopOpacity="0.95" />
+                <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.9" />
+                <stop offset="50%" stopColor="#1D4ED8" stopOpacity="0.95" />
                 <stop offset="100%" stopColor="#3b0764" stopOpacity="0.98" />
               </linearGradient>
               <linearGradient id="s4-c-right-2" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#d8b4fe" stopOpacity="0.85" />
-                <stop offset="60%" stopColor="#c084fc" stopOpacity="0.9" />
+                <stop offset="60%" stopColor="#60A5FA" stopOpacity="0.9" />
                 <stop offset="100%" stopColor="#6b21a8" stopOpacity="0.95" />
               </linearGradient>
               <linearGradient id="s4-c-right-3" x1="50%" y1="0%" x2="50%" y2="100%">
@@ -182,12 +182,12 @@ export const SeeItInAction: React.FC = () => {
 
             {/* Create Quizzes Card */}
             <ScrollReveal animation="fade-right" delay={300}>
-              <div className="bg-[#05112e]/90 p-6 rounded-2xl border border-blue-500/20 hover:border-purple-400/80 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(168,85,247,0.25)] group cursor-pointer relative overflow-hidden">
-                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-purple-400 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity animate-shimmer" />
-                <div className="w-10 h-10 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center mb-4 group-hover:scale-115 group-hover:rotate-6 group-hover:shadow-[0_0_24px_rgba(168,85,247,0.8)] transition-all">
+              <div className="bg-[#05112e]/90 p-6 rounded-2xl border border-blue-500/20 hover:border-blue-400/80 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(37,99,235,0.25)] group cursor-pointer relative overflow-hidden">
+                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity animate-shimmer" />
+                <div className="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center mb-4 group-hover:scale-115 group-hover:rotate-6 group-hover:shadow-[0_0_24px_rgba(37,99,235,0.8)] transition-all">
                   <HelpCircle className="w-5 h-5" />
                 </div>
-                <h3 className="font-heading text-base font-bold text-white mb-2 group-hover:text-purple-200 transition-colors">
+                <h3 className="font-heading text-base font-bold text-white mb-2 group-hover:text-blue-200 transition-colors">
                   Create Quizzes
                 </h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
@@ -226,8 +226,8 @@ export const SeeItInAction: React.FC = () => {
                     <div className="flex items-end gap-0.5 h-3 ml-1.5">
                       <div className="w-0.5 bg-cyan-400 rounded-full animate-wave-bar-1" />
                       <div className="w-0.5 bg-sky-400 rounded-full animate-wave-bar-2" />
-                      <div className="w-0.5 bg-indigo-400 rounded-full animate-wave-bar-3" />
-                      <div className="w-0.5 bg-purple-400 rounded-full animate-wave-bar-4" />
+                      <div className="w-0.5 bg-blue-400 rounded-full animate-wave-bar-3" />
+                      <div className="w-0.5 bg-blue-400 rounded-full animate-wave-bar-4" />
                     </div>
                   )}
                 </div>
@@ -293,7 +293,7 @@ export const SeeItInAction: React.FC = () => {
                   <div className="space-y-3.5">
                     {/* User Prompt (Right) */}
                     <div className="flex justify-end">
-                      <div className="max-w-[85%] bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-3.5 py-2 rounded-2xl rounded-tr-xs text-xs font-medium shadow-[0_2px_15px_rgba(37,99,235,0.45)]">
+                      <div className="max-w-[85%] bg-gradient-to-r from-blue-600 to-blue-500 text-white px-3.5 py-2 rounded-2xl rounded-tr-xs text-xs font-medium shadow-[0_2px_15px_rgba(37,99,235,0.45)]">
                         {userQuery}
                       </div>
                     </div>
@@ -317,7 +317,7 @@ export const SeeItInAction: React.FC = () => {
                               onClick={handleCopy}
                               className="flex items-center gap-1 hover:text-cyan-300 transition-colors text-[10px] cursor-pointer"
                             >
-                              {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                              {copied ? <Check className="w-3 h-3 text-blue-400" /> : <Copy className="w-3 h-3" />}
                               <span>{copied ? 'Copied' : 'Copy'}</span>
                             </button>
                             <button className="flex items-center gap-1 hover:text-cyan-300 transition-colors text-[10px] cursor-pointer">
@@ -394,7 +394,7 @@ export const SeeItInAction: React.FC = () => {
             {/* Study Planner Card with Schedule list */}
             <ScrollReveal animation="fade-left" delay={300}>
               <div className="relative bg-[#05112e]/90 p-6 rounded-2xl border border-blue-500/20 hover:border-blue-400/80 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(59,130,246,0.25)] group cursor-pointer overflow-hidden">
-                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-400 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity animate-shimmer" />
+                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity animate-shimmer" />
                 <div className="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center mb-4 group-hover:scale-115 group-hover:rotate-6 group-hover:shadow-[0_0_24px_rgba(59,130,246,0.8)] transition-all">
                   <Calendar className="w-5 h-5" />
                 </div>
@@ -421,12 +421,12 @@ export const SeeItInAction: React.FC = () => {
                     </div>
                     <div className="flex items-center justify-between text-slate-300">
                       <span>Reading</span>
-                      <span className="text-indigo-400 font-mono text-[11px]">1h 00m</span>
+                      <span className="text-blue-400 font-mono text-[11px]">1h 00m</span>
                     </div>
                   </div>
 
                   {/* Floating Purple Calendar Icon with floating animation */}
-                  <div className="absolute -right-3 -top-3 w-8 h-8 rounded-xl bg-purple-600 text-white flex items-center justify-center shadow-[0_0_18px_rgba(168,85,247,0.85)] animate-card-float">
+                  <div className="absolute -right-3 -top-3 w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-[0_0_18px_rgba(37,99,235,0.85)] animate-card-float">
                     <Calendar className="w-4 h-4" />
                   </div>
                 </div>

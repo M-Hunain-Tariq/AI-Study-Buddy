@@ -154,7 +154,7 @@ Instructions:
                 questionsCount: formatted.length,
                 difficulty: safeDifficulty,
                 symbol: subject === 'Mathematics' ? '√x' : subject === 'Physics' ? '⚡' : subject === 'Chemistry' ? '⚗' : '📖',
-                colorScheme: difficulty === 'Hard' ? 'purple' : difficulty === 'Easy' ? 'emerald' : 'blue',
+                colorScheme: difficulty === 'Hard' ? 'blue' : difficulty === 'Easy' ? 'blue' : 'blue',
                 questions: formatted,
               },
             });

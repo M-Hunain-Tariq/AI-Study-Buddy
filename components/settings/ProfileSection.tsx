@@ -49,7 +49,7 @@ export const ProfileSection: React.FC<SectionProps> = ({ settings, update, onBac
 
   const avatar = (size: string, text: string) => (
     <div
-      className={`${size} rounded-full bg-gradient-to-tr from-purple-600 via-indigo-600 to-blue-600 flex items-center justify-center text-white font-bold overflow-hidden shadow-[0_0_28px_rgba(147,51,234,0.5)] ring-2 ring-indigo-400/40 shrink-0 ${text}`}
+      className={`${size} rounded-full bg-gradient-to-tr from-blue-600 via-blue-600 to-blue-600 flex items-center justify-center text-white font-bold overflow-hidden shadow-[0_0_28px_rgba(147,51,234,0.5)] ring-2 ring-blue-400/40 shrink-0 ${text}`}
     >
       {settings.profile.photo ? (
         // eslint-disable-next-line @next/next/no-img-element
@@ -86,8 +86,8 @@ export const ProfileSection: React.FC<SectionProps> = ({ settings, update, onBac
             {avatar('w-14 h-14', 'text-xl')}
             <div className="min-w-0">
               <p className="text-base font-bold text-white truncate">{settings.profile.name}</p>
-              <p className="text-xs text-indigo-300 truncate">{settings.profile.email}</p>
-              <span className="inline-block mt-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+              <p className="text-xs text-blue-300 truncate">{settings.profile.email}</p>
+              <span className="inline-block mt-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-blue-500/15 text-blue-300 border border-blue-500/30">
                 Student
               </span>
             </div>

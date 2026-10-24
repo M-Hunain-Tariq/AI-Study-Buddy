@@ -26,13 +26,13 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onStartFree }) => {
       <div className="absolute inset-0 pointer-events-none z-10">
         <div className="absolute top-12 left-1/4 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_10px_#fff] twinkle-1" />
         <div className="absolute top-20 right-1/3 w-2 h-2 bg-cyan-200 rounded-full shadow-[0_0_12px_#38bdf8] twinkle-2" />
-        <div className="absolute top-36 left-1/6 w-1.5 h-1.5 bg-pink-300 rounded-full shadow-[0_0_10px_#f472b6] twinkle-3" />
-        <div className="absolute top-16 right-1/5 w-1.5 h-1.5 bg-amber-200 rounded-full shadow-[0_0_10px_#fde68a] twinkle-1" />
+        <div className="absolute top-36 left-1/6 w-1.5 h-1.5 bg-blue-300 rounded-full shadow-[0_0_10px_#f472b6] twinkle-3" />
+        <div className="absolute top-16 right-1/5 w-1.5 h-1.5 bg-blue-200 rounded-full shadow-[0_0_10px_#fde68a] twinkle-1" />
         <div className="absolute top-28 left-1/3 w-1.5 h-1.5 bg-blue-200 rounded-full shadow-[0_0_10px_#93c5fd] twinkle-2" />
         {/* Twilight Fireflies Rising */}
-        <div className="absolute bottom-28 left-[22%] w-1.5 h-1.5 rounded-full bg-amber-300/80 blur-[0.5px] shadow-[0_0_8px_#f59e0b] animate-stardust-1" />
+        <div className="absolute bottom-28 left-[22%] w-1.5 h-1.5 rounded-full bg-blue-300/80 blur-[0.5px] shadow-[0_0_8px_#60A5FA] animate-stardust-1" />
         <div className="absolute bottom-36 right-[28%] w-1.5 h-1.5 rounded-full bg-cyan-300/80 blur-[0.5px] shadow-[0_0_8px_#38bdf8] animate-stardust-2" />
-        <div className="absolute bottom-20 right-[18%] w-1 h-1 rounded-full bg-pink-300/80 blur-[0.5px] shadow-[0_0_6px_#ec4899] animate-stardust-3" />
+        <div className="absolute bottom-20 right-[18%] w-1 h-1 rounded-full bg-blue-300/80 blur-[0.5px] shadow-[0_0_6px_#ec4899] animate-stardust-3" />
       </div>
 
       {/* Left Handwritten Note: Better Learning Brighter Future with subtle floating */}
@@ -105,12 +105,12 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onStartFree }) => {
         {/* The One & Only Final CTA Button Down */}
         <div className="relative mb-6 group">
           {/* Ambient Outer Pulsing Aura Ring */}
-          <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-purple-500 via-cyan-400 to-indigo-500 opacity-75 blur-xl group-hover:opacity-100 transition duration-500 group-hover:duration-200 animate-pulse-glow" />
+          <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500 opacity-75 blur-xl group-hover:opacity-100 transition duration-500 group-hover:duration-200 animate-pulse-glow" />
           
           <button
             onClick={onStartFree}
             id="last-cta-btn"
-            className="relative inline-flex items-center gap-3.5 px-10 py-4.5 rounded-full text-lg font-bold text-white bg-gradient-to-r from-[#8b5cf6] via-[#6366f1] to-[#38bdf8] hover:from-[#7c3aed] hover:to-[#0ea5e9] shadow-[0_0_35px_rgba(139,92,246,0.85)] hover:shadow-[0_0_55px_rgba(56,189,248,1)] transition-all duration-300 transform hover:-translate-y-1.5 hover:scale-[1.04] active:translate-y-0 cursor-pointer overflow-hidden border border-white/40"
+            className="relative inline-flex items-center gap-3.5 px-10 py-4.5 rounded-full text-lg font-bold text-white bg-gradient-to-r from-[#2563EB] via-[#6366f1] to-[#38bdf8] hover:from-[#2563EB] hover:to-[#0ea5e9] shadow-[0_0_35px_rgba(139,92,246,0.85)] hover:shadow-[0_0_55px_rgba(56,189,248,1)] transition-all duration-300 transform hover:-translate-y-1.5 hover:scale-[1.04] active:translate-y-0 cursor-pointer overflow-hidden border border-white/40"
           >
             <div className="absolute inset-0 overflow-hidden rounded-full pointer-events-none">
               <div className="w-1/2 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer" />

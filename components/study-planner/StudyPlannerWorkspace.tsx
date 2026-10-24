@@ -313,7 +313,7 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
           onClick={() => setMobilePlannerTab('schedule')}
           className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
             mobilePlannerTab === 'schedule'
-              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
+              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
               : 'text-slate-400 hover:text-white'
           }`}
         >
@@ -323,7 +323,7 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
           onClick={() => setMobilePlannerTab('goals')}
           className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
             mobilePlannerTab === 'goals'
-              ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.5)]'
+              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
               : 'text-slate-400 hover:text-white'
           }`}
         >

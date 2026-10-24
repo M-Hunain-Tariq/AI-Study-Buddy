@@ -20,7 +20,7 @@ export const StreakAchievementsCard: React.FC = () => {
   const badges = [
     // Row 1: 3 unlocked + 1 locked
     { id: 'b1', name: 'Knowledge Seeker', icon: BookOpen, unlocked: true, color: 'bg-blue-600/30 border-blue-500/40 text-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.4)]' },
-    { id: 'b2', name: 'Rising Star', icon: Star, unlocked: true, color: 'bg-amber-500/30 border-amber-400/40 text-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.4)]' },
+    { id: 'b2', name: 'Rising Star', icon: Star, unlocked: true, color: 'bg-blue-500/30 border-blue-400/40 text-blue-300 shadow-[0_0_12px_rgba(251,191,36,0.4)]' },
     { id: 'b3', name: 'Quiz Champion', icon: Trophy, unlocked: true, color: 'bg-yellow-500/30 border-yellow-400/40 text-yellow-300 shadow-[0_0_12px_rgba(234,179,8,0.4)]' },
     { id: 'b4', name: 'Master Mind', icon: Lock, unlocked: false, color: 'bg-[#0B1530] border-[#182C56] text-slate-500' },
 
@@ -57,15 +57,15 @@ export const StreakAchievementsCard: React.FC = () => {
         {/* Left: Streak Counter & Week Days */}
         <div className="space-y-3 sm:pr-4 sm:border-r border-[#142345]">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-[#38260F] border border-amber-500/40 flex items-center justify-center text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.35)] shrink-0">
-              <Flame className="w-6 h-6 fill-amber-500" />
+            <div className="w-11 h-11 rounded-2xl bg-[#38260F] border border-blue-500/40 flex items-center justify-center text-blue-500 shadow-[0_0_15px_rgba(245,158,11,0.35)] shrink-0">
+              <Flame className="w-6 h-6 fill-blue-500" />
             </div>
             <div>
               <div className="flex items-baseline gap-1.5">
                 <span className="text-2xl font-black text-white leading-none">5</span>
                 <span className="text-xs font-bold text-slate-300">Day Streak</span>
               </div>
-              <p className="text-[11px] text-amber-400 font-semibold mt-0.5">
+              <p className="text-[11px] text-blue-400 font-semibold mt-0.5">
                 Keep it up! 🔥
               </p>
             </div>
@@ -80,12 +80,12 @@ export const StreakAchievementsCard: React.FC = () => {
                     wd.status === 'checked'
                       ? 'bg-blue-600/30 border-blue-400 text-blue-400 shadow-[0_0_8px_rgba(59,130,246,0.6)]'
                       : wd.status === 'flame'
-                      ? 'bg-amber-500/30 border-amber-400 text-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.7)]'
+                      ? 'bg-blue-500/30 border-blue-400 text-blue-400 shadow-[0_0_8px_rgba(245,158,11,0.7)]'
                       : 'bg-[#0B1530] border-[#182C56] text-transparent'
                   }`}
                 >
                   {wd.status === 'checked' && <Check className="w-3 h-3 stroke-[3]" />}
-                  {wd.status === 'flame' && <Flame className="w-3 h-3 fill-amber-400" />}
+                  {wd.status === 'flame' && <Flame className="w-3 h-3 fill-blue-400" />}
                 </div>
                 <span className="text-[9px] text-slate-400 font-medium">{wd.day}</span>
               </div>

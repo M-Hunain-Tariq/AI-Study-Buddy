@@ -286,11 +286,11 @@ export const TasksWorkspace: React.FC = () => {
         <div className="relative z-10 max-w-xl">
           {/* Badge: Squircle Cap Icon + Tasks Pill */}
           <div className="inline-flex items-center gap-2 mb-2.5">
-            <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-blue-500/30 to-indigo-600/30 border border-blue-400/40 flex items-center justify-center text-blue-300 shadow-[0_0_15px_rgba(59,130,246,0.4)]">
+            <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-blue-500/30 to-blue-600/30 border border-blue-400/40 flex items-center justify-center text-blue-300 shadow-[0_0_15px_rgba(59,130,246,0.4)]">
               <GraduationCap className="w-4 h-4" />
             </div>
-            <div className="px-3.5 py-1 rounded-full bg-[#18113E]/90 border border-[#7C3AED]/50 text-indigo-200 text-xs font-semibold shadow-[0_0_15px_rgba(124,58,237,0.25)] backdrop-blur-md flex items-center gap-1.5">
-              <Sparkles className="w-3 h-3 text-purple-400" />
+            <div className="px-3.5 py-1 rounded-full bg-[#18113E]/90 border border-[#2563EB]/50 text-blue-200 text-xs font-semibold shadow-[0_0_15px_rgba(37,99,235,0.25)] backdrop-blur-md flex items-center gap-1.5">
+              <Sparkles className="w-3 h-3 text-blue-400" />
               <span>Tasks</span>
             </div>
           </div>
@@ -298,7 +298,7 @@ export const TasksWorkspace: React.FC = () => {
           {/* Headline */}
           <h1 className="text-2xl sm:text-[28px] lg:text-[32px] font-extrabold tracking-tight text-white leading-tight">
             Plan Today,{' '}
-            <span className="bg-gradient-to-r from-[#38BDF8] via-[#818CF8] to-[#C084FC] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(129,140,248,0.6)]">
+            <span className="bg-gradient-to-r from-[#38BDF8] via-[#60A5FA] to-[#60A5FA] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(129,140,248,0.6)]">
               Achieve Tomorrow
             </span>
           </h1>
@@ -320,7 +320,7 @@ export const TasksWorkspace: React.FC = () => {
             onClick={() => setStatusFilter('All')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
               statusFilter === 'All'
-                ? 'bg-gradient-to-r from-[#2563EB] to-[#4F46E5] text-white shadow-[0_0_18px_rgba(37,99,235,0.6)] border border-blue-400/40'
+                ? 'bg-gradient-to-r from-[#2563EB] to-[#2563EB] text-white shadow-[0_0_18px_rgba(37,99,235,0.6)] border border-blue-400/40'
                 : 'bg-[#060D20]/80 border border-[#16274D] text-slate-300 hover:text-white hover:bg-[#0B1530]'
             }`}
           >
@@ -332,7 +332,7 @@ export const TasksWorkspace: React.FC = () => {
             onClick={() => setStatusFilter('Pending')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
               statusFilter === 'Pending'
-                ? 'bg-gradient-to-r from-[#2563EB] to-[#4F46E5] text-white shadow-[0_0_18px_rgba(37,99,235,0.6)] border border-blue-400/40'
+                ? 'bg-gradient-to-r from-[#2563EB] to-[#2563EB] text-white shadow-[0_0_18px_rgba(37,99,235,0.6)] border border-blue-400/40'
                 : 'bg-[#060D20]/80 border border-[#16274D] text-slate-300 hover:text-white hover:bg-[#0B1530]'
             }`}
           >
@@ -345,11 +345,11 @@ export const TasksWorkspace: React.FC = () => {
             onClick={() => setStatusFilter('In Progress')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
               statusFilter === 'In Progress'
-                ? 'bg-gradient-to-r from-[#2563EB] to-[#4F46E5] text-white shadow-[0_0_18px_rgba(37,99,235,0.6)] border border-blue-400/40'
+                ? 'bg-gradient-to-r from-[#2563EB] to-[#2563EB] text-white shadow-[0_0_18px_rgba(37,99,235,0.6)] border border-blue-400/40'
                 : 'bg-[#060D20]/80 border border-[#16274D] text-slate-300 hover:text-white hover:bg-[#0B1530]'
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)]" />
+            <span className="w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(251,191,36,0.8)]" />
             <span>In Progress ({inProgressCount})</span>
           </button>
 
@@ -358,11 +358,11 @@ export const TasksWorkspace: React.FC = () => {
             onClick={() => setStatusFilter('Completed')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
               statusFilter === 'Completed'
-                ? 'bg-gradient-to-r from-[#2563EB] to-[#4F46E5] text-white shadow-[0_0_18px_rgba(37,99,235,0.6)] border border-blue-400/40'
+                ? 'bg-gradient-to-r from-[#2563EB] to-[#2563EB] text-white shadow-[0_0_18px_rgba(37,99,235,0.6)] border border-blue-400/40'
                 : 'bg-[#060D20]/80 border border-[#16274D] text-slate-300 hover:text-white hover:bg-[#0B1530]'
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+            <span className="w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
             <span>Completed ({completedCount})</span>
           </button>
         </div>
@@ -388,7 +388,7 @@ export const TasksWorkspace: React.FC = () => {
                 formRef.current.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#9333EA] hover:from-[#1D4ED8] hover:to-[#7E22CE] text-white text-xs font-semibold shadow-[0_0_20px_rgba(124,58,237,0.5)] transition-all cursor-pointer shrink-0 active:scale-95"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-[#2563EB] via-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1D4ED8] text-white text-xs font-semibold shadow-[0_0_20px_rgba(37,99,235,0.5)] transition-all cursor-pointer shrink-0 active:scale-95"
           >
             <Plus className="w-3.5 h-3.5 text-white" />
             <span>Add Task</span>
@@ -402,7 +402,7 @@ export const TasksWorkspace: React.FC = () => {
           onClick={() => setMobileActiveTab('tasks')}
           className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
             mobileActiveTab === 'tasks'
-              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
+              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
               : 'text-slate-400 hover:text-white'
           }`}
         >
@@ -413,7 +413,7 @@ export const TasksWorkspace: React.FC = () => {
           onClick={() => setMobileActiveTab('editor')}
           className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
             mobileActiveTab === 'editor'
-              ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-[0_0_12px_rgba(147,51,234,0.5)]'
+              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(147,51,234,0.5)]'
               : 'text-slate-400 hover:text-white'
           }`}
         >
@@ -424,7 +424,7 @@ export const TasksWorkspace: React.FC = () => {
           onClick={() => setMobileActiveTab('analytics')}
           className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
             mobileActiveTab === 'analytics'
-              ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-[0_0_12px_rgba(16,185,129,0.5)]'
+              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(16,185,129,0.5)]'
               : 'text-slate-400 hover:text-white'
           }`}
         >
@@ -448,7 +448,7 @@ export const TasksWorkspace: React.FC = () => {
             {/* Header */}
             <div className="flex items-center justify-between pb-3.5 border-b border-[#142345]">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-600/20 border border-blue-400/30 text-blue-400 flex items-center justify-center shadow-inner">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-400/30 text-blue-400 flex items-center justify-center shadow-inner">
                   <CheckSquare className="w-4 h-4" />
                 </div>
                 <div>
@@ -504,7 +504,7 @@ export const TasksWorkspace: React.FC = () => {
                           aria-label="Toggle task completion"
                         >
                           {isCompleted ? (
-                            <div className="w-5 h-5 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#4F46E5] flex items-center justify-center text-white shadow-[0_0_12px_rgba(37,99,235,0.8)] border border-blue-300/40">
+                            <div className="w-5 h-5 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#2563EB] flex items-center justify-center text-white shadow-[0_0_12px_rgba(37,99,235,0.8)] border border-blue-300/40">
                               <Check className="w-3.5 h-3.5 stroke-[3]" />
                             </div>
                           ) : (
@@ -530,9 +530,9 @@ export const TasksWorkspace: React.FC = () => {
                             <span
                               className={`text-[9px] font-semibold px-2 py-0.2 rounded-full border shrink-0 ${
                                 task.priority === 'High'
-                                  ? 'bg-[#3B125C] text-purple-200 border-purple-500/40 shadow-[0_0_10px_rgba(168,85,247,0.2)]'
+                                  ? 'bg-[#3B125C] text-blue-200 border-blue-500/40 shadow-[0_0_10px_rgba(37,99,235,0.2)]'
                                   : task.priority === 'Low'
-                                  ? 'bg-[#0E2A1E] text-emerald-300 border-emerald-500/40 shadow-[0_0_10px_rgba(52,211,153,0.2)]'
+                                  ? 'bg-[#0E2A1E] text-blue-300 border-blue-500/40 shadow-[0_0_10px_rgba(52,211,153,0.2)]'
                                   : 'bg-[#0F2B5C] text-blue-300 border-blue-500/40 shadow-[0_0_10px_rgba(59,130,246,0.2)]'
                               }`}
                             >
@@ -582,7 +582,7 @@ export const TasksWorkspace: React.FC = () => {
                               }
                               className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-slate-300 hover:bg-[#12224A] hover:text-white transition-colors"
                             >
-                              <Clock className="w-3 h-3 text-purple-400" />
+                              <Clock className="w-3 h-3 text-blue-400" />
                               <span>
                                 {task.status === 'In Progress' ? 'Mark Pending' : 'In Progress'}
                               </span>
@@ -608,7 +608,7 @@ export const TasksWorkspace: React.FC = () => {
           {/* Bottom Card Summary */}
           <div className="pt-3.5 mt-3 border-t border-[#142345] flex items-center justify-between text-xs text-slate-400">
             <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
+              <span className="w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
               <span>Study Planner Integration</span>
             </span>
             <span className="text-slate-300 font-semibold">{tasks.length} Total</span>
@@ -627,7 +627,7 @@ export const TasksWorkspace: React.FC = () => {
           {/* Header */}
           <div className="flex items-start justify-between pb-3.5 border-b border-[#142345]">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/25 to-purple-600/25 border border-blue-400/40 flex items-center justify-center text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.4)] shrink-0">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/25 to-blue-600/25 border border-blue-400/40 flex items-center justify-center text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.4)] shrink-0">
                 <Calendar className="w-4 h-4" />
               </div>
               <div>
@@ -724,9 +724,9 @@ export const TasksWorkspace: React.FC = () => {
                         onClick={() => setTaskPriority(p)}
                         className={`py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer text-center ${
                           isSelected
-                            ? 'bg-gradient-to-r from-[#2563EB] to-[#4F46E5] text-white shadow-[0_0_12px_rgba(37,99,235,0.6)] border border-blue-400/40'
+                            ? 'bg-gradient-to-r from-[#2563EB] to-[#2563EB] text-white shadow-[0_0_12px_rgba(37,99,235,0.6)] border border-blue-400/40'
                             : p === 'Low'
-                            ? 'bg-[#050A1A] border border-[#172A52] text-emerald-400 hover:text-white'
+                            ? 'bg-[#050A1A] border border-[#172A52] text-blue-400 hover:text-white'
                             : 'bg-[#050A1A] border border-[#172A52] text-rose-400 hover:text-white'
                         }`}
                       >
@@ -788,7 +788,7 @@ export const TasksWorkspace: React.FC = () => {
 
               <button
                 type="submit"
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#9333EA] hover:from-[#1D4ED8] hover:to-[#7E22CE] text-white text-xs font-semibold shadow-[0_0_20px_rgba(124,58,237,0.6)] transition-all cursor-pointer active:scale-95"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] via-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1D4ED8] text-white text-xs font-semibold shadow-[0_0_20px_rgba(37,99,235,0.6)] transition-all cursor-pointer active:scale-95"
               >
                 <Plus className="w-3.5 h-3.5 text-white" />
                 <span>{editingTaskId ? 'Update Task' : 'Add Task'}</span>
@@ -829,7 +829,7 @@ export const TasksWorkspace: React.FC = () => {
                     d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                   />
                   <path
-                    className="text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.9)]"
+                    className="text-blue-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.9)]"
                     strokeDasharray={`${(completedCount / Math.max(tasks.length, 1)) * 100}, 100`}
                     strokeWidth="3.5"
                     strokeLinecap="round"
@@ -861,7 +861,7 @@ export const TasksWorkspace: React.FC = () => {
               <div className="space-y-2 text-xs flex-1">
                 <div className="flex items-center justify-between text-slate-300">
                   <span className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+                    <span className="w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
                     <span>Completed</span>
                   </span>
                   <span className="font-bold text-white">{completedCount}</span>
@@ -877,7 +877,7 @@ export const TasksWorkspace: React.FC = () => {
 
                 <div className="flex items-center justify-between text-slate-300">
                   <span className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
+                    <span className="w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_8px_rgba(37,99,235,0.8)]" />
                     <span>In Progress</span>
                   </span>
                   <span className="font-bold text-white">{inProgressCount}</span>
@@ -889,8 +889,8 @@ export const TasksWorkspace: React.FC = () => {
           {/* Card 3B: Priority Overview */}
           <div className="rounded-[24px] bg-gradient-to-b from-[#08132F]/95 via-[#060D22]/98 to-[#040816] border border-[#1C3364]/70 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_20px_45px_rgba(2,6,23,0.85)] hover:border-blue-500/40 p-4.5 space-y-2.5 transition-all duration-300 backdrop-blur-xl">
             <div className="flex items-center gap-2 pb-2 border-b border-[#142240]">
-              <div className="w-6 h-6 rounded-md bg-purple-600/20 text-purple-400 flex items-center justify-center">
-                <Bookmark className="w-3.5 h-3.5 fill-purple-400" />
+              <div className="w-6 h-6 rounded-md bg-blue-600/20 text-blue-400 flex items-center justify-center">
+                <Bookmark className="w-3.5 h-3.5 fill-blue-400" />
               </div>
               <h4 className="text-xs sm:text-sm font-bold text-white tracking-tight">
                 Priority Overview
@@ -906,19 +906,19 @@ export const TasksWorkspace: React.FC = () => {
                 <span className="text-[10px] text-blue-300 font-semibold block">Medium</span>
                 <span className="text-sm font-bold text-white">{mediumPriorityCount}</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-[#050A1A] border border-[#172A52] text-center hover:border-emerald-500/40 transition-colors shadow-inner">
-                <span className="text-[10px] text-emerald-300 font-semibold block">Low</span>
+              <div className="p-2.5 rounded-xl bg-[#050A1A] border border-[#172A52] text-center hover:border-blue-500/40 transition-colors shadow-inner">
+                <span className="text-[10px] text-blue-300 font-semibold block">Low</span>
                 <span className="text-sm font-bold text-white">{lowPriorityCount}</span>
               </div>
             </div>
           </div>
 
           {/* Card 3C: Stay Consistent! with Mountain Flag Artwork */}
-          <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-b from-[#08132F]/95 via-[#060D22]/98 to-[#040816] border border-[#1C3364]/70 hover:border-purple-500/40 p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_20px_45px_rgba(2,6,23,0.85)] min-h-[135px] flex items-center justify-between group transition-all duration-300 backdrop-blur-xl">
+          <div className="relative overflow-hidden rounded-[24px] bg-gradient-to-b from-[#08132F]/95 via-[#060D22]/98 to-[#040816] border border-[#1C3364]/70 hover:border-blue-500/40 p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_20px_45px_rgba(2,6,23,0.85)] min-h-[135px] flex items-center justify-between group transition-all duration-300 backdrop-blur-xl">
             <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
               <Image
                 src="/images/stay_consistent_flag.jpg"
-                alt="3D Glowing neon purple mountain peak with illuminated flag"
+                alt="3D Glowing neon blue mountain peak with illuminated flag"
                 fill
                 unoptimized
                 sizes="(max-width: 1024px) 100vw, 420px"
@@ -929,8 +929,8 @@ export const TasksWorkspace: React.FC = () => {
             </div>
 
             <div className="relative z-10 max-w-[210px]">
-              <div className="flex items-center gap-1.5 mb-1 text-amber-400 text-xs font-semibold">
-                <Flame className="w-3.5 h-3.5 fill-amber-400" />
+              <div className="flex items-center gap-1.5 mb-1 text-blue-400 text-xs font-semibold">
+                <Flame className="w-3.5 h-3.5 fill-blue-400" />
                 <span>Daily Motivation</span>
               </div>
               <h4 className="text-sm font-bold text-white tracking-tight">Stay Consistent!</h4>

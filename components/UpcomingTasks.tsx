@@ -44,8 +44,8 @@ export const UpcomingTasks: React.FC<UpcomingTasksProps> = ({
             task.subject === 'Physics'
               ? 'text-cyan-400'
               : task.subject === 'Mathematics'
-              ? 'text-purple-400'
-              : 'text-indigo-400';
+              ? 'text-blue-400'
+              : 'text-blue-400';
 
           return (
             <div
@@ -64,7 +64,7 @@ export const UpcomingTasks: React.FC<UpcomingTasksProps> = ({
                   className={`w-4 h-4 rounded-[4px] flex items-center justify-center transition-all cursor-pointer shrink-0 ${
                     task.completed
                       ? 'bg-blue-600 text-white shadow-[0_0_8px_rgba(37,99,235,0.6)]'
-                      : 'border border-slate-500 group-hover:border-indigo-400 bg-transparent'
+                      : 'border border-slate-500 group-hover:border-blue-400 bg-transparent'
                   }`}
                   aria-label={`Toggle task ${task.title}`}
                 >

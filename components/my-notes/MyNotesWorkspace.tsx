@@ -182,13 +182,13 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
     const getSubjectColor = (subj: string): StudyNote['color'] => {
       switch (subj.toLowerCase()) {
         case 'mathematics':
-          return 'purple';
+          return 'blue';
         case 'physics':
           return 'blue';
         case 'chemistry':
-          return 'emerald';
+          return 'blue';
         default:
-          return 'pink';
+          return 'blue';
       }
     };
 
@@ -309,7 +309,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
             <div className="relative z-10 mt-2.5 sm:mt-2 max-w-xl">
               <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white leading-tight">
                 Your Notes,{' '}
-                <span className="bg-gradient-to-r from-[#38BDF8] via-[#818CF8] to-[#C084FC] bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(129,140,248,0.5)]">
+                <span className="bg-gradient-to-r from-[#38BDF8] via-[#60A5FA] to-[#60A5FA] bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(129,140,248,0.5)]">
                   Your Knowledge
                 </span>
               </h1>
@@ -322,15 +322,15 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
             <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mt-4 pt-2 border-t border-[#142345]/60 sm:border-t-0">
               <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs">
                 <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg bg-[#0A1430]/90 border border-[#1C325E] text-slate-200">
-                  <FileText className="w-3.5 h-3.5 text-teal-400 shrink-0" />
+                  <FileText className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                   <span>{notes.length} Notes</span>
                 </div>
                 <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg bg-[#0A1430]/90 border border-[#1C325E] text-slate-200">
-                  <Pin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <Pin className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                   <span>{pinnedNotesList.length} Pinned</span>
                 </div>
                 <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg bg-[#0A1430]/90 border border-[#1C325E] text-slate-200">
-                  <BookOpen className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                  <BookOpen className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                   <span>3 Subjects</span>
                 </div>
                 <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg bg-[#0A1430]/90 border border-[#1C325E] text-slate-200">
@@ -342,7 +342,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
               {/* + Create New Note CTA (Full width on small mobile, compact on tablet/desktop) */}
               <button
                 onClick={handleOpenCreateModal}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#9333EA] hover:from-[#1D4ED8] hover:to-[#7E22CE] text-white text-xs sm:text-sm font-semibold shadow-[0_0_25px_rgba(124,58,237,0.5)] transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98] shrink-0"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1D4ED8] text-white text-xs sm:text-sm font-semibold shadow-[0_0_25px_rgba(37,99,235,0.5)] transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98] shrink-0"
               >
                 <Plus className="w-4 h-4 text-white shrink-0" />
                 <span>Create New Note</span>
@@ -356,7 +356,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
               onClick={() => setMobileNotesTab('notes')}
               className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                 mobileNotesTab === 'notes'
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -366,7 +366,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
               onClick={() => setMobileNotesTab('pinned')}
               className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                 mobileNotesTab === 'pinned'
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.5)]'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -444,12 +444,12 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                 }}
                 className={`group rounded-2xl bg-[#140F30] border p-3 sm:p-3.5 transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-md hover:shadow-lg min-w-0 ${
                   selectedSubjectFilter === 'Physics'
-                    ? 'border-purple-400 ring-1 ring-purple-400/50 bg-[#1D144A]'
-                    : 'border-[#2E1F63] hover:border-purple-500/60'
+                    ? 'border-blue-400 ring-1 ring-blue-400/50 bg-[#1D144A]'
+                    : 'border-[#2E1F63] hover:border-blue-500/60'
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-8 h-8 rounded-xl bg-[#7C3AED] text-white flex items-center justify-center font-bold text-sm shadow-md shrink-0">
+                  <div className="w-8 h-8 rounded-xl bg-[#2563EB] text-white flex items-center justify-center font-bold text-sm shadow-md shrink-0">
                     ⚛
                   </div>
                   <div className="min-w-0 flex-1">
@@ -462,7 +462,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                   </div>
                 </div>
                 <div className="flex justify-end pt-2">
-                  <span className="text-purple-400 text-xs font-bold transition-transform group-hover:translate-x-0.5">
+                  <span className="text-blue-400 text-xs font-bold transition-transform group-hover:translate-x-0.5">
                     →
                   </span>
                 </div>
@@ -477,8 +477,8 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                 }}
                 className={`group rounded-2xl bg-[#08211E] border p-3 sm:p-3.5 transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-md hover:shadow-lg min-w-0 ${
                   selectedSubjectFilter === 'Chemistry'
-                    ? 'border-emerald-400 ring-1 ring-emerald-400/50 bg-[#0A2D29]'
-                    : 'border-[#13443D] hover:border-emerald-500/60'
+                    ? 'border-blue-400 ring-1 ring-blue-400/50 bg-[#0A2D29]'
+                    : 'border-[#13443D] hover:border-blue-500/60'
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
@@ -495,7 +495,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                   </div>
                 </div>
                 <div className="flex justify-end pt-2">
-                  <span className="text-emerald-400 text-xs font-bold transition-transform group-hover:translate-x-0.5">
+                  <span className="text-blue-400 text-xs font-bold transition-transform group-hover:translate-x-0.5">
                     →
                   </span>
                 </div>
@@ -510,12 +510,12 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                 }}
                 className={`group rounded-2xl bg-[#21170A] border p-3 sm:p-3.5 transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-md hover:shadow-lg min-w-0 ${
                   selectedSubjectFilter === 'English'
-                    ? 'border-amber-400 ring-1 ring-amber-400/50 bg-[#2D200C]'
-                    : 'border-[#443013] hover:border-amber-500/60'
+                    ? 'border-blue-400 ring-1 ring-blue-400/50 bg-[#2D200C]'
+                    : 'border-[#443013] hover:border-blue-500/60'
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-8 h-8 rounded-xl bg-[#D97706] text-white flex items-center justify-center font-bold text-sm shadow-md shrink-0">
+                  <div className="w-8 h-8 rounded-xl bg-[#60A5FA] text-white flex items-center justify-center font-bold text-sm shadow-md shrink-0">
                     📖
                   </div>
                   <div className="min-w-0 flex-1">
@@ -528,7 +528,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                   </div>
                 </div>
                 <div className="flex justify-end pt-2">
-                  <span className="text-amber-400 text-xs font-bold transition-transform group-hover:translate-x-0.5">
+                  <span className="text-blue-400 text-xs font-bold transition-transform group-hover:translate-x-0.5">
                     →
                   </span>
                 </div>
@@ -543,12 +543,12 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                 }}
                 className={`group col-span-2 sm:col-span-1 rounded-2xl bg-[#230C19] border p-3 sm:p-3.5 transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-md hover:shadow-lg min-w-0 ${
                   selectedSubjectFilter === 'Computer Science'
-                    ? 'border-pink-400 ring-1 ring-pink-400/50 bg-[#310F22]'
-                    : 'border-[#471732] hover:border-pink-500/60'
+                    ? 'border-blue-400 ring-1 ring-blue-400/50 bg-[#310F22]'
+                    : 'border-[#471732] hover:border-blue-500/60'
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-8 h-8 rounded-xl bg-[#DB2777] text-white flex items-center justify-center font-mono font-bold text-xs shadow-md shrink-0">
+                  <div className="w-8 h-8 rounded-xl bg-[#3B82F6] text-white flex items-center justify-center font-mono font-bold text-xs shadow-md shrink-0">
                     &lt;/&gt;
                   </div>
                   <div className="min-w-0 flex-1">
@@ -561,7 +561,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                   </div>
                 </div>
                 <div className="flex justify-end pt-2">
-                  <span className="text-pink-400 text-xs font-bold transition-transform group-hover:translate-x-0.5">
+                  <span className="text-blue-400 text-xs font-bold transition-transform group-hover:translate-x-0.5">
                     →
                   </span>
                 </div>
@@ -604,7 +604,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                 {recentNotesList.map((note) => {
                   let iconBg = 'bg-[#1D4ED8]';
                   let iconSymbol = 'π';
-                  let subjectPillClass = 'bg-[#2E1552] text-purple-300 border-[#6824B8]/40';
+                  let subjectPillClass = 'bg-[#2E1552] text-blue-300 border-[#6824B8]/40';
 
                   if (note.subject.toLowerCase() === 'physics') {
                     iconBg = 'bg-[#0284C7]';
@@ -613,7 +613,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                   } else if (note.subject.toLowerCase() === 'chemistry') {
                     iconBg = 'bg-[#059669]';
                     iconSymbol = '🧪';
-                    subjectPillClass = 'bg-[#0A3029] text-emerald-300 border-[#126B5D]/40';
+                    subjectPillClass = 'bg-[#0A3029] text-blue-300 border-[#126B5D]/40';
                   }
 
                   const wordCount = note.content.split(/\s+/).filter(Boolean).length;
@@ -650,8 +650,8 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                               <span
                                 className={`text-[10px] font-semibold px-2 py-0.2 rounded-full border ${
                                   note.priority === 'High'
-                                    ? 'bg-[#3A0F1D] text-rose-300 border-[#851E3E]/40'
-                                    : 'bg-[#2E200C] text-amber-300 border-[#7A4E15]/40'
+                                    ? 'bg-[#3A0F1D] text-rose-300 border-[#1D4ED8]/40'
+                                    : 'bg-[#2E200C] text-blue-300 border-[#1D4ED8]/40'
                                 }`}
                               >
                                 {note.priority || 'Medium'}
@@ -710,7 +710,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                                   onClick={(e) => handleTogglePin(note.id, e)}
                                   className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-slate-300 hover:bg-[#12224A] hover:text-white transition-colors"
                                 >
-                                  <Pin className="w-3 h-3 text-purple-400" />
+                                  <Pin className="w-3 h-3 text-blue-400" />
                                   <span>{note.isPinned ? 'Unpin' : 'Pin'}</span>
                                 </button>
                                 <button
@@ -739,7 +739,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
               <div>
                 <div className="flex items-center justify-between pb-2 border-b border-[#142240]">
                   <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
-                    <div className="w-8 h-8 rounded-lg bg-purple-600/20 border border-purple-500/30 text-purple-400 flex items-center justify-center shadow-inner shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-400 flex items-center justify-center shadow-inner shrink-0">
                       <Calendar className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
@@ -809,7 +809,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
               {/* BOTTOM PART: OVERALL PROGRESS */}
               <div className="pt-3 border-t border-[#142240]">
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                  <div className="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
                     <ShieldCheck className="w-3.5 h-3.5" />
                   </div>
                   <div>
@@ -869,7 +869,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                         <span className="font-bold">0%</span>
                       </div>
                       <div className="w-full h-1.5 rounded-full bg-[#111C3A] overflow-hidden">
-                        <div className="h-full rounded-full bg-purple-500 shadow-[0_0_6px_rgba(168,85,247,0.6)] w-0" />
+                        <div className="h-full rounded-full bg-blue-500 shadow-[0_0_6px_rgba(37,99,235,0.6)] w-0" />
                       </div>
                     </div>
 
@@ -882,7 +882,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                         <span className="font-bold">0%</span>
                       </div>
                       <div className="w-full h-1.5 rounded-full bg-[#111C3A] overflow-hidden">
-                        <div className="h-full rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.6)] w-0" />
+                        <div className="h-full rounded-full bg-blue-400 shadow-[0_0_6px_rgba(52,211,153,0.6)] w-0" />
                       </div>
                     </div>
 
@@ -895,7 +895,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                         <span className="font-bold">0%</span>
                       </div>
                       <div className="w-full h-1.5 rounded-full bg-[#111C3A] overflow-hidden">
-                        <div className="h-full rounded-full bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.6)] w-0" />
+                        <div className="h-full rounded-full bg-blue-500 shadow-[0_0_6px_rgba(245,158,11,0.6)] w-0" />
                       </div>
                     </div>
                   </div>
@@ -909,7 +909,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
             RIGHT COLUMN (4 COLS ON DESKTOP, FULL WIDTH ON MOBILE/TABLET)
             Contains:
             1. Quick Actions (2x2 grid)
-            2. Pinned Notes (3 rows with purple pin)
+            2. Pinned Notes (3 rows with blue pin)
             3. Motivational Quote Card
             ======================================================== */}
         <div className={`lg:col-span-4 flex-col space-y-4 sm:space-y-5 min-w-0 ${
@@ -918,8 +918,8 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
           {/* WIDGET 1: QUICK ACTIONS */}
           <div className="rounded-2xl bg-[#081026] border border-[#162544] p-4 sm:p-5 shadow-lg space-y-3 sm:space-y-3.5 min-w-0">
             <div className="flex items-center gap-2.5 pb-2 border-b border-[#142240]">
-              <div className="w-7 h-7 rounded-lg bg-pink-600/20 text-pink-400 flex items-center justify-center shrink-0">
-                <Zap className="w-4 h-4 fill-pink-400" />
+              <div className="w-7 h-7 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center shrink-0">
+                <Zap className="w-4 h-4 fill-blue-400" />
               </div>
               <div className="min-w-0">
                 <h3 className="text-sm font-bold text-white tracking-tight truncate">Quick Actions</h3>
@@ -944,9 +944,9 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
               {/* Take Quiz */}
               <button
                 onClick={() => router.push('/quiz-practice')}
-                className="group flex flex-col p-2.5 sm:p-3 rounded-xl bg-[#082420] hover:bg-[#0C332D] border border-[#134D44] hover:border-emerald-400/60 transition-all text-left cursor-pointer shadow-sm min-w-0"
+                className="group flex flex-col p-2.5 sm:p-3 rounded-xl bg-[#082420] hover:bg-[#0C332D] border border-[#134D44] hover:border-blue-400/60 transition-all text-left cursor-pointer shadow-sm min-w-0"
               >
-                <div className="w-7 h-7 rounded-lg bg-emerald-600/30 text-emerald-400 flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-105 transition-transform shrink-0">
+                <div className="w-7 h-7 rounded-lg bg-blue-600/30 text-blue-400 flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-105 transition-transform shrink-0">
                   <FileText className="w-4 h-4" />
                 </div>
                 <h4 className="text-xs font-bold text-white truncate">Take Quiz</h4>
@@ -956,9 +956,9 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
               {/* Practice */}
               <button
                 onClick={() => router.push('/quiz-practice')}
-                className="group flex flex-col p-2.5 sm:p-3 rounded-xl bg-[#26180E] hover:bg-[#382314] border border-[#4E2E18] hover:border-amber-400/60 transition-all text-left cursor-pointer shadow-sm min-w-0"
+                className="group flex flex-col p-2.5 sm:p-3 rounded-xl bg-[#26180E] hover:bg-[#382314] border border-[#4E2E18] hover:border-blue-400/60 transition-all text-left cursor-pointer shadow-sm min-w-0"
               >
-                <div className="w-7 h-7 rounded-lg bg-amber-600/30 text-amber-400 flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-105 transition-transform shrink-0">
+                <div className="w-7 h-7 rounded-lg bg-blue-600/30 text-blue-400 flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-105 transition-transform shrink-0">
                   <Brain className="w-4 h-4" />
                 </div>
                 <h4 className="text-xs font-bold text-white truncate">Practice</h4>
@@ -968,9 +968,9 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
               {/* Add Note */}
               <button
                 onClick={handleOpenCreateModal}
-                className="group flex flex-col p-2.5 sm:p-3 rounded-xl bg-[#290E22] hover:bg-[#3D1433] border border-[#521944] hover:border-pink-400/60 transition-all text-left cursor-pointer shadow-sm min-w-0"
+                className="group flex flex-col p-2.5 sm:p-3 rounded-xl bg-[#290E22] hover:bg-[#3D1433] border border-[#521944] hover:border-blue-400/60 transition-all text-left cursor-pointer shadow-sm min-w-0"
               >
-                <div className="w-7 h-7 rounded-lg bg-pink-600/30 text-pink-400 flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-105 transition-transform shrink-0">
+                <div className="w-7 h-7 rounded-lg bg-blue-600/30 text-blue-400 flex items-center justify-center mb-1.5 sm:mb-2 group-hover:scale-105 transition-transform shrink-0">
                   <Plus className="w-4 h-4" />
                 </div>
                 <h4 className="text-xs font-bold text-white truncate">Add Note</h4>
@@ -983,8 +983,8 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
           <div className="rounded-2xl bg-[#081026] border border-[#162544] p-4 sm:p-5 shadow-lg space-y-3 sm:space-y-3.5 min-w-0">
             <div className="flex items-center justify-between pb-2 border-b border-[#142240]">
               <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
-                <div className="w-7 h-7 rounded-lg bg-purple-600/20 text-purple-400 flex items-center justify-center shrink-0">
-                  <Pin className="w-4 h-4 fill-purple-400" />
+                <div className="w-7 h-7 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center shrink-0">
+                  <Pin className="w-4 h-4 fill-blue-400" />
                 </div>
                 <div className="min-w-0">
                   <h3 className="text-sm font-bold text-white tracking-tight truncate">Pinned Notes</h3>
@@ -1003,7 +1003,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                 let iconBg = 'bg-[#1D4ED8]';
                 let iconSymbol = 'π';
                 if (note.subject.toLowerCase() === 'physics') {
-                  iconBg = 'bg-[#7C3AED]';
+                  iconBg = 'bg-[#2563EB]';
                   iconSymbol = '⚛';
                 } else if (note.subject.toLowerCase() === 'chemistry') {
                   iconBg = 'bg-[#059669]';
@@ -1014,7 +1014,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                   <div
                     key={note.id}
                     onClick={() => handleOpenEditModal(note)}
-                    className="flex items-center justify-between p-2.5 rounded-xl bg-[#060D1E] hover:bg-[#0B1530] border border-[#162544] hover:border-purple-500/50 transition-all cursor-pointer group min-w-0"
+                    className="flex items-center justify-between p-2.5 rounded-xl bg-[#060D1E] hover:bg-[#0B1530] border border-[#162544] hover:border-blue-500/50 transition-all cursor-pointer group min-w-0"
                   >
                     <div className="flex items-center gap-2.5 min-w-0 pr-2 flex-1">
                       <div
@@ -1032,8 +1032,8 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
                       </div>
                     </div>
 
-                    <div className="p-1 text-purple-400 shrink-0">
-                      <Pin className="w-3.5 h-3.5 fill-purple-400" />
+                    <div className="p-1 text-blue-400 shrink-0">
+                      <Pin className="w-3.5 h-3.5 fill-blue-400" />
                     </div>
                   </div>
                 );

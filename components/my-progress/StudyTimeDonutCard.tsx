@@ -12,11 +12,11 @@ interface SubjectTime {
 }
 
 const SUBJECT_TIMES: SubjectTime[] = [
-  { name: 'Mathematics', hours: 3.5, color: '#A855F7', glow: 'shadow-[0_0_8px_rgba(168,85,247,0.8)]' },
+  { name: 'Mathematics', hours: 3.5, color: '#3B82F6', glow: 'shadow-[0_0_8px_rgba(37,99,235,0.8)]' },
   { name: 'Physics', hours: 2.8, color: '#3B82F6', glow: 'shadow-[0_0_8px_rgba(59,130,246,0.8)]' },
   { name: 'Chemistry', hours: 2.1, color: '#14B8A6', glow: 'shadow-[0_0_8px_rgba(20,184,166,0.8)]' },
-  { name: 'English', hours: 1.8, color: '#F59E0B', glow: 'shadow-[0_0_8px_rgba(245,158,11,0.8)]' },
-  { name: 'Computer Science', hours: 1.3, color: '#06B6D4', glow: 'shadow-[0_0_8px_rgba(6,182,212,0.8)]' },
+  { name: 'English', hours: 1.8, color: '#60A5FA', glow: 'shadow-[0_0_8px_rgba(245,158,11,0.8)]' },
+  { name: 'Computer Science', hours: 1.3, color: '#38BDF8', glow: 'shadow-[0_0_8px_rgba(6,182,212,0.8)]' },
 ];
 
 export const StudyTimeDonutCard: React.FC = () => {

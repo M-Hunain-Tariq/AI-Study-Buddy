@@ -253,7 +253,7 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
       title: 'What is coding?',
       sub: 'explain for a beginner',
       icon: Wrench,
-      color: 'bg-purple-500/15 border-purple-500/30 text-purple-400',
+      color: 'bg-blue-500/15 border-blue-500/30 text-blue-400',
       text: 'What is coding? Explain it for a complete beginner and show a tiny example.',
     },
     {
@@ -267,87 +267,34 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
       title: 'When did it happen?',
       sub: 'history in context',
       icon: BookOpen,
-      color: 'bg-indigo-500/15 border-indigo-500/30 text-indigo-400',
+      color: 'bg-blue-500/15 border-blue-500/30 text-blue-400',
       text: 'When did the first human land on the Moon? Explain briefly what happened.',
     },
     {
       title: 'Help me solve this',
       sub: 'step by step',
       icon: Calculator,
-      color: 'bg-purple-500/15 border-purple-500/30 text-purple-400',
+      color: 'bg-blue-500/15 border-blue-500/30 text-blue-400',
       text: 'Solve x² - 7x + 10 = 0 step by step and explain the method.',
     },
   ];
 
   return (
     <div className="rounded-2xl bg-[#0A132C] border border-[#162544] shadow-xl flex flex-col transition-all duration-300 overflow-hidden">
-      {/* Top Tabs matching reference image exactly */}
-      <div className="flex items-center justify-between px-3 sm:px-5 pt-3 sm:pt-4 pb-2">
-        <div className="flex items-center gap-2 sm:gap-6 overflow-x-auto no-scrollbar">
-          {/* Tab 1: Chat (Active: Solid blue pill) */}
-          <button
-            onClick={() => setActiveTab('chat')}
-            className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer shrink-0 ${
-              activeTab === 'chat'
-                ? 'bg-[#2563EB] text-white shadow-[0_0_15px_rgba(37,99,235,0.45)]'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <MessageSquare className="w-4 h-4" />
-            <span>Chat</span>
-          </button>
-
-          {/* Tab 2: Quick Prompts (Inactive: transparent) */}
-          <button
-            onClick={() => setActiveTab('quick-prompts')}
-            className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-0 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-all cursor-pointer shrink-0 ${
-              activeTab === 'quick-prompts'
-                ? 'bg-[#2563EB] text-white px-3 sm:px-4 rounded-xl shadow-[0_0_15px_rgba(37,99,235,0.45)]'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Zap className="w-4 h-4" />
-            <span>Quick Prompts</span>
-          </button>
-
-          {/* Tab 3: Study Tools (Inactive: transparent) */}
-          <button
-            onClick={() => setActiveTab('study-tools')}
-            className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-0 py-1.5 sm:py-2 text-xs sm:text-sm font-medium transition-all cursor-pointer shrink-0 ${
-              activeTab === 'study-tools'
-                ? 'bg-[#2563EB] text-white px-3 sm:px-4 rounded-xl shadow-[0_0_15px_rgba(37,99,235,0.45)]'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Wrench className="w-4 h-4" />
-            <span>Study Tools</span>
-          </button>
-        </div>
-
-        {/* Clear chat / new session button */}
-        {messages.length > 0 && activeTab === 'chat' && (
+      {/* Clean chat header: remove unnecessary Chat / Quick Prompts / Study Tools tabs and mode pills */}
+      <div className="flex items-center justify-end px-4 sm:px-6 pt-3">
+        {messages.length > 0 && (
           <button
             onClick={() => {
               setMessages([]);
-              showToast('Chat history cleared. Back to home state.', 'info');
+              showToast('Started a new conversation.', 'info');
             }}
-            className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-200 hover:bg-[#101C38] px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 text-xs text-blue-200 hover:text-white hover:bg-blue-900/50 px-3 py-2 rounded-lg transition-colors cursor-pointer"
           >
             <RefreshCw className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">New Session</span>
+            <span>New Chat</span>
           </button>
         )}
-      </div>
-
-      {/* Tutor Mode */}
-      <div className="px-4 sm:px-6 pb-2">
-        <div className="flex items-center gap-2 p-1 rounded-xl bg-[#071126] border border-[#162544] w-fit">
-          {(['Ask Anything','Practice','Socratic'] as const).map((mode) => (
-            <button key={mode} onClick={() => setTutorMode(mode)} className={`px-3 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${tutorMode === mode ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}>
-              {mode === 'Socratic' && <BrainCircuit className="w-3 h-3 inline mr-1" />} {mode}
-            </button>
-          ))}
-        </div>
       </div>
 
       {/* Main Workspace Body */}
@@ -359,7 +306,7 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
             {messages.length === 0 ? (
               <div className="flex-1 flex flex-col items-center justify-center text-center py-6 sm:py-8 max-w-2xl mx-auto space-y-6">
                 {/* Glowing AI Chat icon in rounded square matching Image */}
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center text-white shadow-[0_0_30px_rgba(79,70,229,0.5)]">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#3B82F6] to-[#2563EB] flex items-center justify-center text-white shadow-[0_0_30px_rgba(37,99,235,0.5)]">
                   <MessageSquare className="w-8 h-8 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
                 </div>
 
@@ -384,12 +331,12 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                       <button
                         key={p.title}
                         onClick={() => handleSendMessage(p.text)}
-                        className="group flex flex-col items-start p-3 sm:p-3.5 rounded-xl bg-[#0D1838] hover:bg-[#14234C] border border-[#1B2C52] hover:border-indigo-500/50 transition-all text-left cursor-pointer shadow-sm hover:shadow-[0_0_18px_rgba(99,102,241,0.25)] hover:-translate-y-0.5"
+                        className="group flex flex-col items-start p-3 sm:p-3.5 rounded-xl bg-[#0D1838] hover:bg-[#14234C] border border-[#1B2C52] hover:border-blue-500/50 transition-all text-left cursor-pointer shadow-sm hover:shadow-[0_0_18px_rgba(37,99,235,0.25)] hover:-translate-y-0.5"
                       >
                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center mb-2.5 border ${p.color}`}>
                           <Icon className="w-4 h-4" />
                         </div>
-                        <p className="text-xs font-semibold text-white group-hover:text-indigo-200 transition-colors">
+                        <p className="text-xs font-semibold text-white group-hover:text-blue-200 transition-colors">
                           {p.title}
                         </p>
                         <p className="text-[10px] text-slate-400 mt-0.5">
@@ -419,8 +366,8 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                       <div className="flex items-center gap-2 mb-1.5 opacity-80 text-[10px] sm:text-xs">
                         {msg.sender === 'ai' ? (
                           <>
-                            <Bot className="w-3.5 h-3.5 text-indigo-400" />
-                            <span className="font-semibold text-indigo-300">AI Study Tutor</span>
+                            <Bot className="w-3.5 h-3.5 text-blue-400" />
+                            <span className="font-semibold text-blue-300">AI Study Tutor</span>
                           </>
                         ) : (
                           <>
@@ -444,12 +391,12 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                             try {
                               const notes = JSON.parse(localStorage.getItem('study_notes_v5') || '[]');
                               const now = Date.now();
-                              const note = { id: `ai-note-${now}`, title: 'AI Tutor: Saved Explanation', subject: 'AI Tutor', color: 'purple', content: msg.text, excerpt: msg.text.slice(0, 140), lastEdited: 'Just now', lastEditedTimestamp: now, priority: 'Medium', tags: ['ai-tutor'], isPrivate: false, isPinned: false, addToPlanner: false };
+                              const note = { id: `ai-note-${now}`, title: 'AI Tutor: Saved Explanation', subject: 'AI Tutor', color: 'blue', content: msg.text, excerpt: msg.text.slice(0, 140), lastEdited: 'Just now', lastEditedTimestamp: now, priority: 'Medium', tags: ['ai-tutor'], isPrivate: false, isPinned: false, addToPlanner: false };
                               localStorage.setItem('study_notes_v5', JSON.stringify([note, ...(Array.isArray(notes) ? notes : [])]));
                               showToast('Answer saved to My Notes.', 'success');
                             } catch { showToast('Could not save this answer.', 'info'); }
                           }}
-                          className="mt-3 inline-flex items-center gap-1.5 text-[10px] text-indigo-300 hover:text-white px-2.5 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-400/20"
+                          className="mt-3 inline-flex items-center gap-1.5 text-[10px] text-blue-300 hover:text-white px-2.5 py-1.5 rounded-lg bg-blue-500/10 border border-blue-400/20"
                         >
                           <Save className="w-3 h-3" /> Save to Notes
                         </button>
@@ -460,7 +407,7 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                         <div className="mt-3 space-y-2 pt-2 border-t border-white/10">
                           {msg.steps.map((st, idx) => (
                             <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-200">
-                              <span className="w-5 h-5 rounded-full bg-indigo-600/40 border border-indigo-400/40 flex items-center justify-center text-[10px] font-bold text-indigo-300 shrink-0 mt-0.5">
+                              <span className="w-5 h-5 rounded-full bg-blue-600/40 border border-blue-400/40 flex items-center justify-center text-[10px] font-bold text-blue-300 shrink-0 mt-0.5">
                                 {idx + 1}
                               </span>
                               <span className="leading-relaxed">{st}</span>
@@ -471,8 +418,8 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
 
                       {/* Key takeaway note if present */}
                       {msg.keyTakeaway && (
-                        <div className="mt-3 p-2.5 rounded-xl bg-indigo-950/60 border border-indigo-500/30 text-[11px] sm:text-xs text-indigo-200 flex items-start gap-2">
-                          <Lightbulb className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                        <div className="mt-3 p-2.5 rounded-xl bg-blue-950/60 border border-blue-500/30 text-[11px] sm:text-xs text-blue-200 flex items-start gap-2">
+                          <Lightbulb className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
                           <span>{msg.keyTakeaway}</span>
                         </div>
                       )}
@@ -485,7 +432,7 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                             className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#14234C] hover:bg-[#1A2E63] text-[11px] text-slate-300 hover:text-white transition-colors cursor-pointer"
                           >
                             {copiedId === msg.id ? (
-                              <Check className="w-3 h-3 text-emerald-400" />
+                              <Check className="w-3 h-3 text-blue-400" />
                             ) : (
                               <Copy className="w-3 h-3 text-slate-400" />
                             )}
@@ -498,9 +445,9 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
 
                           <button
                             onClick={() => handleSendMessage(`Can you explain that simpler with an everyday metaphor?`)}
-                            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#14234C] hover:bg-[#1A2E63] text-[11px] text-indigo-300 hover:text-indigo-200 transition-colors cursor-pointer"
+                            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#14234C] hover:bg-[#1A2E63] text-[11px] text-blue-300 hover:text-blue-200 transition-colors cursor-pointer"
                           >
-                            <Lightbulb className="w-3 h-3 text-amber-400" />
+                            <Lightbulb className="w-3 h-3 text-blue-400" />
                             <span>Explain Simpler</span>
                           </button>
 
@@ -520,17 +467,17 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                 {/* AI Thinking Animation Indicator */}
                 {isAiThinking && messages[messages.length - 1]?.sender === 'user' && (
                   <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#0E1B3D] border border-[#1D3260] w-fit shadow-md">
-                    <div className="w-7 h-7 rounded-xl bg-indigo-600/30 text-indigo-400 flex items-center justify-center animate-pulse">
+                    <div className="w-7 h-7 rounded-xl bg-blue-600/30 text-blue-400 flex items-center justify-center animate-pulse">
                       <Bot className="w-4 h-4" />
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-indigo-300 font-medium">
+                      <span className="text-xs text-blue-300 font-medium">
                         AI Study Buddy is thinking...
                       </span>
                       <div className="flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '0ms' }} />
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '150ms' }} />
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '300ms' }} />
                       </div>
                     </div>
                   </div>
@@ -598,7 +545,7 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                   disabled={!inputQuestion.trim() || isAiThinking}
                   className={`w-9 h-9 rounded-full flex items-center justify-center transition-all cursor-pointer shrink-0 ${
                     inputQuestion.trim() && !isAiThinking
-                      ? 'bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white shadow-[0_0_18px_rgba(79,70,229,0.55)] hover:scale-105 active:scale-95'
+                      ? 'bg-gradient-to-r from-[#2563EB] to-[#2563EB] text-white shadow-[0_0_18px_rgba(37,99,235,0.55)] hover:scale-105 active:scale-95'
                       : 'bg-[#1D2B52] text-slate-300 hover:text-white'
                   }`}
                   aria-label="Send question to AI Tutor"
@@ -609,7 +556,7 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
 
               {/* Subtitle caption matching Image exactly: "✨ AI Tutor will be available in the next step." */}
               <div className="flex items-center justify-center text-[11px] text-slate-400 gap-1.5 pt-1">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <Sparkles className="w-3.5 h-3.5 text-blue-400" />
                 <span>AI Tutor can make mistakes. Double-check important answers.</span>
               </div>
             </div>
@@ -673,20 +620,20 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                     handleSendMessage(p.query);
                     setActiveTab('chat');
                   }}
-                  className="group cursor-pointer p-4 rounded-xl bg-[#0D1838] hover:bg-[#14234C] border border-[#1B2C52] hover:border-indigo-500/50 transition-all flex flex-col justify-between shadow-sm hover:shadow-[0_0_15px_rgba(99,102,241,0.2)]"
+                  className="group cursor-pointer p-4 rounded-xl bg-[#0D1838] hover:bg-[#14234C] border border-[#1B2C52] hover:border-blue-500/50 transition-all flex flex-col justify-between shadow-sm hover:shadow-[0_0_15px_rgba(37,99,235,0.2)]"
                 >
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full border border-indigo-500/20">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-full border border-blue-500/20">
                       {p.cat}
                     </span>
-                    <h5 className="text-xs sm:text-sm font-semibold text-white mt-2 group-hover:text-indigo-200 transition-colors">
+                    <h5 className="text-xs sm:text-sm font-semibold text-white mt-2 group-hover:text-blue-200 transition-colors">
                       {p.title}
                     </h5>
                     <p className="text-xs text-slate-400 mt-1 leading-relaxed">
                       {p.desc}
                     </p>
                   </div>
-                  <div className="mt-3 flex items-center justify-between text-xs font-medium text-indigo-400">
+                  <div className="mt-3 flex items-center justify-between text-xs font-medium text-blue-400">
                     <span>Ask this prompt</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -715,7 +662,7 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                   title: 'Concept Simplifier',
                   desc: 'Break down complex textbook jargon into 5th-grade plain English.',
                   prompt: 'Simplify this complex topic: The theory of relativity and time dilation.',
-                  color: 'text-purple-400 bg-purple-500/20',
+                  color: 'text-blue-400 bg-blue-500/20',
                 },
                 {
                   icon: Calculator,
@@ -729,21 +676,21 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                   title: 'Quiz Generator',
                   desc: 'Instant practice quizzes with multiple choice, true/false, and explanations.',
                   prompt: 'Generate a 5-question practice quiz on high school Chemistry acids and bases.',
-                  color: 'text-pink-400 bg-pink-500/20',
+                  color: 'text-blue-400 bg-blue-500/20',
                 },
                 {
                   icon: FileText,
                   title: 'Notes Summarizer',
                   desc: 'Turn messy notebook pages into neat bullet points and recall cheat sheets.',
                   prompt: 'Summarize the causes and consequences of World War I into concise key bullet points.',
-                  color: 'text-teal-400 bg-teal-500/20',
+                  color: 'text-blue-400 bg-blue-500/20',
                 },
                 {
                   icon: Zap,
                   title: 'Flashcard Builder',
                   desc: 'Create front-and-back flashcard Q&A pairs ready for revision.',
                   prompt: 'Create 6 flashcard Q&A pairs for high school Biology cell organelles.',
-                  color: 'text-amber-400 bg-amber-500/20',
+                  color: 'text-blue-400 bg-blue-500/20',
                 },
                 {
                   icon: Sparkles,
@@ -761,20 +708,20 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                       handleSendMessage(tool.prompt);
                       setActiveTab('chat');
                     }}
-                    className="group p-4 rounded-xl bg-[#0D1838] hover:bg-[#14234C] border border-[#1B2C52] hover:border-indigo-500/50 transition-all text-left flex flex-col justify-between shadow-sm hover:shadow-[0_0_18px_rgba(99,102,241,0.2)] cursor-pointer"
+                    className="group p-4 rounded-xl bg-[#0D1838] hover:bg-[#14234C] border border-[#1B2C52] hover:border-blue-500/50 transition-all text-left flex flex-col justify-between shadow-sm hover:shadow-[0_0_18px_rgba(37,99,235,0.2)] cursor-pointer"
                   >
                     <div>
                       <div className={`w-9 h-9 rounded-lg flex items-center justify-center mb-3 ${tool.color}`}>
                         <Icon className="w-5 h-5" />
                       </div>
-                      <h5 className="text-xs sm:text-sm font-semibold text-white group-hover:text-indigo-200 transition-colors">
+                      <h5 className="text-xs sm:text-sm font-semibold text-white group-hover:text-blue-200 transition-colors">
                         {tool.title}
                       </h5>
                       <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
                         {tool.desc}
                       </p>
                     </div>
-                    <div className="mt-3 flex items-center gap-1 text-[11px] font-semibold text-indigo-400">
+                    <div className="mt-3 flex items-center gap-1 text-[11px] font-semibold text-blue-400">
                       <span>Launch Tool</span>
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </div>

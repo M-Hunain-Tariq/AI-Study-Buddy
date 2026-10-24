@@ -50,14 +50,14 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
     >
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/10 blur-[100px]" />
-        <div className="absolute left-[15%] top-[20%] h-40 w-40 rounded-full bg-violet-600/10 blur-[80px]" />
+        <div className="absolute left-[15%] top-[20%] h-40 w-40 rounded-full bg-blue-600/10 blur-[80px]" />
         <div className="absolute right-[15%] bottom-[15%] h-44 w-44 rounded-full bg-blue-500/10 blur-[90px]" />
       </div>
 
       <div className="signup-dialog relative w-full max-w-md overflow-hidden rounded-[30px] border border-white/15 bg-[#071329]/95 shadow-[0_30px_100px_rgba(0,0,0,0.65),0_0_45px_rgba(34,211,238,0.12)]" role="dialog" aria-modal="true" aria-labelledby="welcome-title" aria-busy={isSubmitting}>
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/80 to-transparent" />
         <div className="absolute -right-20 -top-20 h-52 w-52 rounded-full bg-cyan-400/10 blur-3xl" />
-        <div className="absolute -bottom-24 -left-20 h-56 w-56 rounded-full bg-violet-500/10 blur-3xl" />
+        <div className="absolute -bottom-24 -left-20 h-56 w-56 rounded-full bg-blue-500/10 blur-3xl" />
 
         <button
           type="button"
@@ -73,7 +73,7 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
           <div className="mb-6 flex justify-center">
             <div className="relative">
               <div className="absolute inset-0 rounded-2xl bg-cyan-400/30 blur-xl" />
-              <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-300/30 bg-gradient-to-br from-cyan-400/20 via-blue-500/15 to-violet-500/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]">
+              <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-300/30 bg-gradient-to-br from-cyan-400/20 via-blue-500/15 to-blue-500/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]">
                 <Sparkles className="h-6 w-6 text-cyan-200" />
               </div>
             </div>
@@ -94,7 +94,7 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
               Your name
             </label>
             <div className="group relative">
-              <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-r from-cyan-400/0 via-cyan-400/0 to-violet-500/0 opacity-0 blur-sm transition duration-300 group-focus-within:from-cyan-400/40 group-focus-within:via-blue-500/20 group-focus-within:to-violet-500/40 group-focus-within:opacity-100" />
+              <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-r from-cyan-400/0 via-cyan-400/0 to-blue-500/0 opacity-0 blur-sm transition duration-300 group-focus-within:from-cyan-400/40 group-focus-within:via-blue-500/20 group-focus-within:to-blue-500/40 group-focus-within:opacity-100" />
               <input
                 ref={inputRef}
                 id="studybuddy-name"
@@ -112,7 +112,7 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="group relative mt-4 flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 px-5 py-4 text-sm font-bold text-white shadow-[0_12px_35px_rgba(99,102,241,0.35)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_45px_rgba(34,211,238,0.28)] active:translate-y-0 disabled:cursor-wait disabled:opacity-80"
+              className="group relative mt-4 flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-r from-blue-600 via-blue-600 to-cyan-500 px-5 py-4 text-sm font-bold text-white shadow-[0_12px_35px_rgba(37,99,235,0.35)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_45px_rgba(34,211,238,0.28)] active:translate-y-0 disabled:cursor-wait disabled:opacity-80"
             >
               <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
               <span className="relative">{isSubmitting ? 'Opening your workspace…' : 'Enter StudyBuddy'}</span>

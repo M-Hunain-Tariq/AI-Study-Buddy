@@ -51,7 +51,7 @@ export const AdvancedSection: React.FC<SectionProps> = ({ settings, update, onBa
         <Row icon={Sparkles} title="AI Suggestions (Beta)" desc="Get AI-powered study suggestions" tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
           <Toggle checked={a.aiSuggestions} onChange={(v) => flip('aiSuggestions', v)} label="AI Suggestions" />
         </Row>
-        <Row icon={CalendarClock} title="Smart Study Plan (Beta)" desc="Automatically create study plans" tone="text-purple-300 bg-purple-500/15 border-purple-500/25">
+        <Row icon={CalendarClock} title="Smart Study Plan (Beta)" desc="Automatically create study plans" tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
           <Toggle checked={a.smartPlan} onChange={(v) => flip('smartPlan', v)} label="Smart Study Plan" />
         </Row>
       </Card>

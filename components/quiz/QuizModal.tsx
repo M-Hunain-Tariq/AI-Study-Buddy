@@ -222,7 +222,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
                 </div>
                 <div className="w-full h-1.5 rounded-full bg-[#0D1A36] overflow-hidden">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300"
+                    className="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-500 transition-all duration-300"
                     style={{ width: `${((currentIdx + 1) / questions.length) * 100}%` }}
                   />
                 </div>
@@ -244,7 +244,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
                   if (isAnswered) {
                     if (idx === currentQ.correctAnswer) {
                       optStyle =
-                        'border-emerald-500 bg-emerald-950/40 text-emerald-200 shadow-[0_0_12px_rgba(52,211,153,0.3)]';
+                        'border-blue-500 bg-blue-950/40 text-blue-200 shadow-[0_0_12px_rgba(52,211,153,0.3)]';
                     } else if (idx === selectedOption) {
                       optStyle =
                         'border-rose-500 bg-rose-950/40 text-rose-200 shadow-[0_0_12px_rgba(244,63,94,0.3)]';
@@ -262,7 +262,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
                     >
                       <span>{opt}</span>
                       {isAnswered && idx === currentQ.correctAnswer && (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />
                       )}
                       {isAnswered && idx === selectedOption && idx !== currentQ.correctAnswer && (
                         <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
@@ -286,14 +286,14 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
           ) : (
             /* Results Screen */
             <div className="py-6 text-center space-y-4">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-600/20 border border-blue-400/40 text-blue-300 flex items-center justify-center mx-auto shadow-[0_0_25px_rgba(99,102,241,0.4)]">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-400/40 text-blue-300 flex items-center justify-center mx-auto shadow-[0_0_25px_rgba(37,99,235,0.4)]">
                 <Award className="w-8 h-8 text-blue-400" />
               </div>
 
               <div>
                 <h3 className="text-lg font-bold text-white">Quiz Completed!</h3>
                 <p className="text-xs text-slate-400 mt-1">
-                  You scored <span className="text-emerald-400 font-bold">{score}</span> out of{' '}
+                  You scored <span className="text-blue-400 font-bold">{score}</span> out of{' '}
                   <span className="text-white font-bold">{questions.length}</span>
                 </p>
               </div>
@@ -306,7 +306,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
                 <div className="w-px h-6 bg-[#16274D]" />
                 <div>
                   <span className="text-slate-400 block text-[10px]">Accuracy</span>
-                  <span className="font-bold text-emerald-400">
+                  <span className="font-bold text-blue-400">
                     {Math.round((score / questions.length) * 100)}%
                   </span>
                 </div>
@@ -323,7 +323,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
               disabled={!isAnswered}
               className={`px-5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                 isAnswered
-                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-[0_0_15px_rgba(124,58,237,0.5)] active:scale-95'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_15px_rgba(37,99,235,0.5)] active:scale-95'
                   : 'bg-[#101D38] text-slate-500 cursor-not-allowed'
               }`}
             >
@@ -338,7 +338,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
                     const wrongQuestions = questions.filter((q) => answeredMap[q.id] !== undefined && answeredMap[q.id] !== q.correctAnswer);
                     onRetryWrong({ ...quiz, id: `${quiz.id}-retry-${Date.now()}`, title: `${quiz.title} • Retry Wrong`, questions: wrongQuestions, questionsCount: wrongQuestions.length });
                   }}
-                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg"
+                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-blue-500 hover:from-blue-400 hover:to-blue-400 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg"
                 >
                   <RotateCcw className="w-3.5 h-3.5" /> Retry Wrong Answers
                 </button>
@@ -353,7 +353,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
               </button>
               <button
                 onClick={onClose}
-                className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs font-semibold shadow-[0_0_15px_rgba(124,58,237,0.5)] cursor-pointer active:scale-95"
+                className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white text-xs font-semibold shadow-[0_0_15px_rgba(37,99,235,0.5)] cursor-pointer active:scale-95"
               >
                 Done
               </button>

@@ -14,7 +14,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, iconBg, iconColor, titl
   return (
     <div className="group relative rounded-2xl bg-[#05112e]/90 p-7 flex flex-col items-start cursor-pointer border border-blue-500/20 hover:border-cyan-400/80 transition-all duration-300 transform hover:-translate-y-2.5 hover:shadow-[0_20px_45px_rgba(6,182,212,0.3)] overflow-hidden">
       {/* Animated Top Gradient Accent Bar with sweep */}
-      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-shimmer" />
+      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-400 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-shimmer" />
 
       {/* Subtle Inner Glow on Hover */}
       <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/12 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -46,7 +46,7 @@ export const WhyStudyBuddy: React.FC = () => {
       {/* 3D Crystal Origami Facets matching image.png */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Central Violet/Azure Aurora Bloom */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[500px] bg-gradient-to-r from-blue-700/18 via-purple-700/22 to-cyan-700/18 rounded-full blur-[150px] animate-pulse-glow" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[500px] bg-gradient-to-r from-blue-700/18 via-blue-700/22 to-cyan-700/18 rounded-full blur-[150px] animate-pulse-glow" />
 
         {/* LEFT 3D METALLIC BLUE CRYSTAL ORIGAMI SHARD */}
         <div className="absolute top-1/2 -translate-y-1/2 -left-10 sm:-left-4 lg:-left-2 w-[160px] sm:w-[220px] lg:w-[280px] h-[380px] opacity-90 drop-shadow-[0_15px_35px_rgba(30,58,138,0.7)] animate-crystal-shift">
@@ -88,12 +88,12 @@ export const WhyStudyBuddy: React.FC = () => {
         <div className="absolute top-1/2 -translate-y-1/2 -right-10 sm:-right-4 lg:-right-2 w-[160px] sm:w-[220px] lg:w-[280px] h-[380px] opacity-90 drop-shadow-[0_15px_35px_rgba(109,40,217,0.7)] animate-crystal-shift">
           {/* Shimmer sweep overlay */}
           <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
-            <div className="w-1/3 h-full bg-gradient-to-r from-transparent via-purple-300/30 to-transparent animate-crystal-sweep" style={{ animationDelay: '2.5s' }} />
+            <div className="w-1/3 h-full bg-gradient-to-r from-transparent via-blue-300/30 to-transparent animate-crystal-sweep" style={{ animationDelay: '2.5s' }} />
           </div>
           <svg viewBox="0 0 280 380" fill="none" className="w-full h-full">
             <defs>
               <linearGradient id="s2-c-right-1" x1="100%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.85" />
+                <stop offset="0%" stopColor="#2563EB" stopOpacity="0.85" />
                 <stop offset="50%" stopColor="#4c1d95" stopOpacity="0.95" />
                 <stop offset="100%" stopColor="#0f172a" stopOpacity="0.98" />
               </linearGradient>
@@ -155,8 +155,8 @@ export const WhyStudyBuddy: React.FC = () => {
           <ScrollReveal animation="fade-up" delay={220} className="h-full">
             <FeatureCard
               icon={<HelpCircle className="w-5 h-5" />}
-              iconBg="bg-purple-600/20"
-              iconColor="text-purple-400"
+              iconBg="bg-blue-600/20"
+              iconColor="text-blue-400"
               title="Smart Quizzes"
               description="Test your knowledge with personalized quizzes and practice tests."
             />
@@ -173,8 +173,8 @@ export const WhyStudyBuddy: React.FC = () => {
           <ScrollReveal animation="fade-up" delay={460} className="h-full">
             <FeatureCard
               icon={<TrendingUp className="w-5 h-5" />}
-              iconBg="bg-emerald-600/20"
-              iconColor="text-emerald-400"
+              iconBg="bg-blue-600/20"
+              iconColor="text-blue-400"
               title="Track Progress"
               description="See your progress, build better habits and achieve more."
             />

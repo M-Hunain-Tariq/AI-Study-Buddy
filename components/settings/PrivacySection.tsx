@@ -47,11 +47,11 @@ export const PrivacySection: React.FC<SectionProps> = ({ settings, update, onBac
     >
       <Card>
         <CardTitle>Password</CardTitle>
-        <Row icon={KeyRound} title="Change your password" tone="text-indigo-300 bg-indigo-500/15 border-indigo-500/25">
+        <Row icon={KeyRound} title="Change your password" tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
           <PrimaryButton onClick={() => setPwOpen(true)}>Change Password</PrimaryButton>
         </Row>
-        <Row icon={ShieldCheck} title="Two-Factor Authentication" desc="Add an extra layer of security to your account." tone="text-emerald-300 bg-emerald-500/15 border-emerald-500/25">
-          <span className="hidden sm:inline px-2 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">Recommended</span>
+        <Row icon={ShieldCheck} title="Two-Factor Authentication" desc="Add an extra layer of security to your account." tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
+          <span className="hidden sm:inline px-2 py-0.5 rounded-md text-[10px] font-semibold bg-blue-500/15 text-blue-300 border border-blue-500/30">Recommended</span>
           <Toggle checked={p.twoFactor} onChange={(v) => flip('twoFactor', v, 'Two-factor authentication')} label="Two-factor authentication" />
         </Row>
         <Row icon={History} title="Login Activity" desc="View your recent login activity and devices." tone="text-cyan-300 bg-cyan-500/15 border-cyan-500/25">

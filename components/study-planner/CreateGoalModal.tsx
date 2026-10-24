@@ -73,7 +73,7 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-[#142345]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400">
+            <div className="w-8 h-8 rounded-xl bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400">
               <Target className="w-4 h-4" />
             </div>
             <div>
@@ -116,7 +116,7 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
                 setErrorMessage('');
               }}
               placeholder="e.g. Complete Trigonometry Practice Chapter 4"
-              className="w-full px-3 py-2 rounded-xl bg-[#0C1736] border border-[#1F3563] text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-purple-500"
+              className="w-full px-3 py-2 rounded-xl bg-[#0C1736] border border-[#1F3563] text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-blue-500"
             />
           </div>
 
@@ -128,7 +128,7 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
               <select
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl bg-[#0C1736] border border-[#1F3563] text-white text-xs focus:outline-none focus:border-purple-500 cursor-pointer"
+                className="w-full px-3 py-2 rounded-xl bg-[#0C1736] border border-[#1F3563] text-white text-xs focus:outline-none focus:border-blue-500 cursor-pointer"
               >
                 <option value="Mathematics">Mathematics</option>
                 <option value="Physics">Physics</option>
@@ -140,13 +140,13 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
 
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
-                <Flag className="w-3 h-3 text-amber-400" />
+                <Flag className="w-3 h-3 text-blue-400" />
                 <span>Priority</span>
               </label>
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value as StudyGoal['priority'])}
-                className="w-full px-3 py-2 rounded-xl bg-[#0C1736] border border-[#1F3563] text-white text-xs focus:outline-none focus:border-purple-500 cursor-pointer"
+                className="w-full px-3 py-2 rounded-xl bg-[#0C1736] border border-[#1F3563] text-white text-xs focus:outline-none focus:border-blue-500 cursor-pointer"
               >
                 <option value="High">High</option>
                 <option value="Medium">Medium</option>
@@ -166,13 +166,13 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
                 placeholder="e.g. Fri, 10 Oct 2026"
-                className="w-full px-3 py-2 rounded-xl bg-[#0C1736] border border-[#1F3563] text-white text-xs focus:outline-none focus:border-purple-500"
+                className="w-full px-3 py-2 rounded-xl bg-[#0C1736] border border-[#1F3563] text-white text-xs focus:outline-none focus:border-blue-500"
               />
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
-                <Target className="w-3 h-3 text-purple-400" />
+                <Target className="w-3 h-3 text-blue-400" />
                 <span>Target Sessions</span>
               </label>
               <input
@@ -181,7 +181,7 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
                 max={30}
                 value={targetSessions}
                 onChange={(e) => setTargetSessions(Number(e.target.value))}
-                className="w-full px-3 py-2 rounded-xl bg-[#0C1736] border border-[#1F3563] text-white text-xs focus:outline-none focus:border-purple-500"
+                className="w-full px-3 py-2 rounded-xl bg-[#0C1736] border border-[#1F3563] text-white text-xs focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>
@@ -196,7 +196,7 @@ export const CreateGoalModal: React.FC<CreateGoalModalProps> = ({
             </button>
             <button
               type="submit"
-              className="px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-[0_0_15px_rgba(168,85,247,0.4)] transition-all cursor-pointer"
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-500 text-white text-xs font-semibold shadow-[0_0_15px_rgba(37,99,235,0.4)] transition-all cursor-pointer"
             >
               Create Goal
             </button>

@@ -84,7 +84,7 @@ export const MarkdownText: React.FC<{ text: string }> = ({ text }) => {
     if (h) {
       const level = h[1].length;
       const cls =
-        level <= 2 ? 'mt-3 mb-1 text-base font-bold text-white' : 'mt-3 mb-1 text-sm font-bold text-indigo-200';
+        level <= 2 ? 'mt-3 mb-1 text-base font-bold text-white' : 'mt-3 mb-1 text-sm font-bold text-blue-200';
       blocks.push(
         <div key={k++} className={cls}>
           {inline(h[2], `h${k}`)}
@@ -149,7 +149,7 @@ export const MarkdownText: React.FC<{ text: string }> = ({ text }) => {
         <ListTag
           key={k++}
           start={ordered ? start : undefined}
-          className={`my-2 space-y-1 pl-5 ${ordered ? 'list-decimal' : 'list-disc'} marker:text-indigo-300`}
+          className={`my-2 space-y-1 pl-5 ${ordered ? 'list-decimal' : 'list-disc'} marker:text-blue-300`}
         >
           {items.map((it, ii) => (
             <li key={ii} className="pl-1">
@@ -166,7 +166,7 @@ export const MarkdownText: React.FC<{ text: string }> = ({ text }) => {
       const q: string[] = [];
       while (i < lines.length && lines[i].trim().startsWith('>')) q.push(lines[i++].replace(/^\s*>\s?/, ''));
       blocks.push(
-        <blockquote key={k++} className="my-2 border-l-2 border-indigo-400/60 pl-3 text-slate-300">
+        <blockquote key={k++} className="my-2 border-l-2 border-blue-400/60 pl-3 text-slate-300">
           {inline(q.join(' '), `q${k}`)}
         </blockquote>,
       );

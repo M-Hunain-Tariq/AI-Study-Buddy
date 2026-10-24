@@ -17,9 +17,9 @@ export const DataSection: React.FC<SectionProps> = ({ settings, update, onBack }
 
   const rows = [
     { label: 'Notes', gb: 1.2, color: '#3B82F6' },
-    { label: 'Media Files', gb: 0.6, color: '#8B5CF6' },
-    { label: 'Cache', gb: cache, color: '#06B6D4' },
-    { label: 'Other', gb: 0.2, color: '#F59E0B' },
+    { label: 'Media Files', gb: 0.6, color: '#2563EB' },
+    { label: 'Cache', gb: cache, color: '#38BDF8' },
+    { label: 'Other', gb: 0.2, color: '#60A5FA' },
   ];
   const used = rows.reduce((a, r) => a + r.gb, 0);
 
@@ -142,12 +142,12 @@ export const DataSection: React.FC<SectionProps> = ({ settings, update, onBack }
         <Row icon={Download} title="Export Your Data" desc="Download a copy of your notes and data." tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
           <PrimaryButton onClick={exportData}>Export</PrimaryButton>
         </Row>
-        <Row icon={Upload} title="Import Data" desc="Import data from a backup file." tone="text-indigo-300 bg-indigo-500/15 border-indigo-500/25">
+        <Row icon={Upload} title="Import Data" desc="Import data from a backup file." tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
           <input ref={fileRef} type="file" accept="application/json,.json" className="hidden" onChange={importData} />
           <PrimaryButton onClick={() => fileRef.current?.click()}>Import</PrimaryButton>
         </Row>
         <Row icon={Trash2} title="Delete All Data" desc="Permanently delete all your data." tone="text-rose-300 bg-rose-500/15 border-rose-500/25">
-          <button onClick={() => setConfirmDelete(true)} className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-rose-600 to-pink-600 shadow-[0_0_18px_rgba(244,63,94,0.4)] cursor-pointer">
+          <button onClick={() => setConfirmDelete(true)} className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-rose-600 to-blue-600 shadow-[0_0_18px_rgba(244,63,94,0.4)] cursor-pointer">
             Delete
           </button>
         </Row>

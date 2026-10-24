@@ -70,14 +70,14 @@ export const WeeklyProgressChartCard: React.FC = () => {
             >
               <defs>
                 <linearGradient id="waveAreaGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#06B6D4" stopOpacity="0.35" />
+                  <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.35" />
                   <stop offset="50%" stopColor="#3B82F6" stopOpacity="0.15" />
                   <stop offset="100%" stopColor="#1E1B4B" stopOpacity="0.0" />
                 </linearGradient>
 
                 <linearGradient id="waveStrokeGrad" x1="0" y1="0" x2="1" y2="0">
                   <stop offset="0%" stopColor="#3B82F6" />
-                  <stop offset="25%" stopColor="#06B6D4" />
+                  <stop offset="25%" stopColor="#38BDF8" />
                   <stop offset="70%" stopColor="#38BDF8" />
                   <stop offset="100%" stopColor="#22D3EE" />
                 </linearGradient>
@@ -113,7 +113,7 @@ export const WeeklyProgressChartCard: React.FC = () => {
                         cx={p.x}
                         cy={p.y}
                         r="8"
-                        fill="#06B6D4"
+                        fill="#38BDF8"
                         fillOpacity="0.3"
                         className="animate-pulse"
                       />
@@ -122,8 +122,8 @@ export const WeeklyProgressChartCard: React.FC = () => {
                       cx={p.x}
                       cy={p.y}
                       r={isActive ? '5' : '3.5'}
-                      fill={isActive ? '#FFFFFF' : '#06B6D4'}
-                      stroke={isActive ? '#06B6D4' : '#070F28'}
+                      fill={isActive ? '#FFFFFF' : '#38BDF8'}
+                      stroke={isActive ? '#38BDF8' : '#070F28'}
                       strokeWidth="2"
                       className="drop-shadow-[0_0_6px_rgba(6,182,212,0.9)] transition-all duration-300"
                     />

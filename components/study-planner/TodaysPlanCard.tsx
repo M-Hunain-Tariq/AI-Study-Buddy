@@ -47,11 +47,11 @@ export const TodaysPlanCard: React.FC<TodaysPlanCardProps> = ({
       case 'mathematics':
       case 'math':
       case 'maths':
-        return 'text-teal-400 bg-teal-500/15 border-teal-500/30';
+        return 'text-blue-400 bg-blue-500/15 border-blue-500/30';
       case 'physics':
-        return 'text-purple-400 bg-purple-500/15 border-purple-500/30';
+        return 'text-blue-400 bg-blue-500/15 border-blue-500/30';
       case 'english':
-        return 'text-amber-400 bg-amber-500/15 border-amber-500/30';
+        return 'text-blue-400 bg-blue-500/15 border-blue-500/30';
       case 'chemistry':
         return 'text-cyan-400 bg-cyan-500/15 border-cyan-500/30';
       default:
@@ -118,7 +118,7 @@ export const TodaysPlanCard: React.FC<TodaysPlanCardProps> = ({
                       <p className="text-[11px] sm:text-xs text-slate-400 truncate flex items-center gap-2 mt-0.5">
                         <span>{task.topic}</span>
                         <span className="flex items-center gap-1 text-[11px] font-medium text-slate-300">
-                          <span className="text-amber-400/80 font-bold">—</span>
+                          <span className="text-blue-400/80 font-bold">—</span>
                           <span>{task.durationMinutes} min</span>
                         </span>
                       </p>
@@ -177,15 +177,15 @@ export const TodaysPlanCard: React.FC<TodaysPlanCardProps> = ({
                     <button
                       onClick={() => onToggleTask(task.id)}
                       aria-label={`Mark ${task.subject} as ${task.completed ? 'incomplete' : 'completed'}`}
-                      className="p-1 rounded-lg text-slate-400 hover:text-teal-400 transition-transform active:scale-95 cursor-pointer shrink-0"
+                      className="p-1 rounded-lg text-slate-400 hover:text-blue-400 transition-transform active:scale-95 cursor-pointer shrink-0"
                     >
                       {task.completed ? (
-                        <div className="w-6 h-6 rounded-full bg-teal-500/25 border border-teal-500/80 flex items-center justify-center text-teal-400 shadow-[0_0_12px_rgba(20,184,166,0.6)]">
-                          <CheckCircle2 className="w-4 h-4 fill-teal-400/20" />
+                        <div className="w-6 h-6 rounded-full bg-blue-500/25 border border-blue-500/80 flex items-center justify-center text-blue-400 shadow-[0_0_12px_rgba(20,184,166,0.6)]">
+                          <CheckCircle2 className="w-4 h-4 fill-blue-400/20" />
                         </div>
                       ) : (
-                        <div className="w-6 h-6 rounded-full border border-[#233866] hover:border-teal-400/80 flex items-center justify-center transition-colors">
-                          <Circle className="w-4 h-4 text-transparent hover:text-teal-400/30" />
+                        <div className="w-6 h-6 rounded-full border border-[#233866] hover:border-blue-400/80 flex items-center justify-center transition-colors">
+                          <Circle className="w-4 h-4 text-transparent hover:text-blue-400/30" />
                         </div>
                       )}
                     </button>
@@ -219,9 +219,9 @@ export const TodaysPlanCard: React.FC<TodaysPlanCardProps> = ({
       {tasks.length > 0 && (
         <button
           onClick={onAddTask}
-          className="mt-4 w-full py-2.5 px-4 rounded-xl bg-[#0B1530] hover:bg-[#12224A] border border-[#192B50] hover:border-indigo-500/40 text-slate-200 hover:text-white text-xs sm:text-[13px] font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(99,102,241,0.2)] active:scale-[0.99]"
+          className="mt-4 w-full py-2.5 px-4 rounded-xl bg-[#0B1530] hover:bg-[#12224A] border border-[#192B50] hover:border-blue-500/40 text-slate-200 hover:text-white text-xs sm:text-[13px] font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(37,99,235,0.2)] active:scale-[0.99]"
         >
-          <Plus className="w-4 h-4 text-indigo-400" />
+          <Plus className="w-4 h-4 text-blue-400" />
           <span>Add New Task</span>
         </button>
       )}

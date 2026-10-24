@@ -70,7 +70,7 @@ export const MyProgressHero: React.FC<MyProgressHeroProps> = ({
             <span className="text-[#22D3EE] drop-shadow-[0_0_18px_rgba(34,211,238,0.55)]">
               Learning
             </span>{' '}
-            <span className="text-[#C084FC] drop-shadow-[0_0_18px_rgba(192,132,252,0.55)]">
+            <span className="text-[#60A5FA] drop-shadow-[0_0_18px_rgba(192,132,252,0.55)]">
               Journey
             </span>
           </h2>
@@ -96,8 +96,8 @@ export const MyProgressHero: React.FC<MyProgressHeroProps> = ({
 
           {/* Pill 2: Study Streak */}
           <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-xl bg-[#091533]/85 border border-[#182F5E] shadow-sm backdrop-blur-sm">
-            <div className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/30 shadow-[0_0_10px_rgba(245,158,11,0.3)]">
-              <Flame className="w-3.5 h-3.5 fill-amber-400" />
+            <div className="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/30 shadow-[0_0_10px_rgba(245,158,11,0.3)]">
+              <Flame className="w-3.5 h-3.5 fill-blue-400" />
             </div>
             <div className="min-w-0">
               <p className="text-[10px] text-slate-400 truncate">Study Streak</p>
@@ -109,7 +109,7 @@ export const MyProgressHero: React.FC<MyProgressHeroProps> = ({
 
           {/* Pill 3: Total Study Time */}
           <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-xl bg-[#091533]/85 border border-[#182F5E] shadow-sm backdrop-blur-sm">
-            <div className="w-7 h-7 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0 border border-purple-500/30 shadow-[0_0_10px_rgba(168,85,247,0.3)]">
+            <div className="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/30 shadow-[0_0_10px_rgba(37,99,235,0.3)]">
               <Clock className="w-3.5 h-3.5" />
             </div>
             <div className="min-w-0">
@@ -122,7 +122,7 @@ export const MyProgressHero: React.FC<MyProgressHeroProps> = ({
 
           {/* Pill 4: Goals Achieved */}
           <div className="flex items-center gap-2 p-2 sm:p-2.5 rounded-xl bg-[#091533]/85 border border-[#182F5E] shadow-sm backdrop-blur-sm">
-            <div className="w-7 h-7 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center shrink-0 border border-pink-500/30 shadow-[0_0_10px_rgba(236,72,153,0.3)]">
+            <div className="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/30 shadow-[0_0_10px_rgba(236,72,153,0.3)]">
               <Target className="w-3.5 h-3.5" />
             </div>
             <div className="min-w-0">

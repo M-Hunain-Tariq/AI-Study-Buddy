@@ -54,12 +54,12 @@ interface CreateNoteModalProps {
 }
 
 const SUBJECT_OPTIONS = [
-  { name: 'Mathematics', icon: Calculator, color: 'text-purple-400' },
+  { name: 'Mathematics', icon: Calculator, color: 'text-blue-400' },
   { name: 'Physics', icon: Atom, color: 'text-blue-400' },
-  { name: 'Chemistry', icon: FlaskConical, color: 'text-emerald-400' },
-  { name: 'English', icon: BookMarked, color: 'text-amber-400' },
+  { name: 'Chemistry', icon: FlaskConical, color: 'text-blue-400' },
+  { name: 'English', icon: BookMarked, color: 'text-blue-400' },
   { name: 'Computer Science', icon: Laptop, color: 'text-cyan-400' },
-  { name: 'General', icon: GraduationCap, color: 'text-indigo-400' },
+  { name: 'General', icon: GraduationCap, color: 'text-blue-400' },
 ];
 
 interface DialogContentProps {
@@ -356,7 +356,7 @@ const CreateNoteModalDialog: React.FC<DialogContentProps> = ({
               </label>
               <span
                 className={`text-[11px] font-mono font-medium ${
-                  title.length >= 95 ? 'text-amber-400' : 'text-slate-400'
+                  title.length >= 95 ? 'text-blue-400' : 'text-slate-400'
                 }`}
               >
                 {title.length}/100
@@ -450,7 +450,7 @@ const CreateNoteModalDialog: React.FC<DialogContentProps> = ({
                       onClick={() => setPriority(p)}
                       className={`py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer text-center ${
                         isSelected
-                          ? 'bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white shadow-[0_0_14px_rgba(124,58,237,0.45)] border border-blue-400/50 scale-[1.02]'
+                          ? 'bg-gradient-to-r from-[#2563EB] to-[#2563EB] text-white shadow-[0_0_14px_rgba(37,99,235,0.45)] border border-blue-400/50 scale-[1.02]'
                           : 'bg-[#060D1E] border border-[#162544] text-slate-400 hover:text-slate-200 hover:bg-[#0E1A38]'
                       }`}
                     >
@@ -526,10 +526,10 @@ const CreateNoteModalDialog: React.FC<DialogContentProps> = ({
               <button
                 type="button"
                 onClick={handleGenerateAiOutline}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-gradient-to-r from-purple-600/30 to-blue-600/30 hover:from-purple-600/50 hover:to-blue-600/50 text-purple-200 border border-purple-500/40 shadow-[0_0_12px_rgba(168,85,247,0.25)] transition-all cursor-pointer active:scale-95"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-gradient-to-r from-blue-600/30 to-blue-600/30 hover:from-blue-600/50 hover:to-blue-600/50 text-blue-200 border border-blue-500/40 shadow-[0_0_12px_rgba(37,99,235,0.25)] transition-all cursor-pointer active:scale-95"
                 title="Generate high-yield study outline template"
               >
-                <Sparkles className="w-3.5 h-3.5 text-purple-300 animate-pulse" />
+                <Sparkles className="w-3.5 h-3.5 text-blue-300 animate-pulse" />
                 <span>AI Study Outline</span>
               </button>
             </div>
@@ -657,7 +657,7 @@ const CreateNoteModalDialog: React.FC<DialogContentProps> = ({
                   className="w-full bg-transparent text-xs sm:text-sm text-slate-100 placeholder-slate-400 focus:outline-none resize-none leading-relaxed font-sans"
                 />
                 <div className="flex items-center justify-end text-[11px] text-slate-400 pt-1 font-mono">
-                  <span className={content.length >= 1950 ? 'text-amber-400 font-bold' : ''}>
+                  <span className={content.length >= 1950 ? 'text-blue-400 font-bold' : ''}>
                     {content.length}/2000
                   </span>
                 </div>
@@ -756,7 +756,7 @@ const CreateNoteModalDialog: React.FC<DialogContentProps> = ({
                 {/* 3. Add to study planner */}
                 <div className="flex items-center justify-between p-2 rounded-xl bg-[#091124] border border-[#162544]">
                   <div className="flex items-center gap-2.5">
-                    <div className="p-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400">
+                    <div className="p-2 rounded-lg bg-blue-500/20 border border-blue-500/30 text-blue-400">
                       <Calendar className="w-3.5 h-3.5" />
                     </div>
                     <div>
@@ -772,7 +772,7 @@ const CreateNoteModalDialog: React.FC<DialogContentProps> = ({
                     onClick={() => setAddToPlanner(!addToPlanner)}
                     className={`relative w-11 h-6 rounded-full transition-colors cursor-pointer shrink-0 ${
                       addToPlanner
-                        ? 'bg-purple-600 shadow-[0_0_12px_rgba(168,85,247,0.6)]'
+                        ? 'bg-blue-600 shadow-[0_0_12px_rgba(37,99,235,0.6)]'
                         : 'bg-[#121B35] border border-[#1D2B52]'
                     }`}
                     aria-label="Toggle add to planner"
@@ -806,7 +806,7 @@ const CreateNoteModalDialog: React.FC<DialogContentProps> = ({
             type="submit"
             form="create-note-form"
             disabled={isSaving}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#7C3AED] hover:from-[#1D4ED8] hover:to-[#6D28D9] text-white text-xs sm:text-sm font-semibold shadow-[0_0_20px_rgba(79,70,229,0.5)] transition-all cursor-pointer active:scale-95 disabled:opacity-60"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#2563EB] hover:from-[#1D4ED8] hover:to-[#6D28D9] text-white text-xs sm:text-sm font-semibold shadow-[0_0_20px_rgba(37,99,235,0.5)] transition-all cursor-pointer active:scale-95 disabled:opacity-60"
           >
             {isSaving ? (
               <>

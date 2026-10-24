@@ -58,11 +58,11 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({
         case 'mathematics':
         case 'math':
         case 'maths':
-          return 'teal';
+          return 'blue';
         case 'physics':
-          return 'purple';
+          return 'blue';
         case 'english':
-          return 'orange';
+          return 'blue';
         case 'chemistry':
           return 'cyan';
         default:
@@ -202,7 +202,7 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({
 
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
-                <Calendar className="w-3 h-3 text-purple-400" />
+                <Calendar className="w-3 h-3 text-blue-400" />
                 <span>Scheduled Time</span>
               </label>
               <input
@@ -218,7 +218,7 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
-                <Calendar className="w-3 h-3 text-indigo-400" />
+                <Calendar className="w-3 h-3 text-blue-400" />
                 <span>Date</span>
               </label>
               <input
@@ -232,7 +232,7 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({
 
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center gap-1">
-                <Flag className="w-3 h-3 text-amber-400" />
+                <Flag className="w-3 h-3 text-blue-400" />
                 <span>Priority</span>
               </label>
               <select
@@ -257,7 +257,7 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({
             </button>
             <button
               type="submit"
-              className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all cursor-pointer"
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-500 text-white text-xs font-semibold shadow-[0_0_15px_rgba(59,130,246,0.4)] transition-all cursor-pointer"
             >
               {taskToEdit ? 'Save Changes' : 'Add Task'}
             </button>

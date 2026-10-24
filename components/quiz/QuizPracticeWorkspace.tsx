@@ -49,7 +49,7 @@ const FEATURED_QUIZZES: QuizItem[] = [
     questionsCount: 10,
     difficulty: 'Medium',
     symbol: '⚛',
-    colorScheme: 'emerald',
+    colorScheme: 'blue',
     featured: true,
   },
   {
@@ -59,7 +59,7 @@ const FEATURED_QUIZZES: QuizItem[] = [
     questionsCount: 10,
     difficulty: 'Hard',
     symbol: '∆',
-    colorScheme: 'purple',
+    colorScheme: 'blue',
     featured: true,
   },
 ];
@@ -82,7 +82,7 @@ const ALL_QUIZZES: QuizItem[] = [
     questionsCount: 10,
     difficulty: 'Hard',
     symbol: '⚡',
-    colorScheme: 'purple',
+    colorScheme: 'blue',
   },
   {
     id: 'quiz-periodic',
@@ -91,7 +91,7 @@ const ALL_QUIZZES: QuizItem[] = [
     questionsCount: 10,
     difficulty: 'Medium',
     symbol: '⚗',
-    colorScheme: 'emerald',
+    colorScheme: 'blue',
   },
   {
     id: 'quiz-grammar',
@@ -100,7 +100,7 @@ const ALL_QUIZZES: QuizItem[] = [
     questionsCount: 10,
     difficulty: 'Easy',
     symbol: '📖',
-    colorScheme: 'purple',
+    colorScheme: 'blue',
   },
   {
     id: 'quiz-python',
@@ -118,7 +118,7 @@ const ALL_QUIZZES: QuizItem[] = [
     questionsCount: 10,
     difficulty: 'Hard',
     symbol: '∆',
-    colorScheme: 'purple',
+    colorScheme: 'blue',
   },
 ];
 
@@ -236,10 +236,10 @@ export const QuizPracticeWorkspace: React.FC = () => {
           <div className="max-w-xl">
             {/* Badge: Squircle Brain Icon + Pill */}
             <div className="inline-flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">
-              <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-500/30 to-purple-600/30 border border-blue-400/40 flex items-center justify-center text-blue-300 shadow-[0_0_12px_rgba(59,130,246,0.4)]">
+              <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-500/30 to-blue-600/30 border border-blue-400/40 flex items-center justify-center text-blue-300 shadow-[0_0_12px_rgba(59,130,246,0.4)]">
                 <Brain className="w-3.5 h-3.5" />
               </div>
-              <div className="px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full bg-[#18113E]/90 border border-[#7C3AED]/50 text-indigo-200 text-[10px] sm:text-xs font-semibold shadow-[0_0_12px_rgba(124,58,237,0.25)] backdrop-blur-md">
+              <div className="px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full bg-[#18113E]/90 border border-[#2563EB]/50 text-blue-200 text-[10px] sm:text-xs font-semibold shadow-[0_0_12px_rgba(37,99,235,0.25)] backdrop-blur-md">
                 Quiz & Practice
               </div>
             </div>
@@ -247,7 +247,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
             {/* Headline */}
             <h1 className="text-xl sm:text-[28px] lg:text-[34px] font-extrabold tracking-tight text-white leading-tight">
               Test Your{' '}
-              <span className="bg-gradient-to-r from-[#38BDF8] via-[#818CF8] to-[#C084FC] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(129,140,248,0.6)]">
+              <span className="bg-gradient-to-r from-[#38BDF8] via-[#60A5FA] to-[#60A5FA] bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(129,140,248,0.6)]">
                 Knowledge
               </span>
             </h1>
@@ -259,12 +259,12 @@ export const QuizPracticeWorkspace: React.FC = () => {
 
           {/* Quick AI Quiz Generator CTA Button */}
           <div className="flex w-full sm:w-auto gap-2">
-            <button onClick={() => setTimedExam((v) => !v)} className={`shrink-0 px-3 py-2 sm:py-2.5 rounded-xl text-[10px] sm:text-xs font-bold border transition-all ${timedExam ? 'bg-amber-500/20 text-amber-200 border-amber-400/50' : 'bg-white/5 text-slate-300 border-white/10 hover:border-amber-400/30'}`}>⏱ {timedExam ? 'Timed Exam ON' : 'Timed Exam'}</button>
+            <button onClick={() => setTimedExam((v) => !v)} className={`shrink-0 px-3 py-2 sm:py-2.5 rounded-xl text-[10px] sm:text-xs font-bold border transition-all ${timedExam ? 'bg-blue-500/20 text-blue-200 border-blue-400/50' : 'bg-white/5 text-slate-300 border-white/10 hover:border-blue-400/30'}`}>⏱ {timedExam ? 'Timed Exam ON' : 'Timed Exam'}</button>
             <button
             onClick={() => setIsGenerateModalOpen(true)}
-            className="w-full sm:w-auto shrink-0 px-3.5 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#9333EA] hover:from-[#1D4ED8] hover:to-[#7E22CE] text-white text-xs font-bold shadow-[0_0_20px_rgba(124,58,237,0.6)] border border-purple-400/40 flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95 group/btn"
+            className="w-full sm:w-auto shrink-0 px-3.5 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] via-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1D4ED8] text-white text-xs font-bold shadow-[0_0_20px_rgba(37,99,235,0.6)] border border-blue-400/40 flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95 group/btn"
           >
-            <Sparkles className="w-3.5 h-3.5 text-purple-200 group-hover/btn:rotate-12 transition-transform" />
+            <Sparkles className="w-3.5 h-3.5 text-blue-200 group-hover/btn:rotate-12 transition-transform" />
             <span>Generate from Lesson</span>
           </button>
           </div>
@@ -285,7 +285,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
 
           {/* 2. Instant Feedback */}
           <div className="flex items-center gap-2.5 p-2 rounded-xl bg-[#071026]/85 border border-[#182C56]/70 backdrop-blur-md">
-            <div className="w-7 h-7 rounded-lg bg-indigo-600/25 text-indigo-400 flex items-center justify-center shrink-0">
+            <div className="w-7 h-7 rounded-lg bg-blue-600/25 text-blue-400 flex items-center justify-center shrink-0">
               <CheckCircle2 className="w-3.5 h-3.5" />
             </div>
             <div className="min-w-0">
@@ -307,7 +307,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
 
           {/* 4. Better Results */}
           <div className="flex items-center gap-2.5 p-2 rounded-xl bg-[#071026]/85 border border-[#182C56]/70 backdrop-blur-md">
-            <div className="w-7 h-7 rounded-lg bg-purple-600/25 text-purple-400 flex items-center justify-center shrink-0">
+            <div className="w-7 h-7 rounded-lg bg-blue-600/25 text-blue-400 flex items-center justify-center shrink-0">
               <TrendingUp className="w-3.5 h-3.5" />
             </div>
             <div className="min-w-0">
@@ -328,7 +328,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
           onClick={() => setMobileTab('quizzes')}
           className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
             mobileTab === 'quizzes'
-              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
+              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
               : 'text-slate-400 hover:text-white'
           }`}
         >
@@ -339,7 +339,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
           onClick={() => setMobileTab('progress')}
           className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
             mobileTab === 'progress'
-              ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.5)]'
+              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
               : 'text-slate-400 hover:text-white'
           }`}
         >
@@ -368,7 +368,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
                   }}
                   className={`px-3 py-1.5 sm:px-3.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
                     isActive
-                      ? 'bg-gradient-to-r from-[#2563EB] to-[#9333EA] text-white shadow-[0_0_15px_rgba(124,58,237,0.5)] border border-purple-400/40'
+                      ? 'bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] text-white shadow-[0_0_15px_rgba(37,99,235,0.5)] border border-blue-400/40'
                       : 'bg-[#060D20] border border-[#16274D] text-slate-300 hover:text-white hover:bg-[#0C1A3D]'
                   }`}
                 >
@@ -383,9 +383,9 @@ export const QuizPracticeWorkspace: React.FC = () => {
           <div className="flex items-center justify-end shrink-0 w-full sm:w-auto">
             <button
               onClick={() => setIsGenerateModalOpen(true)}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3 py-1.5 sm:px-3.5 rounded-xl bg-gradient-to-r from-blue-600/30 to-purple-600/30 hover:from-blue-600/50 hover:to-purple-600/50 border border-purple-500/40 text-purple-200 text-xs font-semibold transition-all cursor-pointer shadow-sm active:scale-95"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3 py-1.5 sm:px-3.5 rounded-xl bg-gradient-to-r from-blue-600/30 to-blue-600/30 hover:from-blue-600/50 hover:to-blue-600/50 border border-blue-500/40 text-blue-200 text-xs font-semibold transition-all cursor-pointer shadow-sm active:scale-95"
             >
-              <Plus className="w-3.5 h-3.5 text-purple-300" />
+              <Plus className="w-3.5 h-3.5 text-blue-300" />
               <span>Paste Lesson & Practice</span>
             </button>
           </div>
@@ -442,9 +442,9 @@ export const QuizPracticeWorkspace: React.FC = () => {
                       className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-xs sm:text-sm font-bold shadow-inner ${
                         quiz.colorScheme === 'blue'
                           ? 'bg-blue-600/25 border border-blue-400/40 text-blue-300 shadow-[0_0_12px_rgba(59,130,246,0.3)]'
-                          : quiz.colorScheme === 'emerald'
-                          ? 'bg-emerald-600/25 border border-emerald-400/40 text-emerald-300 shadow-[0_0_12px_rgba(52,211,153,0.3)]'
-                          : 'bg-purple-600/25 border border-purple-400/40 text-purple-300 shadow-[0_0_12px_rgba(168,85,247,0.3)]'
+                          : quiz.colorScheme === 'blue'
+                          ? 'bg-blue-600/25 border border-blue-400/40 text-blue-300 shadow-[0_0_12px_rgba(52,211,153,0.3)]'
+                          : 'bg-blue-600/25 border border-blue-400/40 text-blue-300 shadow-[0_0_12px_rgba(37,99,235,0.3)]'
                       }`}
                     >
                       {quiz.symbol}
@@ -465,9 +465,9 @@ export const QuizPracticeWorkspace: React.FC = () => {
                       <span
                         className={`text-[9px] font-semibold px-2 py-0.5 rounded-full border ${
                           quiz.difficulty === 'Hard'
-                            ? 'bg-[#3A0F1D] text-rose-300 border-[#851E3E]/40'
+                            ? 'bg-[#3A0F1D] text-rose-300 border-[#1D4ED8]/40'
                             : quiz.difficulty === 'Easy'
-                            ? 'bg-[#0E2A1E] text-emerald-300 border-[#1B6847]/40'
+                            ? 'bg-[#0E2A1E] text-blue-300 border-[#1B6847]/40'
                             : 'bg-[#15234A] text-blue-300 border-[#25418E]/40'
                         }`}
                       >
@@ -479,7 +479,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
                   {/* Start Quiz → Button */}
                   <button
                     onClick={() => handleStartQuiz(quiz)}
-                    className="w-full py-1.5 sm:py-2 px-3 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#9333EA] hover:from-[#1D4ED8] hover:to-[#7E22CE] text-white text-xs font-semibold shadow-[0_0_15px_rgba(124,58,237,0.4)] flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95"
+                    className="w-full py-1.5 sm:py-2 px-3 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1D4ED8] text-white text-xs font-semibold shadow-[0_0_15px_rgba(37,99,235,0.4)] flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95"
                   >
                     <span>Start Quiz</span>
                     <ArrowRight className="w-3 h-3" />
@@ -493,7 +493,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
           <div className="space-y-2.5 sm:space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5 sm:gap-2">
-                <Brain className="w-4 h-4 text-purple-400" />
+                <Brain className="w-4 h-4 text-blue-400" />
                 <h3 className="text-xs sm:text-base font-bold text-white tracking-tight">
                   All Quizzes ({filteredAllQuizzes.length})
                 </h3>
@@ -520,9 +520,9 @@ export const QuizPracticeWorkspace: React.FC = () => {
               {filteredAllQuizzes.map((quiz) => (
                 <div
                   key={quiz.id}
-                  className={`relative overflow-hidden rounded-xl sm:rounded-2xl border p-2.5 sm:p-4 transition-all duration-300 flex flex-col justify-between space-y-2 sm:space-y-3 shadow-lg group bg-gradient-to-br from-[#0B1735] via-[#091126] to-[#060B18] ${quiz.colorScheme === 'blue' ? 'border-blue-500/20 hover:border-blue-400/60' : quiz.colorScheme === 'emerald' ? 'border-emerald-500/20 hover:border-emerald-400/60' : 'border-purple-500/20 hover:border-purple-400/60'}`}
+                  className={`relative overflow-hidden rounded-xl sm:rounded-2xl border p-2.5 sm:p-4 transition-all duration-300 flex flex-col justify-between space-y-2 sm:space-y-3 shadow-lg group bg-gradient-to-br from-[#0B1735] via-[#091126] to-[#060B18] ${quiz.colorScheme === 'blue' ? 'border-blue-500/20 hover:border-blue-400/60' : quiz.colorScheme === 'blue' ? 'border-blue-500/20 hover:border-blue-400/60' : 'border-blue-500/20 hover:border-blue-400/60'}`}
                 >
-                  <div className={`absolute -top-10 -right-8 w-24 h-24 rounded-full blur-2xl opacity-25 pointer-events-none ${quiz.colorScheme === 'blue' ? 'bg-blue-500' : quiz.colorScheme === 'emerald' ? 'bg-emerald-500' : 'bg-purple-500'}`} />
+                  <div className={`absolute -top-10 -right-8 w-24 h-24 rounded-full blur-2xl opacity-25 pointer-events-none ${quiz.colorScheme === 'blue' ? 'bg-blue-500' : quiz.colorScheme === 'blue' ? 'bg-blue-500' : 'bg-blue-500'}`} />
                   <div className="relative z-10 space-y-1.5 sm:space-y-2">
                     <div className="flex items-center justify-between gap-1.5">
                       {/* Squircle Icon */}
@@ -530,9 +530,9 @@ export const QuizPracticeWorkspace: React.FC = () => {
                         className={`w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center text-[10px] sm:text-xs font-bold shrink-0 ${
                           quiz.colorScheme === 'blue'
                             ? 'bg-blue-600/20 text-blue-400 border border-blue-400/30'
-                            : quiz.colorScheme === 'emerald'
-                            ? 'bg-emerald-600/20 text-emerald-400 border border-emerald-400/30'
-                            : 'bg-purple-600/20 text-purple-400 border border-purple-400/30'
+                            : quiz.colorScheme === 'blue'
+                            ? 'bg-blue-600/20 text-blue-400 border border-blue-400/30'
+                            : 'bg-blue-600/20 text-blue-400 border border-blue-400/30'
                         }`}
                       >
                         {quiz.symbol}
@@ -542,9 +542,9 @@ export const QuizPracticeWorkspace: React.FC = () => {
                       <span
                         className={`text-[8px] sm:text-[9px] font-semibold px-1.5 sm:px-2 py-0.2 rounded-full border ${
                           quiz.difficulty === 'Hard'
-                            ? 'bg-[#3A0F1D] text-rose-300 border-[#851E3E]/40'
+                            ? 'bg-[#3A0F1D] text-rose-300 border-[#1D4ED8]/40'
                             : quiz.difficulty === 'Easy'
-                            ? 'bg-[#0E2A1E] text-emerald-300 border-[#1B6847]/40'
+                            ? 'bg-[#0E2A1E] text-blue-300 border-[#1B6847]/40'
                             : 'bg-[#15234A] text-blue-300 border-[#25418E]/40'
                         }`}
                       >
@@ -566,7 +566,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
                       <span className="inline-flex items-center gap-1"><Clock className="w-3 h-3" /> ~8 min</span>
                     </div>
                     <div className="h-1 rounded-full bg-white/5 overflow-hidden">
-                      <div className={`h-full rounded-full ${quiz.colorScheme === 'blue' ? 'bg-blue-400' : quiz.colorScheme === 'emerald' ? 'bg-emerald-400' : 'bg-purple-400'}`} style={{width: `${Math.min(85, 20 + quiz.title.length * 2)}%`}} />
+                      <div className={`h-full rounded-full ${quiz.colorScheme === 'blue' ? 'bg-blue-400' : quiz.colorScheme === 'blue' ? 'bg-blue-400' : 'bg-blue-400'}`} style={{width: `${Math.min(85, 20 + quiz.title.length * 2)}%`}} />
                     </div>
                   </div>
 
@@ -604,7 +604,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
               <h4 className="text-xs sm:text-sm font-bold text-white tracking-tight">
                 Your Practice Progress
               </h4>
-              <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-orange-500/10 border border-orange-400/20 px-2 py-1 text-[9px] font-bold text-orange-300">🔥 {streakCount} day streak</span>
+              <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-blue-500/10 border border-blue-400/20 px-2 py-1 text-[9px] font-bold text-blue-300">🔥 {streakCount} day streak</span>
             </div>
 
             <div className="flex items-center justify-between gap-3 pt-0.5">
@@ -641,7 +641,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
               <div className="space-y-1.5 text-[11px] sm:text-xs flex-1">
                 <div className="flex items-center justify-between text-slate-300">
                   <span className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.7)]" />
+                    <span className="w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_6px_rgba(52,211,153,0.7)]" />
                     <span>Completed</span>
                   </span>
                   <span className="font-bold text-white">{completedCount}</span>
@@ -657,7 +657,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
 
                 <div className="flex items-center justify-between text-slate-300">
                   <span className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_6px_rgba(168,85,247,0.7)]" />
+                    <span className="w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_6px_rgba(37,99,235,0.7)]" />
                     <span>Not Started</span>
                   </span>
                   <span className="font-bold text-white">{0}</span>
@@ -669,13 +669,13 @@ export const QuizPracticeWorkspace: React.FC = () => {
           {/* SUBJECT ACCURACY */}
           <div className="rounded-[20px] sm:rounded-[22px] bg-[#081026] border border-[#162544] p-3.5 sm:p-5 shadow-lg space-y-3">
             <div className="flex items-center gap-2">
-              <Award className="w-4 h-4 text-amber-400" />
+              <Award className="w-4 h-4 text-blue-400" />
               <h4 className="text-xs sm:text-sm font-bold text-white">Subject Accuracy</h4>
             </div>
             {subjectStats.map((item) => (
               <div key={item.subject} className="space-y-1.5">
                 <div className="flex items-center justify-between text-[10px] sm:text-xs"><span className="text-slate-300">{item.subject}</span><span className="font-bold text-white">{item.score}%</span></div>
-                <div className="h-1.5 rounded-full bg-white/5 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-indigo-500" style={{width:`${item.score}%`}} /></div>
+                <div className="h-1.5 rounded-full bg-white/5 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-blue-500" style={{width:`${item.score}%`}} /></div>
               </div>
             ))}
           </div>
@@ -714,9 +714,9 @@ export const QuizPracticeWorkspace: React.FC = () => {
                     className={`w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold shrink-0 ${
                       act.colorScheme === 'blue'
                         ? 'bg-blue-600/25 text-blue-300 border border-blue-400/30'
-                        : act.colorScheme === 'emerald'
-                        ? 'bg-emerald-600/25 text-emerald-300 border border-emerald-400/30'
-                        : 'bg-purple-600/25 text-purple-300 border border-purple-400/30'
+                        : act.colorScheme === 'blue'
+                        ? 'bg-blue-600/25 text-blue-300 border border-blue-400/30'
+                        : 'bg-blue-600/25 text-blue-300 border border-blue-400/30'
                     }`}
                   >
                     {act.symbol}
@@ -753,8 +753,8 @@ export const QuizPracticeWorkspace: React.FC = () => {
             </div>
 
             <div className="relative z-10 max-w-[200px] space-y-1">
-              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[9px] font-semibold">
-                <Sparkles className="w-3 h-3 text-purple-400" />
+              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-[9px] font-semibold">
+                <Sparkles className="w-3 h-3 text-blue-400" />
                 <span>Daily Practice</span>
               </div>
               <h4 className="text-xs sm:text-sm font-bold text-white tracking-tight leading-tight">
@@ -769,7 +769,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
             <div className="relative z-10 pt-2.5">
               <button
                 onClick={() => handleStartQuiz(FEATURED_QUIZZES[0])}
-                className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#9333EA] hover:from-[#1D4ED8] hover:to-[#7E22CE] text-white text-xs font-semibold shadow-[0_0_15px_rgba(124,58,237,0.5)] flex items-center gap-1.5 transition-all cursor-pointer active:scale-95"
+                className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1D4ED8] text-white text-xs font-semibold shadow-[0_0_15px_rgba(37,99,235,0.5)] flex items-center gap-1.5 transition-all cursor-pointer active:scale-95"
               >
                 <span>Start Practicing</span>
                 <ArrowRight className="w-3 h-3" />

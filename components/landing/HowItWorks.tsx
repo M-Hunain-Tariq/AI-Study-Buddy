@@ -70,7 +70,7 @@ export const HowItWorks: React.FC = () => {
           {/* Left Column: 3 Steps + CTA Button */}
           <div className="lg:col-span-5 flex flex-col space-y-6 relative">
             {/* Glowing connecting guideline line between steps */}
-            <div className="absolute left-[26px] top-6 bottom-16 w-0.5 bg-gradient-to-b from-cyan-400 via-blue-500 to-indigo-500 -z-1 opacity-40" />
+            <div className="absolute left-[26px] top-6 bottom-16 w-0.5 bg-gradient-to-b from-cyan-400 via-blue-500 to-blue-500 -z-1 opacity-40" />
 
             {/* Step 1 */}
             <ScrollReveal animation="fade-right" delay={100}>
@@ -144,23 +144,23 @@ export const HowItWorks: React.FC = () => {
                 onClick={() => setActiveStep(3)}
                 className={`flex items-start gap-5 p-3.5 rounded-2xl cursor-pointer transition-all duration-300 relative group ${
                   activeStep === 3 
-                    ? 'bg-indigo-500/15 border border-indigo-400/60 shadow-[0_0_30px_rgba(99,102,241,0.3)] transform translate-x-1.5' 
+                    ? 'bg-blue-500/15 border border-blue-400/60 shadow-[0_0_30px_rgba(37,99,235,0.3)] transform translate-x-1.5' 
                     : 'hover:bg-slate-900/50 border border-transparent hover:translate-x-1'
                 }`}
               >
                 <div className={`relative flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center font-heading text-lg font-bold text-white transition-all duration-300 ${
                   activeStep === 3
-                    ? 'bg-indigo-500 shadow-[0_0_24px_rgba(99,102,241,0.9)] scale-110'
+                    ? 'bg-blue-500 shadow-[0_0_24px_rgba(37,99,235,0.9)] scale-110'
                     : 'bg-[#05112e] border border-blue-500/60 shadow-[0_0_15px_rgba(59,130,246,0.4)]'
                 }`}>
                   {activeStep === 3 && (
-                    <span className="absolute inset-0 rounded-full border border-indigo-300 animate-ping opacity-60" />
+                    <span className="absolute inset-0 rounded-full border border-blue-300 animate-ping opacity-60" />
                   )}
                   3
                 </div>
                 <div className="pt-0.5">
                   <h3 className={`font-heading text-xl font-bold mb-1.5 transition-colors ${
-                    activeStep === 3 ? 'text-indigo-300' : 'text-white'
+                    activeStep === 3 ? 'text-blue-300' : 'text-white'
                   }`}>
                     Track & Achieve
                   </h3>
@@ -187,22 +187,22 @@ export const HowItWorks: React.FC = () => {
             <div className="absolute -top-16 -right-8 sm:-right-10 w-44 sm:w-56 h-56 pointer-events-none z-0 opacity-90 drop-shadow-[0_12px_35px_rgba(147,51,234,0.7)] animate-card-float">
               {/* Shimmer reflection sweep */}
               <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
-                <div className="w-1/3 h-full bg-gradient-to-r from-transparent via-purple-200/35 to-transparent animate-crystal-sweep" />
+                <div className="w-1/3 h-full bg-gradient-to-r from-transparent via-blue-200/35 to-transparent animate-crystal-sweep" />
               </div>
               <svg viewBox="0 0 220 240" fill="none" className="w-full h-full">
                 <defs>
                   <linearGradient id="hw-crystal-1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#c084fc" />
-                    <stop offset="50%" stopColor="#9333ea" />
+                    <stop offset="0%" stopColor="#60A5FA" />
+                    <stop offset="50%" stopColor="#1D4ED8" />
                     <stop offset="100%" stopColor="#3b0764" />
                   </linearGradient>
                   <linearGradient id="hw-crystal-2" x1="100%" y1="0%" x2="0%" y2="100%">
                     <stop offset="0%" stopColor="#e9d5ff" />
-                    <stop offset="40%" stopColor="#a855f7" />
+                    <stop offset="40%" stopColor="#3B82F6" />
                     <stop offset="100%" stopColor="#581c87" />
                   </linearGradient>
                   <linearGradient id="hw-crystal-3" x1="0%" y1="50%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#7e22ce" />
+                    <stop offset="0%" stopColor="#1D4ED8" />
                     <stop offset="100%" stopColor="#1e1b4b" />
                   </linearGradient>
                 </defs>
@@ -225,9 +225,9 @@ export const HowItWorks: React.FC = () => {
               <svg viewBox="0 0 700 500" className="w-full h-full overflow-visible animate-ribbon-glow">
                 <defs>
                   <linearGradient id="ribbonGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.85" />
+                    <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.85" />
                     <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.6" />
-                    <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
+                    <stop offset="100%" stopColor="#2563EB" stopOpacity="0" />
                   </linearGradient>
                   <filter id="ribbonBlur" x="-30%" y="-30%" width="160%" height="160%">
                     <feGaussianBlur stdDeviation="18" />
@@ -450,16 +450,16 @@ export const HowItWorks: React.FC = () => {
                           <Sparkles className="w-4 h-4 text-cyan-400 mb-1 group-hover:scale-120 group-hover:rotate-12 transition-transform" />
                           <span className="text-[11px] text-slate-200 font-medium">Ask AI</span>
                         </button>
-                        <button className="flex flex-col items-center p-2.5 rounded-xl bg-[#071536] hover:bg-purple-600/25 border border-purple-500/20 hover:border-purple-400/50 transition-all group cursor-pointer hover:scale-105 active:scale-95">
-                          <HelpCircle className="w-4 h-4 text-purple-400 mb-1 group-hover:scale-120 group-hover:rotate-12 transition-transform" />
+                        <button className="flex flex-col items-center p-2.5 rounded-xl bg-[#071536] hover:bg-blue-600/25 border border-blue-500/20 hover:border-blue-400/50 transition-all group cursor-pointer hover:scale-105 active:scale-95">
+                          <HelpCircle className="w-4 h-4 text-blue-400 mb-1 group-hover:scale-120 group-hover:rotate-12 transition-transform" />
                           <span className="text-[11px] text-slate-200 font-medium">Create Quiz</span>
                         </button>
-                        <button className="flex flex-col items-center p-2.5 rounded-xl bg-[#071536] hover:bg-indigo-600/25 border border-indigo-500/20 hover:border-indigo-400/50 transition-all group cursor-pointer hover:scale-105 active:scale-95">
-                          <Plus className="w-4 h-4 text-indigo-400 mb-1 group-hover:scale-120 group-hover:rotate-12 transition-transform" />
+                        <button className="flex flex-col items-center p-2.5 rounded-xl bg-[#071536] hover:bg-blue-600/25 border border-blue-500/20 hover:border-blue-400/50 transition-all group cursor-pointer hover:scale-105 active:scale-95">
+                          <Plus className="w-4 h-4 text-blue-400 mb-1 group-hover:scale-120 group-hover:rotate-12 transition-transform" />
                           <span className="text-[11px] text-slate-200 font-medium">Add Notes</span>
                         </button>
-                        <button className="flex flex-col items-center p-2.5 rounded-xl bg-[#071536] hover:bg-emerald-600/25 border border-emerald-500/20 hover:border-emerald-400/50 transition-all group cursor-pointer hover:scale-105 active:scale-95">
-                          <Calendar className="w-4 h-4 text-emerald-400 mb-1 group-hover:scale-120 group-hover:rotate-12 transition-transform" />
+                        <button className="flex flex-col items-center p-2.5 rounded-xl bg-[#071536] hover:bg-blue-600/25 border border-blue-500/20 hover:border-blue-400/50 transition-all group cursor-pointer hover:scale-105 active:scale-95">
+                          <Calendar className="w-4 h-4 text-blue-400 mb-1 group-hover:scale-120 group-hover:rotate-12 transition-transform" />
                           <span className="text-[11px] text-slate-200 font-medium">Plan Study</span>
                         </button>
                       </div>
@@ -477,7 +477,7 @@ export const HowItWorks: React.FC = () => {
                     <div className="absolute -top-3 left-1 text-cyan-300 text-xs pointer-events-none animate-spark-1">
                       ✨
                     </div>
-                    <div className="absolute -top-6 right-8 text-purple-300 text-xs pointer-events-none animate-spark-2">
+                    <div className="absolute -top-6 right-8 text-blue-300 text-xs pointer-events-none animate-spark-2">
                       ✦
                     </div>
 

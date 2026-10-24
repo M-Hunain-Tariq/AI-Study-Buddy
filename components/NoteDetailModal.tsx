@@ -60,13 +60,13 @@ export const NoteDetailModal: React.FC<NoteDetailModalProps> = ({ note, onClose 
                 className="w-10 h-10 rounded-xl flex items-center justify-center text-white"
                 style={{
                   backgroundColor:
-                    note.color === 'emerald'
+                    note.color === 'blue'
                       ? '#10B981'
-                      : note.color === 'purple'
-                      ? '#8B5CF6'
+                      : note.color === 'blue'
+                      ? '#2563EB'
                       : note.color === 'cyan'
-                      ? '#06B6D4'
-                      : '#F59E0B'
+                      ? '#38BDF8'
+                      : '#60A5FA'
                 }}
               >
                 <FileText className="w-5 h-5" />
@@ -103,12 +103,12 @@ export const NoteDetailModal: React.FC<NoteDetailModalProps> = ({ note, onClose 
               onClick={handleCopy}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 transition-colors"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? <Check className="w-3.5 h-3.5 text-blue-400" /> : <Copy className="w-3.5 h-3.5" />}
               {copied ? 'Copied' : 'Copy Note'}
             </button>
             <button
               onClick={onClose}
-              className="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-semibold text-white transition-colors"
+              className="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white transition-colors"
             >
               Done
             </button>

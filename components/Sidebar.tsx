@@ -96,7 +96,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, activeItem = 
                 <div className="absolute inset-0 bg-gradient-to-t from-[#08101e] via-transparent to-transparent" />
               </div>
               <div className="mt-3 flex items-center justify-between text-[10px]"><span className="text-slate-500">Getting started</span><span className="font-bold text-cyan-300">0%</span></div>
-              <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/10"><div className="h-full w-0 rounded-full bg-gradient-to-r from-cyan-400 to-violet-500" /></div>
+              <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/10"><div className="h-full w-0 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500" /></div>
             </div>
           </div>
         </div>

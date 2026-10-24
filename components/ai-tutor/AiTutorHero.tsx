@@ -21,21 +21,21 @@ export const AiTutorHero: React.FC<AiTutorHeroProps> = ({ onSelectActionChip }) 
       title: 'Solve Problems',
       desc: 'step by step',
       icon: Split,
-      color: 'text-purple-400 bg-purple-500/20 border-purple-500/30',
+      color: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
       prompt: 'Can you show me step-by-step how to solve this quadratic equation: 2x² + 5x - 3 = 0?',
     },
     {
       title: 'Create Quizzes',
       desc: 'to practice',
       icon: HelpCircle,
-      color: 'text-indigo-400 bg-indigo-500/20 border-indigo-500/30',
+      color: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
       prompt: 'Generate a 4-question multiple-choice practice quiz on Newton\'s laws of motion with explanations.',
     },
     {
       title: 'Summarize Notes',
       desc: 'in seconds',
       icon: FileText,
-      color: 'text-teal-400 bg-teal-500/20 border-teal-500/30',
+      color: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
       prompt: 'Please give me a clean, bulleted summary of key formulas and concepts for Linear Equations.',
     },
   ];
@@ -70,15 +70,15 @@ export const AiTutorHero: React.FC<AiTutorHeroProps> = ({ onSelectActionChip }) 
       <div className="relative z-20 w-full lg:w-[58%] p-5 sm:p-6 lg:p-7 flex flex-col justify-between space-y-4">
         <div className="space-y-2.5">
           {/* 1. Small AI Tutor badge */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0D1836]/90 border border-[#213560] text-xs font-semibold text-indigo-300 w-fit shadow-inner">
-            <Bot className="w-3.5 h-3.5 text-indigo-400" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0D1836]/90 border border-[#213560] text-xs font-semibold text-blue-300 w-fit shadow-inner">
+            <Bot className="w-3.5 h-3.5 text-blue-400" />
             <span>AI Tutor</span>
           </div>
 
           {/* 2. Main heading with gradient on "AI Study Assistant" */}
           <h2 className="text-2xl sm:text-3xl lg:text-[28px] xl:text-[30px] font-bold text-white tracking-tight leading-tight">
             Your Personal{' '}
-            <span className="bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(168,85,247,0.55)]">
+            <span className="bg-gradient-to-r from-blue-400 via-blue-300 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(37,99,235,0.55)]">
               AI Study Assistant
             </span>
           </h2>
@@ -97,13 +97,13 @@ export const AiTutorHero: React.FC<AiTutorHeroProps> = ({ onSelectActionChip }) 
               <button
                 key={chip.title}
                 onClick={() => onSelectActionChip(chip.prompt)}
-                className="group/chip flex items-center gap-2 p-2 sm:p-2.5 rounded-xl bg-[#0B1530]/90 hover:bg-[#12224A] border border-[#182B4F] hover:border-indigo-500/50 transition-all text-left cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(99,102,241,0.25)] hover:-translate-y-0.5 min-w-0 backdrop-blur-sm"
+                className="group/chip flex items-center gap-2 p-2 sm:p-2.5 rounded-xl bg-[#0B1530]/90 hover:bg-[#12224A] border border-[#182B4F] hover:border-blue-500/50 transition-all text-left cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(37,99,235,0.25)] hover:-translate-y-0.5 min-w-0 backdrop-blur-sm"
               >
                 <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center shrink-0 border ${chip.color} shadow-inner`}>
                   <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[11px] sm:text-xs font-semibold text-white tracking-tight truncate group-hover/chip:text-indigo-200 transition-colors">
+                  <p className="text-[11px] sm:text-xs font-semibold text-white tracking-tight truncate group-hover/chip:text-blue-200 transition-colors">
                     {chip.title}
                   </p>
                   <p className="text-[9px] sm:text-[10px] text-slate-400 truncate">

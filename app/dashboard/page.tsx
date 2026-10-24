@@ -82,7 +82,7 @@ function DashboardContent() {
 
   return (
     <div className="fresh-page fresh-app-shell relative min-h-screen bg-[#07101f] text-slate-100 flex flex-col selection:bg-blue-500/30 selection:text-white overflow-x-hidden">
-      {/* Background Atmosphere with rich blue/purple lighting matching Image 1 */}
+      {/* Background Atmosphere with rich blue/blue lighting matching Image 1 */}
       <AnimatedBackground />
 
       {/* Sidebar Navigation matching active page state */}
@@ -116,7 +116,7 @@ function DashboardContent() {
                   onClick={() => setDashboardMobileTab('overview')}
                   className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                     dashboardMobileTab === 'overview'
-                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -126,7 +126,7 @@ function DashboardContent() {
                   onClick={() => setDashboardMobileTab('schedule')}
                   className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                     dashboardMobileTab === 'schedule'
-                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.5)]'
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -215,7 +215,7 @@ function DashboardContent() {
                   onClick={() => setAiTutorMobileTab('chat')}
                   className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                     aiTutorMobileTab === 'chat'
-                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -225,7 +225,7 @@ function DashboardContent() {
                   onClick={() => setAiTutorMobileTab('prompts')}
                   className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                     aiTutorMobileTab === 'prompts'
-                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.5)]'
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
                       : 'text-slate-400 hover:text-white'
                   }`}
                 >

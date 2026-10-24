@@ -30,7 +30,7 @@ function StudyPlannerPageContent() {
 
   return (
     <div className="fresh-page relative min-h-screen bg-[#07101f] text-slate-100 flex flex-col selection:bg-blue-500/30 selection:text-white overflow-x-hidden">
-      {/* Background Atmosphere with rich blue/purple lighting */}
+      {/* Background Atmosphere with rich blue/blue lighting */}
       <AnimatedBackground />
 
       {/* Sidebar Navigation with Study Planner as the active highlighted page */}

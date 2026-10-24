@@ -22,7 +22,7 @@ export interface QuizItem {
   questionsCount: number;
   difficulty: QuizDifficulty;
   symbol: string;
-  colorScheme: 'blue' | 'emerald' | 'purple' | 'rose' | 'amber';
+  colorScheme: 'blue' | 'blue' | 'blue' | 'rose' | 'blue';
   featured?: boolean;
   questions?: QuizQuestion[];
 }
@@ -33,5 +33,5 @@ export interface RecentActivityItem {
   status: 'Completed' | 'In Progress' | 'Started';
   timeAgo: string;
   symbol: string;
-  colorScheme: 'blue' | 'emerald' | 'purple';
+  colorScheme: 'blue' | 'blue' | 'blue';
 }

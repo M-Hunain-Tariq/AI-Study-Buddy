@@ -26,9 +26,9 @@ export const NotificationsSection: React.FC<SectionProps> = ({ settings, update,
 
   const prefs: { k: NKey; icon: React.ComponentType<{ className?: string }>; title: string; desc: string; tone: string }[] = [
     { k: 'task', icon: CalendarCheck, title: 'Task Reminders', desc: 'Get notified about your upcoming tasks', tone: 'text-blue-300 bg-blue-500/15 border-blue-500/25' },
-    { k: 'study', icon: BookOpen, title: 'Study Reminders', desc: 'Daily study schedule and goals', tone: 'text-indigo-300 bg-indigo-500/15 border-indigo-500/25' },
+    { k: 'study', icon: BookOpen, title: 'Study Reminders', desc: 'Daily study schedule and goals', tone: 'text-blue-300 bg-blue-500/15 border-blue-500/25' },
     { k: 'progress', icon: TrendingUp, title: 'Progress Updates', desc: 'Weekly progress and achievements', tone: 'text-cyan-300 bg-cyan-500/15 border-cyan-500/25' },
-    { k: 'marketing', icon: Megaphone, title: 'Marketing & Updates', desc: 'Product updates and new features', tone: 'text-purple-300 bg-purple-500/15 border-purple-500/25' },
+    { k: 'marketing', icon: Megaphone, title: 'Marketing & Updates', desc: 'Product updates and new features', tone: 'text-blue-300 bg-blue-500/15 border-blue-500/25' },
   ];
   const methods: { k: NKey; icon: React.ComponentType<{ className?: string }>; title: string }[] = [
     { k: 'inApp', icon: Bell, title: 'In-App Notifications' },

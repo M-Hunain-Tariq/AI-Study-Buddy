@@ -55,7 +55,7 @@ export const ProgressOverviewCard: React.FC<ProgressOverviewCardProps> = ({
               cx="50"
               cy="50"
               r="42"
-              stroke="#06B6D4"
+              stroke="#38BDF8"
               strokeWidth="9"
               strokeDasharray={`${completedDash} ${circumference}`}
               strokeDashoffset="0"
@@ -83,7 +83,7 @@ export const ProgressOverviewCard: React.FC<ProgressOverviewCardProps> = ({
               cx="50"
               cy="50"
               r="42"
-              stroke="#D946EF"
+              stroke="#60A5FA"
               strokeWidth="9"
               strokeDasharray={`${notStartedDash} ${circumference}`}
               strokeDashoffset={notStartedOffset}
@@ -127,7 +127,7 @@ export const ProgressOverviewCard: React.FC<ProgressOverviewCardProps> = ({
           {/* Not Started */}
           <div className="flex items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-2 min-w-0">
-              <span className="w-2.5 h-2.5 rounded-full bg-pink-500 shadow-[0_0_8px_rgba(236,72,153,0.9)] shrink-0" />
+              <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(236,72,153,0.9)] shrink-0" />
               <span className="text-slate-300 font-medium truncate">Not Started</span>
             </div>
             <span className="font-bold text-white tabular-nums">{notStartedPct}%</span>

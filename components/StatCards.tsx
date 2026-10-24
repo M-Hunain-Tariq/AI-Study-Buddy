@@ -12,12 +12,12 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
       {/* Card 1: Total Study Time */}
-      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-[#0A132C] border border-[#162544] p-4 sm:p-5 shadow-lg hover:border-indigo-500/40 hover:shadow-[0_0_25px_rgba(99,102,241,0.2)] transition-all duration-300 h-full min-h-[158px] sm:min-h-[165px] flex flex-col justify-between group">
+      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-[#0A132C] border border-[#162544] p-4 sm:p-5 shadow-lg hover:border-blue-500/40 hover:shadow-[0_0_25px_rgba(37,99,235,0.2)] transition-all duration-300 h-full min-h-[158px] sm:min-h-[165px] flex flex-col justify-between group">
         <div className="flex items-center justify-between">
-          <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-[#171F42] text-indigo-400 flex items-center justify-center shadow-inner">
+          <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-[#171F42] text-blue-400 flex items-center justify-center shadow-inner">
             <BookOpen className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
           </div>
-          <span className="text-xs sm:text-xs font-semibold text-emerald-400 flex items-center gap-0.5">
+          <span className="text-xs sm:text-xs font-semibold text-blue-400 flex items-center gap-0.5">
             New
           </span>
         </div>
@@ -36,20 +36,20 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
         <div className="mt-1.5 sm:mt-3 h-6 sm:h-10 w-full">
           <svg className="w-full h-full overflow-visible" viewBox="0 0 120 32" fill="none">
             <defs>
-              <linearGradient id="violetGrad1" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.45" />
-                <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.0" />
+              <linearGradient id="blueGrad1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#2563EB" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#2563EB" stopOpacity="0.0" />
               </linearGradient>
             </defs>
             <path
               d="M0,30 L120,30"
-              stroke="#8B5CF6"
+              stroke="#2563EB"
               strokeWidth="2.5"
               strokeLinecap="round"
             />
             <path
               d="M0,26 Q25,28 42,16 T78,18 T102,6 T120,4 L120,32 L0,32 Z"
-              fill="url(#violetGrad1)"
+              fill="url(#blueGrad1)"
             />
           </svg>
         </div>
@@ -61,7 +61,7 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
           <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-[#0D2E3E] text-cyan-400 flex items-center justify-center shadow-inner">
             <CheckSquare className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
           </div>
-          <span className="text-xs sm:text-xs font-semibold text-emerald-400 flex items-center gap-0.5">
+          <span className="text-xs sm:text-xs font-semibold text-blue-400 flex items-center gap-0.5">
             Start
           </span>
         </div>
@@ -81,13 +81,13 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
           <svg className="w-full h-full overflow-visible" viewBox="0 0 120 32" fill="none">
             <defs>
               <linearGradient id="cyanGrad2" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#06B6D4" stopOpacity="0.45" />
-                <stop offset="100%" stopColor="#06B6D4" stopOpacity="0.0" />
+                <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
               </linearGradient>
             </defs>
             <path
               d="M0,30 L120,30"
-              stroke="#06B6D4"
+              stroke="#38BDF8"
               strokeWidth="2.5"
               strokeLinecap="round"
             />
@@ -100,12 +100,12 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
       </div>
 
       {/* Card 3: AI Questions Asked */}
-      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-[#0A132C] border border-[#162544] p-4 sm:p-5 shadow-lg hover:border-purple-500/40 hover:shadow-[0_0_25px_rgba(168,85,247,0.2)] transition-all duration-300 h-full min-h-[158px] sm:min-h-[165px] flex flex-col justify-between group">
+      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-[#0A132C] border border-[#162544] p-4 sm:p-5 shadow-lg hover:border-blue-500/40 hover:shadow-[0_0_25px_rgba(37,99,235,0.2)] transition-all duration-300 h-full min-h-[158px] sm:min-h-[165px] flex flex-col justify-between group">
         <div className="flex items-center justify-between">
-          <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-[#281546] text-purple-400 flex items-center justify-center shadow-inner">
+          <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-[#281546] text-blue-400 flex items-center justify-center shadow-inner">
             <Brain className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
           </div>
-          <span className="text-xs sm:text-xs font-semibold text-emerald-400 flex items-center gap-0.5">
+          <span className="text-xs sm:text-xs font-semibold text-blue-400 flex items-center gap-0.5">
             New
           </span>
         </div>
@@ -124,32 +124,32 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
         <div className="mt-1.5 sm:mt-3 h-6 sm:h-10 w-full">
           <svg className="w-full h-full overflow-visible" viewBox="0 0 120 32" fill="none">
             <defs>
-              <linearGradient id="purpleGrad3" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#A855F7" stopOpacity="0.45" />
-                <stop offset="100%" stopColor="#A855F7" stopOpacity="0.0" />
+              <linearGradient id="blueGrad3" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#3B82F6" stopOpacity="0.0" />
               </linearGradient>
             </defs>
             <path
               d="M0,30 L120,30"
-              stroke="#A855F7"
+              stroke="#3B82F6"
               strokeWidth="2.5"
               strokeLinecap="round"
             />
             <path
               d="M0,30 L120,30 L120,32 L0,32 Z"
-              fill="url(#purpleGrad3)"
+              fill="url(#blueGrad3)"
             />
           </svg>
         </div>
       </div>
 
       {/* Card 4: Quiz Accuracy */}
-      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-[#0A132C] border border-[#162544] p-4 sm:p-5 shadow-lg hover:border-amber-500/40 hover:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all duration-300 h-full min-h-[158px] sm:min-h-[165px] flex flex-col justify-between group">
+      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-[#0A132C] border border-[#162544] p-4 sm:p-5 shadow-lg hover:border-blue-500/40 hover:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all duration-300 h-full min-h-[158px] sm:min-h-[165px] flex flex-col justify-between group">
         <div className="flex items-center justify-between">
-          <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-[#36270B] text-amber-400 flex items-center justify-center shadow-inner">
+          <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-[#36270B] text-blue-400 flex items-center justify-center shadow-inner">
             <Star className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
           </div>
-          <span className="text-xs sm:text-xs font-semibold text-emerald-400 flex items-center gap-0.5">
+          <span className="text-xs sm:text-xs font-semibold text-blue-400 flex items-center gap-0.5">
             New
           </span>
         </div>
@@ -168,20 +168,20 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
         <div className="mt-1.5 sm:mt-3 h-6 sm:h-10 w-full">
           <svg className="w-full h-full overflow-visible" viewBox="0 0 120 32" fill="none">
             <defs>
-              <linearGradient id="amberGrad4" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.45" />
-                <stop offset="100%" stopColor="#F59E0B" stopOpacity="0.0" />
+              <linearGradient id="blueGrad4" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#60A5FA" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#60A5FA" stopOpacity="0.0" />
               </linearGradient>
             </defs>
             <path
               d="M0,30 L120,30"
-              stroke="#F59E0B"
+              stroke="#60A5FA"
               strokeWidth="2.5"
               strokeLinecap="round"
             />
             <path
               d="M0,30 L120,30 L120,32 L0,32 Z"
-              fill="url(#amberGrad4)"
+              fill="url(#blueGrad4)"
             />
           </svg>
         </div>

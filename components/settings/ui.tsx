@@ -60,7 +60,7 @@ export const Row: React.FC<{
 export const PrimaryButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ className = '', ...p }) => (
   <button
     {...p}
-    className={`px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#2563EB] to-[#7C3AED] shadow-[0_0_18px_rgba(79,70,229,0.45)] hover:shadow-[0_0_26px_rgba(79,70,229,0.7)] transition-shadow cursor-pointer disabled:opacity-50 ${className}`}
+    className={`px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#2563EB] to-[#2563EB] shadow-[0_0_18px_rgba(37,99,235,0.45)] hover:shadow-[0_0_26px_rgba(37,99,235,0.7)] transition-shadow cursor-pointer disabled:opacity-50 ${className}`}
   />
 );
 

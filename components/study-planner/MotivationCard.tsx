@@ -35,14 +35,14 @@ export const MotivationCard: React.FC<MotivationCardProps> = ({ onViewProgress }
         </h3>
         <p className="text-xs sm:text-[13px] text-slate-300 font-normal leading-relaxed">
           Every small step counts. Keep going, you&apos;re closer to your goals.{' '}
-          <span className="text-pink-400">💖</span>
+          <span className="text-blue-400">💖</span>
         </p>
       </div>
 
       <div className="relative z-10 mt-5">
         <button
           onClick={onViewProgress}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#2563EB] to-[#4F46E5] hover:from-[#1D4ED8] hover:to-[#4338CA] text-white font-semibold text-xs shadow-[0_0_20px_rgba(37,99,235,0.45)] transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#2563EB] to-[#2563EB] hover:from-[#1D4ED8] hover:to-[#4338CA] text-white font-semibold text-xs shadow-[0_0_20px_rgba(37,99,235,0.45)] transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
         >
           <span>View Progress</span>
           <ArrowRight className="w-3.5 h-3.5" />

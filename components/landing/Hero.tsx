@@ -75,7 +75,7 @@ export const Hero: React.FC = () => {
                 Learn Smarter
               </span>
               <span className="block mt-1">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 drop-shadow-[0_0_25px_rgba(168,85,247,0.5)] animate-text-shimmer">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-400 to-blue-400 drop-shadow-[0_0_25px_rgba(37,99,235,0.5)] animate-text-shimmer">
                   Not
                 </span>{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500 drop-shadow-[0_0_25px_rgba(56,189,248,0.6)] animate-text-shimmer">
@@ -136,7 +136,7 @@ export const Hero: React.FC = () => {
               title="Progress Analytics"
             >
               <div className="absolute -inset-1 rounded-2xl bg-blue-400/20 blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-indigo-500/20 border border-blue-400/40 flex items-center justify-center text-blue-300 group-hover:text-white group-hover:bg-blue-500/30 transition-all">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-300 group-hover:text-white group-hover:bg-blue-500/30 transition-all">
                 <BarChart2 className="w-5 h-5 drop-shadow-[0_0_12px_rgba(59,130,246,0.95)]" />
               </div>
             </div>
@@ -155,7 +155,7 @@ export const Hero: React.FC = () => {
                   <p className="text-[11px] sm:text-xs text-slate-300 font-medium">
                     {currentSpeech.line1}
                   </p>
-                  <p className="text-xs sm:text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-indigo-300 drop-shadow-[0_0_10px_rgba(6,182,212,0.7)]">
+                  <p className="text-xs sm:text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-blue-300 drop-shadow-[0_0_10px_rgba(6,182,212,0.7)]">
                     {currentSpeech.line2}
                   </p>
                   <p className="text-[10px] sm:text-[11px] text-cyan-400 font-medium flex items-center gap-1 mt-0.5">
@@ -187,12 +187,12 @@ export const Hero: React.FC = () => {
           {/* Floating Card 4: Lower-Right (Quiz & Practice) */}
           <ScrollReveal animation="zoom-in" delay={500} className="absolute top-52 sm:top-64 right-4 sm:right-8 lg:right-6 z-20">
             <div 
-              className="bg-[#071330]/90 backdrop-blur-md p-3 sm:p-3.5 rounded-2xl border border-purple-400/60 shadow-[0_0_28px_rgba(168,85,247,0.5)] animate-card-float-alt hover:scale-115 hover:rotate-3 transition-all duration-300 cursor-pointer group"
+              className="bg-[#071330]/90 backdrop-blur-md p-3 sm:p-3.5 rounded-2xl border border-blue-400/60 shadow-[0_0_28px_rgba(37,99,235,0.5)] animate-card-float-alt hover:scale-115 hover:rotate-3 transition-all duration-300 cursor-pointer group"
               title="Interactive Quizzes"
             >
-              <div className="absolute -inset-1 rounded-2xl bg-purple-400/20 blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-300 group-hover:text-white group-hover:bg-purple-500/30 transition-all">
-                <HelpCircle className="w-5 h-5 drop-shadow-[0_0_12px_rgba(168,85,247,0.95)]" />
+              <div className="absolute -inset-1 rounded-2xl bg-blue-400/20 blur-sm opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-300 group-hover:text-white group-hover:bg-blue-500/30 transition-all">
+                <HelpCircle className="w-5 h-5 drop-shadow-[0_0_12px_rgba(37,99,235,0.95)]" />
               </div>
             </div>
           </ScrollReveal>

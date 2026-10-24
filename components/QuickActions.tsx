@@ -23,15 +23,15 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
     {
       title: 'Ask AI Tutor',
       icon: Bot,
-      color: 'bg-[#151736] hover:bg-[#1D204A] border-[#2A2B5E] hover:border-purple-500/60 shadow-[0_0_15px_rgba(168,85,247,0.12)]',
-      iconColor: 'text-purple-300 bg-purple-600/30',
+      color: 'bg-[#151736] hover:bg-[#1D204A] border-[#2A2B5E] hover:border-blue-500/60 shadow-[0_0_15px_rgba(37,99,235,0.12)]',
+      iconColor: 'text-blue-300 bg-blue-600/30',
       handler: onAskAiTutor
     },
     {
       title: 'Plan Study',
       icon: Calendar,
-      color: 'bg-[#0D2436] hover:bg-[#12314A] border-[#183D5C] hover:border-teal-500/60 shadow-[0_0_15px_rgba(20,184,166,0.12)]',
-      iconColor: 'text-teal-300 bg-teal-600/30',
+      color: 'bg-[#0D2436] hover:bg-[#12314A] border-[#183D5C] hover:border-blue-500/60 shadow-[0_0_15px_rgba(20,184,166,0.12)]',
+      iconColor: 'text-blue-300 bg-blue-600/30',
       handler: () => {
         if (onNavigateStudyPlanner) onNavigateStudyPlanner();
         else showToast('Navigated to Study Planner', 'info');
@@ -40,15 +40,15 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
     {
       title: 'Take a Quiz',
       icon: Brain,
-      color: 'bg-[#291333] hover:bg-[#381A46] border-[#441B54] hover:border-pink-500/60 shadow-[0_0_15px_rgba(236,72,153,0.12)]',
-      iconColor: 'text-pink-300 bg-pink-600/30',
+      color: 'bg-[#291333] hover:bg-[#381A46] border-[#441B54] hover:border-blue-500/60 shadow-[0_0_15px_rgba(236,72,153,0.12)]',
+      iconColor: 'text-blue-300 bg-blue-600/30',
       handler: () => { if (onNavigateQuiz) onNavigateQuiz(); else showToast('Quiz & Practice is available from the navigation.', 'info'); }
     },
     {
       title: 'Add Note',
       icon: FileText,
-      color: 'bg-[#2B1D12] hover:bg-[#3D2918] border-[#4E2E18] hover:border-amber-500/60 shadow-[0_0_15px_rgba(245,158,11,0.12)]',
-      iconColor: 'text-amber-300 bg-amber-600/30',
+      color: 'bg-[#2B1D12] hover:bg-[#3D2918] border-[#4E2E18] hover:border-blue-500/60 shadow-[0_0_15px_rgba(245,158,11,0.12)]',
+      iconColor: 'text-blue-300 bg-blue-600/30',
       handler: () => {
         if (onOpenNote) onOpenNote();
         else showToast('Quick Note opened!', 'info');

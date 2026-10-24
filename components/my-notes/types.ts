@@ -1,4 +1,4 @@
-export type NoteColor = 'purple' | 'blue' | 'pink' | 'emerald';
+export type NoteColor = 'blue' | 'blue' | 'blue' | 'blue';
 export type NotePriority = 'Low' | 'Medium' | 'High';
 
 export interface StudyNote {

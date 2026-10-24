@@ -27,7 +27,7 @@ const SAMPLE_LESSONS = [
   {
     title: 'Photosynthesis & Cellular Respiration',
     subject: 'Biology',
-    text: `Photosynthesis is the biological process by which green plants and certain other organisms transform light energy into chemical energy. During photosynthesis in green plants, light energy is captured and used to convert water, carbon dioxide, and minerals into oxygen and energy-rich organic compounds like glucose. The process takes place in the chloroplasts, using chlorophyll pigments. The general equation is 6CO2 + 6H2O + light -> C6H12O6 + 6O2. Conversely, cellular respiration occurs in the mitochondria where glucose is broken down to release ATP energy.`,
+    text: `Photosynthesis is the biological process by which blue plants and certain other organisms transform light energy into chemical energy. During photosynthesis in blue plants, light energy is captured and used to convert water, carbon dioxide, and minerals into oxygen and energy-rich organic compounds like glucose. The process takes place in the chloroplasts, using chlorophyll pigments. The general equation is 6CO2 + 6H2O + light -> C6H12O6 + 6O2. Conversely, cellular respiration occurs in the mitochondria where glucose is broken down to release ATP energy.`,
   },
   {
     title: "Newton's Laws of Motion",
@@ -125,13 +125,13 @@ export const GenerateQuizModal: React.FC<GenerateQuizModalProps> = ({
         {/* Header */}
         <div className="p-4 sm:p-5 border-b border-[#142345] flex items-start justify-between bg-[#060D22]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/25 to-purple-600/25 border border-blue-400/40 text-blue-400 flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.4)] shrink-0">
-              <Sparkles className="w-5 h-5 text-purple-400" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/25 to-blue-600/25 border border-blue-400/40 text-blue-400 flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.4)] shrink-0">
+              <Sparkles className="w-5 h-5 text-blue-400" />
             </div>
             <div>
               <h3 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
                 <span>Generate Quiz from Lesson</span>
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
                   AI Powered
                 </span>
               </h3>
@@ -153,8 +153,8 @@ export const GenerateQuizModal: React.FC<GenerateQuizModalProps> = ({
         {/* Processing State Overlay */}
         {isProcessing && (
           <div className="absolute inset-0 z-20 bg-[#060D22]/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center space-y-4 animate-in fade-in">
-            <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600/30 to-purple-600/30 border border-purple-400/50 flex items-center justify-center shadow-[0_0_30px_rgba(124,58,237,0.5)]">
-              <Loader2 className="w-8 h-8 text-purple-400 animate-spin" />
+            <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600/30 to-blue-600/30 border border-blue-400/50 flex items-center justify-center shadow-[0_0_30px_rgba(37,99,235,0.5)]">
+              <Loader2 className="w-8 h-8 text-blue-400 animate-spin" />
             </div>
 
             <div className="space-y-1.5 max-w-sm">
@@ -176,12 +176,12 @@ export const GenerateQuizModal: React.FC<GenerateQuizModalProps> = ({
               />
               <div
                 className={`w-2.5 h-2.5 rounded-full transition-all ${
-                  processingStep >= 2 ? 'bg-purple-400 shadow-[0_0_8px_rgba(168,85,247,0.8)]' : 'bg-slate-700'
+                  processingStep >= 2 ? 'bg-blue-400 shadow-[0_0_8px_rgba(37,99,235,0.8)]' : 'bg-slate-700'
                 }`}
               />
               <div
                 className={`w-2.5 h-2.5 rounded-full transition-all ${
-                  processingStep >= 3 ? 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]' : 'bg-slate-700'
+                  processingStep >= 3 ? 'bg-blue-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]' : 'bg-slate-700'
                 }`}
               />
             </div>
@@ -193,7 +193,7 @@ export const GenerateQuizModal: React.FC<GenerateQuizModalProps> = ({
           {/* Quick Sample Selector */}
           <div className="p-2.5 rounded-xl bg-[#060D20] border border-[#16274D] flex flex-wrap items-center justify-between gap-2">
             <span className="text-[11px] text-slate-400 flex items-center gap-1.5 font-medium">
-              <Zap className="w-3.5 h-3.5 text-amber-400" />
+              <Zap className="w-3.5 h-3.5 text-blue-400" />
               <span>Try with a quick sample:</span>
             </span>
             <div className="flex items-center gap-1.5 flex-wrap">
@@ -312,7 +312,7 @@ export const GenerateQuizModal: React.FC<GenerateQuizModalProps> = ({
 
             <button
               type="submit"
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] via-[#4F46E5] to-[#9333EA] hover:from-[#1D4ED8] hover:to-[#7E22CE] text-white text-xs font-semibold shadow-[0_0_20px_rgba(124,58,237,0.5)] flex items-center gap-2 transition-all cursor-pointer active:scale-95"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] via-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1D4ED8] text-white text-xs font-semibold shadow-[0_0_20px_rgba(37,99,235,0.5)] flex items-center gap-2 transition-all cursor-pointer active:scale-95"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>Start Quiz & Practice</span>
