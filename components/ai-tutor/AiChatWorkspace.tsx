@@ -76,6 +76,25 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
     }
   }, [messages, isAiThinking]);
 
+  // Keep a small local chat history so conversations are available on the next visit.
+  useEffect(() => {
+    if (typeof window === 'undefined' || isAiThinking || messages.length < 2) return;
+    try {
+      const saved = JSON.parse(localStorage.getItem('studybuddy_ai_chat_history') || '[]');
+      const items = Array.isArray(saved) ? saved : [];
+      const firstUserMessage = messages.find((m) => m.sender === 'user')?.text || 'Study conversation';
+      const entry = {
+        id: `chat-${messages[0]?.id || Date.now()}`,
+        title: firstUserMessage.replace(/\s+/g, ' ').slice(0, 54),
+        updatedAt: new Date().toLocaleString(),
+        messages: messages.map(({ sender, text, timestamp }) => ({ sender, text, timestamp })),
+      };
+      const next = [entry, ...items.filter((item: { id?: string }) => item.id !== entry.id)].slice(0, 20);
+      localStorage.setItem('studybuddy_ai_chat_history', JSON.stringify(next));
+      window.dispatchEvent(new Event('studybuddy-chat-history-updated'));
+    } catch { /* local storage may be unavailable */ }
+  }, [messages, isAiThinking]);
+
   const handleCopy = (id: string, text: string) => {
     if (navigator?.clipboard?.writeText) {
       navigator.clipboard.writeText(text);
@@ -108,8 +127,9 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
       const notes = JSON.parse(localStorage.getItem('study_notes_v5') || '[]');
       const tasks = JSON.parse(localStorage.getItem('study_tasks_v4') || '[]');
       const quizHistory = JSON.parse(localStorage.getItem('study_quiz_history_v1') || '[]');
+      const preferredLanguage = localStorage.getItem('studybuddy_ai_language') || 'English';
       const recentScores = Array.isArray(quizHistory) ? quizHistory.slice(0, 5).map((q:any) => `${q.subject}: ${q.score}%`).join(', ') : '';
-      learningContext = `Student: ${name}. Recent quiz results: ${recentScores || 'none'}. Notes available: ${Array.isArray(notes) ? notes.length : 0}. Tasks available: ${Array.isArray(tasks) ? tasks.length : 0}. Assistant mode: ${tutorMode}.`;
+      learningContext = `Student: ${name}. Recent quiz results: ${recentScores || 'none'}. Notes available: ${Array.isArray(notes) ? notes.length : 0}. Tasks available: ${Array.isArray(tasks) ? tasks.length : 0}. Assistant mode: ${tutorMode}. Preferred response language: ${preferredLanguage}. Reply in this language unless the student asks otherwise.`;
     } catch {}
     const sentAttachment = attachment;
 
@@ -191,7 +211,8 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) { showToast('Voice input is not supported in this browser.', 'info'); return; }
     const recognition = new SpeechRecognition();
-    recognition.lang = 'en-US';
+    const voiceLanguage = (() => { try { return localStorage.getItem('studybuddy_ai_language') || 'English'; } catch { return 'English'; } })();
+    recognition.lang = voiceLanguage === 'Urdu' ? 'ur-PK' : voiceLanguage === 'Roman Urdu' ? 'ur-PK' : voiceLanguage === 'Hindi' ? 'hi-IN' : 'en-US';
     recognition.interimResults = false;
     recognition.onstart = () => setIsListening(true);
     recognition.onend = () => setIsListening(false);
