@@ -115,7 +115,7 @@ export function applySync(userId: string, payload: SyncPayload) {
         db.prepare('DELETE FROM app_state WHERE user_id = ? AND key = ?').run(userId, key);
         if (key === 'studybuddy_user_name') db.prepare('UPDATE users SET name = NULL WHERE id = ?').run(userId);
       } else {
-        if (typeof value !== 'string' || value.length > MAX_VALUE_BYTES) continue;
+        if (typeof value !== 'string' || Buffer.byteLength(value, 'utf8') > MAX_VALUE_BYTES) continue;
         db.prepare(
           `INSERT INTO app_state (user_id, key, value, updated_at) VALUES (?, ?, ?, ?)
            ON CONFLICT(user_id, key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at`,

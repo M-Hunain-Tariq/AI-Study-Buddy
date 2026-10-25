@@ -24,7 +24,12 @@ export async function POST(req: NextRequest) {
   const limit = checkAiRateLimit(getClientKey(req));
   if (!limit.ok) return NextResponse.json({ error: 'Too many AI requests. Please try again shortly.' }, { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } });
   try {
-    const body: GenerateQuizRequest = await req.json();
+    let body: GenerateQuizRequest;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json({ error: 'Request body must be valid JSON.' }, { status: 400 });
+    }
     const {
       chapterTitle,
       subject = 'General',
@@ -141,8 +146,12 @@ Instructions:
               .filter((question: FormattedQuestion | null): question is FormattedQuestion => question !== null)
               .slice(0, safeQuestionCount);
 
-            if (formatted.length === 0) {
-              throw new Error('Gemini returned no valid quiz questions.');
+            if (formatted.length !== safeQuestionCount) {
+              console.warn(`[ai] quiz generation returned ${formatted.length}/${safeQuestionCount} valid questions`);
+              return NextResponse.json(
+                { error: 'The AI returned an incomplete quiz. Please try generating it again.' },
+                { status: 502 }
+              );
             }
 
             return NextResponse.json({

@@ -71,8 +71,12 @@ Rules:
         durationMinutes: minutes,
       }));
 
-    if (plan.length === 0) {
-      return NextResponse.json({ error: 'The AI could not build a plan. Please try again.' }, { status: 502 });
+    if (plan.length !== days) {
+      console.warn(`[ai] study plan generation returned ${plan.length}/${days} valid days`);
+      return NextResponse.json(
+        { error: 'The AI returned an incomplete study plan. Please try generating it again.' },
+        { status: 502 },
+      );
     }
     return NextResponse.json({ ok: true, plan });
   } catch (err) {

@@ -26,10 +26,8 @@ export const PrivacySection: React.FC<SectionProps> = ({ settings, update, onBac
     if (!pw.cur) return showToast('Enter your current password.', 'info');
     if (pw.next.length < 8) return showToast('New password must be at least 8 characters.', 'info');
     if (pw.next !== pw.confirm) return showToast('New passwords do not match.', 'info');
-    // Demo app has no auth backend; wire this to your auth provider.
-    setPwOpen(false);
-    setPw({ cur: '', next: '', confirm: '' });
-    showToast('Password changed', 'success');
+    // Never claim a password was changed when no authentication provider exists.
+    showToast('Password changes are unavailable until account authentication is connected. No password was changed.', 'info');
   };
 
   const data: { k: keyof AppSettings['privacy']; icon: React.ComponentType<{ className?: string }>; title: string }[] = [
@@ -47,12 +45,12 @@ export const PrivacySection: React.FC<SectionProps> = ({ settings, update, onBac
     >
       <Card>
         <CardTitle>Password</CardTitle>
-        <Row icon={KeyRound} title="Change your password" tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
-          <PrimaryButton onClick={() => setPwOpen(true)}>Change Password</PrimaryButton>
+        <Row icon={KeyRound} title="Change your password" desc="Unavailable until account authentication is connected." tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
+          <PrimaryButton onClick={() => showToast('Password changes are unavailable until account authentication is connected.', 'info')}>Change Password</PrimaryButton>
         </Row>
-        <Row icon={ShieldCheck} title="Two-Factor Authentication" desc="Add an extra layer of security to your account." tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
-          <span className="hidden sm:inline px-2 py-0.5 rounded-md text-[10px] font-semibold bg-blue-500/15 text-blue-300 border border-blue-500/30">Recommended</span>
-          <Toggle checked={p.twoFactor} onChange={(v) => flip('twoFactor', v, 'Two-factor authentication')} label="Two-factor authentication" />
+        <Row icon={ShieldCheck} title="Two-Factor Authentication" desc="Unavailable until account authentication is connected." tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
+          <span className="hidden sm:inline px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-500/15 text-slate-300 border border-slate-500/30">Not connected</span>
+          <Toggle checked={false} onChange={() => {}} disabled label="Two-factor authentication unavailable" />
         </Row>
         <Row icon={History} title="Login Activity" desc="View your recent login activity and devices." tone="text-cyan-300 bg-cyan-500/15 border-cyan-500/25">
           <GhostButton onClick={() => setLogOpen(true)}>View Activity</GhostButton>

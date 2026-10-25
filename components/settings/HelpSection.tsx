@@ -12,7 +12,7 @@ const FAQ = [
   { q: 'How to use AI Tutor?', a: 'Go to AI Tutor, type a question or pick a suggested topic, and the tutor replies step by step. Ask follow-ups to go deeper on anything unclear.' },
   { q: 'How to set up study planner?', a: 'In Study Planner, add tasks and goals for each day, or use the AI plan generator to build a weekly schedule from your subjects and available time.' },
   { q: 'How to export my data?', a: 'Open Settings, then Data & Storage, and choose Export. A JSON backup downloads to your device and can be re-imported later.' },
-  { q: 'Account and security questions?', a: 'Manage your password, two-factor authentication and login activity under Privacy & Security. Contact support if you cannot access your account.' },
+  { q: 'Account and security questions?', a: 'This build does not have an account-authentication provider yet, so password changes and two-factor authentication are not available. Login activity is a placeholder until real sign-in is connected.' },
 ];
 
 export const HelpSection: React.FC<SectionProps> = ({ onBack }) => {
@@ -29,9 +29,9 @@ export const HelpSection: React.FC<SectionProps> = ({ onBack }) => {
         <SidePanel icon={Headphones} title="We're Here to Help" desc="Get quick answers to your questions or contact our support team." glow="59,130,246" image={
           <div className="relative mt-5 w-full space-y-2">
             <PrimaryButton className="w-full inline-flex items-center justify-center gap-1.5" onClick={() => router.push('/ai-tutor')}>
-              <MessageCircle className="w-3.5 h-3.5" /> Live Chat
+              <MessageCircle className="w-3.5 h-3.5" /> Ask AI Tutor
             </PrimaryButton>
-            <p className="flex items-center justify-center gap-1 text-[10px] text-slate-500"><Clock className="w-3 h-3" /> Usually responds in minutes</p>
+            <p className="flex items-center justify-center gap-1 text-[10px] text-slate-500"><Clock className="w-3 h-3" /> AI help, when configured</p>
           </div>
         } />
       }
@@ -58,11 +58,9 @@ export const HelpSection: React.FC<SectionProps> = ({ onBack }) => {
       <Card>
         <CardTitle>Contact Support</CardTitle>
         <p className="text-xs text-slate-400 mb-3">Need more help? Our support team is here for you.</p>
-        <a href="mailto:support@example.com?subject=AI%20Study%20Buddy%20support" onClick={() => showToast('Opening your email app…', 'info')}>
-          <GhostButton className="inline-flex items-center gap-1.5" tabIndex={-1}>
-            <Mail className="w-3.5 h-3.5" /> Contact Us
-          </GhostButton>
-        </a>
+        <GhostButton className="inline-flex items-center gap-1.5" onClick={() => showToast('A support email address has not been configured for this app yet.', 'info')}>
+          <Mail className="w-3.5 h-3.5" /> Contact Us
+        </GhostButton>
       </Card>
     </SectionShell>
   );

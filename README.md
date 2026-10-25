@@ -10,7 +10,7 @@ View your app in AI Studio: https://ai.studio/apps/989cf93d-847a-4cb8-b061-5e8ed
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
+**Prerequisites:** Node.js 22.5 or newer (the database uses the built-in `node:sqlite`).
 
 
 1. Install dependencies:
@@ -18,3 +18,14 @@ View your app in AI Studio: https://ai.studio/apps/989cf93d-847a-4cb8-b061-5e8ed
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+
+## Production deployment note
+
+The current database adapter writes to a local SQLite file. Use it for local development or a
+server with a persistent writable disk. A typical Netlify Functions deployment does not provide
+a shared persistent SQLite file, so database-backed sync is **not production-safe on Netlify** as
+currently implemented. Before deploying to Netlify for real users, migrate the data layer to a
+managed database and configure its server-only environment variables. The Gemini API key must be
+set as a server-side environment variable (`GEMINI_API_KEY`), never exposed with a `NEXT_PUBLIC_`
+prefix.

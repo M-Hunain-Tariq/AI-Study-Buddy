@@ -4,7 +4,7 @@ export const Navbar: React.FC = () => {
   return (
     <div className="absolute top-6 left-6 lg:left-12 z-50">
       {/* Brand Logo Lockup positioned on the left side */}
-      <a href="#" className="inline-flex items-center gap-2.5 group">
+      <a href="/" className="inline-flex items-center gap-2.5 group">
         <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-400 p-[1.5px] shadow-[0_0_15px_rgba(56,189,248,0.5)] group-hover:shadow-[0_0_25px_rgba(56,189,248,0.9)] transition-all group-hover:scale-105">
           <div className="w-full h-full bg-[#040d24] rounded-[10px] flex items-center justify-center">
             <svg viewBox="0 0 24 24" className="w-4.5 h-4.5 text-cyan-400 fill-current drop-shadow-[0_0_8px_rgba(6,182,212,0.9)] group-hover:rotate-12 transition-transform">

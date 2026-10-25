@@ -16,19 +16,21 @@ export const CardTitle: React.FC<{ children: React.ReactNode; right?: React.Reac
   </div>
 );
 
-export const Toggle: React.FC<{ checked: boolean; onChange: (v: boolean) => void; label: string }> = ({
+export const Toggle: React.FC<{ checked: boolean; onChange: (v: boolean) => void; label: string; disabled?: boolean }> = ({
   checked,
   onChange,
   label,
+  disabled = false,
 }) => (
   <button
     type="button"
     role="switch"
     aria-checked={checked}
     aria-label={label}
+    disabled={disabled}
     onClick={() => onChange(!checked)}
     style={{ background: checked ? 'var(--accent, #6366F1)' : '#1B2A4E' }}
-    className="relative w-11 h-6 rounded-full shrink-0 cursor-pointer transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+    className={`relative w-11 h-6 rounded-full shrink-0 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
   >
     <span
       className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${

@@ -17,6 +17,7 @@ export async function GET() {
       file: process.env.NODE_ENV === 'production' ? undefined : getDbPath(),
     });
   } catch (err) {
-    return NextResponse.json({ ok: false, error: (err as Error).message }, { status: 503 });
+    console.error('[db] GET /api/db/health failed:', err);
+    return NextResponse.json({ ok: false, error: 'Database unavailable' }, { status: 503 });
   }
 }

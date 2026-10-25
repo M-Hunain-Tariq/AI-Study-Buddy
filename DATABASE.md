@@ -32,7 +32,11 @@ Schema version is tracked with `PRAGMA user_version`; add future migrations in `
 - Database file: `data/studybuddy.db` (auto-created, git-ignored). Change with env var
   `DATABASE_PATH=/path/to/studybuddy.db`.
 - Needs a server with a **writable, persistent disk** (local, VPS, Docker volume). Serverless
-  hosts with ephemeral storage (e.g. Vercel) would lose the file.
+  hosts with ephemeral storage (including typical Netlify Functions deployments) can lose the
+  file between invocations, and concurrent function instances do not share the same SQLite file.
+  Do not treat this SQLite setup as production persistence on Netlify. Before deploying there,
+  migrate the repository to a managed database (for example, a hosted PostgreSQL service) and
+  configure its server-only credentials; this requires a deliberate adapter/schema change.
 
 ## Try it
 - `GET /api/db/health` — status
