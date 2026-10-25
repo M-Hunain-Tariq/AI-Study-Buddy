@@ -440,11 +440,11 @@ export const QuizPracticeWorkspace: React.FC = () => {
                     {/* Top Squircle Icon */}
                     <div
                       className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-xs sm:text-sm font-bold shadow-inner ${
-                        quiz.colorScheme === 'blue'
-                          ? 'bg-blue-600/25 border border-blue-400/40 text-blue-300 shadow-[0_0_12px_rgba(59,130,246,0.3)]'
-                          : quiz.colorScheme === 'blue'
-                          ? 'bg-blue-600/25 border border-blue-400/40 text-blue-300 shadow-[0_0_12px_rgba(52,211,153,0.3)]'
-                          : 'bg-blue-600/25 border border-blue-400/40 text-blue-300 shadow-[0_0_12px_rgba(37,99,235,0.3)]'
+                       quiz.colorScheme === 'blue'
+                      ? 'bg-blue-600/25 border border-blue-400/40 text-blue-300 shadow-[0_0_12px_rgba(59,130,246,0.3)]'
+                      : quiz.colorScheme === 'rose'
+                      ? 'bg-rose-600/25 border border-rose-400/40 text-rose-300 shadow-[0_0_12px_rgba(244,63,94,0.3)]'
+                      : 'bg-blue-600/25 border border-blue-400/40 text-blue-300 shadow-[0_0_12px_rgba(37,99,235,0.3)]'
                       }`}
                     >
                       {quiz.symbol}
@@ -520,19 +520,21 @@ export const QuizPracticeWorkspace: React.FC = () => {
               {filteredAllQuizzes.map((quiz) => (
                 <div
                   key={quiz.id}
-                  className={`relative overflow-hidden rounded-xl sm:rounded-2xl border p-2.5 sm:p-4 transition-all duration-300 flex flex-col justify-between space-y-2 sm:space-y-3 shadow-lg group bg-gradient-to-br from-[#0B1735] via-[#091126] to-[#060B18] ${quiz.colorScheme === 'blue' ? 'border-blue-500/20 hover:border-blue-400/60' : quiz.colorScheme === 'blue' ? 'border-blue-500/20 hover:border-blue-400/60' : 'border-blue-500/20 hover:border-blue-400/60'}`}
-                >
-                  <div className={`absolute -top-10 -right-8 w-24 h-24 rounded-full blur-2xl opacity-25 pointer-events-none ${quiz.colorScheme === 'blue' ? 'bg-blue-500' : quiz.colorScheme === 'blue' ? 'bg-blue-500' : 'bg-blue-500'}`} />
+                  
+                  className={`relative overflow-hidden rounded-xl sm:rounded-2xl border p-2.5 sm:p-4 transition-all duration-300 flex flex-col justify-between space-y-2 sm:space-y-3 shadow-lg group bg-gradient-to-br from-[#0B1735] via-[#091126] to-[#060B18] ${quiz.colorScheme === 'rose' ? 'border-rose-500/20 hover:border-rose-400/60' : 'border-blue-500/20 hover:border-blue-400/60'}`}
+
+                 >
+          
+                 <div className={`absolute -top-10 -right-8 w-24 h-24 rounded-full blur-2xl opacity-25 pointer-events-none ${quiz.colorScheme === 'rose' ? 'bg-rose-500' : 'bg-blue-500'}`} />
+    
                   <div className="relative z-10 space-y-1.5 sm:space-y-2">
                     <div className="flex items-center justify-between gap-1.5">
                       {/* Squircle Icon */}
                       <div
                         className={`w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center text-[10px] sm:text-xs font-bold shrink-0 ${
-                          quiz.colorScheme === 'blue'
-                            ? 'bg-blue-600/20 text-blue-400 border border-blue-400/30'
-                            : quiz.colorScheme === 'blue'
-                            ? 'bg-blue-600/20 text-blue-400 border border-blue-400/30'
-                            : 'bg-blue-600/20 text-blue-400 border border-blue-400/30'
+                          quiz.colorScheme === 'rose'
+                            ? 'bg-rose-600/20 text-rose-400 border border-rose-400/30'
+                                : 'bg-blue-600/20 text-blue-400 border border-blue-400/30'
                         }`}
                       >
                         {quiz.symbol}
@@ -566,7 +568,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
                       <span className="inline-flex items-center gap-1"><Clock className="w-3 h-3" /> ~8 min</span>
                     </div>
                     <div className="h-1 rounded-full bg-white/5 overflow-hidden">
-                      <div className={`h-full rounded-full ${quiz.colorScheme === 'blue' ? 'bg-blue-400' : quiz.colorScheme === 'blue' ? 'bg-blue-400' : 'bg-blue-400'}`} style={{width: `${Math.min(85, 20 + quiz.title.length * 2)}%`}} />
+                      <div className={`h-full rounded-full ${quiz.colorScheme === 'rose' ? 'bg-rose-400' : 'bg-blue-400'}`}></div>
                     </div>
                   </div>
 
