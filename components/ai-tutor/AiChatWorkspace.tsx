@@ -22,8 +22,6 @@ import {
   ArrowRight,
   Save,
   BrainCircuit,
-  Mic,
-  Volume2,
 } from 'lucide-react';
 import { useToast } from '../Toast';
 import { MarkdownText } from './MarkdownText';
@@ -40,20 +38,20 @@ interface Message {
 interface AiChatWorkspaceProps {
   initialPrompt?: string;
   onClearInitialPrompt?: () => void;
+  fileInputRef: React.RefObject<HTMLInputElement | null>;
 }
 
 export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
   initialPrompt,
   onClearInitialPrompt,
+  fileInputRef,
 }) => {
   const [activeTab, setActiveTab] = useState<'chat' | 'quick-prompts' | 'study-tools'>('chat');
   const [tutorMode, setTutorMode] = useState<'Ask Anything' | 'Practice' | 'Socratic'>('Ask Anything');
-  const [isListening, setIsListening] = useState(false);
   const [inputQuestion, setInputQuestion] = useState('');
   const [isAiThinking, setIsAiThinking] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [attachment, setAttachment] = useState<{ name: string; mimeType: string; data: string } | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [attachment, setAttachment] = useState<{ name: string; mimeType: string; data: string; textContent?: string } | null>(null);
   const { showToast } = useToast();
   const chatBottomRef = useRef<HTMLDivElement>(null);
   const messageCounterRef = useRef(1);
@@ -106,13 +104,14 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
 
   const handleSendMessage = async (textToSend?: string) => {
     const text = (textToSend || inputQuestion).trim();
-    if (!text || isAiThinking) return;
+    if ((!text && !attachment) || isAiThinking) return;
+    const promptText = text || 'Please analyze the uploaded file and explain its key points.';
 
     const count = messageCounterRef.current++;
     const userMsg: Message = {
       id: `user-${count}`,
       sender: 'user',
-      text: attachment ? `${text}\n\n📎 ${attachment.name}` : text,
+      text: attachment ? `${promptText}\n\n📎 ${attachment.name}` : promptText,
       timestamp: 'Just now',
     };
 
@@ -147,7 +146,7 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
           messages: history,
           context: learningContext,
           mode: tutorMode,
-          attachment: sentAttachment ? { mimeType: sentAttachment.mimeType, data: sentAttachment.data } : undefined,
+          attachment: sentAttachment ? { name: sentAttachment.name, mimeType: sentAttachment.mimeType, data: sentAttachment.data, textContent: sentAttachment.textContent } : undefined,
         }),
       });
       if (!res.ok) {
@@ -207,43 +206,60 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
     }
   };
 
-  const handleVoiceInput = () => {
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognition) { showToast('Voice input is not supported in this browser.', 'info'); return; }
-    const recognition = new SpeechRecognition();
-    const voiceLanguage = (() => { try { return localStorage.getItem('studybuddy_ai_language') || 'English'; } catch { return 'English'; } })();
-    recognition.lang = voiceLanguage === 'Urdu' ? 'ur-PK' : voiceLanguage === 'Roman Urdu' ? 'ur-PK' : voiceLanguage === 'Hindi' ? 'hi-IN' : 'en-US';
-    recognition.interimResults = false;
-    recognition.onstart = () => setIsListening(true);
-    recognition.onend = () => setIsListening(false);
-    recognition.onerror = () => { setIsListening(false); showToast('Could not capture your voice.', 'info'); };
-    recognition.onresult = (event: any) => setInputQuestion((prev) => `${prev}${prev ? ' ' : ''}${event.results[0][0].transcript}`);
-    recognition.start();
-  };
-
-  const speakAnswer = (text: string) => {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) { showToast('Voice playback is not supported in this browser.', 'info'); return; }
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(new SpeechSynthesisUtterance(text.replace(/[#*_`]/g, '')));
-  };
-
-  const handleFilePicked = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFilePicked = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     e.target.value = '';
     if (!file) return;
-    if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) {
-      showToast('Please attach a PNG, JPG or WEBP image.', 'info');
+
+    const extension = file.name.split('.').pop()?.toLowerCase() || '';
+    const imageMimeTypes = ['image/png', 'image/jpeg', 'image/webp'];
+    const textExtensions = new Set(['txt', 'md', 'mdx', 'csv', 'json', 'js', 'jsx', 'ts', 'tsx', 'py', 'html', 'css', 'xml', 'yaml', 'yml']);
+    const isImage = imageMimeTypes.includes(file.type) || ['png', 'jpg', 'jpeg', 'webp'].includes(extension);
+    const isPdf = file.type === 'application/pdf' || extension === 'pdf';
+    const isText = file.type.startsWith('text/') || file.type === 'application/json' || textExtensions.has(extension);
+
+    if (!isImage && !isPdf && !isText) {
+      showToast('Supported files: PNG, JPG, WEBP, PDF, TXT, MD, CSV, JSON and code files.', 'info');
       return;
     }
     if (file.size > 4 * 1024 * 1024) {
-      showToast('Image is too large (max 4 MB).', 'info');
+      showToast('File is too large. Maximum upload size is 4 MB.', 'info');
       return;
     }
+
+    if (isText) {
+      try {
+        const content = await file.text();
+        if (!content.trim()) {
+          showToast('This file is empty.', 'info');
+          return;
+        }
+        if (content.length > 50000) {
+          showToast('Text file is too long. Maximum supported length is 50,000 characters.', 'info');
+          return;
+        }
+        setAttachment({ name: file.name, mimeType: 'text/plain', data: '', textContent: content });
+        showToast('File attached. Add a question or send it for a summary.', 'success');
+      } catch {
+        showToast('Could not read this text file.', 'info');
+      }
+      return;
+    }
+
+    const mimeType = isPdf
+      ? 'application/pdf'
+      : file.type || (extension === 'png' ? 'image/png' : ['jpg', 'jpeg'].includes(extension) ? 'image/jpeg' : 'image/webp');
     const reader = new FileReader();
+    reader.onerror = () => showToast('Could not read this file. Please try again.', 'info');
     reader.onload = () => {
       const result = String(reader.result || '');
       const base64 = result.split(',')[1];
-      if (base64) setAttachment({ name: file.name, mimeType: file.type, data: base64 });
+      if (base64) {
+        setAttachment({ name: file.name, mimeType, data: base64 });
+        showToast('File attached. Add a question or send it for a summary.', 'success');
+      } else {
+        showToast('Could not read this file. Please try again.', 'info');
+      }
     };
     reader.readAsDataURL(file);
   };
@@ -439,9 +455,6 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                             <span>{copiedId === msg.id ? 'Copied' : 'Copy'}</span>
                           </button>
 
-                          <button onClick={() => speakAnswer(msg.text)} className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#14234C] hover:bg-[#1A2E63] text-[11px] text-cyan-300 transition-colors cursor-pointer">
-                            <Volume2 className="w-3 h-3" /> Listen
-                          </button>
 
                           <button
                             onClick={() => handleSendMessage(`Can you explain that simpler with an everyday metaphor?`)}
@@ -492,13 +505,13 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
               <input
                 ref={fileInputRef}
                 type="file"
-                accept="image/png,image/jpeg,image/webp"
+                accept="image/png,image/jpeg,image/webp,application/pdf,text/*,application/json,.md,.mdx,.csv,.json,.js,.jsx,.ts,.tsx,.py,.html,.css,.xml,.yaml,.yml"
                 className="hidden"
                 onChange={handleFilePicked}
               />
               {attachment && (
                 <div className="flex items-center justify-between gap-2 rounded-lg border border-[#1A2C52] bg-[#0D1836] px-3 py-1.5 text-xs text-slate-200">
-                  <span className="truncate">📎 {attachment.name}</span>
+                  <span className="flex min-w-0 items-center gap-2 truncate"><FileText className="h-4 w-4 shrink-0 text-blue-300" /><span className="truncate">{attachment.name}</span><span className="shrink-0 rounded-md border border-blue-400/20 bg-blue-500/10 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-blue-200">{attachment.mimeType === 'application/pdf' ? 'PDF' : attachment.textContent ? 'TEXT' : 'FILE'}</span></span>
                   <button
                     type="button"
                     onClick={() => setAttachment(null)}
@@ -521,7 +534,8 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
                   className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-[#132349] transition-colors cursor-pointer"
-                  aria-label="Attach homework image or notes"
+                  aria-label="Upload an image, PDF or text file"
+                  title="Upload an image, PDF or text file"
                 >
                   <Paperclip className="w-4 h-4" />
                 </button>
@@ -535,16 +549,13 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
                   className="flex-1 bg-transparent px-3 py-2 text-xs sm:text-sm text-slate-100 placeholder-slate-400 focus:outline-none"
                 />
 
-                <button type="button" onClick={handleVoiceInput} className={`p-2 rounded-lg transition-colors cursor-pointer ${isListening ? 'text-rose-300 bg-rose-500/10' : 'text-slate-400 hover:text-white hover:bg-[#132349]'}`} aria-label="Voice input">
-                  <Mic className="w-4 h-4" />
-                </button>
 
                 {/* Circular Send Button with gradient and paper-plane icon matching Image */}
                 <button
                   type="submit"
-                  disabled={!inputQuestion.trim() || isAiThinking}
+                  disabled={(!inputQuestion.trim() && !attachment) || isAiThinking}
                   className={`w-9 h-9 rounded-full flex items-center justify-center transition-all cursor-pointer shrink-0 ${
-                    inputQuestion.trim() && !isAiThinking
+                    (inputQuestion.trim() || attachment) && !isAiThinking
                       ? 'bg-gradient-to-r from-[#2563EB] to-[#2563EB] text-white shadow-[0_0_18px_rgba(37,99,235,0.55)] hover:scale-105 active:scale-95'
                       : 'bg-[#1D2B52] text-slate-300 hover:text-white'
                   }`}

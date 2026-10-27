@@ -31,11 +31,13 @@ interface IncomingMessage {
   steps?: string[];
 }
 interface Attachment {
+  name?: string;
   mimeType: string;
   data: string; // base64 without prefix
+  textContent?: string;
 }
 
-const ALLOWED_MIME = ['image/png', 'image/jpeg', 'image/webp'];
+const ALLOWED_MIME = ['image/png', 'image/jpeg', 'image/webp', 'application/pdf'];
 const MAX_ATTACHMENT_CHARS = 6_000_000; // ~4.5 MB of image data
 
 export async function POST(req: NextRequest) {
@@ -45,6 +47,9 @@ export async function POST(req: NextRequest) {
     const body = await req.json().catch(() => null);
     const messages: IncomingMessage[] = Array.isArray(body?.messages) ? body.messages : [];
     const attachment: Attachment | undefined = body?.attachment;
+    if (attachment && typeof attachment.textContent === 'string' && attachment.textContent.length > 50000) {
+      return NextResponse.json({ error: 'Text file is too long. Maximum supported length is 50,000 characters.' }, { status: 400 });
+    }
     const context = typeof body?.context === 'string' ? body.context.slice(0, 3000) : '';
     const mode = typeof body?.mode === 'string' ? body.mode.slice(0, 50) : '';
 
@@ -69,7 +74,10 @@ export async function POST(req: NextRequest) {
         m.sender === 'ai' && m.steps?.length ? `${m.text}\n${m.steps.map((s, i) => `${i + 1}. ${s}`).join('\n')}` : m.text;
       parts.push({ text: text.slice(0, 6000) });
       if (idx === history.length - 1 && attachment) {
-        if (
+        const fileName = typeof attachment.name === 'string' ? attachment.name.slice(0, 160) : 'uploaded file';
+        if (typeof attachment.textContent === 'string' && attachment.textContent.trim()) {
+          parts.push({ text: `\n\n[Uploaded text file: ${fileName}]\n${attachment.textContent}\n[End uploaded file]\nUse this file as source material when answering the student's question.` });
+        } else if (
           typeof attachment.data === 'string' &&
           ALLOWED_MIME.includes(attachment.mimeType) &&
           attachment.data.length <= MAX_ATTACHMENT_CHARS

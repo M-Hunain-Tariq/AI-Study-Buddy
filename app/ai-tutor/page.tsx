@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { ToastProvider, useToast } from '@/components/Toast';
 import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
@@ -12,6 +12,7 @@ import { AiTutorRightSidebar } from '@/components/ai-tutor/AiTutorRightSidebar';
 
 function AiTutorPageContent() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const uploadInputRef = useRef<HTMLInputElement>(null);
   const [selectedPrompt, setSelectedPrompt] = useState<string | undefined>(() => {
     if (typeof window !== 'undefined') {
       try {
@@ -31,14 +32,6 @@ function AiTutorPageContent() {
   const handleSelectActionChip = (prompt: string) => {
     setSelectedPrompt(prompt);
     showToast('Loaded prompt into AI Tutor chat composer!', 'info');
-  };
-
-  const handleSelectRightPrompt = (promptText: string) => {
-    setSelectedPrompt(promptText);
-  };
-
-  const handleSelectSubject = (subjectName: string, samplePrompt: string) => {
-    setSelectedPrompt(samplePrompt);
   };
 
   return (
@@ -73,15 +66,13 @@ function AiTutorPageContent() {
               <AiChatWorkspace
                 initialPrompt={selectedPrompt}
                 onClearInitialPrompt={() => setSelectedPrompt(undefined)}
+                fileInputRef={uploadInputRef}
               />
             </div>
 
             {/* Right Utilities Column (4 cols out of 12) */}
             <div className="lg:col-span-4">
-              <AiTutorRightSidebar
-                onSelectPrompt={handleSelectRightPrompt}
-                onSelectSubject={handleSelectSubject}
-              />
+              <AiTutorRightSidebar onRequestFileUpload={() => uploadInputRef.current?.click()} />
             </div>
           </div>
         </main>

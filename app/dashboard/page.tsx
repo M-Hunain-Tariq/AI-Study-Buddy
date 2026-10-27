@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { ToastProvider, useToast } from '@/components/Toast';
 import { Sidebar } from '@/components/Sidebar';
@@ -35,6 +35,7 @@ function DashboardContent() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedNote, setSelectedNote] = useState<NoteItem | null>(null);
   const [selectedAiPrompt, setSelectedAiPrompt] = useState<string | undefined>(undefined);
+  const aiTutorUploadRef = useRef<HTMLInputElement>(null);
 
   // Initial realistic school tasks matching Image 1
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -253,6 +254,7 @@ function DashboardContent() {
                   <AiChatWorkspace
                     initialPrompt={selectedAiPrompt}
                     onClearInitialPrompt={() => setSelectedAiPrompt(undefined)}
+                    fileInputRef={aiTutorUploadRef}
                   />
                 </div>
 
@@ -263,16 +265,7 @@ function DashboardContent() {
                   }`}
                 >
                   <AiTutorRightSidebar
-                    onSelectPrompt={(prompt) => {
-                      setSelectedAiPrompt(prompt);
-                      setAiTutorMobileTab('chat');
-                      showToast('Prompt loaded into chat composer!', 'info');
-                    }}
-                    onSelectSubject={(subjectName, samplePrompt) => {
-                      setSelectedAiPrompt(samplePrompt);
-                      setAiTutorMobileTab('chat');
-                      showToast(`Loaded ${subjectName} question into chat!`, 'info');
-                    }}
+                    onRequestFileUpload={() => aiTutorUploadRef.current?.click()}
                   />
                 </div>
               </div>
