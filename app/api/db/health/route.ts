@@ -13,8 +13,7 @@ export async function GET() {
       ok: true,
       engine: 'sqlite (node:sqlite)',
       schemaVersion: version,
-      users,
-      file: process.env.NODE_ENV === 'production' ? undefined : getDbPath(),
+      ...(process.env.NODE_ENV === 'production' ? {} : { users, file: getDbPath() }),
     });
   } catch (err) {
     console.error('[db] GET /api/db/health failed:', err);

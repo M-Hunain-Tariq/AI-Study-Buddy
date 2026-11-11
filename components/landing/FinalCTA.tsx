@@ -13,7 +13,7 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onStartFree }) => {
       {/* Background Cinematic Mountain Sunset Scene */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
-          src="/landing/sunset_mountain_student_1790178300240.jpg"
+          src="/landing/sunset_mountain_student_1790178300240.jpg" loading="lazy"
           alt="Student looking over mountains at sunset"
           className="w-full h-full object-cover object-center filter brightness-95 contrast-105"
         />

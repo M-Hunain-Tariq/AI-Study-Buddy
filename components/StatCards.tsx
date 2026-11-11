@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BookOpen, CheckSquare, Brain, Star } from 'lucide-react';
+import { calculateDashboardStats, type DashboardStats } from '@/lib/dashboard-stats';
 
 interface StatCardsProps {
   completedTasksCount?: number;
@@ -9,6 +10,32 @@ interface StatCardsProps {
 }
 
 export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, totalTasksCount = 0 }) => {
+  const [stats, setStats] = useState<DashboardStats>({
+    completedStudyMinutes: 0,
+    savedAiQuestions: 0,
+    recentQuizAccuracy: null,
+    quizCount: 0,
+  });
+
+  useEffect(() => {
+    try {
+      const read = (key: string): unknown => {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : [];
+      };
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setStats(calculateDashboardStats(
+        read('study_planner_tasks'),
+        read('studybuddy_ai_chat_history'),
+        read('study_quiz_history_v1'),
+      ));
+    } catch {
+      // Keep the empty state when local storage is unavailable or malformed.
+    }
+  }, []);
+
+  const studyTime = `${Math.floor(stats.completedStudyMinutes / 60)}h ${String(stats.completedStudyMinutes % 60).padStart(2, '0')}m`;
+
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
       {/* Card 1: Total Study Time */}
@@ -18,17 +45,17 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
             <BookOpen className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
           </div>
           <span className="text-xs sm:text-xs font-semibold text-blue-400 flex items-center gap-0.5">
-            New
+            Saved
           </span>
         </div>
 
         <div className="mt-2 sm:mt-3.5">
-          <p className="text-xs sm:text-xs font-medium text-slate-400 truncate">Total Study Time</p>
+          <p className="text-xs sm:text-xs font-medium text-slate-400 truncate">Completed Study Time</p>
           <div className="flex items-baseline justify-between mt-0.5 sm:mt-1">
             <h3 className="text-xl sm:text-2xl lg:text-[28px] font-bold text-white tracking-tight tabular-nums">
-              0h 00m
+              {studyTime}
             </h3>
-            <span className="hidden sm:inline text-[11px] text-slate-400">vs 7d</span>
+            <span className="hidden sm:inline text-[11px] text-slate-400">Saved total</span>
           </div>
         </div>
 
@@ -106,7 +133,7 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
             <Brain className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
           </div>
           <span className="text-xs sm:text-xs font-semibold text-blue-400 flex items-center gap-0.5">
-            New
+            Saved
           </span>
         </div>
 
@@ -114,9 +141,9 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
           <p className="text-xs sm:text-xs font-medium text-slate-400 truncate">AI Questions</p>
           <div className="flex items-baseline justify-between mt-0.5 sm:mt-1">
             <h3 className="text-xl sm:text-2xl lg:text-[28px] font-bold text-white tracking-tight tabular-nums">
-              0
+              {stats.savedAiQuestions}
             </h3>
-            <span className="hidden sm:inline text-[11px] text-slate-400">No activity yet</span>
+            <span className="hidden sm:inline text-[11px] text-slate-400">Saved chats</span>
           </div>
         </div>
 
@@ -150,17 +177,17 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
             <Star className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
           </div>
           <span className="text-xs sm:text-xs font-semibold text-blue-400 flex items-center gap-0.5">
-            New
+            Recent
           </span>
         </div>
 
         <div className="mt-2 sm:mt-3.5">
-          <p className="text-xs sm:text-xs font-medium text-slate-400 truncate">Quiz Accuracy</p>
+          <p className="text-xs sm:text-xs font-medium text-slate-400 truncate">Recent Quiz Accuracy</p>
           <div className="flex items-baseline justify-between mt-0.5 sm:mt-1">
             <h3 className="text-xl sm:text-2xl lg:text-[28px] font-bold text-white tracking-tight tabular-nums">
-              0%
+              {stats.recentQuizAccuracy === null ? '—' : `${stats.recentQuizAccuracy}%`}
             </h3>
-            <span className="hidden sm:inline text-[11px] text-slate-400">No quiz data</span>
+            <span className="hidden sm:inline text-[11px] text-slate-400">{stats.quizCount ? `${stats.quizCount} saved quizzes` : 'No quiz data'}</span>
           </div>
         </div>
 

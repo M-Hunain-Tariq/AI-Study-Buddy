@@ -9,6 +9,10 @@ export const TRACKED_KEYS = [
   'study_planner_tasks',
   'study_planner_goals',
   'study_streak_days',
+  'study_streak_state_v1',
+  'study_quiz_history_v1',
+  'studybuddy_ai_language',
+  'studybuddy_ai_chat_history',
 ] as const;
 export type TrackedKey = (typeof TRACKED_KEYS)[number];
 export const isTrackedKey = (k: string): k is TrackedKey => (TRACKED_KEYS as readonly string[]).includes(k);
@@ -23,8 +27,15 @@ const isObj = (v: unknown): v is Obj => typeof v === 'object' && v !== null && !
 
 function parseArray(raw: string): Obj[] | null {
   try {
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.filter(isObj).filter((r) => r.id !== undefined) : null;
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return null;
+    // Do not partially replace a user's normalized rows when one record is corrupt.
+    if (!parsed.every((item) => isObj(item) && (typeof item.id === 'string' || typeof item.id === 'number') && String(item.id).trim().length > 0)) {
+      return null;
+    }
+    const rows = parsed as Obj[];
+    const ids = rows.map((row) => String(row.id));
+    return new Set(ids).size === ids.length ? rows : null;
   } catch {
     return null;
   }

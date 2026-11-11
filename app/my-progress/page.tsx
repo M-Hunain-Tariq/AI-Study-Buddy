@@ -5,10 +5,12 @@ import { ToastProvider } from '@/components/Toast';
 import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
-import { MobileBottomNav } from '@/components/MobileBottomNav';
 import { MyProgressWorkspace } from '@/components/my-progress/MyProgressWorkspace';
+import { MobileProgress } from '@/components/mobile/MobileProgress';
+import { useIsPhone } from '@/components/mobile/useIsPhone';
 
 function MyProgressPageContent() {
+  const isPhone = useIsPhone();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
@@ -28,13 +30,11 @@ function MyProgressPageContent() {
           onOpenMobileMenu={() => setIsSidebarOpen(true)}
         />
 
-        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1600px] mx-auto space-y-5 sm:space-y-6 pb-24 lg:pb-6">
-          <MyProgressWorkspace />
+        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1600px] mx-auto space-y-5 sm:space-y-6 pb-6">
+          {isPhone === null ? null : isPhone ? <MobileProgress /> : <MyProgressWorkspace />}
         </main>
       </div>
 
-      {/* Mobile Bottom Navigation Bar */}
-      <MobileBottomNav activeItem="My Progress" />
     </div>
   );
 }

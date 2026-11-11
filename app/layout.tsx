@@ -1,5 +1,6 @@
 import type {Metadata, Viewport} from 'next';
 import './globals.css'; // Global styles
+import './mobile.css'; // Phone/tablet UI (<1024px only)
 
 export const viewport: Viewport = {
   width: 'device-width',

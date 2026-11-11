@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import { normalizeSavedChatHistory } from '@/lib/ai/chat-history';
 import {
   MessageSquare,
   Sparkles,
@@ -85,9 +86,10 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
         id: `chat-${messages[0]?.id || Date.now()}`,
         title: firstUserMessage.replace(/\s+/g, ' ').slice(0, 54),
         updatedAt: new Date().toLocaleString(),
-        messages: messages.map(({ sender, text, timestamp }) => ({ sender, text, timestamp })),
+        messages: messages.slice(-14).map(({ sender, text, timestamp }) => ({ sender, text: text.slice(0, 6000), timestamp })),
       };
-      const next = [entry, ...items.filter((item: { id?: string }) => item.id !== entry.id)].slice(0, 20);
+      const previous = items.filter((item: unknown) => item && typeof item === 'object' && (item as { id?: unknown }).id !== entry.id);
+      const next = normalizeSavedChatHistory([entry, ...previous]);
       localStorage.setItem('studybuddy_ai_chat_history', JSON.stringify(next));
       window.dispatchEvent(new Event('studybuddy-chat-history-updated'));
     } catch { /* local storage may be unavailable */ }
@@ -246,9 +248,8 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
       return;
     }
 
-    const mimeType = isPdf
-      ? 'application/pdf'
-      : file.type || (extension === 'png' ? 'image/png' : ['jpg', 'jpeg'].includes(extension) ? 'image/jpeg' : 'image/webp');
+    const guessedImageMime = extension === 'png' ? 'image/png' : ['jpg', 'jpeg'].includes(extension) ? 'image/jpeg' : 'image/webp';
+    const mimeType = isPdf ? 'application/pdf' : imageMimeTypes.includes(file.type) ? file.type : guessedImageMime;
     const reader = new FileReader();
     reader.onerror = () => showToast('Could not read this file. Please try again.', 'info');
     reader.onload = () => {

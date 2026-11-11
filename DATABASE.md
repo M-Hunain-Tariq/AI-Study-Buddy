@@ -6,10 +6,13 @@ data automatically in the background.
 
 ## How it works
 - `app/template.tsx` (new) mounts `components/db/DbSync.tsx`, an invisible component.
-- Every change to the app's localStorage keys (notes, tasks, planner tasks/goals, streak,
-  settings, user name) is saved to the database through `POST /api/db/sync` (debounced).
+- Every change to the app's tracked localStorage keys (notes, tasks, planner tasks/goals,
+  streak, settings, user name, quiz history, AI language preference and bounded AI chat history)
+  is saved to the database through `POST /api/db/sync` (debounced).
 - On load it backs up current local data and **restores anything the browser lost**
   (e.g. site data cleared). "Reset / clear data" in Settings also clears the database copy.
+- Sync requests are serialized, size-limited and JSON-only. Normal writes use regular fetch;
+  page-exit writes attempt `sendBeacon`/keepalive where the browser permits it.
 - If the database is unavailable the app silently keeps working on localStorage.
 
 ## Files added

@@ -77,7 +77,6 @@ export const TasksWorkspace: React.FC = () => {
   const [taskDueDate, setTaskDueDate] = useState('');
   const [taskDesc, setTaskDesc] = useState('');
   const [formErrors, setFormErrors] = useState<{ title?: string; subject?: string }>({});
-  const [mobileActiveTab, setMobileActiveTab] = useState<'tasks' | 'editor' | 'analytics'>('tasks');
 
   const menuRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
@@ -152,7 +151,6 @@ export const TasksWorkspace: React.FC = () => {
     setTaskDesc(task.description || '');
     setFormErrors({});
     setActiveMenuId(null);
-    setMobileActiveTab('editor');
 
     if (window.innerWidth < 1024 && formRef.current) {
       formRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -224,7 +222,6 @@ export const TasksWorkspace: React.FC = () => {
     }
 
     handleResetForm();
-    setMobileActiveTab('tasks');
   };
 
   // Filtered tasks
@@ -383,7 +380,6 @@ export const TasksWorkspace: React.FC = () => {
           <button
             onClick={() => {
               handleResetForm();
-              setMobileActiveTab('editor');
               if (formRef.current) {
                 formRef.current.scrollIntoView({ behavior: 'smooth' });
               }
@@ -396,42 +392,6 @@ export const TasksWorkspace: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Tab Switcher */}
-      <div className="lg:hidden flex items-center p-1 rounded-xl bg-[#070F24] border border-[#16274D] shadow-inner">
-        <button
-          onClick={() => setMobileActiveTab('tasks')}
-          className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-            mobileActiveTab === 'tasks'
-              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
-              : 'text-slate-400 hover:text-white'
-          }`}
-        >
-          <CheckSquare className="w-3.5 h-3.5" />
-          <span>Tasks ({tasks.length})</span>
-        </button>
-        <button
-          onClick={() => setMobileActiveTab('editor')}
-          className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-            mobileActiveTab === 'editor'
-              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(147,51,234,0.5)]'
-              : 'text-slate-400 hover:text-white'
-          }`}
-        >
-          <Pencil className="w-3.5 h-3.5" />
-          <span>{editingTaskId ? 'Edit' : 'Add Task'}</span>
-        </button>
-        <button
-          onClick={() => setMobileActiveTab('analytics')}
-          className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-            mobileActiveTab === 'analytics'
-              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(16,185,129,0.5)]'
-              : 'text-slate-400 hover:text-white'
-          }`}
-        >
-          <Award className="w-3.5 h-3.5" />
-          <span>Stats</span>
-        </button>
-      </div>
 
       {/* ========================================================
           3. BALANCED 3-COLUMN ULTRA-PREMIUM GRID
@@ -441,9 +401,7 @@ export const TasksWorkspace: React.FC = () => {
         {/* ========================================================
             CARD 1: "TASKS DIRECTORY" (LUXURY GLASS CONTAINER)
             ======================================================== */}
-        <div className={`rounded-[24px] bg-gradient-to-b from-[#08132F]/95 via-[#060D22]/98 to-[#040816] border border-[#1C3364]/70 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_20px_45px_rgba(2,6,23,0.85)] hover:border-blue-500/40 p-5 sm:p-5.5 flex-col justify-between transition-all duration-300 backdrop-blur-xl ${
-          mobileActiveTab === 'tasks' ? 'flex' : 'hidden lg:flex'
-        }`}>
+        <div className={`rounded-[24px] bg-gradient-to-b from-[#08132F]/95 via-[#060D22]/98 to-[#040816] border border-[#1C3364]/70 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_20px_45px_rgba(2,6,23,0.85)] hover:border-blue-500/40 p-5 sm:p-5.5 flex-col justify-between transition-all duration-300 backdrop-blur-xl flex`}>
           <div>
             {/* Header */}
             <div className="flex items-center justify-between pb-3.5 border-b border-[#142345]">
@@ -620,9 +578,7 @@ export const TasksWorkspace: React.FC = () => {
             ======================================================== */}
         <div
           ref={formRef}
-          className={`rounded-[24px] bg-gradient-to-b from-[#08132F]/95 via-[#060D22]/98 to-[#040816] border border-[#1C3364]/70 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_20px_45px_rgba(2,6,23,0.85)] hover:border-blue-500/40 p-5 sm:p-5.5 flex-col justify-between transition-all duration-300 backdrop-blur-xl ${
-            mobileActiveTab === 'editor' ? 'flex' : 'hidden lg:flex'
-          }`}
+          className={`rounded-[24px] bg-gradient-to-b from-[#08132F]/95 via-[#060D22]/98 to-[#040816] border border-[#1C3364]/70 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_20px_45px_rgba(2,6,23,0.85)] hover:border-blue-500/40 p-5 sm:p-5.5 flex-col justify-between transition-all duration-300 backdrop-blur-xl flex`}
         >
           {/* Header */}
           <div className="flex items-start justify-between pb-3.5 border-b border-[#142345]">
@@ -800,9 +756,7 @@ export const TasksWorkspace: React.FC = () => {
         {/* ========================================================
             CARD 3: "ANALYTICS & MOTIVATION" (EQUAL PROPORTION LUXURY WIDGETS)
             ======================================================== */}
-        <div className={`flex-col justify-between space-y-4 ${
-          mobileActiveTab === 'analytics' ? 'flex' : 'hidden lg:flex'
-        }`}>
+        <div className={`flex-col justify-between space-y-4 flex`}>
           {/* Card 3A: Task Progress with Glowing Donut Ring */}
           <div className="rounded-[24px] bg-gradient-to-b from-[#08132F]/95 via-[#060D22]/98 to-[#040816] border border-[#1C3364]/70 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_20px_45px_rgba(2,6,23,0.85)] hover:border-blue-500/40 p-5 space-y-3 transition-all duration-300 backdrop-blur-xl">
             <div className="flex items-center gap-2 pb-2.5 border-b border-[#142240]">

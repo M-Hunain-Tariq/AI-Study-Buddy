@@ -7,7 +7,7 @@ interface StudyStreakCardProps {
   streakDays?: number;
 }
 
-export const StudyStreakCard: React.FC<StudyStreakCardProps> = ({ streakDays = 3 }) => {
+export const StudyStreakCard: React.FC<StudyStreakCardProps> = ({ streakDays = 0 }) => {
   return (
     <div className="relative overflow-hidden rounded-[20px] bg-[#070D1E] border border-[#162544] hover:border-blue-500/40 shadow-[0_16px_40px_-8px_rgba(2,6,23,0.9),0_0_25px_-5px_rgba(245,158,11,0.15)] p-4 transition-all duration-300 flex items-center justify-between group">
       <div className="flex items-center gap-3.5">

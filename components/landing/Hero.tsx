@@ -34,7 +34,7 @@ export const Hero: React.FC = () => {
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
         <div className="w-full h-full">
           <img
-            src="/landing/hero_scene_full_1790180757625.jpg"
+            src="/landing/hero_scene_full_1790180757625.jpg" loading="lazy"
             alt="StudyBuddy AI Study Companion"
             className="w-full h-full object-cover object-[78%_center] lg:object-[72%_center] opacity-95 filter contrast-[1.04]"
           />

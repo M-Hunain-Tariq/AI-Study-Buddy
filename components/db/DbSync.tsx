@@ -19,6 +19,10 @@ const TRACKED = [
   'study_planner_tasks',
   'study_planner_goals',
   'study_streak_days',
+  'study_streak_state_v1',
+  'study_quiz_history_v1',
+  'studybuddy_ai_language',
+  'studybuddy_ai_chat_history',
 ];
 const ENDPOINT = '/api/db/sync';
 const DEBOUNCE_MS = 600;
@@ -49,28 +53,76 @@ function start() {
 
   let pending: Pending = { clear: false, changes: {} };
   let timer: number | undefined;
+  let retryCount = 0;
+  let inFlight = false;
+  let flushAsBeaconAfterFlight = false;
 
   const hasPending = () => pending.clear || Object.keys(pending.changes).length > 0;
 
+  const restorePending = (snapshot: Pending) => {
+    // Newer writes win; an explicit clear remains ordered before any later writes.
+    if (pending.clear) return;
+    pending = {
+      clear: snapshot.clear || pending.clear,
+      changes: { ...snapshot.changes, ...pending.changes },
+    };
+  };
+  const schedule = (delay = DEBOUNCE_MS) => {
+    window.clearTimeout(timer);
+    timer = window.setTimeout(() => flush(), delay);
+  };
   const flush = (useBeacon = false) => {
     window.clearTimeout(timer);
     timer = undefined;
     if (!hasPending()) return;
-    const body = JSON.stringify(pending);
+    if (inFlight) {
+      flushAsBeaconAfterFlight = flushAsBeaconAfterFlight || useBeacon;
+      return;
+    }
+
+    const snapshot = pending;
+    const body = JSON.stringify(snapshot);
     pending = { clear: false, changes: {} };
     try {
       if (useBeacon && navigator.sendBeacon) {
-        navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'application/json' }));
-      } else {
-        fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, keepalive: true }).catch(() => {});
+        const accepted = navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'application/json' }));
+        if (accepted) {
+          retryCount = 0;
+          return;
+        }
       }
+
+      // Serialize requests so an older failed request cannot overwrite a newer save.
+      inFlight = true;
+      fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, keepalive: useBeacon })
+        .then((response) => {
+          if (!response.ok) throw new Error(`Database sync failed (${response.status})`);
+          retryCount = 0;
+        })
+        .catch(() => {
+          restorePending(snapshot);
+          retryCount = Math.min(retryCount + 1, 3);
+        })
+        .finally(() => {
+          inFlight = false;
+          const shouldUseBeacon = flushAsBeaconAfterFlight;
+          flushAsBeaconAfterFlight = false;
+          if (hasPending()) {
+            if (shouldUseBeacon) {
+              flush(true);
+            } else if (retryCount > 0 && retryCount < 3) {
+              schedule(Math.min(2_000 * 2 ** (retryCount - 1), 16_000));
+            } else if (retryCount === 0) {
+              schedule();
+            }
+          }
+        });
     } catch {
-      /* ignore */
+      inFlight = false;
+      restorePending(snapshot);
+      retryCount = Math.min(retryCount + 1, 3);
+      if (retryCount < 3) schedule(Math.min(2_000 * 2 ** (retryCount - 1), 16_000));
     }
-  };
-  const schedule = () => {
-    window.clearTimeout(timer);
-    timer = window.setTimeout(() => flush(), DEBOUNCE_MS);
   };
 
   proto.setItem = function (this: Storage, key: string, value: string) {
@@ -97,7 +149,7 @@ function start() {
 
   window.addEventListener('pagehide', () => flush(true));
   document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'hidden') flush(true);
+    if (document.visibilityState === 'hidden') flush();
   });
 
   // Initial reconcile: restore what's missing locally, back up what the DB lacks.
@@ -109,7 +161,8 @@ function start() {
 
       let restored = false;
       for (const key of TRACKED) {
-        if (window.localStorage.getItem(key) === null && typeof state[key] === 'string') {
+        // A deletion/clear made while GET was in flight must beat stale server state.
+        if (!pending.clear && !Object.prototype.hasOwnProperty.call(pending.changes, key) && window.localStorage.getItem(key) === null && typeof state[key] === 'string') {
           origSet.call(window.localStorage, key, state[key]);
           restored = true;
         }

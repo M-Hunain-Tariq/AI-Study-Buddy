@@ -11,6 +11,7 @@ import { TrustSection } from './TrustSection';
 import { FinalCTA } from './FinalCTA';
 import { Footer } from './Footer';
 import { SignupModal } from './SignupModal';
+import { MobileLanding } from '../mobile/MobileLanding';
 
 export function LandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,6 +26,11 @@ export function LandingPage() {
 
   return (
     <div className="landing-page relative min-h-screen bg-[#020817] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-clip">
+      {/* Phone landing (below 1024px) */}
+      <MobileLanding onStart={handleOpenSignup} />
+
+      {/* Laptop landing */}
+      <div className="max-lg:hidden">
       {/* Cinematic Multi-layered Atmospheric Background */}
       <BackgroundAtmosphere />
 
@@ -53,6 +59,7 @@ export function LandingPage() {
 
         {/* 7. Footer */}
         <Footer />
+      </div>
       </div>
 
       {/* Interactive Signup / Onboarding Modal */}

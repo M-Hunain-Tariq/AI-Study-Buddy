@@ -14,6 +14,14 @@ import { RecentNotes } from '@/components/RecentNotes';
 import { RightSidebarWidgets } from '@/components/RightSidebarWidgets';
 import { NoteDetailModal } from '@/components/NoteDetailModal';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
+import { MobileHome } from '@/components/mobile/MobileHome';
+import { MobileTasks } from '@/components/mobile/MobileTasks';
+import { MobileNotes } from '@/components/mobile/MobileNotes';
+import { MobileAiTutor } from '@/components/mobile/MobileAiTutor';
+import { MobilePlanner } from '@/components/mobile/MobilePlanner';
+import { MobileQuiz } from '@/components/mobile/MobileQuiz';
+import { MobileProgress } from '@/components/mobile/MobileProgress';
+import { useIsPhone } from '@/components/mobile/useIsPhone';
 const AiTutorHero = dynamic(() => import('@/components/ai-tutor/AiTutorHero').then((m) => m.AiTutorHero), { ssr: false });
 const AiChatWorkspace = dynamic(() => import('@/components/ai-tutor/AiChatWorkspace').then((m) => m.AiChatWorkspace), { ssr: false });
 const AiTutorRightSidebar = dynamic(() => import('@/components/ai-tutor/AiTutorRightSidebar').then((m) => m.AiTutorRightSidebar), { ssr: false });
@@ -22,15 +30,13 @@ const MyNotesWorkspace = dynamic(() => import('@/components/my-notes/MyNotesWork
 const TasksWorkspace = dynamic(() => import('@/components/tasks/TasksWorkspace').then((m) => m.TasksWorkspace), { ssr: false });
 const QuizPracticeWorkspace = dynamic(() => import('@/components/quiz/QuizPracticeWorkspace').then((m) => m.QuizPracticeWorkspace), { ssr: false });
 const MyProgressWorkspace = dynamic(() => import('@/components/my-progress/MyProgressWorkspace').then((m) => m.MyProgressWorkspace), { ssr: false });
-import { MobileBottomNav } from '@/components/MobileBottomNav';
 import { Task, NoteItem } from '@/types/dashboard';
 
 function DashboardContent() {
   const { showToast } = useToast();
+  const isPhone = useIsPhone();
   // Default to 'Dashboard' on initial load; opens 'My Notes' when clicking 'Add Note'
   const [currentPage, setCurrentPage] = useState<'Dashboard' | 'AI Tutor' | 'Study Planner' | 'My Notes' | 'Tasks' | 'Quiz & Practice' | 'My Progress'>('Dashboard');
-  const [dashboardMobileTab, setDashboardMobileTab] = useState<'overview' | 'schedule'>('overview');
-  const [aiTutorMobileTab, setAiTutorMobileTab] = useState<'chat' | 'prompts'>('chat');
   const [openCreateModalOnNotes, setOpenCreateModalOnNotes] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedNote, setSelectedNote] = useState<NoteItem | null>(null);
@@ -40,28 +46,39 @@ function DashboardContent() {
   // Initial realistic school tasks matching Image 1
   const [tasks, setTasks] = useState<Task[]>([]);
 
+  // The Tasks page saves status/dueDate, this page uses completed/deadline: read both shapes the same way.
+  const toTask = (t: Task & { status?: string; dueDate?: string }): Task => ({
+    ...t,
+    completed: typeof t.status === 'string' ? t.status === 'Completed' : !!t.completed,
+    deadline: t.deadline ?? t.dueDate ?? '',
+    subjectColor: t.subjectColor ?? 'blue',
+  });
+
+  // Load on start and again whenever we come back to Home, so edits made on the Tasks page show up.
   useEffect(() => {
+    if (currentPage !== 'Dashboard') return;
     try {
       const raw = localStorage.getItem('study_tasks_v4');
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          const demoIds = new Set(['task-math-assign', 'task-physics-read', 'task-english-essay', 'task-chem-notes', 'task-cs-quiz']);
-          const clean = parsed.filter((task: Task) => !demoIds.has(task?.id));
-          if (clean.length !== parsed.length) localStorage.setItem('study_tasks_v4', JSON.stringify(clean));
-          // eslint-disable-next-line react-hooks/set-state-in-effect
-          setTasks(clean);
-        }
+      const parsed = raw ? JSON.parse(raw) : [];
+      if (Array.isArray(parsed)) {
+        const demoIds = new Set(['task-math-assign', 'task-physics-read', 'task-english-essay', 'task-chem-notes', 'task-cs-quiz']);
+        const clean = parsed.filter((task: Task) => !demoIds.has(task?.id));
+        if (clean.length !== parsed.length) localStorage.setItem('study_tasks_v4', JSON.stringify(clean));
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setTasks(clean.map(toTask));
       }
     } catch { /* ignore corrupt storage */ }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
 
   const handleToggleTask = (id: string) => {
     const target = tasks.find((t) => t.id === id);
     if (!target) return;
     const nextState = !target.completed;
     setTasks((prev) => {
-      const next = prev.map((t) => (t.id === id ? { ...t, completed: nextState } : t));
+      const next = prev.map((t) =>
+        t.id === id ? ({ ...t, completed: nextState, ...('status' in t ? { status: nextState ? 'Completed' : 'Pending' } : {}) } as Task) : t
+      );
       try { localStorage.setItem('study_tasks_v4', JSON.stringify(next)); } catch { /* ignore storage errors */ }
       return next;
     });
@@ -107,46 +124,35 @@ function DashboardContent() {
         />
 
         {/* Dynamic Page Canvas */}
-        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1600px] mx-auto space-y-5 sm:space-y-6 pb-24 lg:pb-6">
+        <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1600px] mx-auto space-y-5 sm:space-y-6 pb-6">
           {currentPage === 'Dashboard' && (
             /* STEP 1: DASHBOARD PAGE VIEW */
-            <div>
-              {/* Mobile Tab Switcher to prevent endless scrolling */}
-              <div className="lg:hidden flex items-center p-1 rounded-xl bg-[#070F24] border border-[#16274D] shadow-inner mb-4">
-                <button
-                  onClick={() => setDashboardMobileTab('overview')}
-                  className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                    dashboardMobileTab === 'overview'
-                      ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <span>⚡ Overview & Stats</span>
-                </button>
-                <button
-                  onClick={() => setDashboardMobileTab('schedule')}
-                  className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                    dashboardMobileTab === 'schedule'
-                      ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <span>📅 Tasks & Schedule</span>
-                </button>
-              </div>
-
+            <>
+            <MobileHome
+              tasks={tasks}
+              onToggleTask={handleToggleTask}
+              onAskAi={() => handleOpenAiTutor()}
+              onOpenQuiz={() => setCurrentPage('Quiz & Practice')}
+              onOpenPlanner={() => setCurrentPage('Study Planner')}
+              onNewNote={() => {
+                setOpenCreateModalOnNotes(true);
+                setCurrentPage('My Notes');
+              }}
+              onViewTasks={() => setCurrentPage('Tasks')}
+              onViewNotes={() => setCurrentPage('My Notes')}
+            />
+            <div className="max-lg:hidden">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-start">
                 {/* Left/Main Column (8 cols out of 12) */}
                 <div
-                  className={`lg:col-span-8 flex-col space-y-4 sm:space-y-5 ${
-                    dashboardMobileTab === 'schedule' ? 'hidden lg:flex' : 'flex'
-                  }`}
+                  className={`lg:col-span-8 flex-col space-y-4 sm:space-y-5 flex`}
                 >
                   {/* 1. Large Hero Welcome Section with Laptop visual */}
                   <HeroBanner
-                    onContinueLearning={() =>
-                      showToast('Resuming Algebra: Linear Equations (Lesson 3 of 5)...', 'info')
-                    }
+                    onContinueLearning={() => {
+                      setCurrentPage('Study Planner');
+                      showToast('Opened Study Planner. Choose a session to begin learning.', 'info');
+                    }}
                     onAskAiTutor={() => handleOpenAiTutor()}
                   />
 
@@ -197,55 +203,30 @@ function DashboardContent() {
 
                 {/* Right Column (4 cols out of 12) */}
                 <div
-                  className={`lg:col-span-4 ${
-                    dashboardMobileTab === 'overview' ? 'hidden lg:block' : 'block'
-                  }`}
+                  className={`lg:col-span-4 block`}
                 >
-                  <RightSidebarWidgets />
+                  <RightSidebarWidgets onNavigatePlanner={() => setCurrentPage('Study Planner')} />
                 </div>
               </div>
             </div>
+            </>
           )}
 
           {currentPage === 'AI Tutor' && (
             /* STEP 2: AI TUTOR PAGE VIEW */
+            isPhone === null ? null : isPhone ? (
+              <MobileAiTutor initialPrompt={selectedAiPrompt} onClearInitialPrompt={() => setSelectedAiPrompt(undefined)} />
+            ) : (
             <div>
-              {/* Mobile Tab Switcher */}
-              <div className="lg:hidden flex items-center p-1 rounded-xl bg-[#070F24] border border-[#16274D] shadow-inner mb-4">
-                <button
-                  onClick={() => setAiTutorMobileTab('chat')}
-                  className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                    aiTutorMobileTab === 'chat'
-                      ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <span>💬 AI Chat Tutor</span>
-                </button>
-                <button
-                  onClick={() => setAiTutorMobileTab('prompts')}
-                  className={`flex-1 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                    aiTutorMobileTab === 'prompts'
-                      ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <span>💡 Topics & Prompts</span>
-                </button>
-              </div>
-
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-start">
                 {/* Center Main Area (8 cols out of 12) */}
                 <div
-                  className={`lg:col-span-8 flex-col space-y-4 sm:space-y-5 ${
-                    aiTutorMobileTab === 'prompts' ? 'hidden lg:flex' : 'flex'
-                  }`}
+                  className={`lg:col-span-8 flex-col space-y-4 sm:space-y-5 flex`}
                 >
                   {/* 1. AI Tutor Hero with Mascot & 4 Action Chips */}
                   <AiTutorHero
                     onSelectActionChip={(prompt) => {
                       setSelectedAiPrompt(prompt);
-                      setAiTutorMobileTab('chat');
                       showToast('Loaded prompt into AI Tutor chat composer!', 'info');
                     }}
                   />
@@ -260,9 +241,7 @@ function DashboardContent() {
 
                 {/* Right Utilities Column (4 cols out of 12) */}
                 <div
-                  className={`lg:col-span-4 ${
-                    aiTutorMobileTab === 'chat' ? 'hidden lg:block' : 'block'
-                  }`}
+                  className={`lg:col-span-4 block`}
                 >
                   <AiTutorRightSidebar
                     onRequestFileUpload={() => aiTutorUploadRef.current?.click()}
@@ -270,10 +249,14 @@ function DashboardContent() {
                 </div>
               </div>
             </div>
+            )
           )}
 
           {currentPage === 'Study Planner' && (
             /* STEP 3: STUDY PLANNER PAGE VIEW */
+            isPhone === null ? null : isPhone ? (
+              <MobilePlanner />
+            ) : (
             <StudyPlannerWorkspace
               onNavigateAiTutor={(prompt) => handleOpenAiTutor(prompt)}
               onNavigateProgress={() => {
@@ -281,38 +264,30 @@ function DashboardContent() {
                 showToast('Navigated to My Progress!', 'info');
               }}
             />
+            )
           )}
 
           {currentPage === 'My Notes' && (
             /* STEP 4: MY NOTES PAGE VIEW */
-            <MyNotesWorkspace initialOpenCreate={openCreateModalOnNotes} />
+            <>{isPhone === null ? null : isPhone ? <MobileNotes initialOpenCreate={openCreateModalOnNotes} /> : <MyNotesWorkspace initialOpenCreate={openCreateModalOnNotes} />}</>
           )}
 
           {currentPage === 'Tasks' && (
             /* STEP 5: TASKS PAGE VIEW */
-            <TasksWorkspace />
+            <>{isPhone === null ? null : isPhone ? <MobileTasks /> : <TasksWorkspace />}</>
           )}
 
           {currentPage === 'Quiz & Practice' && (
             /* STEP 6: QUIZ & PRACTICE PAGE VIEW */
-            <QuizPracticeWorkspace />
+            isPhone === null ? null : isPhone ? <MobileQuiz /> : <QuizPracticeWorkspace />
           )}
 
           {currentPage === 'My Progress' && (
             /* STEP 7: MY PROGRESS PAGE VIEW */
-            <MyProgressWorkspace />
+            isPhone === null ? null : isPhone ? <MobileProgress /> : <MyProgressWorkspace />
           )}
         </main>
       </div>
-
-      {/* Mobile Bottom Navigation Bar (Fixed for quick 1-tap navigation on phone) */}
-      <MobileBottomNav
-        activeItem={currentPage}
-        onSelectPage={(page) => {
-          setCurrentPage(page);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-      />
 
       {/* Note Detail Modal */}
       <NoteDetailModal

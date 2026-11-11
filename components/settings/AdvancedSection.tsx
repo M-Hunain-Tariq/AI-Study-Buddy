@@ -3,28 +3,26 @@
 import React, { useState } from 'react';
 import { Settings2, Bug, Box, Sparkles, CalendarClock, RotateCcw, Eraser } from 'lucide-react';
 import { useToast } from '../Toast';
-import { DEFAULT_SETTINGS, SETTINGS_KEY, type AppSettings } from '@/lib/settings';
+import { DEFAULT_SETTINGS, SETTINGS_KEY } from '@/lib/settings';
+import { removeStudyBuddyStorage } from '@/lib/storage';
 import { Card, CardTitle, GhostButton, Modal, Row, SectionShell, SidePanel, Toggle } from './ui';
 import type { SectionProps } from './types';
 
 export const AdvancedSection: React.FC<SectionProps> = ({ settings, update, onBack }) => {
   const { showToast } = useToast();
-  const a = settings.advanced;
   const [confirm, setConfirm] = useState<null | 'reset' | 'clear'>(null);
-  const flip = (k: keyof AppSettings['advanced'], v: boolean) => update((s) => ({ ...s, advanced: { ...s.advanced, [k]: v } }));
-
   const run = () => {
     if (confirm === 'reset') {
       update(() => DEFAULT_SETTINGS);
       showToast('Settings restored to defaults', 'success');
     } else if (confirm === 'clear') {
       try {
-        localStorage.clear();
+        removeStudyBuddyStorage(localStorage);
         localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
       } catch {
         /* ignore */
       }
-      showToast('Local storage cleared (settings kept)', 'success');
+      showToast('StudyBuddy data cleared (other website data kept)', 'success');
     }
     setConfirm(null);
   };
@@ -38,21 +36,21 @@ export const AdvancedSection: React.FC<SectionProps> = ({ settings, update, onBa
     >
       <Card>
         <CardTitle>Developer Options</CardTitle>
-        <Row icon={Bug} title="Enable debug mode" desc="Show developer logs in the browser console" tone="text-slate-300 bg-slate-500/15 border-slate-500/25">
-          <Toggle checked={a.debug} onChange={(v) => flip('debug', v)} label="Enable debug mode" />
+        <Row icon={Bug} title="Enable debug mode" desc="Debug logging is not wired up in this build." tone="text-slate-300 bg-slate-500/15 border-slate-500/25">
+          <Toggle checked={false} onChange={() => {}} disabled label="Debug mode unavailable" />
         </Row>
-        <Row icon={Box} title="Show component boundaries" desc="Highlight React component boundaries" tone="text-slate-300 bg-slate-500/15 border-slate-500/25">
-          <Toggle checked={a.boundaries} onChange={(v) => flip('boundaries', v)} label="Show component boundaries" />
+        <Row icon={Box} title="Show component boundaries" desc="Component-boundary highlighting is not implemented in this build." tone="text-slate-300 bg-slate-500/15 border-slate-500/25">
+          <Toggle checked={false} onChange={() => {}} disabled label="Component boundaries unavailable" />
         </Row>
       </Card>
       <Card>
         <CardTitle>Experimental Features</CardTitle>
         <p className="text-[11px] text-slate-500 -mt-2 mb-1">Try new features before they are released.</p>
-        <Row icon={Sparkles} title="AI Suggestions (Beta)" desc="Get AI-powered study suggestions" tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
-          <Toggle checked={a.aiSuggestions} onChange={(v) => flip('aiSuggestions', v)} label="AI Suggestions" />
+        <Row icon={Sparkles} title="AI Suggestions (Beta)" desc="This preference is not connected to a suggestions service." tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
+          <Toggle checked={false} onChange={() => {}} disabled label="AI Suggestions unavailable" />
         </Row>
-        <Row icon={CalendarClock} title="Smart Study Plan (Beta)" desc="Automatically create study plans" tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
-          <Toggle checked={a.smartPlan} onChange={(v) => flip('smartPlan', v)} label="Smart Study Plan" />
+        <Row icon={CalendarClock} title="Smart Study Plan (Beta)" desc="Study plans can be generated in Study Planner; this toggle is not connected." tone="text-blue-300 bg-blue-500/15 border-blue-500/25">
+          <Toggle checked={false} onChange={() => {}} disabled label="Smart Study Plan toggle unavailable" />
         </Row>
       </Card>
       <Card>
@@ -66,16 +64,16 @@ export const AdvancedSection: React.FC<SectionProps> = ({ settings, update, onBa
           <button onClick={() => setConfirm('clear')} className="rounded-xl border border-rose-500/50 bg-rose-500/10 hover:bg-rose-500/20 p-4 text-center cursor-pointer transition-colors">
             <Eraser className="w-4 h-4 mx-auto text-rose-300" />
             <p className="text-sm font-semibold text-rose-200 mt-1.5">Clear Local Storage</p>
-            <p className="text-[10px] text-slate-400">Remove all local data</p>
+            <p className="text-[10px] text-slate-400">Remove StudyBuddy data from this browser</p>
           </button>
         </div>
       </Card>
 
-      <Modal open={confirm !== null} title={confirm === 'reset' ? 'Reset all settings?' : 'Clear local storage?'} onClose={() => setConfirm(null)}>
+      <Modal open={confirm !== null} title={confirm === 'reset' ? 'Reset all settings?' : 'Clear StudyBuddy data?'} onClose={() => setConfirm(null)}>
         <p className="text-xs text-slate-300 leading-relaxed">
           {confirm === 'reset'
             ? 'Profile, appearance, notification and privacy preferences go back to their defaults.'
-            : 'Notes, tasks and other data saved in this browser will be removed. Your settings are kept. This cannot be undone.'}
+            : 'StudyBuddy notes, tasks, plans and saved preferences will be removed. Other websites’ data in this browser will not be affected. This cannot be undone.'}
         </p>
         <div className="flex justify-end gap-2 mt-4">
           <GhostButton onClick={() => setConfirm(null)}>Cancel</GhostButton>

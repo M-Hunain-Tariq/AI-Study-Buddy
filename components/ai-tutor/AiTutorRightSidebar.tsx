@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { normalizeSavedChatHistory } from '@/lib/ai/chat-history';
 import {
   SlidersHorizontal, History, FileUp, Globe2, ChevronRight,
   MessageSquare, Trash2, X, Sparkles, ArrowUpRight, FileText, ShieldCheck,
@@ -22,7 +23,7 @@ export const AiTutorRightSidebar: React.FC<AiTutorRightSidebarProps> = ({ onRequ
   const refreshHistory = () => {
     try {
       const saved = JSON.parse(localStorage.getItem('studybuddy_ai_chat_history') || '[]');
-      setHistory(Array.isArray(saved) ? saved : []);
+      setHistory(normalizeSavedChatHistory(saved));
     } catch { setHistory([]); }
   };
 
@@ -158,7 +159,7 @@ export const AiTutorRightSidebar: React.FC<AiTutorRightSidebarProps> = ({ onRequ
                 <div key={chat.id} className="flex items-center gap-3 rounded-xl border border-blue-900/70 bg-[#0A2045] p-3">
                   <MessageSquare className="h-5 w-5 shrink-0 text-blue-300"/>
                   <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium text-white">{chat.title || 'Study conversation'}</p><p className="mt-1 text-xs text-blue-200/70">{chat.updatedAt || 'Saved conversation'}</p></div>
-                  <button aria-label="Delete saved chat" onClick={() => { const next = history.filter((item) => item.id !== chat.id); setHistory(next); try { localStorage.setItem('studybuddy_ai_chat_history', JSON.stringify(next)); } catch {} window.dispatchEvent(new Event('studybuddy-chat-history-updated')); }} className="rounded-lg p-2 text-blue-300 hover:bg-red-950/50 hover:text-red-300"><Trash2 className="h-4 w-4"/></button>
+                  <button aria-label="Delete saved chat" onClick={() => { const next = normalizeSavedChatHistory(history.filter((item) => item.id !== chat.id)); setHistory(next); try { localStorage.setItem('studybuddy_ai_chat_history', JSON.stringify(next)); } catch {} window.dispatchEvent(new Event('studybuddy-chat-history-updated')); }} className="rounded-lg p-2 text-blue-300 hover:bg-red-950/50 hover:text-red-300"><Trash2 className="h-4 w-4"/></button>
                 </div>
               ))}
             </div>

@@ -67,7 +67,6 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
 
   // Filter & UI State
   const [selectedSubjectFilter, setSelectedSubjectFilter] = useState<string | null>(null);
-  const [mobileNotesTab, setMobileNotesTab] = useState<'notes' | 'pinned'>('notes');
   const [plannerTasks, setPlannerTasks] = useState<{ id: string; title: string; subject: string; time: string; completed: boolean }[]>([]);
 
   // Modal State
@@ -350,32 +349,9 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
             </div>
           </div>
 
-          {/* Mobile Tab Switcher */}
-          <div className="lg:hidden flex items-center p-1 rounded-xl bg-[#070F24] border border-[#16274D] shadow-inner">
-            <button
-              onClick={() => setMobileNotesTab('notes')}
-              className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                mobileNotesTab === 'notes'
-                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <span>📝 Notes & Subjects</span>
-            </button>
-            <button
-              onClick={() => setMobileNotesTab('pinned')}
-              className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                mobileNotesTab === 'pinned'
-                  ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <span>📌 Pinned & Planner</span>
-            </button>
-          </div>
 
           {/* 2. RESPONSIVE "MY SUBJECTS" SECTION */}
-          <div className={`space-y-3 ${mobileNotesTab === 'pinned' ? 'hidden lg:block' : 'block'}`}>
+          <div className={`space-y-3 block`}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">
@@ -572,9 +548,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
           {/* 3. MIDDLE 2-COLUMN SPLIT: [Recent Notes] + [Study Planner & Progress] */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 items-stretch">
             {/* 3A. RECENT NOTES (THE LONG CARDS WITH RESPONSIVE LAYOUT) */}
-            <div className={`rounded-2xl bg-[#081026] border border-[#162544] p-4 sm:p-5 shadow-lg flex-col justify-between space-y-3.5 min-w-0 h-full min-h-[460px] ${
-              mobileNotesTab === 'pinned' ? 'hidden lg:flex' : 'flex'
-            }`}>
+            <div className={`rounded-2xl bg-[#081026] border border-[#162544] p-4 sm:p-5 shadow-lg flex-col justify-between space-y-3.5 min-w-0 h-full min-h-[460px] flex`}>
               {/* Header */}
               <div className="flex items-center justify-between pb-2 border-b border-[#142240]">
                 <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
@@ -732,9 +706,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
             </div>
 
             {/* 3B. STUDY PLANNER & OVERALL PROGRESS CARD */}
-            <div className={`rounded-2xl bg-[#081026] border border-[#162544] p-4 sm:p-5 shadow-lg flex-col justify-between space-y-4 min-w-0 h-full min-h-[460px] ${
-              mobileNotesTab === 'notes' ? 'hidden lg:flex' : 'flex'
-            }`}>
+            <div className={`rounded-2xl bg-[#081026] border border-[#162544] p-4 sm:p-5 shadow-lg flex-col justify-between space-y-4 min-w-0 h-full min-h-[460px] flex`}>
               {/* TOP PART: STUDY PLANNER */}
               <div>
                 <div className="flex items-center justify-between pb-2 border-b border-[#142240]">
@@ -912,9 +884,7 @@ export const MyNotesWorkspace: React.FC<MyNotesWorkspaceProps> = ({
             2. Pinned Notes (3 rows with blue pin)
             3. Motivational Quote Card
             ======================================================== */}
-        <div className={`lg:col-span-4 flex-col space-y-4 sm:space-y-5 min-w-0 ${
-          mobileNotesTab === 'notes' ? 'hidden lg:flex' : 'flex'
-        }`}>
+        <div className={`lg:col-span-4 flex-col space-y-4 sm:space-y-5 min-w-0 flex`}>
           {/* WIDGET 1: QUICK ACTIONS */}
           <div className="rounded-2xl bg-[#081026] border border-[#162544] p-4 sm:p-5 shadow-lg space-y-3 sm:space-y-3.5 min-w-0">
             <div className="flex items-center gap-2.5 pb-2 border-b border-[#142240]">

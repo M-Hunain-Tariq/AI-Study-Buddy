@@ -6,10 +6,12 @@ import { ToastProvider, useToast } from '@/components/Toast';
 import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
-import { MobileBottomNav } from '@/components/MobileBottomNav';
 import { QuizPracticeWorkspace } from '@/components/quiz/QuizPracticeWorkspace';
+import { MobileQuiz } from '@/components/mobile/MobileQuiz';
+import { useIsPhone } from '@/components/mobile/useIsPhone';
 
 function QuizPracticePageContent() {
+  const isPhone = useIsPhone();
   const router = useRouter();
   const { showToast } = useToast();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -49,10 +51,9 @@ function QuizPracticePageContent() {
 
         {/* Quiz & Practice Main Canvas matching image.png */}
         <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1600px] mx-auto space-y-5 sm:space-y-6">
-          <QuizPracticeWorkspace />
+          {isPhone === null ? null : isPhone ? <MobileQuiz /> : <QuizPracticeWorkspace />}
         </main>
       </div>
-      <MobileBottomNav activeItem="Quiz & Practice" />
     </div>
   );
 }

@@ -23,10 +23,10 @@ export const HelpSection: React.FC<SectionProps> = ({ onBack }) => {
   return (
     <SectionShell
       title="Help & Support"
-      subtitle="Find answers, get help and contact our support team."
+      subtitle="Find answers and get help with the app."
       onBack={onBack}
       aside={
-        <SidePanel icon={Headphones} title="We're Here to Help" desc="Get quick answers to your questions or contact our support team." glow="59,130,246" image={
+        <SidePanel icon={Headphones} title="We're Here to Help" desc="Browse common questions or ask the AI Tutor for help." glow="59,130,246" image={
           <div className="relative mt-5 w-full space-y-2">
             <PrimaryButton className="w-full inline-flex items-center justify-center gap-1.5" onClick={() => router.push('/ai-tutor')}>
               <MessageCircle className="w-3.5 h-3.5" /> Ask AI Tutor
@@ -44,7 +44,7 @@ export const HelpSection: React.FC<SectionProps> = ({ onBack }) => {
               <button
                 aria-expanded={open === i}
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between gap-3 py-3 text-left text-[13px] text-slate-100 hover:text-white cursor-pointer"
+                className="st-faq w-full flex items-center justify-between gap-3 py-3 text-left text-[13px] text-slate-100 hover:text-white cursor-pointer"
               >
                 {f.q}
                 <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${open === i ? 'rotate-180' : ''}`} />
@@ -57,7 +57,7 @@ export const HelpSection: React.FC<SectionProps> = ({ onBack }) => {
 
       <Card>
         <CardTitle>Contact Support</CardTitle>
-        <p className="text-xs text-slate-400 mb-3">Need more help? Our support team is here for you.</p>
+        <p className="text-xs text-slate-400 mb-3">A human support contact has not been configured for this build.</p>
         <GhostButton className="inline-flex items-center gap-1.5" onClick={() => showToast('A support email address has not been configured for this app yet.', 'info')}>
           <Mail className="w-3.5 h-3.5" /> Contact Us
         </GhostButton>

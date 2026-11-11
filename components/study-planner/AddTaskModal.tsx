@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Calendar, Clock, Plus, Edit2, AlertCircle, Flag } from 'lucide-react';
 import { StudyTask } from '@/types/study-planner';
+import { toLocalDateString } from '@/lib/date';
 
 interface AddTaskModalProps {
   isOpen: boolean;
@@ -19,7 +20,7 @@ export const AddTaskModal: React.FC<AddTaskModalProps> = ({
   onAddTask,
   taskToEdit,
   onUpdateTask,
-  defaultDate = new Date().toISOString().slice(0, 10),
+  defaultDate = toLocalDateString(),
 }) => {
   const [subject, setSubject] = useState(taskToEdit?.subject || 'Mathematics');
   const [topic, setTopic] = useState(taskToEdit?.topic || '');

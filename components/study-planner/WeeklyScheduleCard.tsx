@@ -3,6 +3,7 @@
 import React from 'react';
 import { Calendar, Clock, ChevronRight, Sigma, Atom, BookOpen, FlaskConical, RotateCcw, Plus } from 'lucide-react';
 import { StudyTask } from '@/types/study-planner';
+import { toLocalDateString } from '@/lib/date';
 
 interface WeeklyScheduleCardProps {
   tasks: StudyTask[];
@@ -35,7 +36,7 @@ export const WeeklyScheduleCard: React.FC<WeeklyScheduleCardProps> = ({
     return {
       dayShort: new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(d),
       dateNum: d.getDate(),
-      dateFull: d.toISOString().slice(0, 10),
+      dateFull: toLocalDateString(d),
       isToday: d.toDateString() === new Date().toDateString(),
       targetMinutes: 0,
     };

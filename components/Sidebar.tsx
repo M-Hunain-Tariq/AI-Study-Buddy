@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { GraduationCap, LayoutDashboard, Bot, CalendarDays, FileText, CheckSquare, Brain, TrendingUp, Settings, X, Sparkles } from 'lucide-react';
 import { useToast } from './Toast';
+import { MobileDrawer } from './mobile/MobileDrawer';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -52,8 +53,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, activeItem = 
 
   return (
     <>
-      {isOpen && <div onClick={onClose} className="fixed inset-0 z-40 bg-slate-950/70 backdrop-blur-sm lg:hidden" />}
-      <aside className={`sb-sidebar fixed inset-y-0 left-0 z-50 w-[272px] max-w-[88vw] flex flex-col px-4 py-5 transition-transform duration-300 lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <aside className={`max-lg:hidden sb-sidebar fixed inset-y-0 left-0 z-50 w-[272px] max-w-[88vw] flex flex-col px-4 py-5 transition-transform duration-300 lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex min-h-0 flex-1 flex-col">
           <div className="flex items-center justify-between px-2 mb-7">
             <button onClick={() => go('Dashboard')} className="flex items-center gap-3 text-left group">
@@ -101,6 +101,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, activeItem = 
           </div>
         </div>
       </aside>
+      <MobileDrawer isOpen={isOpen} onClose={onClose} activeItem={activeItem} onNavigateAiTutor={onNavigateAiTutor} onSelectPage={onSelectPage} />
     </>
   );
 };

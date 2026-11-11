@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Sparkles, Brain, Check, Calendar, ArrowRight, Loader2, Bot } from 'lucide-react';
 import { StudyTask } from '@/types/study-planner';
+import { toLocalDateString } from '@/lib/date';
 
 interface AiPlanGeneratorModalProps {
   isOpen: boolean;
@@ -31,7 +32,7 @@ export const AiPlanGeneratorModal: React.FC<AiPlanGeneratorModalProps> = ({
   const [examDate, setExamDate] = useState(() => {
     const d = new Date();
     d.setDate(d.getDate() + 7);
-    return d.toISOString().slice(0, 10);
+    return toLocalDateString(d);
   });
   const [dailyTime, setDailyTime] = useState('60');
   const [totalDays, setTotalDays] = useState('7');
@@ -90,7 +91,7 @@ export const AiPlanGeneratorModal: React.FC<AiPlanGeneratorModalProps> = ({
   };
 
   const handleApplyPlan = () => {
-    const base = new Date(`${startDate || new Date().toISOString().slice(0, 10)}T12:00:00`);
+    const base = new Date(`${startDate || toLocalDateString()}T12:00:00`);
     const tasksToAdd: StudyTask[] = generatedPlan.map((p, index) => {
       const colors: StudyTask['color'][] = ['blue', 'blue', 'cyan', 'blue', 'blue'];
       return {
@@ -100,7 +101,7 @@ export const AiPlanGeneratorModal: React.FC<AiPlanGeneratorModalProps> = ({
         durationMinutes: p.durationMinutes,
         completed: false,
         time: index === 0 ? '10:00 AM' : '04:00 PM',
-        date: (() => { const d = new Date(base); d.setDate(d.getDate() + p.dayNum - 1); return d.toISOString().slice(0, 10); })(),
+        date: (() => { const d = new Date(base); d.setDate(d.getDate() + p.dayNum - 1); return toLocalDateString(d); })(),
         color: colors[index % colors.length],
       };
     });

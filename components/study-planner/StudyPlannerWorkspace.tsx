@@ -15,6 +15,8 @@ import { CreateGoalModal } from './CreateGoalModal';
 import { AiPlanGeneratorModal } from './AiPlanGeneratorModal';
 import { DeleteTaskModal } from './DeleteTaskModal';
 import { StudyTask, StudyGoal, RecommendedItem } from '@/types/study-planner';
+import { toLocalDateString } from '@/lib/date';
+import { getCurrentStudyStreak, recordStudyDay } from '@/lib/streak';
 
 const getWeekMonday = (base = new Date()) => {
   const d = new Date(base);
@@ -25,30 +27,40 @@ const getWeekMonday = (base = new Date()) => {
   return d;
 };
 
-const getWeekDate = (offset: number, base = new Date()) => {
+export const getWeekDate = (offset: number, base = new Date()) => {
   const d = getWeekMonday(base);
   d.setDate(d.getDate() + offset);
-  return d.toISOString().slice(0, 10);
+  return toLocalDateString(d);
 };
 
 const formatLongDate = (dateStr: string) =>
   new Intl.DateTimeFormat('en-US', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })
     .format(new Date(`${dateStr}T12:00:00`));
 
-const normalizePlannerTasks = (items: StudyTask[]) => items.map((t) => {
-  const legacyMatch = /^task-/.test(t.id) && typeof t.date === 'string' && t.date.startsWith('2025-');
-  const dayMatch = typeof t.date === 'string' ? /^Day (\d+)$/.exec(t.date) : null;
-  if (legacyMatch) {
-    const legacyDates: Record<string, number> = { '2025-08-26': 0, '2025-08-27': 1, '2025-08-28': 2, '2025-08-29': 3, '2025-08-30': 4, '2025-08-31': 5, '2025-09-01': 6 };
-    const offset = legacyDates[t.date!];
-    if (offset !== undefined) return { ...t, date: getWeekDate(offset) };
-  }
-  if (dayMatch) {
-    const offset = Math.max(0, Number(dayMatch[1]) - 1);
-    return { ...t, date: getWeekDate(offset) };
-  }
-  return t;
-});
+export const normalizePlannerTasks = (items: StudyTask[]) => items
+  .filter((t) => t && typeof t.id === 'string' && t.id.trim().length > 0 && typeof t.subject === 'string' && typeof t.topic === 'string')
+  .map((t) => {
+    let date = t.date;
+    const legacyMatch = /^task-/.test(t.id) && typeof date === 'string' && date.startsWith('2025-');
+    const dayMatch = typeof date === 'string' ? /^Day (\d+)$/.exec(date) : null;
+    if (legacyMatch) {
+      const legacyDates: Record<string, number> = { '2025-08-26': 0, '2025-08-27': 1, '2025-08-28': 2, '2025-08-29': 3, '2025-08-30': 4, '2025-08-31': 5, '2025-09-01': 6 };
+      const offset = legacyDates[date!];
+      if (offset !== undefined) date = getWeekDate(offset);
+    } else if (dayMatch) {
+      const offset = Math.max(0, Number(dayMatch[1]) - 1);
+      date = getWeekDate(offset);
+    }
+    return {
+      ...t,
+      date,
+      subject: t.subject.trim().slice(0, 100),
+      topic: t.topic.trim().slice(0, 500),
+      durationMinutes: Number.isFinite(t.durationMinutes) ? Math.min(1440, Math.max(0, t.durationMinutes)) : 0,
+      completed: t.completed === true,
+      color: ['teal', 'purple', 'orange', 'cyan', 'blue'].includes(t.color) ? t.color : 'blue',
+    };
+  });
 
 interface StudyPlannerWorkspaceProps {
   onNavigateAiTutor?: (prompt?: string) => void;
@@ -64,7 +76,6 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
   onNavigateProgress,
 }) => {
   const { showToast } = useToast();
-  const [mobilePlannerTab, setMobilePlannerTab] = useState<'schedule' | 'goals'>('schedule');
 
   // Safe localStorage helper with schema validation
   const [tasks, setTasks] = useState<StudyTask[]>(() => {
@@ -104,7 +115,7 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
             const demoIds = new Set(['goal-1', 'goal-2', 'goal-3', 'goal-4']);
             const clean = parsed.filter((goal: StudyGoal) => !demoIds.has(goal?.id));
             if (clean.length !== parsed.length) localStorage.setItem('study_planner_goals', JSON.stringify(clean));
-            const valid = clean.every((g) => g && typeof g.id === 'string' && typeof g.title === 'string');
+            const valid = clean.every((g) => g && typeof g.id === 'string' && typeof g.title === 'string' && typeof g.subject === 'string');
             if (valid) return clean;
           }
         }
@@ -125,24 +136,8 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
   const [taskToEdit, setTaskToEdit] = useState<StudyTask | null>(null);
   const [taskToDelete, setTaskToDelete] = useState<StudyTask | null>(null);
 
-  // Streak days state initialized lazily from localStorage
-  const [streakDays, setStreakDays] = useState<number>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const storedStreak = localStorage.getItem('study_streak_days');
-        if (storedStreak) {
-          const num = parseInt(storedStreak, 10);
-          if (!isNaN(num) && num >= 0) {
-            if (num === 3) { localStorage.removeItem('study_streak_days'); return 0; }
-            return num;
-          }
-        }
-      } catch {
-        // ignore
-      }
-    }
-    return 0;
-  });
+  // Streak is based on distinct local calendar days, not completed-task count.
+  const [streakDays, setStreakDays] = useState<number>(() => getCurrentStudyStreak());
 
   const saveTasks = (newTasks: StudyTask[]) => {
     setTasks(newTasks);
@@ -173,7 +168,7 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
 
     // Automatically update connected goal progress
     const updatedGoals = goals.map((g) => {
-      if (g.subject.toLowerCase() === task.subject.toLowerCase() || task.topic.toLowerCase().includes(g.subject.toLowerCase())) {
+      if (typeof g.subject === 'string' && (g.subject.toLowerCase() === task.subject.toLowerCase() || task.topic.toLowerCase().includes(g.subject.toLowerCase()))) {
         const currentCount = g.completedSessions || 0;
         const newCount = nextState ? currentCount + 1 : Math.max(0, currentCount - 1);
         const target = g.targetSessions || 4;
@@ -188,16 +183,8 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
     });
     saveGoals(updatedGoals);
 
-    // Calculate streak
-    if (nextState) {
-      const next = streakDays + 1;
-      setStreakDays(next);
-      try {
-        localStorage.setItem('study_streak_days', next.toString());
-      } catch {
-        // ignore
-      }
-    }
+    // Multiple task completions on the same day count as one study day.
+    if (nextState) setStreakDays(recordStudyDay());
 
     showToast(
       nextState
@@ -307,38 +294,13 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
 
   return (
     <div className="space-y-4">
-      {/* Mobile Tab Switcher */}
-      <div className="lg:hidden flex items-center p-1 rounded-xl bg-[#070F24] border border-[#16274D] shadow-inner">
-        <button
-          onClick={() => setMobilePlannerTab('schedule')}
-          className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-            mobilePlannerTab === 'schedule'
-              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
-              : 'text-slate-400 hover:text-white'
-          }`}
-        >
-          <span>📅 Schedule & Plan</span>
-        </button>
-        <button
-          onClick={() => setMobilePlannerTab('goals')}
-          className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-            mobilePlannerTab === 'goals'
-              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
-              : 'text-slate-400 hover:text-white'
-          }`}
-        >
-          <span>🎯 Goals & Stats</span>
-        </button>
-      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-start">
         {/* ========================================================
             LEFT COLUMN: 8 Columns (Hero, Today's Plan, Weekly Schedule, Recommended)
             ======================================================== */}
         <div
-          className={`lg:col-span-8 flex-col space-y-4 sm:space-y-5 ${
-            mobilePlannerTab === 'goals' ? 'hidden lg:flex' : 'flex'
-          }`}
+          className={`lg:col-span-8 flex-col space-y-4 sm:space-y-5 flex`}
         >
           {/* 1. Main Study Planner Hero */}
           <StudyPlannerHero
@@ -405,9 +367,7 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
             RIGHT UTILITIES COLUMN: 4 Columns (Goals, Popular Subjects, Motivation, Streak)
             ======================================================== */}
         <div
-          className={`lg:col-span-4 flex-col space-y-4 sm:space-y-5 ${
-            mobilePlannerTab === 'schedule' ? 'hidden lg:flex' : 'flex'
-          }`}
+          className={`lg:col-span-4 flex-col space-y-4 sm:space-y-5 flex`}
         >
         {/* 1. Your Study Goals */}
         <StudyGoalsCard

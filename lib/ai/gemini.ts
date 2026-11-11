@@ -116,7 +116,8 @@ export function describeAiError(err: unknown): { message: string; status: number
   const status = errorStatus(err);
   const detail = errorDetail(err);
   const lower = detail.toLowerCase();
-  const withDetail = (text: string) => `${text} (${detail})`;
+  // Keep provider internals out of the public API response; the full detail is logged above.
+  const withDetail = (text: string) => text;
 
   if (status === 401 || status === 403 || lower.includes('api key') || lower.includes('permission denied')) {
     return { message: withDetail('The AI key was rejected. Please check GEMINI_API_KEY.'), status: 502 };

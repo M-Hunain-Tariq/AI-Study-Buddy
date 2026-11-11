@@ -5,12 +5,14 @@ import { ToastProvider, useToast } from '@/components/Toast';
 import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
-import { MobileBottomNav } from '@/components/MobileBottomNav';
 import { AiTutorHero } from '@/components/ai-tutor/AiTutorHero';
 import { AiChatWorkspace } from '@/components/ai-tutor/AiChatWorkspace';
 import { AiTutorRightSidebar } from '@/components/ai-tutor/AiTutorRightSidebar';
+import { MobileAiTutor } from '@/components/mobile/MobileAiTutor';
+import { useIsPhone } from '@/components/mobile/useIsPhone';
 
 function AiTutorPageContent() {
+  const isPhone = useIsPhone();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const uploadInputRef = useRef<HTMLInputElement>(null);
   const [selectedPrompt, setSelectedPrompt] = useState<string | undefined>(() => {
@@ -56,6 +58,9 @@ function AiTutorPageContent() {
 
         {/* AI Tutor Main Canvas matching three-zone layout */}
         <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1600px] mx-auto space-y-5 sm:space-y-6">
+          {isPhone === null ? null : isPhone ? (
+            <MobileAiTutor initialPrompt={selectedPrompt} onClearInitialPrompt={() => setSelectedPrompt(undefined)} />
+          ) : (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
             {/* Center Main Area (8 cols out of 12) */}
             <div className="lg:col-span-8 flex flex-col space-y-5">
@@ -75,9 +80,9 @@ function AiTutorPageContent() {
               <AiTutorRightSidebar onRequestFileUpload={() => uploadInputRef.current?.click()} />
             </div>
           </div>
+          )}
         </main>
       </div>
-      <MobileBottomNav activeItem="AI Tutor" />
     </div>
   );
 }

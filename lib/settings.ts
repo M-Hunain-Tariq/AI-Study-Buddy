@@ -81,15 +81,56 @@ export const FONTS: { id: string; label: string; stack: string }[] = [
 
 export const SETTINGS_KEY = 'studybuddy-settings-v1';
 
-function merge(base: AppSettings, saved: Partial<AppSettings>): AppSettings {
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function boundedString(value: unknown, fallback: string, maxLength: number): string {
+  return typeof value === 'string' ? value.trim().slice(0, maxLength) : fallback;
+}
+
+function readBooleans<T extends object>(defaults: T, value: unknown): T {
+  const input = isRecord(value) ? value : {};
+  return Object.fromEntries(Object.entries(defaults).map(([key, fallback]) => [
+    key,
+    typeof input[key] === 'boolean' ? input[key] : fallback,
+  ])) as T;
+}
+
+/** Validate persisted/imported settings instead of trusting arbitrary localStorage JSON. */
+export function sanitizeSettings(saved: unknown): AppSettings {
+  const value = isRecord(saved) ? saved : {};
+  const profile = isRecord(value.profile) ? value.profile : {};
+  const theme = value.theme === 'light' || value.theme === 'dark' || value.theme === 'auto' ? value.theme : DEFAULT_SETTINGS.theme;
+  const background = value.background === 'default' || value.background === 'animated' || value.background === 'minimal' ? value.background : DEFAULT_SETTINGS.background;
+  const textSize = value.textSize === 'small' || value.textSize === 'normal' || value.textSize === 'large' ? value.textSize : DEFAULT_SETTINGS.textSize;
+  const accent = typeof value.accent === 'string' && ACCENTS.includes(value.accent) ? value.accent : DEFAULT_SETTINGS.accent;
+  const fontFamily = typeof value.fontFamily === 'string' && FONTS.some((font) => font.id === value.fontFamily) ? value.fontFamily : DEFAULT_SETTINGS.fontFamily;
+
   return {
-    ...base,
-    ...saved,
-    profile: { ...base.profile, ...(saved.profile ?? {}) },
-    notifications: { ...base.notifications, ...(saved.notifications ?? {}) },
-    privacy: { ...base.privacy, ...(saved.privacy ?? {}) },
-    advanced: { ...base.advanced, ...(saved.advanced ?? {}) },
+    theme,
+    accent,
+    background,
+    fontFamily,
+    textSize,
+    profile: {
+      name: boundedString(profile.name, DEFAULT_SETTINGS.profile.name, 80),
+      email: boundedString(profile.email, DEFAULT_SETTINGS.profile.email, 254),
+      phone: boundedString(profile.phone, DEFAULT_SETTINGS.profile.phone, 40),
+      dob: boundedString(profile.dob, DEFAULT_SETTINGS.profile.dob, 20),
+      country: boundedString(profile.country, DEFAULT_SETTINGS.profile.country, 80),
+      level: boundedString(profile.level, DEFAULT_SETTINGS.profile.level, 80),
+      bio: boundedString(profile.bio, DEFAULT_SETTINGS.profile.bio, 1000),
+      photo: boundedString(profile.photo, DEFAULT_SETTINGS.profile.photo, 2_000_000),
+    },
+    notifications: readBooleans(DEFAULT_SETTINGS.notifications, value.notifications),
+    privacy: readBooleans(DEFAULT_SETTINGS.privacy, value.privacy),
+    advanced: readBooleans(DEFAULT_SETTINGS.advanced, value.advanced),
   };
+}
+
+function merge(_base: AppSettings, saved: unknown): AppSettings {
+  return sanitizeSettings(saved);
 }
 
 export function applySettingsToDocument(s: AppSettings) {

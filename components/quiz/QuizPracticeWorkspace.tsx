@@ -30,99 +30,8 @@ import { QuizModal } from './QuizModal';
 import { GenerateQuizModal } from './GenerateQuizModal';
 import { useToast } from '../Toast';
 
-// 3 Featured Quizzes matching image.png exactly
-const FEATURED_QUIZZES: QuizItem[] = [
-  {
-    id: 'feat-algebra',
-    title: 'Algebra Basics',
-    subject: 'Mathematics',
-    questionsCount: 10,
-    difficulty: 'Medium',
-    symbol: '× ÷',
-    colorScheme: 'blue',
-    featured: true,
-  },
-  {
-    id: 'feat-atoms',
-    title: 'Atoms & Molecules',
-    subject: 'Chemistry',
-    questionsCount: 10,
-    difficulty: 'Medium',
-    symbol: '⚛',
-    colorScheme: 'blue',
-    featured: true,
-  },
-  {
-    id: 'feat-motion',
-    title: 'Motion & Forces',
-    subject: 'Physics',
-    questionsCount: 10,
-    difficulty: 'Hard',
-    symbol: '∆',
-    colorScheme: 'blue',
-    featured: true,
-  },
-];
+import { FEATURED_QUIZZES, ALL_QUIZZES } from './quizData';
 
-// 6 All Quizzes matching image.png exactly
-const ALL_QUIZZES: QuizItem[] = [
-  {
-    id: 'quiz-quadratic',
-    title: 'Quadratic Equations',
-    subject: 'Mathematics',
-    questionsCount: 10,
-    difficulty: 'Medium',
-    symbol: '√x',
-    colorScheme: 'blue',
-  },
-  {
-    id: 'quiz-electricity',
-    title: 'Electricity & Circuits',
-    subject: 'Physics',
-    questionsCount: 10,
-    difficulty: 'Hard',
-    symbol: '⚡',
-    colorScheme: 'blue',
-  },
-  {
-    id: 'quiz-periodic',
-    title: 'Periodic Table',
-    subject: 'Chemistry',
-    questionsCount: 10,
-    difficulty: 'Medium',
-    symbol: '⚗',
-    colorScheme: 'blue',
-  },
-  {
-    id: 'quiz-grammar',
-    title: 'Grammar Basics',
-    subject: 'English',
-    questionsCount: 10,
-    difficulty: 'Easy',
-    symbol: '📖',
-    colorScheme: 'blue',
-  },
-  {
-    id: 'quiz-python',
-    title: 'Python Fundamentals',
-    subject: 'Computer Science',
-    questionsCount: 10,
-    difficulty: 'Medium',
-    symbol: '</>',
-    colorScheme: 'blue',
-  },
-  {
-    id: 'quiz-trigonometry',
-    title: 'Trigonometry',
-    subject: 'Mathematics',
-    questionsCount: 10,
-    difficulty: 'Hard',
-    symbol: '∆',
-    colorScheme: 'blue',
-  },
-];
-
-// Recent activity is populated only from quizzes the student actually completes.
 const RECENT_ACTIVITIES: { id: string; title: string; status: string; timeAgo: string; symbol: string; colorScheme: string }[] = [];
 
 export const QuizPracticeWorkspace: React.FC = () => {
@@ -135,7 +44,6 @@ export const QuizPracticeWorkspace: React.FC = () => {
   const [customQuizzes, setCustomQuizzes] = useState<QuizItem[]>([]);
   const [quizHistory, setQuizHistory] = useState<{id:string; title:string; subject:string; score:number; date:string}[]>([]);
   // Mobile tab toggle to prevent infinite scroll on small screens
-  const [mobileTab, setMobileTab] = useState<'quizzes' | 'progress'>('quizzes');
 
   React.useEffect(() => {
     try {
@@ -318,41 +226,12 @@ export const QuizPracticeWorkspace: React.FC = () => {
         </div>
       </div>
 
-      {/* ========================================================
-          MOBILE VIEW SELECTOR (Quizzes vs Progress)
-          On mobile screens (< 1024px), gives student instant switch
-          between Quizzes & Progress without a massive 1500px long scroll!
-          ======================================================== */}
-      <div className="lg:hidden flex items-center p-1 rounded-xl bg-[#070F24] border border-[#16274D] shadow-inner">
-        <button
-          onClick={() => setMobileTab('quizzes')}
-          className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-            mobileTab === 'quizzes'
-              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
-              : 'text-slate-400 hover:text-white'
-          }`}
-        >
-          <Brain className="w-3.5 h-3.5" />
-          <span>All Quizzes ({filteredAllQuizzes.length})</span>
-        </button>
-        <button
-          onClick={() => setMobileTab('progress')}
-          className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-            mobileTab === 'progress'
-              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_12px_rgba(37,99,235,0.5)]'
-              : 'text-slate-400 hover:text-white'
-          }`}
-        >
-          <Activity className="w-3.5 h-3.5" />
-          <span>Progress & Stats</span>
-        </button>
-      </div>
 
       {/* ========================================================
           2. SUBJECT FILTER TABS ROW MATCHING image.png
           Touch swipeable with compact pill styling
           ======================================================== */}
-      {(mobileTab === 'quizzes' || typeof window === 'undefined') && (
+      {(
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-[#081026] border border-[#162544] p-2 sm:p-3 rounded-2xl shadow-lg">
           {/* Subject Filter Pills - Smooth touch scroll */}
           <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 sm:pb-0 custom-scrollbar">
@@ -402,9 +281,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
             LEFT AREA: FEATURED QUIZZES + ALL QUIZZES (lg:col-span-8)
             ======================================================== */}
         <div
-          className={`lg:col-span-8 space-y-4 sm:space-y-5 ${
-            mobileTab === 'progress' ? 'hidden lg:block' : 'block'
-          }`}
+          className={`lg:col-span-8 space-y-4 sm:space-y-5 block`}
         >
           {/* SECTION 1: FEATURED QUIZZES */}
           <div className="space-y-2.5 sm:space-y-3">
@@ -593,9 +470,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
             On mobile: Shown when 'Progress & Stats' tab is active, or at bottom
             ======================================================== */}
         <div
-          className={`lg:col-span-4 space-y-3.5 sm:space-y-4 ${
-            mobileTab === 'quizzes' ? 'hidden lg:block' : 'block'
-          }`}
+          className={`lg:col-span-4 space-y-3.5 sm:space-y-4 block`}
         >
           {/* WIDGET 1: YOUR PRACTICE PROGRESS */}
           <div className="rounded-[20px] sm:rounded-[22px] bg-[#081026] border border-[#162544] p-3.5 sm:p-5 shadow-lg space-y-2.5 sm:space-y-3">

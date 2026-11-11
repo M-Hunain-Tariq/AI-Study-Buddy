@@ -37,7 +37,11 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
 
     if (isSubmitting) return;
 
-    window.localStorage.setItem('studybuddy_user_name', trimmedName);
+    try {
+      window.localStorage.setItem('studybuddy_user_name', trimmedName);
+    } catch {
+      // Storage can be disabled or full; the dashboard remains usable without a saved display name.
+    }
     setIsSubmitting(true);
     // Keep the centered welcome dialog visible while the dashboard route starts loading.
     router.push('/dashboard');

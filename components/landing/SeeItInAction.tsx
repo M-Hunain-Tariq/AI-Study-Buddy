@@ -209,7 +209,7 @@ export const SeeItInAction: React.FC = () => {
                   {/* Mini Robot Avatar with visor glow */}
                   <div className="relative w-6 h-6 rounded-full overflow-hidden border border-cyan-400/80 shadow-[0_0_12px_rgba(6,182,212,0.7)]">
                     <img 
-                      src="/landing/mini_peeking_robot_1790178277543.jpg" 
+                      src="/landing/mini_peeking_robot_1790178277543.jpg" loading="lazy" 
                       alt="AI Tutor" 
                       className="w-full h-full object-cover"
                     />

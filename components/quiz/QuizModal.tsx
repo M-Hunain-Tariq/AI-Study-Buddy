@@ -180,7 +180,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg rounded-2xl bg-[#08122C] border border-[#1A3160] shadow-[0_25px_60px_rgba(2,6,23,0.95)] overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="qm relative w-full max-w-lg rounded-2xl bg-[#08122C] border border-[#1A3160] shadow-[0_25px_60px_rgba(2,6,23,0.95)] overflow-hidden flex flex-col max-h-[90vh]">
         {/* Modal Header */}
         <div className="p-4 sm:p-5 border-b border-[#142345] flex items-center justify-between bg-[#060D22]">
           <div className="flex items-center gap-2.5">
@@ -201,7 +201,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
 
             <button
               onClick={onClose}
-              className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-[#12224A] transition-colors cursor-pointer"
+              className="qm-close p-1 rounded-lg text-slate-400 hover:text-white hover:bg-[#12224A] transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -230,7 +230,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
 
               {/* Question Text */}
               <div className="pt-2">
-                <h4 className="text-sm sm:text-base font-semibold text-white leading-relaxed">
+                <h4 className="qm-q text-sm sm:text-base font-semibold text-white leading-relaxed">
                   {currentQ.question}
                 </h4>
               </div>
@@ -258,7 +258,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
                       key={opt}
                       onClick={() => handleSelectOption(idx)}
                       disabled={isAnswered}
-                      className={`w-full p-3 rounded-xl border text-xs sm:text-sm font-medium text-left transition-all flex items-center justify-between cursor-pointer ${optStyle}`}
+                      className={`qm-opt w-full p-3 rounded-xl border text-xs sm:text-sm font-medium text-left transition-all flex items-center justify-between cursor-pointer ${optStyle}`}
                     >
                       <span>{opt}</span>
                       {isAnswered && idx === currentQ.correctAnswer && (
@@ -321,7 +321,7 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
             <button
               onClick={handleNext}
               disabled={!isAnswered}
-              className={`px-5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+              className={`qm-btn px-5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                 isAnswered
                   ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_0_15px_rgba(37,99,235,0.5)] active:scale-95'
                   : 'bg-[#101D38] text-slate-500 cursor-not-allowed'
@@ -346,14 +346,14 @@ export const QuizModal: React.FC<QuizModalProps> = ({ quiz, onClose, onComplete,
 
               <button
                 onClick={handleRestart}
-                className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#12224A] transition-colors flex items-center gap-1.5 cursor-pointer"
+                className="qm-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-[#12224A] transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Retry Quiz</span>
               </button>
               <button
                 onClick={onClose}
-                className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white text-xs font-semibold shadow-[0_0_15px_rgba(37,99,235,0.5)] cursor-pointer active:scale-95"
+                className="qm-btn px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white text-xs font-semibold shadow-[0_0_15px_rgba(37,99,235,0.5)] cursor-pointer active:scale-95"
               >
                 Done
               </button>

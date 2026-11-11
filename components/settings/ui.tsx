@@ -30,7 +30,7 @@ export const Toggle: React.FC<{ checked: boolean; onChange: (v: boolean) => void
     disabled={disabled}
     onClick={() => onChange(!checked)}
     style={{ background: checked ? 'var(--accent, #6366F1)' : '#1B2A4E' }}
-    className={`relative w-11 h-6 rounded-full shrink-0 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+    className={`st-toggle relative w-11 h-6 rounded-full shrink-0 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
   >
     <span
       className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${
@@ -52,8 +52,8 @@ export const Row: React.FC<{
       <Icon className="w-4 h-4" />
     </div>
     <div className="min-w-0 flex-1">
-      <p className="text-[13px] font-semibold text-slate-100">{title}</p>
-      {desc && <p className="text-[11.5px] text-slate-400 mt-0.5 leading-snug">{desc}</p>}
+      <p className="st-row-title text-[13px] font-semibold text-slate-100">{title}</p>
+      {desc && <p className="st-row-desc text-[11.5px] text-slate-400 mt-0.5 leading-snug">{desc}</p>}
     </div>
     {children}
   </div>
@@ -62,14 +62,14 @@ export const Row: React.FC<{
 export const PrimaryButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ className = '', ...p }) => (
   <button
     {...p}
-    className={`px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#2563EB] to-[#2563EB] shadow-[0_0_18px_rgba(37,99,235,0.45)] hover:shadow-[0_0_26px_rgba(37,99,235,0.7)] transition-shadow cursor-pointer disabled:opacity-50 ${className}`}
+    className={`st-btn px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#2563EB] to-[#2563EB] shadow-[0_0_18px_rgba(37,99,235,0.45)] hover:shadow-[0_0_26px_rgba(37,99,235,0.7)] transition-shadow cursor-pointer disabled:opacity-50 ${className}`}
   />
 );
 
 export const GhostButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ className = '', ...p }) => (
   <button
     {...p}
-    className={`px-4 py-2 rounded-xl text-xs font-semibold text-slate-100 bg-[#0E1B3D] border border-[#22386B] hover:border-blue-500/60 hover:bg-[#12224A] transition-colors cursor-pointer ${className}`}
+    className={`st-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-100 bg-[#0E1B3D] border border-[#22386B] hover:border-blue-500/60 hover:bg-[#12224A] transition-colors cursor-pointer ${className}`}
   />
 );
 
@@ -87,7 +87,7 @@ export const SectionShell: React.FC<{
       <div>
         <button
           onClick={onBack}
-          className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-white mb-2 cursor-pointer"
+          className="st-back inline-flex items-center gap-1 text-xs text-slate-400 hover:text-white mb-2 cursor-pointer"
         >
           <ChevronLeft className="w-3.5 h-3.5" /> All settings
         </button>

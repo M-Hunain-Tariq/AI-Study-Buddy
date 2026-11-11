@@ -14,6 +14,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onContinueLearning, onAs
       <img
         src="/images/hero_study_desk_exact.jpg"
         alt="Study space"
+        loading="lazy"
         className="absolute inset-0 h-full w-full object-cover object-center"
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,10,24,.96)_0%,rgba(5,12,26,.82)_36%,rgba(5,12,26,.25)_68%,rgba(5,12,26,.10)_100%)]" />

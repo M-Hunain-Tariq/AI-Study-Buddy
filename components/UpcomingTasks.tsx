@@ -28,7 +28,7 @@ export const UpcomingTasks: React.FC<UpcomingTasksProps> = ({
             <CalendarCheck className="w-4 h-4" />
           </div>
           <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">
-            Today&apos;s Tasks
+            Your Tasks
           </h3>
         </div>
 

@@ -2,20 +2,34 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Type } from '@google/genai';
 import { describeAiError, generate } from '@/lib/ai/gemini';
 import { checkAiRateLimit, getClientKey } from '@/lib/ai/rate-limit';
+import { jsonReadError, jsonReadStatus, readJsonRequest } from '@/lib/server/read-json';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+const MAX_REQUEST_BYTES = 16_384;
+
+function clampInteger(value: unknown, fallback: number, min: number, max: number) {
+  const parsed = typeof value === 'number' ? value : typeof value === 'string' && value.trim() ? Number(value) : NaN;
+  return Number.isFinite(parsed) ? Math.min(Math.max(Math.trunc(parsed), min), max) : fallback;
+}
 
 export async function POST(req: NextRequest) {
   const limit = checkAiRateLimit(getClientKey(req));
   if (!limit.ok) return NextResponse.json({ error: 'Too many AI requests. Please try again shortly.' }, { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } });
   try {
-    const body = await req.json().catch(() => null);
-    const subject = typeof body?.subject === 'string' ? body.subject.trim().slice(0, 80) : '';
-    const topic = typeof body?.topic === 'string' ? body.topic.trim().slice(0, 200) : '';
-    const examDate = typeof body?.examDate === 'string' ? body.examDate.trim().slice(0, 40) : '';
-    const minutes = Math.min(Math.max(parseInt(String(body?.dailyMinutes)) || 60, 15), 240);
-    const days = Math.min(Math.max(parseInt(String(body?.totalDays)) || 7, 1), 14);
+    const parsedBody = await readJsonRequest(req, MAX_REQUEST_BYTES);
+    if (!parsedBody.ok) {
+      return NextResponse.json(jsonReadError(parsedBody.reason), { status: jsonReadStatus(parsedBody.reason) });
+    }
+    const body = parsedBody.value && typeof parsedBody.value === 'object' && !Array.isArray(parsedBody.value)
+      ? parsedBody.value as Record<string, unknown>
+      : {};
+    const subject = typeof body.subject === 'string' ? body.subject.trim().slice(0, 80) : '';
+    const topic = typeof body.topic === 'string' ? body.topic.trim().slice(0, 200) : '';
+    const examDate = typeof body.examDate === 'string' ? body.examDate.trim().slice(0, 40) : '';
+    const minutes = clampInteger(body.dailyMinutes, 60, 15, 240);
+    const days = clampInteger(body.totalDays, 7, 1, 14);
 
     if (!subject || !topic) {
       return NextResponse.json({ error: 'Please enter a subject and topic.' }, { status: 400 });

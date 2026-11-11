@@ -6,10 +6,12 @@ import { ToastProvider, useToast } from '@/components/Toast';
 import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
-import { MobileBottomNav } from '@/components/MobileBottomNav';
 import { StudyPlannerWorkspace } from '@/components/study-planner/StudyPlannerWorkspace';
+import { MobilePlanner } from '@/components/mobile/MobilePlanner';
+import { useIsPhone } from '@/components/mobile/useIsPhone';
 
 function StudyPlannerPageContent() {
+  const isPhone = useIsPhone();
   const router = useRouter();
   const { showToast } = useToast();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -51,13 +53,16 @@ function StudyPlannerPageContent() {
 
         {/* Study Planner Main Canvas */}
         <main className="flex-1 p-3 sm:p-5 lg:p-6 w-full max-w-[1600px] mx-auto space-y-5 sm:space-y-6">
+          {isPhone === null ? null : isPhone ? (
+            <MobilePlanner />
+          ) : (
           <StudyPlannerWorkspace
             onNavigateAiTutor={handleNavigateAiTutor}
             onNavigateProgress={handleNavigateProgress}
           />
+          )}
         </main>
       </div>
-      <MobileBottomNav activeItem="Study Planner" />
     </div>
   );
 }

@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useToast } from './Toast';
+import { MobileTopBar } from './mobile/MobileTopBar';
 
 interface HeaderProps {
   onOpenMobileMenu: () => void;
@@ -96,7 +97,9 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-30 w-full bg-[#060C1D]/90 backdrop-blur-md border-b border-[#142240] px-3 sm:px-6 py-3 sm:py-3.5 flex items-center justify-between gap-2 sm:gap-4 transition-all">
+    <>
+    <MobileTopBar onOpenMenu={onOpenMobileMenu} onAskAi={onNavigateAiTutor} />
+    <header className="max-lg:hidden sticky top-0 z-30 w-full bg-[#060C1D]/90 backdrop-blur-md border-b border-[#142240] px-3 sm:px-6 py-3 sm:py-3.5 flex items-center justify-between gap-2 sm:gap-4 transition-all">
       {/* Search Input */}
       <div className="flex items-center gap-2 sm:gap-3 flex-1 max-w-xl min-w-0">
         {/* Mobile Hamburger */}
@@ -299,5 +302,6 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
     </header>
+    </>
   );
 };

@@ -491,7 +491,7 @@ export const HowItWorks: React.FC = () => {
                       {/* Antenna Energy Halo */}
                       <div className="absolute inset-0 rounded-full border border-cyan-300/40 animate-visor-glow pointer-events-none" />
                       <img
-                        src="/landing/mini_peeking_robot_1790178277543.jpg"
+                        src="/landing/mini_peeking_robot_1790178277543.jpg" loading="lazy"
                         alt="Mini 3D Robot Assistant"
                         className="w-full h-full object-cover object-center"
                       />

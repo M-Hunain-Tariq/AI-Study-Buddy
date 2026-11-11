@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Type } from '@google/genai';
 import { describeAiError, generate } from '@/lib/ai/gemini';
 import { checkAiRateLimit, getClientKey } from '@/lib/ai/rate-limit';
+import { jsonReadError, jsonReadStatus, readJsonRequest } from '@/lib/server/read-json';
 
 
 interface FormattedQuestion {
@@ -20,16 +21,20 @@ interface GenerateQuizRequest {
   difficulty?: 'Easy' | 'Medium' | 'Hard';
 }
 
+const MAX_REQUEST_BYTES = 65_536;
+
 export async function POST(req: NextRequest) {
   const limit = checkAiRateLimit(getClientKey(req));
   if (!limit.ok) return NextResponse.json({ error: 'Too many AI requests. Please try again shortly.' }, { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } });
   try {
-    let body: GenerateQuizRequest;
-    try {
-      body = await req.json();
-    } catch {
-      return NextResponse.json({ error: 'Request body must be valid JSON.' }, { status: 400 });
+    const parsedBody = await readJsonRequest(req, MAX_REQUEST_BYTES);
+    if (!parsedBody.ok) {
+      return NextResponse.json(jsonReadError(parsedBody.reason), { status: jsonReadStatus(parsedBody.reason) });
     }
+    if (!parsedBody.value || typeof parsedBody.value !== 'object' || Array.isArray(parsedBody.value)) {
+      return NextResponse.json({ error: 'Request body must be a JSON object.' }, { status: 400 });
+    }
+    const body = parsedBody.value as GenerateQuizRequest;
     const {
       chapterTitle,
       subject = 'General',
@@ -52,6 +57,7 @@ export async function POST(req: NextRequest) {
       typeof chapterTitle !== 'string' ||
       typeof lessonContent !== 'string' ||
       !chapterTitle.trim() ||
+      chapterTitle.trim().length > 160 ||
       lessonContent.trim().length < 30
     ) {
       return NextResponse.json(
@@ -162,7 +168,7 @@ Instructions:
                 subject: safeSubject,
                 questionsCount: formatted.length,
                 difficulty: safeDifficulty,
-                symbol: subject === 'Mathematics' ? '√x' : subject === 'Physics' ? '⚡' : subject === 'Chemistry' ? '⚗' : '📖',
+                symbol: safeSubject === 'Mathematics' ? '√x' : safeSubject === 'Physics' ? '⚡' : safeSubject === 'Chemistry' ? '⚗' : '📖',
                 colorScheme: difficulty === 'Hard' ? 'blue' : difficulty === 'Easy' ? 'blue' : 'blue',
                 questions: formatted,
               },
