@@ -46,14 +46,14 @@ export function calculateDashboardStats(
   savedChats: unknown,
   quizHistory: unknown,
 ): DashboardStats {
-  const completedStudyMinutes = asList(plannerTasks).reduce((total, item) => {
+  const completedStudyMinutes = asList(plannerTasks).reduce<number>((total, item) => {
     const task = asRecord(item);
     if (!task || task.completed !== true) return total;
     const duration = Number(task.durationMinutes);
     return total + (Number.isFinite(duration) ? Math.min(1440, Math.max(0, duration)) : 0);
   }, 0);
 
-  const savedAiQuestions = asList(savedChats).reduce((total, item) => {
+  const savedAiQuestions = asList(savedChats).reduce<number>((total, item) => {
     const chat = asRecord(item);
     return total + asList(chat?.messages).filter((message) => asRecord(message)?.sender === 'user').length;
   }, 0);
