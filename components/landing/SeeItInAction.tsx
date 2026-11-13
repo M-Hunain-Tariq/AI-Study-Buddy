@@ -61,9 +61,9 @@ export const SeeItInAction: React.FC = () => {
   };
 
   return (
-    <section id="see-it-in-action" className="landing-section relative py-20 px-6 overflow-hidden">
+    <section id="see-it-in-action" className="landing-section ml-showcase-section relative py-20 px-6 overflow-hidden">
       {/* 3D Folded Crystal Origami Wings matching image.png */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden" data-mobile-decoration>
         {/* Central Diffused Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[550px] bg-gradient-to-r from-cyan-600/15 via-blue-600/20 to-blue-600/15 rounded-full blur-[160px] animate-pulse-glow" />
 
@@ -163,7 +163,7 @@ export const SeeItInAction: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           
           {/* Left Cards */}
-          <div className="lg:col-span-3 flex flex-col gap-5 order-2 lg:order-1">
+          <div className="lg:col-span-3 flex flex-col gap-5 order-2 lg:order-1" data-mobile-hide>
             {/* Ask AI Card */}
             <ScrollReveal animation="fade-right" delay={150}>
               <div className="bg-[#05112e]/90 p-6 rounded-2xl border border-blue-500/20 hover:border-cyan-400/80 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(6,182,212,0.25)] group cursor-pointer relative overflow-hidden">
@@ -198,10 +198,10 @@ export const SeeItInAction: React.FC = () => {
           </div>
 
           {/* Center Main Chat Window */}
-          <ScrollReveal animation="zoom-in" delay={180} className="lg:col-span-6 order-1 lg:order-2 relative">
+          <ScrollReveal animation="zoom-in" delay={180} className="lg:col-span-6 order-1 lg:order-2 relative ml-showcase-demo">
             <div className="absolute inset-0 bg-blue-600/20 rounded-3xl blur-2xl pointer-events-none" />
 
-            <div className="relative rounded-2xl bg-[#040b1e]/95 border border-blue-500/35 shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden animate-holographic">
+            <div className="relative rounded-2xl bg-[#040b1e]/95 border border-blue-500/35 shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden animate-holographic ml-demo-window">
               
               {/* Window Header with Animated AI Mascot Indicator */}
               <div className="px-4 py-3 bg-[#030919] border-b border-blue-500/20 flex items-center justify-between">
@@ -257,7 +257,7 @@ export const SeeItInAction: React.FC = () => {
               </div>
 
               {/* Chat Body with mini sidebar */}
-              <div className="grid grid-cols-12 min-h-[340px]">
+              <div className="grid grid-cols-12 min-h-[340px] ml-demo-body">
                 
                 {/* Mini Sidebar */}
                 <div className="col-span-3 bg-[#030816] border-r border-blue-500/20 p-2.5 hidden sm:flex flex-col space-y-1 text-[11px]">
@@ -320,7 +320,7 @@ export const SeeItInAction: React.FC = () => {
                               {copied ? <Check className="w-3 h-3 text-blue-400" /> : <Copy className="w-3 h-3" />}
                               <span>{copied ? 'Copied' : 'Copy'}</span>
                             </button>
-                            <button className="flex items-center gap-1 hover:text-cyan-300 transition-colors text-[10px] cursor-pointer">
+                            <button className="ml-demo-listen flex items-center gap-1 hover:text-cyan-300 transition-colors text-[10px] cursor-pointer">
                               <Volume2 className="w-3 h-3" />
                               <span>Listen</span>
                             </button>
@@ -374,7 +374,7 @@ export const SeeItInAction: React.FC = () => {
           </ScrollReveal>
 
           {/* Right Cards */}
-          <div className="lg:col-span-3 flex flex-col gap-5 order-3">
+          <div className="lg:col-span-3 flex flex-col gap-5 order-3" data-mobile-hide>
             {/* Smart Notes Card */}
             <ScrollReveal animation="fade-left" delay={150}>
               <div className="bg-[#05112e]/90 p-6 rounded-2xl border border-blue-500/20 hover:border-cyan-400/80 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(6,182,212,0.25)] group cursor-pointer relative overflow-hidden">
