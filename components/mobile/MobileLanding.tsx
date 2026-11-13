@@ -11,9 +11,11 @@ import {
   GraduationCap,
   Globe,
   HelpCircle,
+  Menu,
   Sparkles,
   Star,
   TrendingUp,
+  X,
 } from 'lucide-react';
 import { SeeItInAction } from '../landing/SeeItInAction';
 
@@ -96,12 +98,20 @@ const TESTIMONIALS = [
   },
 ];
 
+const NAV_LINKS = [
+  { label: 'Features', href: '#ml-features' },
+  { label: 'How it works', href: '#ml-how-it-works' },
+  { label: 'Product preview', href: '#ml-see-it-in-action' },
+  { label: 'Reviews', href: '#ml-reviews' },
+];
+
 /**
  * Phone/tablet landing experience. The desktop landing page remains untouched;
  * this layout keeps the desktop brand, illustrations, copy and working demo,
  * with spacing and composition tuned for narrow viewports.
  */
 export const MobileLanding: React.FC<MobileLandingProps> = ({ onStart }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const touchStartX = useRef<number | null>(null);
   const testimonial = TESTIMONIALS[activeTestimonial];
@@ -134,7 +144,32 @@ export const MobileLanding: React.FC<MobileLandingProps> = ({ onStart }) => {
         <a href="/" className="ml-brand" aria-label="StudyBuddy home">
           <span className="ml-brand-mark"><GraduationCap size={19} strokeWidth={2.1} /></span>
           <span className="ml-brand-name">StudyBuddy</span>
+          <span className="ml-brand-tag">AI POWERED</span>
         </a>
+
+        <div className="ml-header-actions">
+          <button type="button" className="ml-header-cta" onClick={onStart}>Get started</button>
+          <button
+            type="button"
+            className="ml-menu-button"
+            aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={menuOpen}
+            aria-controls="ml-navigation"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X size={19} /> : <Menu size={19} />}
+          </button>
+        </div>
+
+        {menuOpen && (
+          <nav id="ml-navigation" className="ml-navigation" aria-label="Landing page navigation">
+            {NAV_LINKS.map((link) => (
+              <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>
+                {link.label}<ArrowRight size={14} />
+              </a>
+            ))}
+          </nav>
+        )}
       </header>
 
       <section className="ml-hero" aria-labelledby="ml-title">

@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  output: 'standalone',
+  // Netlify's Next.js OpenNext adapter manages the deployment output.
   async headers() {
     return [
       {
