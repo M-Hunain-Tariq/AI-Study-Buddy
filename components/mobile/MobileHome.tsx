@@ -97,7 +97,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
   const firstName = userName.trim().split(/\s+/)[0] || 'Student';
 
   useEffect(() => {
-    /* eslint-disable react-hooks/set-state-in-effect */
     const now = new Date();
     setToday(now.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' }));
     setGreeting(getGreeting());
@@ -105,7 +104,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
     const plannerTasks = readStoredList('study_planner_tasks');
     const savedChats = readStoredList('studybuddy_ai_chat_history');
     const quizHistory = readStoredList('study_quiz_history_v1');
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setStats(calculateDashboardStats(plannerTasks, savedChats, quizHistory));
     setWeek(calculateWeeklyActivity(plannerTasks, now));
     setStreak(getCurrentStudyStreak(now));
@@ -127,7 +125,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
           timeAgo: note.lastEdited || 'Recently edited',
         })),
     );
-    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   const totalTasks = tasks.length;

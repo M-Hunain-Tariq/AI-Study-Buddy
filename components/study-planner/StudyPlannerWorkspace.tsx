@@ -101,7 +101,6 @@ export const StudyPlannerWorkspace: React.FC<StudyPlannerWorkspaceProps> = ({
   });
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTasks((current) => { const normalized = normalizePlannerTasks(current); try { localStorage.setItem('study_planner_tasks', JSON.stringify(normalized)); } catch {} return normalized; });
   }, []);
 

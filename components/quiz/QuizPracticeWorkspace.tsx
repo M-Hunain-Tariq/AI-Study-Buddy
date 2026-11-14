@@ -48,7 +48,6 @@ export const QuizPracticeWorkspace: React.FC = () => {
   React.useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem('study_quiz_history_v1') || '[]');
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (Array.isArray(saved)) setQuizHistory(saved);
     } catch {}
   }, []);

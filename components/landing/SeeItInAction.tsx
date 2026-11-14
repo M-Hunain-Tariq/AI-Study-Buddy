@@ -15,13 +15,13 @@ import {
 } from 'lucide-react';
 import { ScrollReveal } from './ScrollReveal';
 
-export const SeeItInAction: React.FC = () => {
-  const topicAnswers: Record<string, string> = {
+const TOPIC_ANSWERS: Record<string, string> = {
     "Explain the difference between HTML and CSS?": "HTML is used to structure the content of a webpage, while CSS is used to style and design it. HTML tells the browser what to show, and CSS tells it how to show it.",
     "How does Photosynthesis work?": "Photosynthesis is the process where plants convert water, carbon dioxide, and sunlight into oxygen and glucose energy using chlorophyll inside chloroplasts.",
     "What is the Pythagorean Theorem?": "In a right triangle, the square of the hypotenuse equals the sum of the squares of the other two sides: a² + b² = c²."
   };
 
+export const SeeItInAction: React.FC = () => {
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
   const [copied, setCopied] = useState(false);
@@ -32,7 +32,7 @@ export const SeeItInAction: React.FC = () => {
     let index = 0;
     setIsTyping(true);
     setDisplayedText("");
-    const targetResponse = topicAnswers[userQuery] || "Here is a personalized explanation tailored to your learning goals. Step-by-step breakdown makes mastering any subject effortless!";
+    const targetResponse = TOPIC_ANSWERS[userQuery] || "Here is a personalized explanation tailored to your learning goals. Step-by-step breakdown makes mastering any subject effortless!";
 
     const interval = setInterval(() => {
       if (index <= targetResponse.length) {
@@ -237,7 +237,7 @@ export const SeeItInAction: React.FC = () => {
                       setIsTyping(true);
                       setDisplayedText("");
                       let i = 0;
-                      const activeText = topicAnswers[userQuery] || "Here is a personalized explanation tailored to your learning goals. Step-by-step breakdown makes mastering any subject effortless!";
+                      const activeText = TOPIC_ANSWERS[userQuery] || "Here is a personalized explanation tailored to your learning goals. Step-by-step breakdown makes mastering any subject effortless!";
                       const intv = setInterval(() => {
                         if (i <= activeText.length) {
                           setDisplayedText(activeText.slice(0, i));

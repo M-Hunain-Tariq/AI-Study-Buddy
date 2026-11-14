@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
+import Link from 'next/link';
 import {
   ChevronUp,
   ArrowRight,
@@ -131,10 +132,10 @@ export const MobileLanding: React.FC<MobileLandingProps> = ({ onStart }) => {
   return (
     <main className="ml-page lg:hidden">
       <header className="ml-header">
-        <a href="/" className="ml-brand" aria-label="StudyBuddy home">
+        <Link href="/" className="ml-brand" aria-label="StudyBuddy home">
           <span className="ml-brand-mark"><GraduationCap size={19} strokeWidth={2.1} /></span>
           <span className="ml-brand-name">StudyBuddy</span>
-        </a>
+        </Link>
       </header>
 
       <section className="ml-hero" aria-labelledby="ml-title">
@@ -311,10 +312,10 @@ export const MobileLanding: React.FC<MobileLandingProps> = ({ onStart }) => {
       </section>
 
       <footer className="ml-footer">
-        <a href="/" className="ml-brand" aria-label="StudyBuddy home">
+        <Link href="/" className="ml-brand" aria-label="StudyBuddy home">
           <span className="ml-brand-mark"><GraduationCap size={17} /></span>
           <span className="ml-brand-name">StudyBuddy</span>
-        </a>
+        </Link>
         <nav className="ml-footer-links" aria-label="Footer links">
           <a href="#ml-features">Features</a>
           <a href="#ml-how-it-works">How it works</a>

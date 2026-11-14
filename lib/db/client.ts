@@ -107,7 +107,6 @@ const MIGRATIONS: Record<number, string> = {
 };
 
 declare global {
-  // eslint-disable-next-line no-var
   var __studybuddyDb: Database | undefined;
 }
 

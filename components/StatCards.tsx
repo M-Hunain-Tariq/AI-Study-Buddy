@@ -23,7 +23,6 @@ export const StatCards: React.FC<StatCardsProps> = ({ completedTasksCount = 0, t
         const raw = localStorage.getItem(key);
         return raw ? JSON.parse(raw) : [];
       };
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setStats(calculateDashboardStats(
         read('study_planner_tasks'),
         read('studybuddy_ai_chat_history'),

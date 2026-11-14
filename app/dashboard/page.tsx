@@ -64,11 +64,9 @@ function DashboardContent() {
         const demoIds = new Set(['task-math-assign', 'task-physics-read', 'task-english-essay', 'task-chem-notes', 'task-cs-quiz']);
         const clean = parsed.filter((task: Task) => !demoIds.has(task?.id));
         if (clean.length !== parsed.length) localStorage.setItem('study_tasks_v4', JSON.stringify(clean));
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setTasks(clean.map(toTask));
       }
     } catch { /* ignore corrupt storage */ }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   const handleToggleTask = (id: string) => {

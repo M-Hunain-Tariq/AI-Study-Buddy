@@ -20,7 +20,6 @@ export const RecentNotes: React.FC<RecentNotesProps> = ({ onSelectNote, onViewAl
     try {
       const stored = JSON.parse(localStorage.getItem('study_notes_v5') || '[]');
       if (Array.isArray(stored)) {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setNotes(stored.filter((n: StoredNote) => n && typeof n.id === 'string' && !['note-math-algebra', 'note-physics-motion', 'note-chem-periodic'].includes(n.id)).slice(0, 3).map((n: StoredNote) => ({
           id: n.id,
           title: n.title || 'Untitled note',

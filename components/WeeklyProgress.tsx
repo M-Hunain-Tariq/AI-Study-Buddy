@@ -11,7 +11,6 @@ export const WeeklyProgress: React.FC = () => {
     try {
       const raw = localStorage.getItem('study_planner_tasks');
       const parsed: unknown = raw ? JSON.parse(raw) : [];
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDays(calculateWeeklyActivity(parsed));
     } catch {
       // Keep the empty weekly state when local storage is unavailable or malformed.

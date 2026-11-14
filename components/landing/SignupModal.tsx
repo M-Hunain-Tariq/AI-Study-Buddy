@@ -23,7 +23,7 @@ export const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => 
     }
     const timer = window.setTimeout(() => inputRef.current?.focus(), 120);
     return () => window.clearTimeout(timer);
-  }, [isOpen]);
+  }, [isOpen, router]);
 
   if (!isOpen) return null;
 
