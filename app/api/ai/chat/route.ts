@@ -214,7 +214,7 @@ export async function POST(req: NextRequest) {
         }
       },
       async cancel() {
-        await iterator.return?.();
+        await iterator.return?.(undefined);
       },
     });
 
