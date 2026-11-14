@@ -21,6 +21,9 @@ interface GenerateQuizRequest {
   difficulty?: 'Easy' | 'Medium' | 'Hard';
 }
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 const MAX_REQUEST_BYTES = 65_536;
 
 export async function POST(req: NextRequest) {

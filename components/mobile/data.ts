@@ -18,7 +18,7 @@ export function readStored<T extends { id: string }>(key: string, demoIds: strin
   }
 }
 
-/** Writes through localStorage.setItem, which DbSync watches, so the database stays in sync. */
+/** Writes to localStorage; the optional database mirror watches this key where enabled. */
 export function writeStored<T>(key: string, list: T[]) {
   try {
     localStorage.setItem(key, JSON.stringify(list));

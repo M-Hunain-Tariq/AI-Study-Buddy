@@ -5,7 +5,8 @@ components still read/write `localStorage` exactly as before; the database mirro
 data automatically in the background.
 
 ## How it works
-- `app/template.tsx` (new) mounts `components/db/DbSync.tsx`, an invisible component.
+- `app/template.tsx` mounts `components/db/DbSync.tsx`, an invisible component.
+- On Netlify, `NEXT_PUBLIC_DB_SYNC_ENABLED=false` disables the optional SQLite mirror because Functions do not have shared persistent local disk; browser `localStorage` remains the primary store.
 - Every change to the app's tracked localStorage keys (notes, tasks, planner tasks/goals,
   streak, settings, user name, quiz history, AI language preference and bounded AI chat history)
   is saved to the database through `POST /api/db/sync` (debounced).

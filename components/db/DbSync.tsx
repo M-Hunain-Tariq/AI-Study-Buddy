@@ -26,6 +26,9 @@ const TRACKED = [
 ];
 const ENDPOINT = '/api/db/sync';
 const DEBOUNCE_MS = 600;
+// Netlify Functions do not provide shared persistent local disk for SQLite.
+// Disable the optional server mirror there; browser localStorage remains the source of truth.
+const DB_SYNC_ENABLED = process.env.NEXT_PUBLIC_DB_SYNC_ENABLED !== 'false';
 
 type Pending = { clear: boolean; changes: Record<string, string | null> };
 
@@ -187,7 +190,7 @@ function start() {
 
 export default function DbSync() {
   useEffect(() => {
-    start();
+    if (DB_SYNC_ENABLED) start();
   }, []);
   return null;
 }
