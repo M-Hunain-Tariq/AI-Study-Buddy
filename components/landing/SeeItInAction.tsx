@@ -333,7 +333,7 @@ export const SeeItInAction: React.FC = () => {
 
                   {/* Quick Topic Chips for Interactive Typing Animation */}
                   <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 scrollbar-none pt-2">
-                    {Object.keys(topicAnswers).map((q) => (
+                    {Object.keys(TOPIC_ANSWERS).map((q) => (
                       <button
                         key={q}
                         type="button"
