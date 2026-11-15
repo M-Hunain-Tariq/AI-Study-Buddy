@@ -10,8 +10,6 @@ import {
   Bold,
   Italic,
   Underline,
-  Heading1,
-  Heading2,
   List,
   ListOrdered,
   Link2,

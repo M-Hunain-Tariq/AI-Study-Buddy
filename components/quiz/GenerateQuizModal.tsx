@@ -4,17 +4,12 @@ import React, { useState } from 'react';
 import {
   X,
   Sparkles,
-  BookOpen,
-  GraduationCap,
-  Layers,
   ArrowRight,
   Loader2,
-  FileText,
   AlertCircle,
-  CheckCircle2,
   Zap,
 } from 'lucide-react';
-import { QuizDifficulty, QuizItem, QuizSubject } from './types';
+import { QuizDifficulty, QuizItem } from './types';
 import { useToast } from '../Toast';
 
 interface GenerateQuizModalProps {
@@ -94,7 +89,7 @@ export const GenerateQuizModal: React.FC<GenerateQuizModalProps> = ({
         }),
       });
 
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
 
       if (!response.ok || !data.success) {
         throw new Error(data.error || 'Failed to generate quiz.');
@@ -110,11 +105,11 @@ export const GenerateQuizModal: React.FC<GenerateQuizModalProps> = ({
         onQuizGenerated(data.quiz);
         showToast(`Quiz generated successfully for "${chapterTitle}"! 🎯`, 'success');
       }, 500);
-    } catch (err: any) {
+    } catch (err) {
       clearTimeout(timer1);
       clearTimeout(timer2);
       setIsProcessing(false);
-      setErrorMessage(err.message || 'Error connecting to generator. Please try again.');
+      setErrorMessage((err instanceof Error && err.message) || 'Error connecting to generator. Please try again.');
       showToast('Error generating quiz', 'info');
     }
   };

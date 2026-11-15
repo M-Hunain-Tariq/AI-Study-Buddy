@@ -13,17 +13,13 @@ import {
   Clock,
   Sparkles,
   Zap,
-  ShieldCheck,
   CheckSquare,
   AlertCircle,
   ChevronDown,
   Pencil,
-  Copy,
   Trash2,
   Bookmark,
-  Target,
   Flame,
-  Award,
 } from 'lucide-react';
 import { StudyTask, TaskPriority, TaskStatus } from './types';
 import { useToast } from '../Toast';

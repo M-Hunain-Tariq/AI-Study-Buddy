@@ -22,7 +22,6 @@ import {
   Calculator,
   ArrowRight,
   Save,
-  BrainCircuit,
 } from 'lucide-react';
 import { useToast } from '../Toast';
 import { MarkdownText } from './MarkdownText';
@@ -48,7 +47,7 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
   fileInputRef,
 }) => {
   const [activeTab, setActiveTab] = useState<'chat' | 'quick-prompts' | 'study-tools'>('chat');
-  const [tutorMode, setTutorMode] = useState<'Ask Anything' | 'Practice' | 'Socratic'>('Ask Anything');
+  const [tutorMode] = useState<'Ask Anything' | 'Practice' | 'Socratic'>('Ask Anything');
   const [inputQuestion, setInputQuestion] = useState('');
   const [isAiThinking, setIsAiThinking] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -129,7 +128,7 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
       const tasks = JSON.parse(localStorage.getItem('study_tasks_v4') || '[]');
       const quizHistory = JSON.parse(localStorage.getItem('study_quiz_history_v1') || '[]');
       const preferredLanguage = localStorage.getItem('studybuddy_ai_language') || 'English';
-      const recentScores = Array.isArray(quizHistory) ? quizHistory.slice(0, 5).map((q:any) => `${q.subject}: ${q.score}%`).join(', ') : '';
+      const recentScores = Array.isArray(quizHistory) ? quizHistory.slice(0, 5).map((q: { subject?: unknown; score?: unknown }) => `${String(q?.subject ?? 'Quiz')}: ${Number(q?.score) || 0}%`).join(', ') : '';
       learningContext = `Student: ${name}. Recent quiz results: ${recentScores || 'none'}. Notes available: ${Array.isArray(notes) ? notes.length : 0}. Tasks available: ${Array.isArray(tasks) ? tasks.length : 0}. Assistant mode: ${tutorMode}. Preferred response language: ${preferredLanguage}. Reply in this language unless the student asks otherwise.`;
     } catch {}
     const sentAttachment = attachment;

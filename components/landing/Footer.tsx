@@ -30,15 +30,15 @@ export const Footer: React.FC = () => {
 
         {/* Right: Legal & Links */}
         <div className="flex items-center gap-6 text-xs text-slate-400">
-          <a href="#" className="hover:text-cyan-300 transition-colors">
+          <span className="text-slate-400" title="Privacy page not configured">
             Privacy
-          </a>
-          <a href="#" className="hover:text-cyan-300 transition-colors">
+          </span>
+          <span className="text-slate-400" title="Terms page not configured">
             Terms
-          </a>
-          <a href="#" className="hover:text-cyan-300 transition-colors">
+          </span>
+          <span className="text-slate-400" title="Contact destination not configured">
             Contact
-          </a>
+          </span>
         </div>
       </ScrollReveal>
     </footer>

@@ -10,7 +10,6 @@ import {
   ArrowRight,
   TrendingUp,
   Award,
-  Zap,
   CheckCircle2,
   BookOpen,
   Code,
@@ -19,13 +18,11 @@ import {
   Compass,
   FileCheck2,
   BarChart3,
-  Flame,
   Clock,
   Layers,
   Plus,
-  Activity,
 } from 'lucide-react';
-import { QuizDifficulty, QuizItem, QuizSubject } from './types';
+import { QuizItem, QuizSubject } from './types';
 import { QuizModal } from './QuizModal';
 import { GenerateQuizModal } from './GenerateQuizModal';
 import { useToast } from '../Toast';
@@ -316,9 +313,7 @@ export const QuizPracticeWorkspace: React.FC = () => {
                     {/* Top Squircle Icon */}
                     <div
                       className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-xs sm:text-sm font-bold shadow-inner ${
-                       quiz.colorScheme === 'blue'
-                      ? 'bg-blue-600/25 border border-blue-400/40 text-blue-300 shadow-[0_0_12px_rgba(59,130,246,0.3)]'
-                      : quiz.colorScheme === 'rose'
+                       quiz.colorScheme === 'rose'
                       ? 'bg-rose-600/25 border border-rose-400/40 text-rose-300 shadow-[0_0_12px_rgba(244,63,94,0.3)]'
                       : 'bg-blue-600/25 border border-blue-400/40 text-blue-300 shadow-[0_0_12px_rgba(37,99,235,0.3)]'
                       }`}
@@ -379,7 +374,12 @@ export const QuizPracticeWorkspace: React.FC = () => {
               <div className="relative">
                 <select
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value === 'Newest' || value === 'Popular' || value === 'Difficulty') {
+                      setSortBy(value);
+                    }
+                  }}
                   className="bg-[#08122C] border border-[#16274D] rounded-xl text-[11px] sm:text-xs text-slate-300 px-2.5 py-1 sm:py-1.5 pr-6 sm:pr-7 appearance-none cursor-pointer focus:outline-none focus:border-blue-500"
                 >
                   <option value="Newest">Newest</option>

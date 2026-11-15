@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Calendar, Clock, ChevronRight, Sigma, Atom, BookOpen, FlaskConical, RotateCcw, Plus } from 'lucide-react';
+import { Clock, ChevronRight, Sigma, Atom, BookOpen, FlaskConical, RotateCcw, Plus } from 'lucide-react';
 import { StudyTask } from '@/types/study-planner';
 import { toLocalDateString } from '@/lib/date';
 

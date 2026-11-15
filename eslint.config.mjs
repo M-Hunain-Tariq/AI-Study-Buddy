@@ -10,9 +10,11 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 });
 
-export default [
-  ...compat.config({ extends: ['next/core-web-vitals'] }),
+const config = [
+  ...compat.config({ extends: ['next/core-web-vitals', 'next/typescript'] }),
   {
     ignores: ['.next/**', 'out/**', 'build/**', 'coverage/**', 'node_modules/**', 'next-env.d.ts'],
   },
 ];
+
+export default config;

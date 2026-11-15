@@ -172,7 +172,7 @@ Instructions:
                 questionsCount: formatted.length,
                 difficulty: safeDifficulty,
                 symbol: safeSubject === 'Mathematics' ? '√x' : safeSubject === 'Physics' ? '⚡' : safeSubject === 'Chemistry' ? '⚗' : '📖',
-                colorScheme: difficulty === 'Hard' ? 'blue' : difficulty === 'Easy' ? 'blue' : 'blue',
+                colorScheme: 'blue',
                 questions: formatted,
               },
             });

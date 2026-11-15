@@ -4,7 +4,6 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { GraduationCap, LayoutDashboard, Bot, CalendarDays, FileText, CheckSquare, Brain, TrendingUp, Settings, X, Sparkles } from 'lucide-react';
-import { useToast } from './Toast';
 import { MobileDrawer } from './mobile/MobileDrawer';
 
 interface SidebarProps {
@@ -29,7 +28,6 @@ type PageName = (typeof navItems)[number]['name'];
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, activeItem = 'Dashboard', onNavigateAiTutor, onSelectPage }) => {
   const router = useRouter();
-  const { showToast } = useToast();
 
   React.useEffect(() => {
     if (!isOpen) return;
