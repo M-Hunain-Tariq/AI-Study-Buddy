@@ -31,6 +31,7 @@ const TasksWorkspace = dynamic(() => import('@/components/tasks/TasksWorkspace')
 const QuizPracticeWorkspace = dynamic(() => import('@/components/quiz/QuizPracticeWorkspace').then((m) => m.QuizPracticeWorkspace), { ssr: false });
 const MyProgressWorkspace = dynamic(() => import('@/components/my-progress/MyProgressWorkspace').then((m) => m.MyProgressWorkspace), { ssr: false });
 import { Task, NoteItem } from '@/types/dashboard';
+import type { SavedChat } from '@/lib/ai/chat-history';
 
 function DashboardContent() {
   const { showToast } = useToast();
@@ -41,6 +42,7 @@ function DashboardContent() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedNote, setSelectedNote] = useState<NoteItem | null>(null);
   const [selectedAiPrompt, setSelectedAiPrompt] = useState<string | undefined>(undefined);
+  const [selectedAiChat, setSelectedAiChat] = useState<SavedChat | null>(null);
   const aiTutorUploadRef = useRef<HTMLInputElement>(null);
 
   // Initial realistic school tasks matching Image 1
@@ -234,6 +236,9 @@ function DashboardContent() {
                     initialPrompt={selectedAiPrompt}
                     onClearInitialPrompt={() => setSelectedAiPrompt(undefined)}
                     fileInputRef={aiTutorUploadRef}
+                    selectedChat={selectedAiChat}
+                    onClearSelectedChat={() => setSelectedAiChat(null)}
+                    showQuickPrompts={false}
                   />
                 </div>
 
@@ -243,6 +248,7 @@ function DashboardContent() {
                 >
                   <AiTutorRightSidebar
                     onRequestFileUpload={() => aiTutorUploadRef.current?.click()}
+                    onSelectChat={setSelectedAiChat}
                   />
                 </div>
               </div>

@@ -1,28 +1,15 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
-import { normalizeSavedChatHistory } from '@/lib/ai/chat-history';
+import React, { useEffect, useRef, useState } from 'react';
+import type { FormEvent, KeyboardEvent } from 'react';
 import {
-  MessageSquare,
-  Sparkles,
-  Paperclip,
-  Send,
-  Bot,
-  User,
-  Copy,
-  Check,
-  RefreshCw,
-  Lightbulb,
-  Zap,
-  Wrench,
-  BookOpen,
-  HelpCircle,
-  FileText,
-  Brain,
-  Calculator,
-  ArrowRight,
-  Save,
+  ArrowUp, Bot, BookOpen, Brain, Calculator, Check, ChevronDown, Copy, FileText,
+  Lightbulb, MessageSquare, Paperclip, Plus, Sparkles, Wrench, X, Zap,
 } from 'lucide-react';
+import { normalizeSavedChatHistory } from '@/lib/ai/chat-history';
+import type { SavedChat } from '@/lib/ai/chat-history';
+import { QUICK_PROMPTS, STUDY_TOOLS, SUPPORTED_FILE_ACCEPT, SUPPORTED_FILE_HELP, TUTOR_MODES } from '@/lib/ai/tutor-presets';
+import type { TutorMode } from '@/lib/ai/tutor-presets';
 import { useToast } from '../Toast';
 import { MarkdownText } from './MarkdownText';
 
@@ -31,96 +18,165 @@ interface Message {
   sender: 'user' | 'ai';
   text: string;
   timestamp: string;
-  steps?: string[];
-  keyTakeaway?: string;
 }
 
 interface AiChatWorkspaceProps {
   initialPrompt?: string;
   onClearInitialPrompt?: () => void;
   fileInputRef: React.RefObject<HTMLInputElement | null>;
+  selectedChat?: SavedChat | null;
+  onClearSelectedChat?: () => void;
+  showQuickPrompts?: boolean;
+}
+
+type Attachment = { name: string; mimeType: string; data: string; textContent?: string };
+const HISTORY_KEY = 'studybuddy_ai_chat_history';
+const TEXT_EXT = new Set(['txt', 'md', 'mdx', 'csv', 'json', 'js', 'jsx', 'ts', 'tsx', 'py', 'html', 'css', 'xml', 'yaml', 'yml']);
+
+function readHistory(): SavedChat[] {
+  try {
+    return normalizeSavedChatHistory(JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'));
+  } catch {
+    return [];
+  }
 }
 
 export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
   initialPrompt,
   onClearInitialPrompt,
   fileInputRef,
+  selectedChat,
+  onClearSelectedChat,
+  showQuickPrompts = true,
 }) => {
-  const [activeTab, setActiveTab] = useState<'chat' | 'quick-prompts' | 'study-tools'>('chat');
-  const [tutorMode] = useState<'Ask Anything' | 'Practice' | 'Socratic'>('Ask Anything');
+  const [tutorMode, setTutorMode] = useState<TutorMode>('Ask Anything');
   const [inputQuestion, setInputQuestion] = useState('');
   const [isAiThinking, setIsAiThinking] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [attachment, setAttachment] = useState<{ name: string; mimeType: string; data: string; textContent?: string } | null>(null);
+  const [attachment, setAttachment] = useState<Attachment | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [exploreOpen, setExploreOpen] = useState(false);
+  const [exploreTab, setExploreTab] = useState<'prompts' | 'tools'>('prompts');
   const { showToast } = useToast();
   const chatBottomRef = useRef<HTMLDivElement>(null);
   const messageCounterRef = useRef(1);
+  const chatIdRef = useRef(`chat-${Date.now()}`);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // Initial messages start empty so the student sees the exact empty state from the reference image
-  const [messages, setMessages] = useState<Message[]>([]);
-
-  // Adjust state when external prompt arrives (Official React pattern for adjusting state from props)
-  const [prevPrompt, setPrevPrompt] = useState(initialPrompt);
-  if (initialPrompt !== prevPrompt) {
-    setPrevPrompt(initialPrompt);
-    setInputQuestion(initialPrompt || '');
-    setActiveTab('chat');
-  }
-
-  // Scroll to bottom when messages update
   useEffect(() => {
-    if (messages.length > 0) {
-      chatBottomRef.current?.scrollIntoView({ behavior: isAiThinking ? 'auto' : 'smooth' });
-    }
+    if (initialPrompt) setInputQuestion(initialPrompt);
+  }, [initialPrompt]);
+
+  useEffect(() => {
+    if (!selectedChat) return;
+    chatIdRef.current = selectedChat.id;
+    setMessages(selectedChat.messages.map((message) => ({
+      id: `loaded-${messageCounterRef.current++}`,
+      sender: message.sender,
+      text: message.text,
+      timestamp: message.timestamp || 'Previous conversation',
+    })));
+    setInputQuestion('');
+    setAttachment(null);
+    setTutorMode('Ask Anything');
+    setExploreOpen(false);
+    onClearSelectedChat?.();
+    showToast('Conversation opened.', 'success');
+  }, [selectedChat, onClearSelectedChat, showToast]);
+
+  useEffect(() => {
+    if (messages.length > 0) chatBottomRef.current?.scrollIntoView({ behavior: isAiThinking ? 'auto' : 'smooth', block: 'end' });
   }, [messages, isAiThinking]);
 
-  // Keep a small local chat history so conversations are available on the next visit.
   useEffect(() => {
-    if (typeof window === 'undefined' || isAiThinking || messages.length < 2) return;
+    if (!messages.length || isAiThinking) return;
     try {
-      const saved = JSON.parse(localStorage.getItem('studybuddy_ai_chat_history') || '[]');
-      const items = Array.isArray(saved) ? saved : [];
-      const firstUserMessage = messages.find((m) => m.sender === 'user')?.text || 'Study conversation';
-      const entry = {
-        id: `chat-${messages[0]?.id || Date.now()}`,
+      const firstUserMessage = messages.find((message) => message.sender === 'user')?.text || 'Study conversation';
+      const entry: SavedChat = {
+        id: chatIdRef.current,
         title: firstUserMessage.replace(/\s+/g, ' ').slice(0, 54),
         updatedAt: new Date().toLocaleString(),
         messages: messages.slice(-14).map(({ sender, text, timestamp }) => ({ sender, text: text.slice(0, 6000), timestamp })),
       };
-      const previous = items.filter((item: unknown) => item && typeof item === 'object' && (item as { id?: unknown }).id !== entry.id);
-      const next = normalizeSavedChatHistory([entry, ...previous]);
-      localStorage.setItem('studybuddy_ai_chat_history', JSON.stringify(next));
+      const next = normalizeSavedChatHistory([entry, ...readHistory().filter((chat) => chat.id !== entry.id)]);
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
       window.dispatchEvent(new Event('studybuddy-chat-history-updated'));
     } catch { /* local storage may be unavailable */ }
   }, [messages, isAiThinking]);
 
-  const handleCopy = (id: string, text: string) => {
-    if (navigator?.clipboard?.writeText) {
-      navigator.clipboard.writeText(text);
+  const startNewChat = () => {
+    if (isAiThinking) return;
+    chatIdRef.current = `chat-${Date.now()}`;
+    setMessages([]);
+    setInputQuestion('');
+    setAttachment(null);
+    setTutorMode('Ask Anything');
+    setExploreOpen(false);
+    onClearInitialPrompt?.();
+  };
+
+  const loadPrompt = (prompt: string) => {
+    setInputQuestion(prompt);
+    setExploreOpen(false);
+    onClearInitialPrompt?.();
+    window.setTimeout(() => inputRef.current?.focus(), 60);
+  };
+
+  const handleCopy = async (id: string, text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
       setCopiedId(id);
-      showToast('Copied answer to clipboard!', 'success');
-      setTimeout(() => setCopiedId(null), 2000);
+      showToast('Copied answer to clipboard.', 'success');
+      window.setTimeout(() => setCopiedId(null), 1800);
+    } catch {
+      showToast('Could not copy. Select the text and copy it manually.', 'info');
+    }
+  };
+
+  const saveNote = (messageIndex: number) => {
+    const answer = messages[messageIndex];
+    if (!answer || answer.sender !== 'ai' || !answer.text.trim()) return;
+    const question = [...messages.slice(0, messageIndex)].reverse().find((message) => message.sender === 'user')?.text.replace(/\n\n📎 .*$/, '') || 'AI answer';
+    try {
+      const existing = JSON.parse(localStorage.getItem('study_notes_v5') || '[]');
+      const now = Date.now();
+      const note = {
+        id: `ai-note-${now}`,
+        title: `AI: ${question}`.slice(0, 60),
+        subject: 'AI Tutor',
+        color: 'blue',
+        content: answer.text,
+        excerpt: answer.text.slice(0, 140) + (answer.text.length > 140 ? '…' : ''),
+        lastEdited: 'Just now',
+        lastEditedTimestamp: now,
+        priority: 'Medium',
+        tags: ['AI Tutor'],
+        isPrivate: false,
+        isPinned: false,
+        addToPlanner: false,
+      };
+      localStorage.setItem('study_notes_v5', JSON.stringify([note, ...(Array.isArray(existing) ? existing : [])]));
+      showToast('Answer saved to My Notes.', 'success');
+    } catch {
+      showToast('Could not save this answer.', 'info');
     }
   };
 
   const handleSendMessage = async (textToSend?: string) => {
-    const text = (textToSend || inputQuestion).trim();
+    const text = (textToSend ?? inputQuestion).trim();
     if ((!text && !attachment) || isAiThinking) return;
     const promptText = text || 'Please analyze the uploaded file and explain its key points.';
-
-    const count = messageCounterRef.current++;
-    const userMsg: Message = {
-      id: `user-${count}`,
+    const userMessage: Message = {
+      id: `user-${messageCounterRef.current++}`,
       sender: 'user',
       text: attachment ? `${promptText}\n\n📎 ${attachment.name}` : promptText,
       timestamp: 'Just now',
     };
-
-    const history = [...messages, userMsg].map((m) => ({
-      sender: m.sender,
-      text: m.sender === 'user' ? m.text.replace(/\n\n📎 .*$/, '') : m.text,
-      steps: m.steps,
+    const history = [...messages, userMessage].map((message) => ({
+      sender: message.sender,
+      text: message.sender === 'user' ? message.text.replace(/\n\n📎 .*$/, '') : message.text,
     }));
+
     let learningContext = '';
     try {
       const name = localStorage.getItem('studybuddy_user_name') || 'Student';
@@ -128,37 +184,41 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
       const tasks = JSON.parse(localStorage.getItem('study_tasks_v4') || '[]');
       const quizHistory = JSON.parse(localStorage.getItem('study_quiz_history_v1') || '[]');
       const preferredLanguage = localStorage.getItem('studybuddy_ai_language') || 'English';
-      const recentScores = Array.isArray(quizHistory) ? quizHistory.slice(0, 5).map((q: { subject?: unknown; score?: unknown }) => `${String(q?.subject ?? 'Quiz')}: ${Number(q?.score) || 0}%`).join(', ') : '';
+      const recentScores = Array.isArray(quizHistory)
+        ? quizHistory.slice(0, 5).map((quiz: { subject?: unknown; score?: unknown }) => `${String(quiz?.subject ?? 'Quiz')}: ${Number(quiz?.score) || 0}%`).join(', ')
+        : '';
       learningContext = `Student: ${name}. Recent quiz results: ${recentScores || 'none'}. Notes available: ${Array.isArray(notes) ? notes.length : 0}. Tasks available: ${Array.isArray(tasks) ? tasks.length : 0}. Assistant mode: ${tutorMode}. Preferred response language: ${preferredLanguage}. Reply in this language unless the student asks otherwise.`;
-    } catch {}
-    const sentAttachment = attachment;
+    } catch { /* optional student context */ }
 
-    setMessages((prev) => [...prev, userMsg]);
+    const sentAttachment = attachment;
+    setMessages((previous) => [...previous, userMessage]);
     setInputQuestion('');
     setAttachment(null);
     onClearInitialPrompt?.();
     setIsAiThinking(true);
 
     try {
-      const res = await fetch('/api/ai/chat', {
+      const response = await fetch('/api/ai/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: history,
           context: learningContext,
           mode: tutorMode,
-          attachment: sentAttachment ? { name: sentAttachment.name, mimeType: sentAttachment.mimeType, data: sentAttachment.data, textContent: sentAttachment.textContent } : undefined,
+          attachment: sentAttachment ? {
+            name: sentAttachment.name,
+            mimeType: sentAttachment.mimeType,
+            data: sentAttachment.data,
+            textContent: sentAttachment.textContent,
+          } : undefined,
         }),
       });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
         throw new Error(data.error || 'The AI could not answer right now.');
       }
-      const reader = res.body?.getReader();
+      const reader = response.body?.getReader();
       if (!reader) throw new Error('The AI could not answer right now.');
-
-      // Render each streamed chunk progressively, in small word-like pieces.
-      // The typing indicator remains visible while the model is preparing its first token.
       const decoder = new TextDecoder();
       const aiId = `ai-${messageCounterRef.current++}`;
       let received = '';
@@ -166,19 +226,17 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
       let created = false;
       const reveal = async (incoming: string) => {
         if (!incoming) return;
-        // Keep whitespace attached to words so Markdown and paragraph spacing survive.
         const pieces = incoming.match(/\S+\s*|\s+/g) || [incoming];
         for (const piece of pieces) {
           displayed += piece;
           if (!created) {
             created = true;
-            setMessages((prev) => [...prev, { id: aiId, sender: 'ai', text: displayed, timestamp: 'Just now' }]);
+            setMessages((previous) => [...previous, { id: aiId, sender: 'ai', text: displayed, timestamp: 'Just now' }]);
           } else {
             const snapshot = displayed;
-            setMessages((prev) => prev.map((m) => (m.id === aiId ? { ...m, text: snapshot } : m)));
+            setMessages((previous) => previous.map((message) => message.id === aiId ? { ...message, text: snapshot } : message));
           }
-          // Fast enough to feel responsive, while visibly revealing text word by word.
-          await new Promise<void>((resolve) => setTimeout(resolve, 12));
+          await new Promise<void>((resolve) => window.setTimeout(resolve, 9));
         }
       };
       while (true) {
@@ -194,31 +252,24 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
         await reveal(remainder);
       }
       if (!received.trim()) throw new Error('The AI returned an empty answer. Please try again.');
-    } catch (err) {
-      const message = err instanceof Error ? err.message : 'The AI could not answer right now.';
-      const aiCount = messageCounterRef.current++;
-      setMessages((prev) => [
-        ...prev,
-        { id: `ai-${aiCount}`, sender: 'ai', text: `⚠️ ${message}`, timestamp: 'Just now' },
-      ]);
-      showToast('AI Tutor could not answer', 'info');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'The AI could not answer right now.';
+      setMessages((previous) => [...previous, { id: `ai-${messageCounterRef.current++}`, sender: 'ai', text: `⚠️ ${message}`, timestamp: 'Just now' }]);
+      showToast('AI Tutor could not answer.', 'info');
     } finally {
       setIsAiThinking(false);
     }
   };
 
-  const handleFilePicked = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    e.target.value = '';
+  const handleFilePicked = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
     if (!file) return;
-
     const extension = file.name.split('.').pop()?.toLowerCase() || '';
-    const imageMimeTypes = ['image/png', 'image/jpeg', 'image/webp'];
-    const textExtensions = new Set(['txt', 'md', 'mdx', 'csv', 'json', 'js', 'jsx', 'ts', 'tsx', 'py', 'html', 'css', 'xml', 'yaml', 'yml']);
-    const isImage = imageMimeTypes.includes(file.type) || ['png', 'jpg', 'jpeg', 'webp'].includes(extension);
+    const imageTypes = ['image/png', 'image/jpeg', 'image/webp'];
+    const isImage = imageTypes.includes(file.type) || ['png', 'jpg', 'jpeg', 'webp'].includes(extension);
     const isPdf = file.type === 'application/pdf' || extension === 'pdf';
-    const isText = file.type.startsWith('text/') || file.type === 'application/json' || textExtensions.has(extension);
-
+    const isText = file.type.startsWith('text/') || file.type === 'application/json' || TEXT_EXT.has(extension);
     if (!isImage && !isPdf && !isText) {
       showToast('Supported files: PNG, JPG, WEBP, PDF, TXT, MD, CSV, JSON and code files.', 'info');
       return;
@@ -227,18 +278,11 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
       showToast('File is too large. Maximum upload size is 4 MB.', 'info');
       return;
     }
-
     if (isText) {
       try {
         const content = await file.text();
-        if (!content.trim()) {
-          showToast('This file is empty.', 'info');
-          return;
-        }
-        if (content.length > 50000) {
-          showToast('Text file is too long. Maximum supported length is 50,000 characters.', 'info');
-          return;
-        }
+        if (!content.trim()) return showToast('This file is empty.', 'info');
+        if (content.length > 50000) return showToast('Text files must be under 50,000 characters.', 'info');
         setAttachment({ name: file.name, mimeType: 'text/plain', data: '', textContent: content });
         showToast('File attached. Add a question or send it for a summary.', 'success');
       } catch {
@@ -246,14 +290,12 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
       }
       return;
     }
-
-    const guessedImageMime = extension === 'png' ? 'image/png' : ['jpg', 'jpeg'].includes(extension) ? 'image/jpeg' : 'image/webp';
-    const mimeType = isPdf ? 'application/pdf' : imageMimeTypes.includes(file.type) ? file.type : guessedImageMime;
+    const fallbackMime = extension === 'png' ? 'image/png' : ['jpg', 'jpeg'].includes(extension) ? 'image/jpeg' : 'image/webp';
+    const mimeType = isPdf ? 'application/pdf' : imageTypes.includes(file.type) ? file.type : fallbackMime;
     const reader = new FileReader();
     reader.onerror = () => showToast('Could not read this file. Please try again.', 'info');
     reader.onload = () => {
-      const result = String(reader.result || '');
-      const base64 = result.split(',')[1];
+      const base64 = String(reader.result || '').split(',')[1];
       if (base64) {
         setAttachment({ name: file.name, mimeType, data: base64 });
         showToast('File attached. Add a question or send it for a summary.', 'success');
@@ -264,485 +306,186 @@ export const AiChatWorkspace: React.FC<AiChatWorkspaceProps> = ({
     reader.readAsDataURL(file);
   };
 
-  const suggestedPrompts = [
-    {
-      title: 'What is coding?',
-      sub: 'explain for a beginner',
-      icon: Wrench,
-      color: 'bg-blue-500/15 border-blue-500/30 text-blue-400',
-      text: 'What is coding? Explain it for a complete beginner and show a tiny example.',
-    },
-    {
-      title: 'Who is this person?',
-      sub: 'get clear background',
-      icon: HelpCircle,
-      color: 'bg-blue-500/15 border-blue-500/30 text-blue-400',
-      text: 'Explain who Alan Turing was, what he is known for, and why his work matters.',
-    },
-    {
-      title: 'When did it happen?',
-      sub: 'history in context',
-      icon: BookOpen,
-      color: 'bg-blue-500/15 border-blue-500/30 text-blue-400',
-      text: 'When did the first human land on the Moon? Explain briefly what happened.',
-    },
-    {
-      title: 'Help me solve this',
-      sub: 'step by step',
-      icon: Calculator,
-      color: 'bg-blue-500/15 border-blue-500/30 text-blue-400',
-      text: 'Solve x² - 7x + 10 = 0 step by step and explain the method.',
-    },
-  ];
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    void handleSendMessage();
+  };
+
+  const handleInputKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      void handleSendMessage();
+    }
+  };
 
   return (
-    <div className="rounded-2xl bg-[#0A132C] border border-[#162544] shadow-xl flex flex-col transition-all duration-300 overflow-hidden">
-      {/* Clean chat header: remove unnecessary Chat / Quick Prompts / Study Tools tabs and mode pills */}
-      <div className="flex items-center justify-end px-4 sm:px-6 pt-3">
-        {messages.length > 0 && (
-          <button
-            onClick={() => {
-              setMessages([]);
-              showToast('Started a new conversation.', 'info');
-            }}
-            className="flex items-center gap-1.5 text-xs text-blue-200 hover:text-white hover:bg-blue-900/50 px-3 py-2 rounded-lg transition-colors cursor-pointer"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-            <span>New Chat</span>
+    <section className="flex min-h-[620px] flex-col overflow-hidden rounded-[24px] border border-[#1D3154] bg-[linear-gradient(160deg,rgba(10,22,43,0.98),rgba(6,15,31,0.99))] shadow-[0_22px_55px_rgba(0,0,0,0.28)]" aria-label="AI Tutor chat workspace">
+      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.07] px-4 py-3.5 sm:px-5">
+        <div className="flex min-w-0 items-center gap-3">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-blue-300/20 bg-gradient-to-br from-blue-500/20 to-cyan-400/10 text-cyan-200">
+            <Bot className="h-5 w-5" />
+          </span>
+          <div className="min-w-0">
+            <h2 className="text-sm font-semibold text-white sm:text-[15px]">Study conversation</h2>
+            <p className="mt-0.5 text-[10px] text-slate-400">Ask, explore, and learn in one place</p>
+          </div>
+          <span className="ml-1 hidden items-center gap-1.5 rounded-full border border-emerald-400/15 bg-emerald-400/[0.06] px-2.5 py-1 text-[10px] font-medium text-emerald-200 sm:inline-flex">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" /> Ready
+          </span>
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
+          <button type="button" onClick={() => { setExploreTab('prompts'); setExploreOpen(true); }} className="inline-flex h-9 items-center gap-1.5 rounded-xl border border-blue-300/15 bg-blue-500/[0.07] px-3 text-[11px] font-semibold text-blue-100 transition hover:border-blue-300/35 hover:bg-blue-500/[0.13]">
+            <Sparkles className="h-3.5 w-3.5" /> Explore
           </button>
-        )}
+          <button type="button" onClick={startNewChat} disabled={isAiThinking} className="inline-flex h-9 items-center gap-1.5 rounded-xl border border-white/[0.09] bg-white/[0.035] px-3 text-[11px] font-semibold text-slate-200 transition hover:border-white/20 hover:bg-white/[0.07] disabled:cursor-not-allowed disabled:opacity-40">
+            <Plus className="h-3.5 w-3.5" /> New chat
+          </button>
+        </div>
+      </header>
+
+      <div className="border-b border-white/[0.06] px-4 py-3 sm:px-5">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div className="inline-grid grid-cols-3 rounded-xl border border-white/[0.08] bg-[#061226] p-1" role="group" aria-label="Choose AI tutor mode">
+            {TUTOR_MODES.map((mode) => (
+              <button key={mode.value} type="button" disabled={isAiThinking} aria-pressed={tutorMode === mode.value} onClick={() => setTutorMode(mode.value)} className={`min-h-9 rounded-lg px-3 text-[10px] font-semibold transition sm:px-4 sm:text-[11px] ${tutorMode === mode.value ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-[0_4px_16px_rgba(37,99,235,0.28)]' : 'text-slate-400 hover:bg-white/[0.05] hover:text-slate-100'}`}>
+                {mode.label}
+              </button>
+            ))}
+          </div>
+          <p className="text-[10px] leading-relaxed text-slate-500 sm:max-w-[260px] sm:text-right">{TUTOR_MODES.find((mode) => mode.value === tutorMode)?.description}</p>
+        </div>
       </div>
 
-      {/* Main Workspace Body */}
-      <div className="p-4 sm:p-6 min-h-[430px] flex flex-col justify-between">
-        {/* TAB 1: CHAT WORKSPACE */}
-        {activeTab === 'chat' && (
-          <div className="flex-1 flex flex-col justify-between">
-            {/* Case A: Empty Chat State matching reference image */}
-            {messages.length === 0 ? (
-              <div className="flex-1 flex flex-col items-center justify-center text-center py-6 sm:py-8 max-w-2xl mx-auto space-y-6">
-                {/* Glowing AI Chat icon in rounded square matching Image */}
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#3B82F6] to-[#2563EB] flex items-center justify-center text-white shadow-[0_0_30px_rgba(37,99,235,0.5)]">
-                  <MessageSquare className="w-8 h-8 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
-                </div>
-
-                {/* Headings */}
-                <div className="space-y-1.5">
-                  <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                    Hi Muhammad! 👋
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 font-normal">
-                    I&apos;m your AI assistant. Ask me anything — coding, history, people, technology, or studies.
-                  </p>
-                  <p className="text-[11px] sm:text-xs text-slate-400 font-normal">
-                    I can explain concepts, answer everyday questions, write code, translate, and help you create.
-                  </p>
-                </div>
-
-                {/* 4 Suggested Prompts matching Image in one single row on desktop */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full pt-1">
-                  {suggestedPrompts.map((p) => {
-                    const Icon = p.icon;
-                    return (
-                      <button
-                        key={p.title}
-                        onClick={() => handleSendMessage(p.text)}
-                        className="group flex flex-col items-start p-3 sm:p-3.5 rounded-xl bg-[#0D1838] hover:bg-[#14234C] border border-[#1B2C52] hover:border-blue-500/50 transition-all text-left cursor-pointer shadow-sm hover:shadow-[0_0_18px_rgba(37,99,235,0.25)] hover:-translate-y-0.5"
-                      >
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center mb-2.5 border ${p.color}`}>
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <p className="text-xs font-semibold text-white group-hover:text-blue-200 transition-colors">
-                          {p.title}
-                        </p>
-                        <p className="text-[10px] text-slate-400 mt-0.5">
-                          {p.sub}
-                        </p>
-                      </button>
-                    );
-                  })}
-                </div>
+      <div className="flex min-h-[340px] flex-1 flex-col px-4 py-4 sm:px-5 sm:py-5">
+        <div className="min-h-[300px] flex-1">
+          {messages.length === 0 ? (
+            <div className="flex min-h-[300px] flex-col items-center justify-center px-1 py-8 text-center">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-blue-300/20 bg-gradient-to-br from-blue-500/20 to-cyan-400/10 text-cyan-200 shadow-[0_0_30px_rgba(37,99,235,0.15)]">
+                <MessageSquare className="h-7 w-7" />
               </div>
-            ) : (
-              /* Case B: Active Chat Messages list */
-              <div className="flex-1 space-y-4 max-h-[480px] overflow-y-auto pr-1 pb-4">
-                {messages.map((msg) => (
-                  <div
-                    key={msg.id}
-                    className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
-                  >
-                    {/* Message Bubble */}
-                    <div
-                      className={`max-w-[85%] sm:max-w-[80%] rounded-2xl p-4 shadow-md transition-all ${
-                        msg.sender === 'user'
-                          ? 'bg-gradient-to-r from-[#2563EB] to-[#6366F1] text-white rounded-tr-none shadow-[0_0_15px_rgba(37,99,235,0.3)]'
-                          : 'bg-[#0E1B3D] border border-[#1D3260] text-slate-100 rounded-tl-none shadow-[0_0_20px_rgba(15,23,42,0.6)]'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2 mb-1.5 opacity-80 text-[10px] sm:text-xs">
-                        {msg.sender === 'ai' ? (
-                          <>
-                            <Bot className="w-3.5 h-3.5 text-blue-400" />
-                            <span className="font-semibold text-blue-300">AI Study Tutor</span>
-                          </>
-                        ) : (
-                          <>
-                            <User className="w-3.5 h-3.5 text-white" />
-                            <span className="font-semibold text-white">You</span>
-                          </>
-                        )}
-                        <span>•</span>
-                        <span className="tabular-nums">{msg.timestamp}</span>
-                      </div>
-
-                      {/* Main Message Body */}
-                      {msg.sender === 'ai' && !msg.steps ? (
-                        <MarkdownText text={msg.text} />
-                      ) : (
-                        <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">{msg.text}</p>
-                      )}
-                      {msg.sender === 'ai' && msg.text.trim() && (
-                        <button
-                          onClick={() => {
-                            try {
-                              const notes = JSON.parse(localStorage.getItem('study_notes_v5') || '[]');
-                              const now = Date.now();
-                              const note = { id: `ai-note-${now}`, title: 'AI Tutor: Saved Explanation', subject: 'AI Tutor', color: 'blue', content: msg.text, excerpt: msg.text.slice(0, 140), lastEdited: 'Just now', lastEditedTimestamp: now, priority: 'Medium', tags: ['ai-tutor'], isPrivate: false, isPinned: false, addToPlanner: false };
-                              localStorage.setItem('study_notes_v5', JSON.stringify([note, ...(Array.isArray(notes) ? notes : [])]));
-                              showToast('Answer saved to My Notes.', 'success');
-                            } catch { showToast('Could not save this answer.', 'info'); }
-                          }}
-                          className="mt-3 inline-flex items-center gap-1.5 text-[10px] text-blue-300 hover:text-white px-2.5 py-1.5 rounded-lg bg-blue-500/10 border border-blue-400/20"
-                        >
-                          <Save className="w-3 h-3" /> Save to Notes
+              <h3 className="text-xl font-bold tracking-tight text-white sm:text-2xl">What would you like to learn?</h3>
+              <p className="mt-2 max-w-md text-xs leading-relaxed text-slate-400 sm:text-sm">Ask a question, attach your study material, or start with one of these ideas.</p>
+              {showQuickPrompts && (
+                <>
+                  <div className="mt-6 flex max-w-3xl flex-wrap justify-center gap-2">
+                    {QUICK_PROMPTS.slice(0, 4).map((prompt, index) => {
+                      const icons = [Calculator, BookOpen, Brain, Lightbulb];
+                      const Icon = icons[index] || Sparkles;
+                      return (
+                        <button key={prompt.title} type="button" onClick={() => loadPrompt(prompt.prompt)} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-blue-300/15 bg-[#0B1B35] px-3.5 py-2 text-[11px] font-medium text-slate-200 transition hover:border-blue-300/35 hover:bg-blue-500/10 hover:text-white">
+                          <Icon className="h-3.5 w-3.5 text-cyan-300" /> {prompt.title}
                         </button>
-                      )}
-
-                      {/* Step by step list if present */}
-                      {msg.steps && (
-                        <div className="mt-3 space-y-2 pt-2 border-t border-white/10">
-                          {msg.steps.map((st, idx) => (
-                            <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-200">
-                              <span className="w-5 h-5 rounded-full bg-blue-600/40 border border-blue-400/40 flex items-center justify-center text-[10px] font-bold text-blue-300 shrink-0 mt-0.5">
-                                {idx + 1}
-                              </span>
-                              <span className="leading-relaxed">{st}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* Key takeaway note if present */}
-                      {msg.keyTakeaway && (
-                        <div className="mt-3 p-2.5 rounded-xl bg-blue-950/60 border border-blue-500/30 text-[11px] sm:text-xs text-blue-200 flex items-start gap-2">
-                          <Lightbulb className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
-                          <span>{msg.keyTakeaway}</span>
-                        </div>
-                      )}
-
-                      {/* Quick action buttons on AI responses */}
-                      {msg.sender === 'ai' && (
-                        <div className="mt-3 pt-2 border-t border-[#1C325E] flex flex-wrap items-center gap-2">
-                          <button
-                            onClick={() => handleCopy(msg.id, `${msg.text}\n\n${msg.steps?.join('\n') || ''}`)}
-                            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#14234C] hover:bg-[#1A2E63] text-[11px] text-slate-300 hover:text-white transition-colors cursor-pointer"
-                          >
-                            {copiedId === msg.id ? (
-                              <Check className="w-3 h-3 text-blue-400" />
-                            ) : (
-                              <Copy className="w-3 h-3 text-slate-400" />
-                            )}
-                            <span>{copiedId === msg.id ? 'Copied' : 'Copy'}</span>
-                          </button>
-
-
-                          <button
-                            onClick={() => handleSendMessage(`Can you explain that simpler with an everyday metaphor?`)}
-                            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#14234C] hover:bg-[#1A2E63] text-[11px] text-blue-300 hover:text-blue-200 transition-colors cursor-pointer"
-                          >
-                            <Lightbulb className="w-3 h-3 text-blue-400" />
-                            <span>Explain Simpler</span>
-                          </button>
-
-                          <button
-                            onClick={() => handleSendMessage(`Give me 1 practice question to test if I understood this.`)}
-                            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#14234C] hover:bg-[#1A2E63] text-[11px] text-cyan-300 hover:text-cyan-200 transition-colors cursor-pointer"
-                          >
-                            <HelpCircle className="w-3 h-3 text-cyan-400" />
-                            <span>Practice Question</span>
-                          </button>
-                        </div>
-                      )}
-                    </div>
+                      );
+                    })}
                   </div>
-                ))}
-
-                {/* AI Thinking Animation Indicator */}
-                {isAiThinking && messages[messages.length - 1]?.sender === 'user' && (
-                  <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#0E1B3D] border border-[#1D3260] w-fit shadow-md">
-                    <div className="w-7 h-7 rounded-xl bg-blue-600/30 text-blue-400 flex items-center justify-center animate-pulse">
-                      <Bot className="w-4 h-4" />
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-blue-300 font-medium">
-                        AI Study Buddy is thinking...
-                      </span>
-                      <div className="flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-bounce" style={{ animationDelay: '300ms' }} />
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                <div ref={chatBottomRef} />
-              </div>
-            )}
-
-            {/* Bottom Message Input Composer matching Image */}
-            <div className="mt-4 pt-2 space-y-2">
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/png,image/jpeg,image/webp,application/pdf,text/*,application/json,.md,.mdx,.csv,.json,.js,.jsx,.ts,.tsx,.py,.html,.css,.xml,.yaml,.yml"
-                className="hidden"
-                onChange={handleFilePicked}
-              />
-              {attachment && (
-                <div className="flex items-center justify-between gap-2 rounded-lg border border-[#1A2C52] bg-[#0D1836] px-3 py-1.5 text-xs text-slate-200">
-                  <span className="flex min-w-0 items-center gap-2 truncate"><FileText className="h-4 w-4 shrink-0 text-blue-300" /><span className="truncate">{attachment.name}</span><span className="shrink-0 rounded-md border border-blue-400/20 bg-blue-500/10 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-blue-200">{attachment.mimeType === 'application/pdf' ? 'PDF' : attachment.textContent ? 'TEXT' : 'FILE'}</span></span>
-                  <button
-                    type="button"
-                    onClick={() => setAttachment(null)}
-                    className="text-slate-400 hover:text-white cursor-pointer"
-                    aria-label="Remove attachment"
-                  >
-                    ✕
+                  <button type="button" onClick={() => { setExploreTab('prompts'); setExploreOpen(true); }} className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-semibold text-blue-300 transition hover:text-cyan-200">
+                    Explore prompts and study tools <ChevronDown className="h-3.5 w-3.5" />
                   </button>
+                </>
+              )}
+            </div>
+          ) : (
+            <div className="max-h-[520px] space-y-5 overflow-y-auto overscroll-contain pr-1 pb-3" role="log" aria-live="polite">
+              {messages.map((message, index) => (
+                <article key={message.id} className={`flex gap-3 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  {message.sender === 'ai' && <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-blue-300/15 bg-blue-500/10 text-blue-200"><Bot className="h-4 w-4" /></span>}
+                  <div className={`min-w-0 max-w-[88%] rounded-2xl px-4 py-3.5 shadow-lg sm:max-w-[84%] ${message.sender === 'user' ? 'rounded-tr-md bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-blue-950/30' : 'rounded-tl-md border border-[#20385D] bg-[#0C1B33] text-slate-100 shadow-black/10'}`}>
+                    <div className={`mb-2 flex items-center gap-2 text-[10px] font-semibold ${message.sender === 'user' ? 'text-blue-100/80' : 'text-cyan-200/85'}`}>
+                      {message.sender === 'user' ? 'You' : 'StudyBuddy AI'}
+                      <span className="font-normal opacity-60">· {message.timestamp}</span>
+                    </div>
+                    {message.sender === 'ai' ? <MarkdownText text={message.text} /> : <p className="whitespace-pre-wrap break-words text-[13px] leading-relaxed text-white sm:text-sm">{message.text}</p>}
+                    {message.sender === 'ai' && !message.text.startsWith('⚠️') && message.text.trim() && (
+                      <div className="mt-3 flex flex-wrap items-center gap-1.5 border-t border-white/[0.07] pt-2.5">
+                        <button type="button" onClick={() => void handleCopy(message.id, message.text)} className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[10px] font-medium text-slate-400 transition hover:bg-white/[0.06] hover:text-white">
+                          {copiedId === message.id ? <Check className="h-3.5 w-3.5 text-emerald-300" /> : <Copy className="h-3.5 w-3.5" />} {copiedId === message.id ? 'Copied' : 'Copy'}
+                        </button>
+                        <button type="button" onClick={() => saveNote(index)} className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[10px] font-medium text-slate-400 transition hover:bg-white/[0.06] hover:text-white"><FileText className="h-3.5 w-3.5" /> Save note</button>
+                        <button type="button" onClick={() => void handleSendMessage('Explain that in simpler words and give me one everyday example.')} disabled={isAiThinking} className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[10px] font-medium text-blue-300 transition hover:bg-blue-500/10 hover:text-blue-100 disabled:opacity-40"><Lightbulb className="h-3.5 w-3.5" /> Simpler</button>
+                        <button type="button" onClick={() => void handleSendMessage('Give me one short practice question to check whether I understood this.')} disabled={isAiThinking} className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[10px] font-medium text-cyan-300 transition hover:bg-cyan-500/10 hover:text-cyan-100 disabled:opacity-40"><Wrench className="h-3.5 w-3.5" /> Practice</button>
+                      </div>
+                    )}
+                  </div>
+                </article>
+              ))}
+              {isAiThinking && (
+                <div className="flex items-center gap-3 pl-1 text-xs text-blue-200" role="status">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-blue-300/15 bg-blue-500/10"><Bot className="h-4 w-4 animate-pulse" /></span>
+                  <span className="flex items-center gap-1.5">Thinking<span className="flex gap-1"><i className="h-1.5 w-1.5 animate-bounce rounded-full bg-cyan-300" /><i className="h-1.5 w-1.5 animate-bounce rounded-full bg-cyan-300 [animation-delay:150ms]" /><i className="h-1.5 w-1.5 animate-bounce rounded-full bg-cyan-300 [animation-delay:300ms]" /></span></span>
                 </div>
               )}
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSendMessage();
-                }}
-                className="relative flex items-center bg-[#0D1836] border border-[#1A2C52] rounded-xl px-2 py-1.5 shadow-inner"
-              >
-                {/* Paperclip attachment icon button */}
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-[#132349] transition-colors cursor-pointer"
-                  aria-label="Upload an image, PDF or text file"
-                  title="Upload an image, PDF or text file"
-                >
-                  <Paperclip className="w-4 h-4" />
-                </button>
+              <div ref={chatBottomRef} />
+            </div>
+          )}
+        </div>
 
-                {/* Main Text Input */}
-                <input
-                  type="text"
-                  value={inputQuestion}
-                  onChange={(e) => setInputQuestion(e.target.value)}
-                  placeholder="Type your question here..."
-                  className="flex-1 bg-transparent px-3 py-2 text-xs sm:text-sm text-slate-100 placeholder-slate-400 focus:outline-none"
-                />
-
-
-                {/* Circular Send Button with gradient and paper-plane icon matching Image */}
-                <button
-                  type="submit"
-                  disabled={(!inputQuestion.trim() && !attachment) || isAiThinking}
-                  className={`w-9 h-9 rounded-full flex items-center justify-center transition-all cursor-pointer shrink-0 ${
-                    (inputQuestion.trim() || attachment) && !isAiThinking
-                      ? 'bg-gradient-to-r from-[#2563EB] to-[#2563EB] text-white shadow-[0_0_18px_rgba(37,99,235,0.55)] hover:scale-105 active:scale-95'
-                      : 'bg-[#1D2B52] text-slate-300 hover:text-white'
-                  }`}
-                  aria-label="Send question to AI Tutor"
-                >
-                  <Send className="w-4 h-4" />
-                </button>
-              </form>
-
-              {/* Subtitle caption matching Image exactly: "✨ AI Tutor will be available in the next step." */}
-              <div className="flex items-center justify-center text-[11px] text-slate-400 gap-1.5 pt-1">
-                <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-                <span>AI Tutor can make mistakes. Double-check important answers.</span>
+        <div className="mt-4 border-t border-white/[0.07] pt-3">
+          {attachment && (
+            <div className="mb-2 flex items-center gap-2 rounded-xl border border-cyan-300/15 bg-cyan-400/[0.06] px-3 py-2 text-xs text-slate-200">
+              <FileText className="h-4 w-4 shrink-0 text-cyan-300" />
+              <span className="min-w-0 flex-1 truncate">{attachment.name}</span>
+              <span className="rounded-md border border-white/10 px-1.5 py-0.5 text-[9px] uppercase text-cyan-200">{attachment.mimeType === 'application/pdf' ? 'PDF' : attachment.textContent ? 'Text' : 'File'}</span>
+              <button type="button" onClick={() => setAttachment(null)} aria-label="Remove attachment" className="rounded-lg p-1 text-slate-400 hover:bg-white/10 hover:text-white"><X className="h-4 w-4" /></button>
+            </div>
+          )}
+          <input ref={fileInputRef} type="file" accept={SUPPORTED_FILE_ACCEPT} className="hidden" onChange={handleFilePicked} />
+          <form onSubmit={submit} className="rounded-2xl border border-[#284267] bg-[#07152A] p-2 shadow-inner transition focus-within:border-blue-400/60 focus-within:shadow-[0_0_0_3px_rgba(59,130,246,0.08)]">
+            <textarea
+              ref={inputRef}
+              value={inputQuestion}
+              onChange={(event) => setInputQuestion(event.target.value)}
+              onKeyDown={handleInputKeyDown}
+              rows={2}
+              placeholder={attachment ? 'Ask something about this file…' : 'Message your AI Tutor…'}
+              aria-label="Message your AI Tutor"
+              className="max-h-36 min-h-[48px] w-full resize-y bg-transparent px-3 py-2 text-[13px] leading-relaxed text-slate-100 outline-none placeholder:text-slate-500 sm:text-sm"
+            />
+            <div className="flex items-center justify-between gap-2 border-t border-white/[0.06] px-1 pt-2">
+              <div className="flex min-w-0 items-center gap-2">
+                <button type="button" onClick={() => fileInputRef.current?.click()} className="inline-flex h-9 items-center gap-2 rounded-xl px-3 text-[10px] font-semibold text-slate-400 transition hover:bg-white/[0.06] hover:text-cyan-200" aria-label="Attach a file"><Paperclip className="h-4 w-4" /> Attach</button>
+                <span className="hidden truncate text-[9px] text-slate-600 sm:inline">{SUPPORTED_FILE_HELP}</span>
+                <span className="hidden text-[9px] text-slate-600 md:inline">Enter to send · Shift + Enter for a new line</span>
               </div>
+              <button type="submit" disabled={(!inputQuestion.trim() && !attachment) || isAiThinking} className="inline-flex h-10 shrink-0 items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 px-4 text-xs font-semibold text-white shadow-[0_6px_18px_rgba(37,99,235,0.25)] transition hover:from-blue-500 hover:to-cyan-500 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:from-slate-700 disabled:to-slate-700 disabled:opacity-50">
+                <span>Send</span><ArrowUp className="h-4 w-4" />
+              </button>
             </div>
-          </div>
-        )}
+          </form>
+          <p className="mt-2 text-center text-[9px] text-slate-600">AI can make mistakes. Double-check important information.</p>
+        </div>
+      </div>
 
-        {/* TAB 2: QUICK PROMPTS BROWSER */}
-        {activeTab === 'quick-prompts' && (
-          <div className="space-y-4">
-            <div>
-              <h4 className="text-sm font-bold text-white tracking-tight">
-                Curated High School Prompts
-              </h4>
-              <p className="text-xs text-slate-400">
-                Click any prompt to instantly run it with your AI tutor.
-              </p>
+      {exploreOpen && (
+        <div className="fixed inset-0 z-[120] flex items-center justify-center bg-[#020817]/80 p-3 backdrop-blur-md sm:p-6" onMouseDown={(event) => { if (event.target === event.currentTarget) setExploreOpen(false); }}>
+          <section role="dialog" aria-modal="true" aria-labelledby="ai-explore-title" className="flex max-h-[88dvh] w-full max-w-3xl flex-col overflow-hidden rounded-[24px] border border-blue-300/20 bg-[#08172D] shadow-[0_28px_90px_rgba(0,0,0,0.55)]">
+            <header className="flex items-center justify-between border-b border-white/[0.08] px-5 py-4">
+              <div><h2 id="ai-explore-title" className="text-base font-semibold text-white">Explore learning prompts</h2><p className="mt-1 text-[11px] text-slate-400">Choose one to load it into your message.</p></div>
+              <button type="button" onClick={() => setExploreOpen(false)} aria-label="Close explore panel" className="rounded-xl border border-white/10 p-2 text-slate-400 hover:bg-white/10 hover:text-white"><X className="h-4 w-4" /></button>
+            </header>
+            <div className="flex gap-2 border-b border-white/[0.07] px-5 py-3">
+              <button type="button" onClick={() => setExploreTab('prompts')} className={`rounded-xl px-4 py-2 text-xs font-semibold ${exploreTab === 'prompts' ? 'bg-blue-600 text-white' : 'bg-white/[0.04] text-slate-400 hover:text-white'}`}><BookOpen className="mr-1.5 inline h-3.5 w-3.5" /> Quick prompts</button>
+              <button type="button" onClick={() => setExploreTab('tools')} className={`rounded-xl px-4 py-2 text-xs font-semibold ${exploreTab === 'tools' ? 'bg-blue-600 text-white' : 'bg-white/[0.04] text-slate-400 hover:text-white'}`}><Zap className="mr-1.5 inline h-3.5 w-3.5" /> Study tools</button>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                {
-                  cat: 'Mathematics',
-                  title: 'Quadratic Equations Made Easy',
-                  desc: 'Explain factoring vs. the quadratic formula with real numbers.',
-                  query: 'Explain how to solve quadratic equations by factoring vs using the quadratic formula with two clear examples.',
-                },
-                {
-                  cat: 'Physics',
-                  title: 'Newton\'s 3 Laws of Motion',
-                  desc: 'Understand inertia, F=ma, and action-reaction with skateboard analogies.',
-                  query: 'Explain Newton\'s three laws of motion using easy real-world skateboard examples.',
-                },
-                {
-                  cat: 'Biology',
-                  title: 'Cellular Respiration vs Photosynthesis',
-                  desc: 'Compare chemical formulas and where they take place in plant and animal cells.',
-                  query: 'What is the relationship between photosynthesis and cellular respiration? Show formulas.',
-                },
-                {
-                  cat: 'English Literature',
-                  title: 'Macbeth Essay Thesis Generator',
-                  desc: 'Generate strong thesis arguments exploring the theme of guilt and ambition.',
-                  query: 'Give me 3 strong thesis statements analyzing how guilt manifests in Shakespeare\'s Macbeth.',
-                },
-                {
-                  cat: 'Chemistry',
-                  title: 'Periodic Table Trends',
-                  desc: 'Electronegativity, ionization energy, and atomic radius explained simply.',
-                  query: 'Explain periodic table trends for electronegativity, atomic radius, and ionization energy with memory tricks.',
-                },
-                {
-                  cat: 'Study Skills',
-                  title: 'Active Recall & Spaced Repetition',
-                  desc: 'How to structure a 20-minute daily review session for high test scores.',
-                  query: 'How can I set up an active recall and spaced repetition study routine for my high school classes?',
-                },
-              ].map((p) => (
-                <div
-                  key={`curated-prompt-${p.title}`}
-                  onClick={() => {
-                    handleSendMessage(p.query);
-                    setActiveTab('chat');
-                  }}
-                  className="group cursor-pointer p-4 rounded-xl bg-[#0D1838] hover:bg-[#14234C] border border-[#1B2C52] hover:border-blue-500/50 transition-all flex flex-col justify-between shadow-sm hover:shadow-[0_0_15px_rgba(37,99,235,0.2)]"
-                >
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-full border border-blue-500/20">
-                      {p.cat}
-                    </span>
-                    <h5 className="text-xs sm:text-sm font-semibold text-white mt-2 group-hover:text-blue-200 transition-colors">
-                      {p.title}
-                    </h5>
-                    <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                      {p.desc}
-                    </p>
-                  </div>
-                  <div className="mt-3 flex items-center justify-between text-xs font-medium text-blue-400">
-                    <span>Ask this prompt</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
+            <div className="grid min-h-0 grid-cols-1 gap-2 overflow-y-auto p-4 sm:grid-cols-2 sm:p-5">
+              {exploreTab === 'prompts' ? QUICK_PROMPTS.map((prompt) => (
+                <button key={prompt.title} type="button" onClick={() => loadPrompt(prompt.prompt)} className="group rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4 text-left transition hover:border-blue-300/30 hover:bg-blue-500/[0.07]">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-cyan-300">{prompt.category}</span>
+                  <span className="mt-1 block text-sm font-semibold text-white group-hover:text-blue-100">{prompt.title}</span>
+                  <span className="mt-1.5 block text-[11px] leading-relaxed text-slate-400">{prompt.description}</span>
+                  <span className="mt-3 inline-flex items-center gap-1 text-[10px] font-semibold text-blue-300">Use prompt <ArrowUp className="h-3 w-3 rotate-45" /></span>
+                </button>
+              )) : STUDY_TOOLS.map((tool, index) => (
+                <button key={tool.title} type="button" onClick={() => loadPrompt(tool.prompt)} className="group rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4 text-left transition hover:border-blue-300/30 hover:bg-blue-500/[0.07]">
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-violet-300">{tool.category}</span>
+                  <span className="mt-1 block text-sm font-semibold text-white group-hover:text-blue-100">{tool.title}</span>
+                  <span className="mt-1.5 block text-[11px] leading-relaxed text-slate-400">{tool.description}</span>
+                  <span className="mt-3 inline-flex items-center gap-1 text-[10px] font-semibold text-blue-300">Use tool <ArrowUp className="h-3 w-3 rotate-45" /></span>
+                </button>
               ))}
             </div>
-          </div>
-        )}
-
-        {/* TAB 3: STUDY TOOLS */}
-        {activeTab === 'study-tools' && (
-          <div className="space-y-4">
-            <div>
-              <h4 className="text-sm font-bold text-white tracking-tight">
-                AI Interactive Study Tools
-              </h4>
-              <p className="text-xs text-slate-400">
-                Choose a specialized study tool to generate customized study aids.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {[
-                {
-                  icon: Brain,
-                  title: 'Concept Simplifier',
-                  desc: 'Break down complex textbook jargon into 5th-grade plain English.',
-                  prompt: 'Simplify this complex topic: The theory of relativity and time dilation.',
-                  color: 'text-blue-400 bg-blue-500/20',
-                },
-                {
-                  icon: Calculator,
-                  title: 'Math Step Solver',
-                  desc: 'Get line-by-line working with explanations for every algebraic transformation.',
-                  prompt: 'Show step-by-step working for: Solve for x in 3(x - 4) = 2x + 11.',
-                  color: 'text-blue-400 bg-blue-500/20',
-                },
-                {
-                  icon: HelpCircle,
-                  title: 'Quiz Generator',
-                  desc: 'Instant practice quizzes with multiple choice, true/false, and explanations.',
-                  prompt: 'Generate a 5-question practice quiz on high school Chemistry acids and bases.',
-                  color: 'text-blue-400 bg-blue-500/20',
-                },
-                {
-                  icon: FileText,
-                  title: 'Notes Summarizer',
-                  desc: 'Turn messy notebook pages into neat bullet points and recall cheat sheets.',
-                  prompt: 'Summarize the causes and consequences of World War I into concise key bullet points.',
-                  color: 'text-blue-400 bg-blue-500/20',
-                },
-                {
-                  icon: Zap,
-                  title: 'Flashcard Builder',
-                  desc: 'Create front-and-back flashcard Q&A pairs ready for revision.',
-                  prompt: 'Create 6 flashcard Q&A pairs for high school Biology cell organelles.',
-                  color: 'text-blue-400 bg-blue-500/20',
-                },
-                {
-                  icon: Sparkles,
-                  title: 'Essay Outline Maker',
-                  desc: 'Structure your introduction, body paragraphs, and strong conclusion.',
-                  prompt: 'Generate an essay outline for: To what extent does technology benefit student learning?',
-                  color: 'text-cyan-400 bg-cyan-500/20',
-                },
-              ].map((tool) => {
-                const Icon = tool.icon;
-                return (
-                  <button
-                    key={`tool-${tool.title}`}
-                    onClick={() => {
-                      handleSendMessage(tool.prompt);
-                      setActiveTab('chat');
-                    }}
-                    className="group p-4 rounded-xl bg-[#0D1838] hover:bg-[#14234C] border border-[#1B2C52] hover:border-blue-500/50 transition-all text-left flex flex-col justify-between shadow-sm hover:shadow-[0_0_18px_rgba(37,99,235,0.2)] cursor-pointer"
-                  >
-                    <div>
-                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center mb-3 ${tool.color}`}>
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <h5 className="text-xs sm:text-sm font-semibold text-white group-hover:text-blue-200 transition-colors">
-                        {tool.title}
-                      </h5>
-                      <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
-                        {tool.desc}
-                      </p>
-                    </div>
-                    <div className="mt-3 flex items-center gap-1 text-[11px] font-semibold text-blue-400">
-                      <span>Launch Tool</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+          </section>
+        </div>
+      )}
+    </section>
   );
 };

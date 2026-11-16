@@ -2,119 +2,54 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Bot, Lightbulb, Split, HelpCircle, FileText } from 'lucide-react';
+import { Bot, BookOpen, Calculator, Lightbulb, Sparkles } from 'lucide-react';
+import { QUICK_PROMPTS } from '@/lib/ai/tutor-presets';
 
-interface AiTutorHeroProps {
-  onSelectActionChip: (prompt: string) => void;
-}
+interface AiTutorHeroProps { onSelectActionChip?: (prompt: string) => void }
 
 export const AiTutorHero: React.FC<AiTutorHeroProps> = ({ onSelectActionChip }) => {
-  const actionChips = [
-    {
-      title: 'Explain Concepts',
-      desc: 'in simple words',
-      icon: Lightbulb,
-      color: 'text-cyan-400 bg-cyan-500/20 border-cyan-500/30',
-      prompt: 'Explain the concept of photosynthesis in simple terms with an everyday analogy.',
-    },
-    {
-      title: 'Solve Problems',
-      desc: 'step by step',
-      icon: Split,
-      color: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
-      prompt: 'Can you show me step-by-step how to solve this quadratic equation: 2x² + 5x - 3 = 0?',
-    },
-    {
-      title: 'Create Quizzes',
-      desc: 'to practice',
-      icon: HelpCircle,
-      color: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
-      prompt: 'Generate a 4-question multiple-choice practice quiz on Newton\'s laws of motion with explanations.',
-    },
-    {
-      title: 'Summarize Notes',
-      desc: 'in seconds',
-      icon: FileText,
-      color: 'text-blue-400 bg-blue-500/20 border-blue-500/30',
-      prompt: 'Please give me a clean, bulleted summary of key formulas and concepts for Linear Equations.',
-    },
-  ];
-
   return (
-    <div className="relative overflow-hidden rounded-[24px] bg-[#070D1E] border border-[#1A284A] hover:border-blue-500/40 shadow-[0_20px_50px_rgba(2,6,23,0.85),0_0_35px_rgba(37,99,235,0.15)] transition-all duration-300 min-h-[280px] lg:h-[305px] flex items-center group">
-      {/* 1. CRYSTAL-CLEAR FULL-CARD 3D ROBOT SCENE (Zero blur layers over the scene) */}
-      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
-        <Image
-          src="/images/ai_tutor_robot_hero.jpg"
-          alt="3D AI Robot student assistant at study desk with laptop and idea lightbulb"
-          fill
-          unoptimized
-          priority
-          quality={95}
-          sizes="(max-width: 1536px) 100vw, 1500px"
-          className="object-cover object-[80%_center] sm:object-[75%_center] lg:object-right transition-transform duration-1000 ease-out group-hover:scale-[1.015]"
-          referrerPolicy="no-referrer"
-        />
-
-        {/* 2. PRECISION TEXT-CONTRAST SCRIM (Confined to left so robot scene on right stays crystal clear) */}
-        <div className="absolute inset-y-0 left-0 w-full sm:w-[65%] lg:w-[56%] bg-gradient-to-r from-[#070D1E] via-[#070D1E]/95 via-50% to-transparent pointer-events-none" />
-
-        {/* Subtle bottom edge blend */}
-        <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#070D1E]/60 to-transparent pointer-events-none" />
-      </div>
-
-      {/* Inner subtle glow border reflection */}
-      <div className="absolute inset-0 rounded-[24px] ring-1 ring-inset ring-white/10 pointer-events-none z-10" />
-
-      {/* FOREGROUND CONTENT: Integrated cleanly across the left half */}
-      <div className="relative z-20 w-full lg:w-[58%] p-5 sm:p-6 lg:p-7 flex flex-col justify-between space-y-4">
-        <div className="space-y-2.5">
-          {/* 1. Small AI Tutor badge */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0D1836]/90 border border-[#213560] text-xs font-semibold text-blue-300 w-fit shadow-inner">
-            <Bot className="w-3.5 h-3.5 text-blue-400" />
-            <span>AI Tutor</span>
-          </div>
-
-          {/* 2. Main heading with gradient on "AI Study Assistant" */}
-          <h2 className="text-2xl sm:text-3xl lg:text-[28px] xl:text-[30px] font-bold text-white tracking-tight leading-tight">
-            Your Personal{' '}
-            <span className="bg-gradient-to-r from-blue-400 via-blue-300 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(37,99,235,0.55)]">
-              AI Study Assistant
-            </span>
-          </h2>
-
-          {/* 3. Description */}
-          <p className="text-xs sm:text-[13px] text-slate-300 font-normal leading-relaxed max-w-md">
-            Ask questions, get simple explanations, solve problems and learn at your own pace.
-          </p>
+    <section className={`relative isolate flex ${onSelectActionChip ? 'min-h-[220px] sm:min-h-[224px]' : 'min-h-[176px] sm:min-h-[190px]'} items-center overflow-hidden rounded-[24px] border border-[#20365B] bg-[#071329] shadow-[0_18px_48px_rgba(0,0,0,0.26)]`}>
+      <Image
+        src="/images/ai_tutor_robot_hero.jpg"
+        alt="StudyBuddy AI robot learning beside a laptop"
+        fill
+        priority
+        sizes="(max-width: 1280px) 70vw, 1000px"
+        className="absolute inset-0 -z-20 object-cover object-[72%_center]"
+      />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-[#061225] via-[#071329]/95 via-45% to-[#071329]/15" />
+      <div aria-hidden="true" className="absolute inset-y-0 left-0 -z-10 w-[62%] bg-gradient-to-r from-[#071329]/80 to-transparent" />
+      <div className={`relative z-10 max-w-[610px] px-5 pt-5 sm:px-7 sm:pt-6 ${onSelectActionChip ? 'pb-14' : 'pb-5 sm:pb-6'}`}>
+        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-blue-300/20 bg-[#0B1A35]/85 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-blue-200 shadow-lg backdrop-blur-sm">
+          <Bot className="h-3.5 w-3.5 text-cyan-300" />
+          Your learning companion
         </div>
-
-        {/* 4. Quick Action Chips: 4 buttons in ONE row on desktop */}
-        <div className="grid grid-cols-1 min-[380px]:grid-cols-2 sm:grid-cols-4 gap-2 pt-1 w-full">
-          {actionChips.map((chip) => {
-            const Icon = chip.icon;
-            return (
-              <button
-                key={chip.title}
-                onClick={() => onSelectActionChip(chip.prompt)}
-                className="group/chip flex items-center gap-2 p-2 sm:p-2.5 rounded-xl bg-[#0B1530]/90 hover:bg-[#12224A] border border-[#182B4F] hover:border-blue-500/50 transition-all text-left cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(37,99,235,0.25)] hover:-translate-y-0.5 min-w-0 backdrop-blur-sm"
-              >
-                <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center shrink-0 border ${chip.color} shadow-inner`}>
-                  <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-[11px] sm:text-xs font-semibold text-white tracking-tight truncate group-hover/chip:text-blue-200 transition-colors">
-                    {chip.title}
-                  </p>
-                  <p className="text-[9px] sm:text-[10px] text-slate-400 truncate">
-                    {chip.desc}
-                  </p>
-                </div>
-              </button>
-            );
-          })}
+        <h1 className="max-w-xl text-[26px] font-bold leading-[1.12] tracking-tight text-white sm:text-[31px] lg:text-[34px]">
+          Learn with your <span className="bg-gradient-to-r from-cyan-300 via-blue-300 to-indigo-300 bg-clip-text text-transparent">AI Tutor</span>
+        </h1>
+        <p className="mt-2 max-w-[430px] text-[12px] leading-relaxed text-slate-300 sm:text-[13px]">
+          Ask questions, explore ideas, and work through difficult topics at your own pace.
+        </p>
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] font-medium text-slate-300/90 sm:text-[11px]">
+          <span className="inline-flex items-center gap-1.5"><Sparkles className="h-3.5 w-3.5 text-cyan-300" />Clear explanations</span>
+          <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />Step-by-step support</span>
         </div>
       </div>
-    </div>
+      {onSelectActionChip && (
+        <div className="absolute bottom-4 left-5 z-10 hidden flex-wrap gap-2 sm:flex sm:left-7">
+          {[
+            { prompt: QUICK_PROMPTS[0], Icon: Calculator },
+            { prompt: QUICK_PROMPTS[1], Icon: BookOpen },
+            { prompt: QUICK_PROMPTS[4], Icon: Lightbulb },
+          ].map(({ prompt, Icon }) => (
+            <button key={prompt.title} type="button" onClick={() => onSelectActionChip(prompt.prompt)} className="inline-flex min-h-8 items-center gap-1.5 rounded-full border border-blue-200/15 bg-[#0a1b35]/80 px-3 text-[10px] font-semibold text-blue-100 backdrop-blur-md transition hover:border-cyan-200/35 hover:bg-blue-500/20">
+              <Icon className="h-3 w-3 text-cyan-300" />{prompt.label}
+            </button>
+          ))}
+        </div>
+      )}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[24px] ring-1 ring-inset ring-white/10" />
+    </section>
   );
 };
